@@ -1,0 +1,94 @@
+﻿.content-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+.btn-box {
+    display: flex;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.btn {
+    position: relative;
+    padding: 12px 25px;
+    font-size: 18px;
+    border: 2px solid black;
+    border-radius: 40px;
+    background: white;
+    color: black;
+    font-family: "Poppins", sans-serif;
+}
+
+.btn-active {
+    position: relative;
+    padding: 12px 25px;
+    font-size: 18px;
+    border: 4px solid black;
+    border-radius: 40px;
+    background: black;
+    color: white;
+    font-family: "Poppins", sans-serif;
+}
+
+.btn:hover {
+    background: black;
+    color: white;
+}
+
+.btn-active:hover {
+    background: black;
+    color: white;
+    box-shadow: 5px 5px 10px gray;
+}
+
+.card-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 30px;
+    margin: 30px 20px;
+}
+
+.card {
+    width: 18rem;
+}
+
+.addcart {
+    justify-content: center;
+    align-content: center;
+}
+
+
+.btn-ver {
+    position: relative;
+    padding: 12px 25px;
+    font-size: 18px;
+    border: 4px solid black;
+    border-radius: 40px;
+    background: black;
+    color: white;
+    font-family: "Poppins", sans-serif;
+}
+
+.btn-ver:hover {
+    background: white;
+    color: black;
+    box-shadow: 5px 5px 10px gray;
+}
+
+img {
+    max-height: 30.5rem;
+    border-radius: 20px;
+    background-size: contain;
+}
+
+.see-more-btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
