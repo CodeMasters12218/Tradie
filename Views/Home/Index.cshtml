@@ -2,7 +2,95 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<link rel="stylesheet" href="~/css/home.css">
+
+<section>
+    <div>
+        <h1>TRADE SMART, SHOPE EASY!</h1>
+        <h3>
+            Encuentra todo lo que necesitas en un solo lugar.
+            ¡Compra ahora en TRADIE!
+        </h3>
+
+    </div>
+
+        <div class="content-box">
+            <span class="btn-box">
+                <button type="button" class="btn-active">Ropa</button>
+                <button type="button" class="btn">Eletrónica</button>
+                <button type="button" class="btn">Informática</button>
+                <button type="button" class="btn">+</button>
+            </span>
+        </div> 
+
+    <div class="card-container">
+        <div class="card">
+            <div class="heart-icon-container">
+                <button class="heart-btn" onclick="toggleHeart(this)">
+                    <i class="bi bi-heart"></i> <!-- Empty Heart Icon -->
+                </button>
+            </div>
+            <img src="~/images/girl_denim.png" class="card-img-top" alt="girl_denim">
+            <div class="card-body">
+                <h5 class="card-title">Badocor T-shirt</h5>
+                <p class="card-text"> Classic T-shirt for daily</p>
+                <h5>€24.99</h5>
+                <a href="#" class="btn btn-primary">Añadir al carrito</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="heart-icon-container">
+                <button class="heart-btn" onclick="toggleHeart(this)">
+                    <i class="bi bi-heart"></i> <!-- Empty Heart Icon -->
+                </button>
+            </div>
+            <img src="~/images/boy_white.png" class="card-img-top" alt="girl_denim">
+            <div class="card-body">
+                <h5 class="card-title">Badocor T-shirt</h5>
+                <p class="card-text"> Classic T-shirt for daily</p>
+                <h5>€24.99</h5>
+                <a href="#" class="btn btn-primary">Añadir al carrito</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="heart-icon-container">
+                <button class="heart-btn" onclick="toggleHeart(this)">
+                    <i class="bi bi-heart"></i> <!-- Empty Heart Icon -->
+                </button>
+            </div>
+            <img src="~/images/boy_black.png" class="card-img-top" alt="girl_denim">
+            <div class="card-body">
+                <h5 class="card-title">Badocor T-shirt</h5>
+                <p class="card-text"> Classic T-shirt for daily</p>
+                <h5>€24.99</h5>
+                <a href="#" class="btn btn-primary">Añadir al carrito</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="heart-icon-container">
+                <button class="heart-btn" onclick="toggleHeart(this)">
+                    <i class="bi bi-heart"></i> <!-- Empty Heart Icon -->
+                </button>
+            </div>
+            <img src="~/images/girl_denim.png" class="card-img-top" alt="girl_denim">
+            <div class="card-body">
+                <h5 class="card-title">Badocor T-shirt</h5>
+                <p class="card-text"> Classic T-shirt for daily</p>
+                <h5>€24.99</h5>
+                <a href="#" class="btn btn-primary">Añadir al carrito</a>
+            </div>
+        </div>
+
+    </div>
+    <div class="see-more-btn-container">
+        <button type="button" class="btn-ver">Ver todo</button>
+    </div>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+</section>
+
+

@@ -13,8 +13,8 @@
 
 .btn {
     position: relative;
-    padding: 12px 25px;
-    font-size: 18px;
+    padding: 10px 30px;
+    font-size: 16px;
     border: 2px solid black;
     border-radius: 40px;
     background: white;
@@ -75,20 +75,89 @@
     font-family: "Poppins", sans-serif;
 }
 
-.btn-ver:hover {
-    background: white;
-    color: black;
-    box-shadow: 5px 5px 10px gray;
-}
+    .btn-ver:hover {
+        background: white;
+        color: black;
+        box-shadow: 5px 5px 10px gray;
+    }
 
 img {
     max-height: 30.5rem;
+    width: 100%; /* Ensures the image takes the full width of the container */
+    height: auto; /* Maintains the aspect ratio */
     border-radius: 20px;
-    background-size: contain;
+    object-fit: cover; /* Ensures the image covers the container without stretching */
 }
 
 .see-more-btn-container {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+/* Heart Icon Styling */
+.heart-icon-container {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 2;
+}
+
+.heart-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+    .heart-btn i {
+        font-size: 20px;
+        color: black; /* Default color for heart icon */
+        transition: color 0.3s ease;
+    }
+
+    .heart-btn.favorited i {
+        color: red; /* Change to red when favorited */
+    }
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .card-container {
+        flex-direction: column;
+    }
+
+    .card {
+        width: 90%;
+    }
+
+    .content-box {
+        flex-direction: column;
+    }
+
+    h1 {
+        font-size: 30px;
+    }
+
+    h3 {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .card-container {
+        flex-direction: column;
+    }
+
+    .card {
+        width: 100%;
+    }
 }
