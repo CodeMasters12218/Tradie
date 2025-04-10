@@ -1,6 +1,4 @@
-﻿using Tradie.Models.Enums;
-
-namespace Tradie.Models.Users
+﻿namespace Tradie.Models.Users
 {
     public enum UserRole
     {

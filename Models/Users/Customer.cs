@@ -1,4 +1,5 @@
 ﻿using Tradie.Models.Orders;
+using Tradie.Models.Payments;
 using Tradie.Models.Products;
 
 namespace Tradie.Models.Users
@@ -8,10 +9,10 @@ namespace Tradie.Models.Users
         public Customer()
         {
             Role = UserRole.Customer;
-            ShoppingCart = new ShoppingCart();
+            ShoppingCart = new Tradie.Models.ShoppingCart.ShoppingCart();
             Orders = new List<Order>();
         }
-        public ShoppingCart ShoppingCart { get; private set; }
+        public Tradie.Models.ShoppingCart.ShoppingCart ShoppingCart { get; private set; }
         public List<Order> Orders { get; private set; }
 
         public void BrowseProducts(Category category) { /* ... */ }
@@ -27,7 +28,12 @@ namespace Tradie.Models.Users
         }
         public Order Checkout(PaymentMethod paymentMethod)
         {
-            var order = new Order(this, ShoppingCart);
+            int id = 0;
+            Customer customer = this;
+            DateTime orderDate = DateTime.Now;
+            OrderStatus status = OrderStatus.Pending;
+            List<OrderItem> items;
+            var order = new Order(id, customer, orderDate, status, items);
             Orders.Add(order);
             ShoppingCart.Clear();
             return order;

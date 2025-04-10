@@ -9,5 +9,7 @@ namespace Tradie.Models.ShoppingCart
         public void AddItem(Product product, int quantity) {  }
         public void RemoveItem(int productId) {  }
         public void Clear() { Items.Clear(); }
+
+        public void GetItems() { }
     }
 }

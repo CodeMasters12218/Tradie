@@ -1,5 +1,5 @@
-﻿using Tradie.Models.Enums;
-using Tradie.Models.Products;
+﻿using Tradie.Models.Products;
+using Tradie.Models.Reports;
 
 namespace Tradie.Models.Users
 {
@@ -32,7 +32,7 @@ namespace Tradie.Models.Users
         {
         }
 
-        public SalesPerformance GetSalesPerformance() { /* ... */ }
+        public SalesPerformance GetSalesPerformance() {  }
 
     }
 }

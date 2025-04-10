@@ -10,5 +10,10 @@ namespace Tradie.Models.Products
         public decimal Price { get; set; }
         public Seller Seller { get; set; }
         public List<Review> Reviews { get; set; }
+
+        public void AddReview (Review review)
+        {
+
+        }
     }
 }
