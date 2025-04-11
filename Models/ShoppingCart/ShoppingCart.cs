@@ -4,12 +4,16 @@ namespace Tradie.Models.ShoppingCart
 {
     public class ShoppingCart
     {
-        public List<CartItem> Items { get; set; }
+        public ShoppingCart()
+        {
+            Items = new List<CartItem>();
+        }
+        public List<CartItem> Items { get; private set; }
 
         public void AddItem(Product product, int quantity) {  }
         public void RemoveItem(int productId) {  }
         public void Clear() { Items.Clear(); }
 
-        public void GetItems() { }
+        public List<CartItem> GetItems() { return Items; }
     }
 }

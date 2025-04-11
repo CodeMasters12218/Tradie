@@ -14,6 +14,15 @@ namespace Tradie.Models.Orders
     }
     public class OrderItem
     {
+        public OrderItem(Product product, int productId, string productName, decimal pricePaid, int quantity)
+        {
+            Product = product ?? throw new ArgumentNullException(nameof(product));
+            ProductId = product.Id;
+            ProductName = product.Name;
+            PricePaid = product.Price;
+            Quantity = quantity;
+        }
+
         public int Id { get; set; }
 
         public int OrderId { get; set; }

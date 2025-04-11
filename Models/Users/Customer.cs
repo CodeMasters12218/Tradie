@@ -1,6 +1,7 @@
 ﻿using Tradie.Models.Orders;
 using Tradie.Models.Payments;
 using Tradie.Models.Products;
+using Tradie.Models.ShoppingCart;
 
 namespace Tradie.Models.Users
 {
@@ -32,7 +33,10 @@ namespace Tradie.Models.Users
             Customer customer = this;
             DateTime orderDate = DateTime.Now;
             OrderStatus status = OrderStatus.Pending;
-            List<OrderItem> items;
+            List<CartItem> cartItems = ShoppingCart.GetItems();
+            List<OrderItem> items = cartItems.Select(ci =>
+    new OrderItem(ci.Product, ci.ProductId,ci.ProductName, ci.PriceAtAddition, ci.Quantity)
+).ToList();
             var order = new Order(id, customer, orderDate, status, items);
             Orders.Add(order);
             ShoppingCart.Clear();

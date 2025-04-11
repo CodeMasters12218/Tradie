@@ -32,7 +32,7 @@ namespace Tradie.Models.Users
         {
         }
 
-        public SalesPerformance GetSalesPerformance() {  }
+        public SalesPerformance GetSalesPerformance() { return new SalesPerformance(); }
 
     }
 }
