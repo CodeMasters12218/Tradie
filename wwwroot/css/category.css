@@ -1,0 +1,72 @@
+﻿.category-navbar {
+    position: fixed;
+    top: 65px;
+    left: 0;
+    right: 0;
+    background-color: #000;
+    padding: 10px 0;
+    z-index: 998; /* less than main navbar, more than content */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.category-nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.category-nav-link {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+    .category-nav-link:hover {
+        color: #FFD700;
+        transform: scale(1.05);
+    }
+
+/* Category Container */
+.subcategory-section {
+    margin-bottom: 60px;
+    padding: 20px;
+}
+
+.subcategory-title {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.subcategory-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start;
+}
+
+.ropa-item {
+    width: 180px;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    text-align: center;
+    padding: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.ropa-item-image {
+    width: 100%;
+    height: auto;
+}
+
+.ropa-item-name {
+    margin-top: 10px;
+    font-size: 16px;
+}

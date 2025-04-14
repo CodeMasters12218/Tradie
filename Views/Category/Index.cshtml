@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Tradie.Models.CategoryWithSubcategoriesViewModel>
+
+@{
+    ViewData["Title"] = "Category Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/category.css" />
+
+<!-- Category Navbar -->
+<nav class="category-navbar">
+    <div class="container category-nav-container">
+        <a href="#" class="category-nav-link">Men's</a>
+        <a href="#" class="category-nav-link">Women's</a>
+        <a href="#" class="category-nav-link">Electrónica</a>
+        <a href="#" class="category-nav-link">Informática</a>
+        <a href="#" class="category-nav-link">Kids & Toys</a>
+        <a href="#" class="category-nav-link">Oficina</a>
+        <a href="#" class="category-nav-link">Hogar</a>
+        <a href="#" class="category-nav-link">Libros</a>
+        <a href="#" class="category-nav-link">Videojuegos</a>
+        <a href="#" class="category-nav-link">Música</a>
+    </div>
+</nav>
+
+<!-- Display categories and subcategories -->
+@foreach (var category in Model)
+{
+    <section class="subcategory-section">
+        <h2 class="subcategory-title">@category.CategoryName</h2>
+
+        <div class="subcategory-cards">
+            @foreach (var sub in category.Subcategories)
+            {
+                <a asp-controller="Category" asp-action="Subcategory" asp-route-name="@category.CategoryName" asp-route-subcategory="@sub.Name" class="subcategory-card-link">
+                    <div class="card subcategory-card">
+                        <img src="@sub.ImageUrl" alt="@sub.Name" class="subcategory-image" />
+                        <h4 class="subcategory-name">@sub.Name</h4>
+                    </div>
+                </a>
+            }
+        </div>
+    </section>
+}
+
+<script src="~/js/site.js" asp-append-version="true"></script>

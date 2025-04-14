@@ -4,93 +4,619 @@
 
 <link rel="stylesheet" href="~/css/home.css">
 
-<section>
+<!-- HOME Section -->
+<section id="home">
     <div>
-        <h1>TRADE SMART, SHOP EASY!</h1>
+        <h1 class="biglabel">TRADE SMART, SHOPE EASY!</h1>
         <h3>
             Encuentra todo lo que necesitas en un solo lugar.
-            ¡Compra ahora en TRADIE!
+            ¡Compra ahora en Tradie!
         </h3>
 
     </div>
 
     <div class="content-box">
         <span class="btn-box">
-            <button type="button" class="btn-active">Ropa</button>
-            <button type="button" class="btn">Eletrónica</button>
-            <button type="button" class="btn">Informática</button>
-            <button type="button" class="btn">+</button>
+            <a asp-controller="Category" asp-action="Index" class="btn-active">Ropa</a>
+            <a asp-controller="Category" asp-action="Index" class="btn">Eletrónica</a>
+            <a asp-controller="Category" asp-action="Index" class="btn">Informática</a>
+            <a asp-controller="Category" asp-action="Index" class="btn-plus">+</a>
         </span>
     </div>
 
-    <div class="card-container">
-        <div class="card">
-            <div class="heart-icon-container">
-                <button class="heart-btn" onclick="toggleHeart(this)">
-                    <i class="bi bi-heart"></i> <!-- Empty Heart Icon -->
-                </button>
+    <div class="scrollable-container">
+        <div class="card-container">
+            <div class="card">
+                <div class="heart-icon-container">
+                    <button class="heart-btn" onclick="toggleHeart(this)">
+                        <i class="bi bi-heart"></i> <!-- Empty Heart Icon -->
+                    </button>
+                </div>
+                <img src="~/images/girl_denim.png" class="card-img-top" alt="girl_denim">
+                <div class="card-body">
+                    <h5 class="card-title">Badocor T-shirt</h5>
+                    <p class="card-text"> Classic T-shirt for daily</p>
+                    <h5>€24.99</h5>
+                    <a href="#" class="btn btn-primary">Añadir al carrito</a>
+                </div>
             </div>
-            <img src="~/images/girl_denim.png" class="card-img-top" alt="girl_denim">
-            <div class="card-body">
-                <h5 class="card-title">Badocor T-shirt</h5>
-                <p class="card-text"> Classic T-shirt for daily</p>
-                <h5>€24.99</h5>
-                <a href="#" class="btn btn-primary">Añadir al carrito</a>
-            </div>
-        </div>
 
-        <div class="card">
-            <div class="heart-icon-container">
-                <button class="heart-btn" onclick="toggleHeart(this)">
-                    <i class="bi bi-heart"></i> <!-- Empty Heart Icon -->
-                </button>
+            <div class="card">
+                <div class="heart-icon-container">
+                    <button class="heart-btn" onclick="toggleHeart(this)">
+                        <i class="bi bi-heart"></i> <!-- Empty Heart Icon -->
+                    </button>
+                </div>
+                <img src="~/images/boy_white.png" class="card-img-top" alt="girl_denim">
+                <div class="card-body">
+                    <h5 class="card-title">Badocor T-shirt</h5>
+                    <p class="card-text"> Classic T-shirt for daily</p>
+                    <h5>€24.99</h5>
+                    <a href="#" class="btn btn-primary">Añadir al carrito</a>
+                </div>
             </div>
-            <img src="~/images/boy_white.png" class="card-img-top" alt="girl_denim">
-            <div class="card-body">
-                <h5 class="card-title">Badocor T-shirt</h5>
-                <p class="card-text"> Classic T-shirt for daily</p>
-                <h5>€24.99</h5>
-                <a href="#" class="btn btn-primary">Añadir al carrito</a>
-            </div>
-        </div>
 
-        <div class="card">
-            <div class="heart-icon-container">
-                <button class="heart-btn" onclick="toggleHeart(this)">
-                    <i class="bi bi-heart"></i> <!-- Empty Heart Icon -->
-                </button>
+            <div class="card">
+                <div class="heart-icon-container">
+                    <button class="heart-btn" onclick="toggleHeart(this)">
+                        <i class="bi bi-heart"></i> <!-- Empty Heart Icon -->
+                    </button>
+                </div>
+                <img src="~/images/boy_black.png" class="card-img-top" alt="girl_denim">
+                <div class="card-body">
+                    <h5 class="card-title">Badocor T-shirt</h5>
+                    <p class="card-text"> Classic T-shirt for daily</p>
+                    <h5>€24.99</h5>
+                    <a href="#" class="btn btn-primary">Añadir al carrito</a>
+                </div>
             </div>
-            <img src="~/images/boy_black.png" class="card-img-top" alt="girl_denim">
-            <div class="card-body">
-                <h5 class="card-title">Badocor T-shirt</h5>
-                <p class="card-text"> Classic T-shirt for daily</p>
-                <h5>€24.99</h5>
-                <a href="#" class="btn btn-primary">Añadir al carrito</a>
-            </div>
-        </div>
 
-        <div class="card">
-            <div class="heart-icon-container">
-                <button class="heart-btn" onclick="toggleHeart(this)">
-                    <i class="bi bi-heart"></i> <!-- Empty Heart Icon -->
-                </button>
+            <div class="card">
+                <div class="heart-icon-container">
+                    <button class="heart-btn" onclick="toggleHeart(this)">
+                        <i class="bi bi-heart"></i> <!-- Empty Heart Icon -->
+                    </button>
+                </div>
+                <img src="~/images/girl_denim.png" class="card-img-top" alt="girl_denim">
+                <div class="card-body">
+                    <h5 class="card-title">Badocor T-shirt</h5>
+                    <p class="card-text"> Classic T-shirt for daily</p>
+                    <h5>€24.99</h5>
+                    <a href="#" class="btn btn-primary">Añadir al carrito</a>
+                </div>
             </div>
-            <img src="~/images/girl_denim.png" class="card-img-top" alt="girl_denim">
-            <div class="card-body">
-                <h5 class="card-title">Badocor T-shirt</h5>
-                <p class="card-text"> Classic T-shirt for daily</p>
-                <h5>€24.99</h5>
-                <a href="#" class="btn btn-primary">Añadir al carrito</a>
-            </div>
-        </div>
 
+            <div class="card">
+                <div class="heart-icon-container">
+                    <button class="heart-btn" onclick="toggleHeart(this)">
+                        <i class="bi bi-heart"></i> <!-- Empty Heart Icon -->
+                    </button>
+                </div>
+                <img src="~/images/boy_white.png" class="card-img-top" alt="girl_denim">
+                <div class="card-body">
+                    <h5 class="card-title">Badocor T-shirt</h5>
+                    <p class="card-text"> Classic T-shirt for daily</p>
+                    <h5>€24.99</h5>
+                    <a href="#" class="btn btn-primary">Añadir al carrito</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="heart-icon-container">
+                    <button class="heart-btn" onclick="toggleHeart(this)">
+                        <i class="bi bi-heart"></i> <!-- Empty Heart Icon -->
+                    </button>
+                </div>
+                <img src="~/images/boy_black.png" class="card-img-top" alt="girl_denim">
+                <div class="card-body">
+                    <h5 class="card-title">Badocor T-shirt</h5>
+                    <p class="card-text"> Classic T-shirt for daily</p>
+                    <h5>€24.99</h5>
+                    <a href="#" class="btn btn-primary">Añadir al carrito</a>
+                </div>
+            </div>
+
+        </div>
     </div>
+
+
+
     <div class="see-more-btn-container">
-        <button type="button" class="btn-ver">Ver todo</button>
+        <a asp-controller="Category" asp-action="Index" class="btn-ver">Ver todo</a>
     </div>
+</section>
 
-    <script src="~/js/site.js" asp-append-version="true"></script>
+<!-- OFERTAS Section -->
+<section id="ofertas">
+    <h1>Ofertas</h1>
+
+    <div class="container-ofertas">
+        <div class="photo-container">
+            <img src="~/images/flatlay.png" alt="ofertas" class="img-ofertas">
+        </div>
+
+        <div class="container-info">
+            <div class="text-column">
+                <h2>ENCUENTRA LOS ARTICULOS PERFECTOS SOLAMENTE PARA TI</h2>
+                <p>Disfruta los mejores opfertas que tenemos en la tienda para estas fiestas.</p>
+                <h4>APROVECHAR LAS REBAJAS AHORA!</h4>
+            </div>
+
+            <div class="text-column">
+                <h6>Hasta</h6>
+                <h2>50%</h2>
+                <p class="desc-txt">Descuentos en productos seleccionados</p>
+            </div>
+            <a asp-controller="Category" asp-action="Index" class="btn-ver-tienda">Ver la tienda</a>
+        </div>
+    </div>
 
 </section>
 
+<!-- RECIEN LLEGADOS Section -->
+<section id="recientes">
+    <h1>Recien Llegados</h1>
 
+    <div class="scrollable-container">
+        <div class="container-recientes">
+            <div class="card-container">
+                <div class="card">
+                    <div class="heart-icon-container">
+                        <button class="heart-btn" onclick="toggleHeart(this)">
+                            <i class="bi bi-heart"></i> <!-- Empty Heart Icon -->
+                        </button>
+                    </div>
+                    <img src="~/images/girl_denim.png" class="card-img-top" alt="girl_denim">
+                    <div class="card-body">
+                        <h5 class="card-title">Badocor T-shirt</h5>
+                        <p class="card-text"> Classic T-shirt for daily</p>
+                        <h5 class="price">€24.99</h5>
+                        <div class="cart-icon-container">
+                            <button class="cart-btn" onclick="toggleCart(this)">
+                                <i class="bi bi-cart"></i> <!-- Outline cart icon -->
+                                <span class="cart-text">añadido</span>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="heart-icon-container">
+                        <button class="heart-btn" onclick="toggleHeart(this)">
+                            <i class="bi bi-heart"></i> <!-- Empty Heart Icon -->
+                        </button>
+                    </div>
+                    <img src="~/images/boy_white.png" class="card-img-top" alt="girl_denim">
+                    <div class="card-body">
+                        <h5 class="card-title">Badocor T-shirt</h5>
+                        <p class="card-text"> Classic T-shirt for daily</p>
+                        <h5>€24.99</h5>
+                        <div class="cart-icon-container">
+                            <button class="cart-btn" onclick="toggleCart(this)">
+                                <i class="bi bi-cart"></i> <!-- Outline cart icon -->
+                                <span class="cart-text">añadido</span>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="heart-icon-container">
+                        <button class="heart-btn" onclick="toggleHeart(this)">
+                            <i class="bi bi-heart"></i> <!-- Empty Heart Icon -->
+                        </button>
+                    </div>
+                    <img src="~/images/boy_black.png" class="card-img-top" alt="girl_denim">
+                    <div class="card-body">
+                        <h5 class="card-title">Badocor T-shirt</h5>
+                        <p class="card-text"> Classic T-shirt for daily</p>
+                        <h5>€24.99</h5>
+                        <div class="cart-icon-container">
+                            <button class="cart-btn" onclick="toggleCart(this)">
+                                <i class="bi bi-cart"></i> <!-- Outline cart icon -->
+                                <span class="cart-text">añadido</span>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="heart-icon-container">
+                        <button class="heart-btn" onclick="toggleHeart(this)">
+                            <i class="bi bi-heart"></i> <!-- Empty Heart Icon -->
+                        </button>
+                    </div>
+                    <img src="~/images/girl_denim.png" class="card-img-top" alt="girl_denim">
+                    <div class="card-body">
+                        <h5 class="card-title">Badocor T-shirt</h5>
+                        <p class="card-text"> Classic T-shirt for daily</p>
+                        <h5>€24.99</h5>
+                        <div class="cart-icon-container">
+                            <button class="cart-btn" onclick="toggleCart(this)">
+                                <i class="bi bi-cart"></i> <!-- Outline cart icon -->
+                                <span class="cart-text">añadido</span>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="heart-icon-container">
+                        <button class="heart-btn" onclick="toggleHeart(this)">
+                            <i class="bi bi-heart"></i> <!-- Empty Heart Icon -->
+                        </button>
+                    </div>
+                    <img src="~/images/girl_denim.png" class="card-img-top" alt="girl_denim">
+                    <div class="card-body">
+                        <h5 class="card-title">Badocor T-shirt</h5>
+                        <p class="card-text"> Classic T-shirt for daily</p>
+                        <h5>€24.99</h5>
+                        <div class="cart-icon-container">
+                            <button class="cart-btn" onclick="toggleCart(this)">
+                                <i class="bi bi-cart"></i> <!-- Outline cart icon -->
+                                <span class="cart-text">añadido</span>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="card-container">
+                <div class="card">
+                    <div class="heart-icon-container">
+                        <button class="heart-btn" onclick="toggleHeart(this)">
+                            <i class="bi bi-heart"></i> <!-- Empty Heart Icon -->
+                        </button>
+                    </div>
+                    <img src="~/images/boy_white.png" class="card-img-top" alt="girl_denim">
+                    <div class="card-body">
+                        <h5 class="card-title">Badocor T-shirt</h5>
+                        <p class="card-text"> Classic T-shirt for daily</p>
+                        <h5>€24.99</h5>
+                        <div class="cart-icon-container">
+                            <button class="cart-btn" onclick="toggleCart(this)">
+                                <i class="bi bi-cart"></i> <!-- Outline cart icon -->
+                                <span class="cart-text">añadido</span>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="heart-icon-container">
+                        <button class="heart-btn" onclick="toggleHeart(this)">
+                            <i class="bi bi-heart"></i> <!-- Empty Heart Icon -->
+                        </button>
+                    </div>
+                    <img src="~/images/boy_black.png" class="card-img-top" alt="girl_denim">
+                    <div class="card-body">
+                        <h5 class="card-title">Badocor T-shirt</h5>
+                        <p class="card-text"> Classic T-shirt for daily</p>
+                        <h5>€24.99</h5>
+                        <div class="cart-icon-container">
+                            <button class="cart-btn" onclick="toggleCart(this)">
+                                <i class="bi bi-cart"></i> <!-- Outline cart icon -->
+                                <span class="cart-text">añadido</span>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="heart-icon-container">
+                        <button class="heart-btn" onclick="toggleHeart(this)">
+                            <i class="bi bi-heart"></i> <!-- Empty Heart Icon -->
+                        </button>
+                    </div>
+                    <img src="~/images/girl_denim.png" class="card-img-top" alt="girl_denim">
+                    <div class="card-body">
+                        <h5 class="card-title">Badocor T-shirt</h5>
+                        <p class="card-text"> Classic T-shirt for daily</p>
+                        <h5>€24.99</h5>
+                        <div class="cart-icon-container">
+                            <button class="cart-btn" onclick="toggleCart(this)">
+                                <i class="bi bi-cart"></i> <!-- Outline cart icon -->
+                                <span class="cart-text">añadido</span>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="heart-icon-container">
+                        <button class="heart-btn" onclick="toggleHeart(this)">
+                            <i class="bi bi-heart"></i> <!-- Empty Heart Icon -->
+                        </button>
+                    </div>
+                    <img src="~/images/boy_white.png" class="card-img-top" alt="girl_denim">
+                    <div class="card-body">
+                        <h5 class="card-title">Badocor T-shirt</h5>
+                        <p class="card-text"> Classic T-shirt for daily</p>
+                        <h5>€24.99</h5>
+                        <div class="cart-icon-container">
+                            <button class="cart-btn" onclick="toggleCart(this)">
+                                <i class="bi bi-cart"></i> <!-- Outline cart icon -->
+                                <span class="cart-text">añadido</span>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="heart-icon-container">
+                        <button class="heart-btn" onclick="toggleHeart(this)">
+                            <i class="bi bi-heart"></i> <!-- Empty Heart Icon -->
+                        </button>
+                    </div>
+                    <img src="~/images/boy_black.png" class="card-img-top" alt="girl_denim">
+                    <div class="card-body">
+                        <h5 class="card-title">Badocor T-shirt</h5>
+                        <p class="card-text"> Classic T-shirt for daily</p>
+                        <h5>€24.99</h5>
+                        <div class="cart-icon-container">
+                            <button class="cart-btn" onclick="toggleCart(this)">
+                                <i class="bi bi-cart"></i> <!-- Outline cart icon -->
+                                <span class="cart-text">añadido</span>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <script src="~/js/site.js" asp-append-version="true"></script>
+
+        </div>
+    </div>
+
+
+
+</section>
+
+<!-- FAMOSOS Section -->
+<section id="famosos">
+    <h1>Famosos</h1>
+
+    <div class="container-famosos">
+        <div class="card-container">
+            <div class="card">
+                <div class="card-number">1</div>
+                <div class="heart-icon-container">
+                    <button class="heart-btn" onclick="toggleHeart(this)">
+                        <i class="bi bi-heart"></i> <!-- Empty Heart Icon -->
+                    </button>
+                </div>
+                <img src="~/images/girl_denim.png" class="card-img-top" alt="girl_denim">
+                <div class="card-body">
+                    <h5 class="card-title">Badocor T-shirt</h5>
+                    <p class="card-text"> Classic T-shirt for daily</p>
+                    <h5>€24.99</h5>
+                    <div class="cart-icon-container">
+                        <button class="cart-btn" onclick="toggleCart(this)">
+                            <i class="bi bi-cart"></i> <!-- Outline cart icon -->
+                            <span class="cart-text">añadido</span>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-number">2</div>
+                <div class="heart-icon-container">
+                    <button class="heart-btn" onclick="toggleHeart(this)">
+                        <i class="bi bi-heart"></i> <!-- Empty Heart Icon -->
+                    </button>
+                </div>
+                <img src="~/images/boy_white.png" class="card-img-top" alt="girl_denim">
+                <div class="card-body">
+                    <h5 class="card-title">Badocor T-shirt</h5>
+                    <p class="card-text"> Classic T-shirt for daily</p>
+                    <h5>€24.99</h5>
+                    <div class="cart-icon-container">
+                        <button class="cart-btn" onclick="toggleCart(this)">
+                            <i class="bi bi-cart"></i> <!-- Outline cart icon -->
+                            <span class="cart-text">añadido</span>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-number">3</div>
+                <div class="heart-icon-container">
+                    <button class="heart-btn" onclick="toggleHeart(this)">
+                        <i class="bi bi-heart"></i> <!-- Empty Heart Icon -->
+                    </button>
+                </div>
+                <img src="~/images/boy_black.png" class="card-img-top" alt="girl_denim">
+                <div class="card-body">
+                    <h5 class="card-title">Badocor T-shirt</h5>
+                    <p class="card-text"> Classic T-shirt for daily</p>
+                    <h5>€24.99</h5>
+                    <div class="cart-icon-container">
+                        <button class="cart-btn" onclick="toggleCart(this)">
+                            <i class="bi bi-cart"></i> <!-- Outline cart icon -->
+                            <span class="cart-text">añadido</span>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-number">4</div>
+                <div class="heart-icon-container">
+                    <button class="heart-btn" onclick="toggleHeart(this)">
+                        <i class="bi bi-heart"></i> <!-- Empty Heart Icon -->
+                    </button>
+                </div>
+                <img src="~/images/girl_denim.png" class="card-img-top" alt="girl_denim">
+                <div class="card-body">
+                    <h5 class="card-title">Badocor T-shirt</h5>
+                    <p class="card-text"> Classic T-shirt for daily</p>
+                    <h5>€24.99</h5>
+                    <div class="cart-icon-container">
+                        <button class="cart-btn" onclick="toggleCart(this)">
+                            <i class="bi bi-cart"></i> <!-- Outline cart icon -->
+                            <span class="cart-text">añadido</span>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-number">5</div>
+                <div class="heart-icon-container">
+                    <button class="heart-btn" onclick="toggleHeart(this)">
+                        <i class="bi bi-heart"></i> <!-- Empty Heart Icon -->
+                    </button>
+                </div>
+                <img src="~/images/girl_denim.png" class="card-img-top" alt="girl_denim">
+                <div class="card-body">
+                    <h5 class="card-title">Badocor T-shirt</h5>
+                    <p class="card-text"> Classic T-shirt for daily</p>
+                    <h5>€24.99</h5>
+                    <div class="cart-icon-container">
+                        <button class="cart-btn" onclick="toggleCart(this)">
+                            <i class="bi bi-cart"></i> <!-- Outline cart icon -->
+                            <span class="cart-text">añadido</span>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card-container">
+            <div class="card">
+                <div class="card-number">6</div>
+                <div class="heart-icon-container">
+                    <button class="heart-btn" onclick="toggleHeart(this)">
+                        <i class="bi bi-heart"></i> <!-- Empty Heart Icon -->
+                    </button>
+                </div>
+                <img src="~/images/boy_white.png" class="card-img-top" alt="girl_denim">
+                <div class="card-body">
+                    <h5 class="card-title">Badocor T-shirt</h5>
+                    <p class="card-text"> Classic T-shirt for daily</p>
+                    <h5>€24.99</h5>
+                    <div class="cart-icon-container">
+                        <button class="cart-btn" onclick="toggleCart(this)">
+                            <i class="bi bi-cart"></i> <!-- Outline cart icon -->
+                            <span class="cart-text">añadido</span>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-number">7</div>
+                <div class="heart-icon-container">
+                    <button class="heart-btn" onclick="toggleHeart(this)">
+                        <i class="bi bi-heart"></i> <!-- Empty Heart Icon -->
+                    </button>
+                </div>
+                <img src="~/images/boy_black.png" class="card-img-top" alt="girl_denim">
+                <div class="card-body">
+                    <h5 class="card-title">Badocor T-shirt</h5>
+                    <p class="card-text"> Classic T-shirt for daily</p>
+                    <h5>€24.99</h5>
+                    <div class="cart-icon-container">
+                        <button class="cart-btn" onclick="toggleCart(this)">
+                            <i class="bi bi-cart"></i> <!-- Outline cart icon -->
+                            <span class="cart-text">añadido</span>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-number">8</div>
+                <div class="heart-icon-container">
+                    <button class="heart-btn" onclick="toggleHeart(this)">
+                        <i class="bi bi-heart"></i> <!-- Empty Heart Icon -->
+                    </button>
+                </div>
+                <img src="~/images/girl_denim.png" class="card-img-top" alt="girl_denim">
+                <div class="card-body">
+                    <h5 class="card-title">Badocor T-shirt</h5>
+                    <p class="card-text"> Classic T-shirt for daily</p>
+                    <h5>€24.99</h5>
+                    <div class="cart-icon-container">
+                        <button class="cart-btn" onclick="toggleCart(this)">
+                            <i class="bi bi-cart"></i> <!-- Outline cart icon -->
+                            <span class="cart-text">añadido</span>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-number">9</div>
+                <div class="heart-icon-container">
+                    <button class="heart-btn" onclick="toggleHeart(this)">
+                        <i class="bi bi-heart"></i> <!-- Empty Heart Icon -->
+                    </button>
+                </div>
+                <img src="~/images/boy_white.png" class="card-img-top" alt="girl_denim">
+                <div class="card-body">
+                    <h5 class="card-title">Badocor T-shirt</h5>
+                    <p class="card-text"> Classic T-shirt for daily</p>
+                    <h5>€24.99</h5>
+                    <div class="cart-icon-container">
+                        <button class="cart-btn" onclick="toggleCart(this)">
+                            <i class="bi bi-cart"></i> <!-- Outline cart icon -->
+                            <span class="cart-text">añadido</span>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-number">10</div>
+                <div class="heart-icon-container">
+                    <button class="heart-btn" onclick="toggleHeart(this)">
+                        <i class="bi bi-heart"></i> <!-- Empty Heart Icon -->
+                    </button>
+                </div>
+                <img src="~/images/boy_black.png" class="card-img-top" alt="girl_denim">
+                <div class="card-body">
+                    <h5 class="card-title">Badocor T-shirt</h5>
+                    <p class="card-text"> Classic T-shirt for daily</p>
+                    <h5>€24.99</h5>
+                    <div class="cart-icon-container">
+                        <button class="cart-btn" onclick="toggleCart(this)">
+                            <i class="bi bi-cart"></i> <!-- Outline cart icon -->
+                            <span class="cart-text">añadido</span>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <script src="~/js/site.js" asp-append-version="true"></script>
+
+    </div>
+
+</section>
+
+<script src="~/js/site.js" asp-append-version="true"></script>

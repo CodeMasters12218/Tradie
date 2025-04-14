@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Tradie.Models.Products.Product>
+
+@{
+    ViewData["Title"] = $"{ViewBag.Subcategory} - {ViewBag.Category}";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/subcategory.css" />
+
+<!-- Breadcrumb or label -->
+<h2>@ViewBag.Category / @ViewBag.Subcategory</h2>
+<p class="text-muted">Mostrando productos en <strong>@ViewBag.Subcategory</strong> de la categoría <strong>@ViewBag.Category</strong>.</p>
+
+<!-- Product Grid -->
+<div class="product-grid">
+    @foreach (var product in Model)
+    {
+        <div class="card product-card">
+            <img src="@product.ImageUrl" alt="@product.Name" class="product-image" />
+            <div class="product-details">
+                <h4 class="product-name">@product.Name</h4>
+                <p class="product-description">@product.Description</p>
+                <p class="product-price">€@product.Price</p>
+                <div class="product-actions">
+                    <form asp-controller="Cart" asp-action="AddToCart" method="post" class="d-inline">
+                        <input type="hidden" name="productId" value="@product.Id" />
+                        <button type="submit" class="btn btn-sm btn-primary">Add to Cart</button>
+                    </form>
+
+                    <form asp-controller="Wishlist" asp-action="AddToWishlist" method="post" class="d-inline">
+                        <input type="hidden" name="productId" value="@product.Id" />
+                        <button type="submit" class="btn btn-sm btn-outline-secondary">Wishlist</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+</div>

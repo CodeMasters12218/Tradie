@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Tradie.Models.Users;
+using Tradie.Models.Products;
 
 namespace Tradie.Models.Products
 {
@@ -9,14 +10,18 @@ namespace Tradie.Models.Products
 
         [Required(ErrorMessage = "El nombre es obligatorio.")]
         [StringLength(100)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
         [Required(ErrorMessage = "La descripción es obligatoria.")]
-        public string Description { get; set; }
+        public string? Description { get; set; }
         [Range(0.01, 1000000)]
-        public decimal Price { get; set; }
+		public string? Subcategory { get; set; }
+		public decimal Price { get; set; }
         [Required]
-        public Seller Seller { get; set; }
-        public List<Review> Reviews { get; set; }
+        public Seller? Seller { get; set; }
+		public string? ImageUrl { get; set; }
+		public int Stock { get; set; }
+
+		public List<Review> Reviews { get; set; }
 
         public void AddReview (Review review)
         {
