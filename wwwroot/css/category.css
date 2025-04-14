@@ -1,4 +1,9 @@
-﻿.category-navbar {
+﻿html {
+    scroll-behavior: smooth;
+}
+
+
+.category-navbar {
     position: fixed;
     top: 65px;
     left: 0;
@@ -34,8 +39,9 @@
 
 /* Category Container */
 .subcategory-section {
-    margin-bottom: 60px;
-    padding: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
+    scroll-margin-top: 120px; /* Adjust based on your header height */
 }
 
 .subcategory-title {
@@ -44,29 +50,104 @@
     margin-bottom: 20px;
 }
 
+/* Subcategory Next Buttons */
+.subcategory-scroll-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    width: 100%
+}
+
+.scroll-btn {
+    position: absolute;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    transition: background 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.6;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.scroll-left {
+    left: 0;
+}
+
+.scroll-right {
+    right: 0;
+}
+
+.scroll-btn:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+    opacity: 1;
+}
+
+/* Cards */
+
 .subcategory-cards {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: 20px;
-    justify-content: flex-start;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 10px;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
 }
 
-.ropa-item {
-    width: 180px;
-    background: #fff;
-    border-radius: 8px;
-    overflow: hidden;
+    .subcategory-cards::-webkit-scrollbar {
+        display: none;
+    }
+
+.subcategory-card {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border: none;
+    border-radius: 20px;
     text-align: center;
-    padding: 15px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    width: 220px;
+    height: 220px;
+    padding: 20px;
+    transition: transform all 0.2s ease;
+    background: #c8c8c8;
+    -webkit-overflow-scrolling: touch; /* iOS momentum scrolling */
 }
 
-.ropa-item-image {
-    width: 100%;
-    height: auto;
-}
+    .subcategory-card:hover {
+        transform: scale(1.02);
+        transition: transform 0.2s ease-in-out;
+    }
 
-.ropa-item-name {
-    margin-top: 10px;
+
+.subcategory-name {
     font-size: 16px;
+    font-weight: 500;
+    margin-top: 10px;
+    text-decoration: none;
+    color: #333;
 }
+
+/* IMAGE */
+.subcategory-image {
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+
+
