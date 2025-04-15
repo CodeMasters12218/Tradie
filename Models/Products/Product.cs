@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Tradie.Models.Users;
 using Tradie.Models.Products;
+using Tradie.Models.Orders;
 
 namespace Tradie.Models.Products
 {
@@ -18,10 +19,13 @@ namespace Tradie.Models.Products
 		public decimal Price { get; set; }
         [Required]
         public Seller? Seller { get; set; }
+        public int SellerId { get; set; }
 		public string? ImageUrl { get; set; }
 		public int Stock { get; set; }
 
 		public List<Review> Reviews { get; set; }
+
+        public List<OrderItem> OrderItems { get; set; }
 
         public void AddReview (Review review)
         {
