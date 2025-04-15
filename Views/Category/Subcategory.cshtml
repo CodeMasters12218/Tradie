@@ -7,6 +7,21 @@
 
 <link rel="stylesheet" href="~/css/subcategory.css" />
 
+<!-- Category Navbar -->
+<nav class="category-navbar">
+    <div class="container category-nav-container">
+        <a href="/Category#ropa-de-hombres" class="category-nav-link">Ropa de Hombres</a>
+        <a href="/Category#ropa-de-mujeres" class="category-nav-link">Ropa de Mujeres</a>
+        <a href="/Category#electrónica" class="category-nav-link">Electrónica</a>
+        <a href="/Category#infromática" class="category-nav-link">Informática</a>
+        <a href="/Category#kids-toys" class="category-nav-link">Kids & Toys</a>
+        <a href="/Category#oficina" class="category-nav-link">Oficina</a>
+        <a href="/Category#hogar" class="category-nav-link">Hogar</a>
+        <a href="/Category#libros" class="category-nav-link">Libros</a>
+        <a href="/Category#videojuegos" class="category-nav-link">Videojuegos</a>
+    </div>
+</nav>
+
 <!-- Breadcrumb or label -->
 <h2>@ViewBag.Category / @ViewBag.Subcategory</h2>
 <p class="text-muted">Mostrando productos en <strong>@ViewBag.Subcategory</strong> de la categoría <strong>@ViewBag.Category</strong>.</p>
@@ -36,3 +51,5 @@
         </div>
     }
 </div>
+
+<script src="~/js/site.js" asp-append-version="true"></script>

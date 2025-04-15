@@ -1,9 +1,25 @@
-﻿/* ==== COMMON STYLES ==== */
+﻿/* ==== GLOBAL RESET AND BASE STYLES ==== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* FONTS */
+p {
+    opacity: 0.5;
+}
+
+h1 {
+    text-align: left;
+}
+
+/* ==== COMMON STYLES ==== */
 .see-more-btn-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 14px;
+    padding: 0;
 }
 
 .btn-ver {
@@ -20,7 +36,6 @@
 
     .btn-ver:hover {
         background: transparent;
-        border: 4px solid #5e5e5e;
         color: black;
         box-shadow: 5px 5px 10px gray;
     }
@@ -57,18 +72,12 @@
         color: red; /* Change to red when favorited */
     }
 
-/* FONTS */
-p {
-    opacity: 0.5;
-}
 
-h1 {
-    text-align: left;
-}
 
 /* ==== HOME SECTION ==== */
 #home {
     margin-bottom: 80px;
+    scroll-margin-top: 100px; /* Adjust based on your header height */
 }
 
     #home .content-box {
@@ -199,6 +208,7 @@ h1 {
     display: flex;
     justify-content: center;
     flex-direction: column;
+    scroll-margin-top: 100px; /* Adjust based on your header height */
 }
 
     #ofertas .container-ofertas {
@@ -239,20 +249,27 @@ h1 {
         color: #fff;
         padding: 12px 25px;
         border-radius: 20px;
+        border: none;
         font-size: 18px;
         text-decoration: none;
         display: inline-block;
-        margin-top: 0;
+        margin: 0;
         text-align: center;
     }
 
+        #ofertas .btn-ver-tienda:hover {
+            background: #FFD700;
+            color: black;
+        }
+
 /* ==== RECIEN LLEGADOS SECTION ==== */
 #recientes {
-    margin-top: 80px;
+    margin-top: 60px;
     margin-bottom: 80px;
     display: flex;
     justify-content: start;
     flex-direction: column;
+    scroll-margin-top: 100px; /* Adjust based on your header height */
 }
 
     #recientes .card-container {
@@ -288,6 +305,12 @@ h1 {
         font-size: 14px;
     }
 
+.recientes-controls {
+    justify-content: flex-end !important; /* Align to the right */
+    gap: 10px; /* Small space between left and right arrows */
+    padding-right: 20px; /* Add some spacing from the right edge */
+}
+
 /* ==== FAMOSOS SECTION ==== */
 #famosos {
     margin-top: 80px;
@@ -295,6 +318,8 @@ h1 {
     display: flex;
     justify-content: center;
     flex-direction: column;
+    overflow-x: hidden;
+    scroll-margin-top: 250px; /* Adjust based on your header height */
 }
 
     #famosos .card-container {
@@ -308,15 +333,14 @@ h1 {
     }
 
     #famosos .card {
-        min-width: 250px;
+        max-width: 100%;
         height: 330px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-        margin: 15px;
         border-radius: 12px;
         overflow: hidden;
         position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
 
     #famosos .card-img-top {
@@ -324,6 +348,10 @@ h1 {
         width: 100%;
         object-fit: cover;
         border-radius: 10px;
+    }
+
+    #famosos h1 {
+        margin-bottom: 30px; 
     }
 
     #famosos p {
@@ -345,6 +373,30 @@ h1 {
     font-weight: bold;
     z-index: 2;
 }
+
+/* Specific layout for Famosos section - 2 rows of 5 cards */
+#famosos .top-products-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px; /* space between the two rows */
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+#famosos .top-products-row {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+    #famosos .top-products-row .card {
+        flex: 1 1 calc(20% - 20px); /* 5 cards in a row with gap */
+        max-width: 250px;
+    }
 
 /* CART BUTTON*/
 .cart-icon-container {
@@ -405,7 +457,224 @@ h1 {
         max-width: 100px;
     }
 
-/* Responsive Styles */
+/* Navigation arrows styling */
+.slider-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.slider-arrow {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+    .slider-arrow:hover {
+        background-color: #f8f8f8;
+    }
+
+    .slider-arrow i {
+        font-size: 18px;
+        color: #333;
+    }
+
+    .slider-arrow.left {
+        left: 0;
+    }
+
+    .slider-arrow.right {
+        right: 0;
+    }
+
+.slider-container {
+    position: relative;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.slider-wrapper {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+    /* Modify existing card containers to work with the slider */
+    .slider-wrapper .card-container {
+        display: flex;
+        flex-wrap: nowrap;
+        width: 100%; /* Full width instead of max-content */
+        gap: 30px;
+        margin: 30px 0;
+        transform: translateX(0);
+        transition: transform 0.5s ease;
+    }
+
+    .slider-wrapper .card {
+        min-width: 250px;
+        width: 250px;
+        flex-shrink: 0;
+    }
+
+/* Hide scrollbar */
+.slider-container::-webkit-scrollbar {
+    display: none;
+}
+
+.slider-container {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+@media (max-width: 768px) {
+    .slider-controls {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        margin: 10px 0;
+    }
+
+    .slider-arrow {
+        width: 32px;
+        height: 32px;
+    }
+
+        .slider-arrow i {
+            font-size: 16px;
+        }
+
+    .slider-wrapper .card-container {
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 0 10px;
+        gap: 20px;
+    }
+
+    .slider-wrapper .card {
+        flex: 1 1 100%;
+        max-width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .slider-arrow.left,
+    .slider-arrow.right {
+        position: static;
+    }
+}
+
+@media (max-width: 480px) {
+    .slider-controls {
+        gap: 10px;
+    }
+
+    .slider-arrow {
+        width: 28px;
+        height: 28px;
+    }
+
+        .slider-arrow i {
+            font-size: 14px;
+        }
+}
+
+@media (max-width: 768px) {
+    .slider-controls {
+        justify-content: center;
+        gap: 20px;
+        margin-top: 10px;
+    }
+
+    .slider-arrow {
+        width: 32px;
+        height: 32px;
+    }
+
+        .slider-arrow i {
+            font-size: 16px;
+        }
+}
+
+@media (max-width: 768px) {
+    .slider-wrapper .card-container {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        padding: 0 10px;
+    }
+
+    .slider-wrapper .card {
+        flex: 1 1 100%;
+        max-width: 100%;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .slider-arrow.left,
+    .slider-arrow.right {
+        position: static;
+    }
+
+    .slider-controls {
+        flex-direction: row;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    #recientes .card-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 20px;
+    }
+
+    #recientes .card {
+        min-width: 100%;
+        height: auto;
+    }
+}
+
+
+/***************************************************************************/
+
+/* **************************RESPONSIVE DESIGNS *****************************/
+/* DESKTOPS (Large Screens */
+@media (max-width: 1200px) {
+    #famosos .top-products-row .card {
+        flex: 1 1 calc(25% - 20px);
+    }
+
+    h1, #home .biglabel {
+        font-size: 2.5rem;
+    }
+}
+
+/* TABLETS (Medium screens) */
+@media (max-width: 1024px) {
+    #famosos .top-products-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    h1, #home .biglabel {
+        font-size: 2.2rem;
+    }
+}
+
+/* Small screens */
 @media (max-width: 768px) {
     #home .card-container,
     #recientes .card-container,
@@ -419,8 +688,22 @@ h1 {
         width: 90%;
     }
 
+    /* Layout adjustments */
     #home .content-box {
         flex-direction: column;
+        gap: 10px;
+    }
+
+    #home .btn,
+    #home .btn-plus,
+    #home .btn-active,
+    #home .btn-plus-active {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+
+    #home .btn-box {
+        flex-wrap: wrap;
     }
 
     h1 {
@@ -444,6 +727,25 @@ h1 {
     #ofertas .container-info {
         margin-top: 20px;
     }
+
+    #recientes .recientes-controls {
+        display: none;
+    }
+
+    #famosos .top-products-container {
+        grid-template-columns: repeat(2, 1fr);
+        align-items: center;
+    }
+
+    #famosos .top-products-row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+        #famosos .top-products-row .card {
+            width: 90%; /* or 100% if you prefer full width */
+            max-width: 300px; /* optional to limit max size */
+        }
 }
 
 @media (max-width: 480px) {
@@ -458,63 +760,14 @@ h1 {
     #famosos .card {
         width: 100%;
     }
+
+    #famosos .top-products-container {
+        grid-template-columns: 1fr;
+    }
 }
 
-/* Common scrollable container for all card sections */
-.scrollable-container {
-    width: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
-    overflow-x: auto; /* keep it visible to ensure scrollbar space is reserved */
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
-    padding-bottom: 0;
-    scrollbar-gutter: stable; /* ensure space is reserved for scrollbar */
-    transition: all 0.3s ease;
-}
-
-    .scrollable-container:hover {
-        overflow-x: auto; /* Show scrollbar on hover */
-    }
-
-    .scrollable-container .card {
-        min-width: 250px;
-        width: 250px; /* Fixed width */
-        flex-shrink: 0; /* Prevent cards from shrinking */
-    }
-
-    /* Adjust card container inside the scrollable container */
-    .scrollable-container .card-container {
-        display: flex;
-        flex-wrap: nowrap; /* Prevent wrapping to next line */
-        width: max-content; /* Allow container to grow as needed */
-        gap: 30px;
-        margin: 30px 0; /* Adjust vertical margins, remove horizontal ones */
-    }
-
-    /* Style the scrollbar for WebKit browsers (Chrome, Safari, Edge) */
-    .scrollable-container::-webkit-scrollbar {
-        height: 8px;
-    }
-
-    .scrollable-container::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 4px;
-    }
-
-    .scrollable-container::-webkit-scrollbar-thumb {
-        background: #888;
-        border-radius: 4px;
-    }
-
-        .scrollable-container::-webkit-scrollbar-thumb:hover {
-            background: #555;
-        }
-
-/* For older browsers that don't support scrollbar-gutter, add a fallback */
-@supports not (scrollbar-gutter: stable) {
-    .scrollable-container {
-        /* Add a padding-bottom that's roughly the height of the scrollbar to reserve space */
-        padding-bottom: 18px; /* 15px original padding + ~3px extra for scrollbar height difference */
+@media (max-width: 600px) {
+    #famosos .top-products-row .card {
+        flex: 1 1 100%;
     }
 }
