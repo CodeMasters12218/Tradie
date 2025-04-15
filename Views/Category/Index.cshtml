@@ -37,14 +37,14 @@
                 {
                     <a asp-controller="Category" asp-action="Subcategory"
                        asp-route-name="@category.CategoryName"
-                       asp-route-subcategory="@sub.Name"
+                       asp-route-subcategory="@sub.SubCategoryName"
                        class="subcategory-card-link">
                         <div class="card subcategory-card">
                             <div>
-                                <img src="@sub.ImageUrl" alt="@sub.Name" class="subcategory-image" />
+                                <img src="@sub.ImageUrl" alt="@sub.SubCategoryName" class="subcategory-image" />
                             </div>
                             <div>
-                                <h4 class="subcategory-name">@sub.Name</h4>
+                                <h4 class="subcategory-name">@sub.SubCategoryName</h4>
                             </div>
                         </div>
                     </a>

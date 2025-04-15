@@ -104,6 +104,7 @@
     padding-bottom: 10px;
     scroll-behavior: smooth;
     scrollbar-width: none;
+    opacity: 0.9;
 }
 
     .subcategory-cards::-webkit-scrollbar {
@@ -117,37 +118,63 @@
     align-items: center;
     justify-content: space-between;
     border: none;
-    border-radius: 20px;
+    border-radius: 40px;
     text-align: center;
     width: 220px;
     height: 220px;
     padding: 20px;
     transition: transform all 0.2s ease;
-    background: #c8c8c8;
+    background: #b7b7b73d;
     -webkit-overflow-scrolling: touch; /* iOS momentum scrolling */
 }
 
     .subcategory-card:hover {
         transform: scale(1.02);
         transition: transform 0.2s ease-in-out;
+        opacity: 1;
+        background: #f8efa3;
+        text-weight: 600px;
+        color: black;
     }
 
 
 .subcategory-name {
     font-size: 16px;
-    font-weight: 500;
     margin-top: 10px;
     text-decoration: none;
     color: #333;
 }
 
+.subcategory-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+}
+
+    .subcategory-card-link:hover {
+        text-decoration: none;
+        color: inherit;
+    }
+
+        .subcategory-card-link:hover .subcategory-name {
+            color: #756803;
+            font-weight: 700;
+        }
+
+
 /* IMAGE */
 .subcategory-image {
-    width: 140px;
-    height: 140px;
+    width: 90px;
+    height: 90px;
+    margin-top: 20px;
     object-fit: cover;
     border-radius: 8px;
 }
+
+.subcategory-card:hover .subcategory-image {
+    filter: brightness(0) saturate(100%) invert(42%) sepia(97%) saturate(595%) hue-rotate(16deg) brightness(91%) contrast(93%);
+}
+
 
 
 

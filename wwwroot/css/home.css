@@ -269,7 +269,7 @@ h1 {
     display: flex;
     justify-content: start;
     flex-direction: column;
-    scroll-margin-top: 100px; /* Adjust based on your header height */
+    scroll-margin-top: 100px;
 }
 
     #recientes .card-container {
@@ -305,11 +305,38 @@ h1 {
         font-size: 14px;
     }
 
-.recientes-controls {
-    justify-content: flex-end !important; /* Align to the right */
-    gap: 10px; /* Small space between left and right arrows */
-    padding-right: 20px; /* Add some spacing from the right edge */
-}
+/* slider arrows < and > */
+    #recientes .slider-controls {
+        display: flex;
+        justify-content: flex-end; /* Aligns items to the right */
+        width: 100%;
+        margin-bottom: 20px; /* Space between arrows and cards */
+        padding: 0;
+    }
+
+    #recientes .slider-arrow {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: white;
+        border: 1px solid #ddd;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-left: 10px; /* Space between the arrows */
+    }
+
+        #recientes .slider-arrow:hover {
+            background-color: #f8f8f8;
+        }
+
+        #recientes .slider-arrow i {
+            font-size: 18px;
+            color: #333;
+        }
 
 /* ==== FAMOSOS SECTION ==== */
 #famosos {
@@ -591,64 +618,6 @@ h1 {
         }
 }
 
-@media (max-width: 768px) {
-    .slider-controls {
-        justify-content: center;
-        gap: 20px;
-        margin-top: 10px;
-    }
-
-    .slider-arrow {
-        width: 32px;
-        height: 32px;
-    }
-
-        .slider-arrow i {
-            font-size: 16px;
-        }
-}
-
-@media (max-width: 768px) {
-    .slider-wrapper .card-container {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 20px;
-        padding: 0 10px;
-    }
-
-    .slider-wrapper .card {
-        flex: 1 1 100%;
-        max-width: 100%;
-        margin-bottom: 20px;
-    }
-}
-
-@media (max-width: 768px) {
-    .slider-arrow.left,
-    .slider-arrow.right {
-        position: static;
-    }
-
-    .slider-controls {
-        flex-direction: row;
-        justify-content: center;
-    }
-}
-
-@media (max-width: 768px) {
-    #recientes .card-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-        gap: 20px;
-    }
-
-    #recientes .card {
-        min-width: 100%;
-        height: auto;
-    }
-}
-
-
 /***************************************************************************/
 
 /* **************************RESPONSIVE DESIGNS *****************************/
@@ -728,9 +697,39 @@ h1 {
         margin-top: 20px;
     }
 
+    .slider-arrow.left,
+    .slider-arrow.right {
+        position: static;
+    }
+
+    .slider-controls {
+        flex-direction: row;
+        justify-content: center;
+    }
+
     #recientes .recientes-controls {
         display: none;
     }
+
+    #recientes .card-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 20px;
+    }
+
+    #recientes .card {
+        min-width: 100%;
+        height: auto;
+    }
+
+    #recientes .slider-arrow {
+        width: 32px;
+        height: 32px;
+    }
+
+        #recientes .slider-arrow i {
+            font-size: 16px;
+        }
 
     #famosos .top-products-container {
         grid-template-columns: repeat(2, 1fr);
@@ -746,6 +745,19 @@ h1 {
             width: 90%; /* or 100% if you prefer full width */
             max-width: 300px; /* optional to limit max size */
         }
+
+    .slider-wrapper .card-container {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        padding: 0 10px;
+    }
+
+    .slider-wrapper .card {
+        flex: 1 1 100%;
+        max-width: 100%;
+        margin-bottom: 20px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -769,5 +781,14 @@ h1 {
 @media (max-width: 600px) {
     #famosos .top-products-row .card {
         flex: 1 1 100%;
+    }
+
+    .recientes-header {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    .recientes-controls {
+        margin-top: 10px;
     }
 }
