@@ -30,14 +30,14 @@ namespace Tradie.Models.Users
         public Order Checkout(PaymentMethod paymentMethod)
         {
             int id = 0;
-            Customer customer = this;
+            int customerId = 0;
             DateTime orderDate = DateTime.Now;
             OrderStatus status = OrderStatus.Pending;
             List<CartItem> cartItems = ShoppingCart.GetItems();
             List<OrderItem> items = cartItems.Select(ci =>
-    new OrderItem(ci.Product, ci.ProductId,ci.ProductName, ci.PriceAtAddition, ci.Quantity)
+    new OrderItem(ci.ProductId,ci.ProductName, ci.PriceAtAddition, ci.Quantity)
 ).ToList();
-            var order = new Order(id, customer, orderDate, status, items);
+            var order = new Order(id, customerId, orderDate, status, items);
             Orders.Add(order);
             ShoppingCart.Clear();
             return order;

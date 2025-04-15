@@ -14,13 +14,18 @@ namespace Tradie.Models.Orders
     }
     public class OrderItem
     {
-        public OrderItem(Product product, int productId, string productName, decimal pricePaid, int quantity)
+        public OrderItem(int productId, string productName, decimal pricePaid, int quantity)
         {
-            Product = product ?? throw new ArgumentNullException(nameof(product));
-            ProductId = product.Id;
-            ProductName = product.Name;
-            PricePaid = product.Price;
+            ProductId = productId;
+            ProductName = productName;
+            PricePaid = pricePaid;
             Quantity = quantity;
+        }
+
+        public OrderItem(Product product, int quantity)
+            :this(product.Id, product.Name, product.Price, quantity)
+        {
+            Product = product;
         }
 
         public int Id { get; set; }

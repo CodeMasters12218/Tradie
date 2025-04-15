@@ -8,6 +8,7 @@ namespace Tradie.Models.ShoppingCart
         {
             Items = new List<CartItem>();
         }
+        public int Id { get; set; }
         public List<CartItem> Items { get; private set; }
 
         public void AddItem(Product product, int quantity) {  }
