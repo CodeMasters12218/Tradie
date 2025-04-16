@@ -1,0 +1,302 @@
+﻿
+@{
+    ViewData["Title"] = "Product Management Page";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewData["AdminName"] = "Admin X44";
+    ViewData["AdminEmail"] = "admin@example.com";
+}
+
+<link rel="stylesheet" href="~/css/adminproduct.css" />
+
+<div class="admin-dashboard d-flex">
+    <!-- Sidebar -->
+    <aside class="sidebar p-4">
+        <h5 class="text-uppercase fw-bold mb-4">Gestión Admin</h5>
+        <ul class="nav flex-column gap-3">
+            <li class="nav-item">
+                <a class="nav-link active" href="#">📦 Gestión de Productos</a>
+                <ul class="ps-3 mt-1">
+                    <li><a class="nav-link ps-2" href="#">➤ Registro de Productos</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">👥 Gestión de Usuarios</a>
+            </li>
+        </ul>
+
+        <div class="mt-auto pt-5">
+            <a href="#" class="btn btn-light w-100 mb-2">⚙ Configuración</a>
+            <a href="#" class="btn btn-danger w-100">🚪 Cerrar Sesión</a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <section class="content p-4 flex-fill">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3 class="mb-0">Gestión de Productos</h3>
+            <div class="d-flex gap-2">
+                <input type="text" class="form-control" placeholder="Buscar productos..." style="max-width: 250px;">
+
+                <a href="javascript:void(0)" class="btn btn-success" onclick="openModal('addProductModal')">+ Agregar producto</a>
+            </div>
+        </div>
+
+        <!-- Product Table -->
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th>Nombre & ID</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @* Example product card *@
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <img src="~/images/product1.jpg" class="rounded me-3" width="48" height="48" style="object-fit: cover;">
+                                <div>
+                                    <div class="fw-semibold">Smartphone Pro Max</div>
+                                    <div class="text-muted small">#ID12345</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>$499.99</td>
+                        <td>12</td>
+                        <td><span class="badge bg-success">Disponible</span></td>
+                        <td>
+                            <a href="javascript:void(0)" class="btn btn-sm btn-primary me-2" onclick="openModal('editProductModal')">Editar</a>
+
+                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="openModal('deleteProductModal')">Eliminar</a>
+
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <img src="~/images/product2.jpg" class="rounded me-3" width="48" height="48" style="object-fit: cover;">
+                                <div>
+                                    <div class="fw-semibold">Wireless Earbuds</div>
+                                    <div class="text-muted small">#ID56789</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>$79.99</td>
+                        <td>0</td>
+                        <td><span class="badge bg-danger">Agotado</span></td>
+                        <td>
+                            <a href="javascript:void(0)" class="btn btn-sm btn-primary me-2" onclick="openModal('editProductModal')">Editar</a>
+
+                            <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="openModal('deleteProductModal')">Eliminar</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Add Product Modal -->
+        <div class="modal-overlay" id="addProductModal" style="display: none;">
+            <div class="modal-content position-relative p-4 rounded shadow-lg bg-white">
+                <!-- Close Button -->
+                <button class="btn-close position-absolute top-0 end-0 m-3" onclick="closeModal('addProductModal')"></button>
+
+
+                <h4 class="mb-4">Añadir Nuevo Producto</h4>
+
+                <form>
+                    <div class="row">
+                        <!-- Left Column -->
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="productName" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="productName" placeholder="Nombre del producto">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="productPrice" class="form-label">Precio</label>
+                                <input type="number" class="form-control" id="productPrice" placeholder="$0.00">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="productStock" class="form-label">Stock</label>
+                                <input type="number" class="form-control" id="productStock">
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Tallas Disponibles</label>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <button type="button" class="btn btn-outline-secondary btn-sm">XS</button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm">S</button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm">M</button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm">L</button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm">XL</button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm">XXL</button>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Colores Disponibles</label>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <button type="button" class="btn btn-outline-dark btn-sm">Negro</button>
+                                    <button type="button" class="btn btn-outline-light btn-sm border">Blanco</button>
+                                    <button type="button" class="btn btn-outline-primary btn-sm">Azul</button>
+                                    <button type="button" class="btn btn-outline-danger btn-sm">Rojo</button>
+                                    <button type="button" class="btn btn-outline-success btn-sm">Verde</button>
+                                    <button type="button" class="btn btn-outline-warning btn-sm">Amarillo</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Column -->
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="productImage" class="form-label">Foto</label>
+                                <input type="file" class="form-control" id="productImage">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="productDesc" class="form-label">Descripción</label>
+                                <textarea class="form-control" id="productDesc" rows="6" placeholder="Escriba una descripción..."></textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="productStatus" class="form-label">Estado</label>
+                                <select class="form-select" id="productStatus">
+                                    <option selected disabled>Seleccione una opción</option>
+                                    <option value="1">Disponible</option>
+                                    <option value="2">Agotado</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Save Button -->
+                    <div class="text-end mt-3">
+                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Edit Product Modal -->
+        <div class="modal-overlay" id="editProductModal" style="display: none;">
+            <div class="modal-content position-relative p-4 rounded shadow-lg bg-white">
+                <!-- Close Button -->
+                <button class="btn-close position-absolute top-0 end-0 m-3" onclick="closeModal('editProductModal')"></button>
+
+                <h4 class="mb-4">Editar Producto</h4>
+
+                <!-- Product preview (photo + name + id) -->
+                <div class="d-flex align-items-center mb-4">
+                    <img src="~/images/product1.jpg" class="rounded me-3" width="64" height="64" style="object-fit: cover;">
+                    <div>
+                        <div class="fw-semibold fs-5">Smartphone Pro Max</div>
+                        <div class="text-muted small">#ID12345</div>
+                    </div>
+                </div>
+
+                <form>
+                    <div class="row">
+                        <!-- Left Column -->
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Nombre</label>
+                                <input type="text" class="form-control" value="Smartphone Pro Max">
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Precio</label>
+                                <input type="number" class="form-control" value="499.99">
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Stock</label>
+                                <input type="number" class="form-control" value="12">
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Tallas Disponibles</label>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <button type="button" class="btn btn-outline-secondary btn-sm active">M</button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm">L</button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm">XL</button>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Colores Disponibles</label>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <button type="button" class="btn btn-outline-dark btn-sm active">Negro</button>
+                                    <button type="button" class="btn btn-outline-light btn-sm border">Blanco</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Column -->
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Nueva Foto</label>
+                                <input type="file" class="form-control">
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Descripción</label>
+                                <textarea class="form-control" rows="5">Lorem ipsum dolor sit amet...</textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Estado</label>
+                                <select class="form-select">
+                                    <option selected>Disponible</option>
+                                    <option>Agotado</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="text-end mt-4 d-flex justify-content-end gap-2">
+                        <button type="button" class="btn btn-outline-secondary" onclick="closeModal('editProductModal')">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Delete Confirmation Modal -->
+        <div class="modal-overlay" id="deleteProductModal" style="display: none;">
+            <div class="modal-content position-relative p-4 rounded shadow-lg bg-white" style="max-width: 500px;">
+                <!-- Close Button -->
+                <button class="btn-close position-absolute top-0 end-0 m-3" onclick="closeModal('deleteProductModal')"></button>
+
+                <h5 class="fw-bold mb-3">Confirmar eliminación del producto</h5>
+                <p>¿Estás seguro de borrar este producto?</p>
+
+                <!-- Product preview -->
+                <div class="d-flex align-items-center mb-4">
+                    <img src="~/images/product1.jpg" class="rounded me-3" width="64" height="64" style="object-fit: cover;">
+                    <div>
+                        <div class="fw-semibold">Smartphone Pro Max</div>
+                        <div class="text-muted small">#ID12345</div>
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="text-end d-flex justify-content-end gap-2">
+                    <button class="btn btn-outline-secondary" onclick="closeModal('deleteProductModal')">Cancelar</button>
+                    <button class="btn btn-danger">Borrar</button>
+                </div>
+            </div>
+        </div>
+
+
+
+    </section>
+</div>
+
+<script src="~/js/admin.js" asp-append-version="true"></script>
