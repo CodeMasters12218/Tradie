@@ -15,7 +15,7 @@ namespace Tradie.Controllers
             _logger = logger;
         }
 
-		public IActionResult Index()
+		public IActionResult Category()
 		{
 			// Sample subcategories grouped under categories
 			var subcategories = new List<Subcategory>
@@ -111,7 +111,7 @@ namespace Tradie.Controllers
 		[Route("category/{name}/{subcategory}")]
 		public IActionResult Subcategory(string name, string subcategory)
 		{
-			var products = Enumerable.Range(1, 12).Select(i => new Product
+			var products = Enumerable.Range(1, 20).Select(i => new Product
 			{
 				Id = i,
 				Name = $"{subcategory} Producto {i}",

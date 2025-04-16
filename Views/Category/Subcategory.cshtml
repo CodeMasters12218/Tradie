@@ -31,25 +31,28 @@
     @foreach (var product in Model)
     {
         <div class="card product-card">
-            <img src="@product.ImageUrl" alt="@product.Name" class="product-image" />
-            <div class="product-details">
-                <h4 class="product-name">@product.Name</h4>
-                <p class="product-description">@product.Description</p>
-                <p class="product-price">€@product.Price</p>
-                <div class="product-actions">
-                    <form asp-controller="Cart" asp-action="AddToCart" method="post" class="d-inline">
-                        <input type="hidden" name="productId" value="@product.Id" />
-                        <button type="submit" class="btn btn-sm btn-primary">Add to Cart</button>
-                    </form>
-
-                    <form asp-controller="Wishlist" asp-action="AddToWishlist" method="post" class="d-inline">
-                        <input type="hidden" name="productId" value="@product.Id" />
-                        <button type="submit" class="btn btn-sm btn-outline-secondary">Wishlist</button>
-                    </form>
+            <a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" class="product-link">
+                <img src="@product.ImageUrl" alt="@product.Name" class="product-image" />
+                <div class="product-info">
+                    <h4 class="product-name">@product.Name</h4>
+                    <p class="product-description text-muted">@product.Description</p>
+                    <p class="product-price">€@product.Price.ToString("F2")</p>
                 </div>
+            </a>
+            <div class="product-actions">
+                <form asp-controller="Cart" asp-action="AddToCart" method="post" class="d-inline">
+                    <input type="hidden" name="productId" value="@product.Id" />
+                    <button type="submit" class="btn btn-sm btn-primary">Añadir a la cesta</button>
+                </form>
+
+                <form asp-controller="Wishlist" asp-action="AddToWishlist" method="post" class="d-inline">
+                    <input type="hidden" name="productId" value="@product.Id" />
+                    <button type="submit" class="btn btn-sm btn-outline-secondary">Favorito</button>
+                </form>
             </div>
         </div>
     }
 </div>
+
 
 <script src="~/js/site.js" asp-append-version="true"></script>

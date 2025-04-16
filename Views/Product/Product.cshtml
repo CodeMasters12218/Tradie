@@ -1,0 +1,124 @@
+﻿@model Tradie.Models.Products.Product
+
+@{
+    ViewData["Title"] = "Product Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/product-details.css" />
+
+<!-- Category Navbar -->
+<nav class="category-navbar">
+    <div class="container category-nav-container">
+        <a href="#ropa-de-hombres" class="category-nav-link">Ropa de Hombres</a>
+        <a href="#ropa-de-mujeres" class="category-nav-link">Ropa de Mujeres</a>
+        <a href="#electrónica" class="category-nav-link">Electrónica</a>
+        <a href="#infromática" class="category-nav-link">Informática</a>
+        <a href="#kids-toys" class="category-nav-link">Kids & Toys</a>
+        <a href="#oficina" class="category-nav-link">Oficina</a>
+        <a href="#hogar" class="category-nav-link">Hogar</a>
+        <a href="#libros" class="category-nav-link">Libros</a>
+        <a href="#videojuegos" class="category-nav-link">Videojuegos</a>
+    </div>
+</nav>
+
+<div class="product-page-container">
+    <!-- LEFT COLUMN -->
+    <div class="product-left-column">
+        <div class="image-container">
+            <img src="@Model.ImageUrl" alt="@Model.Name" class="product-image" />
+
+            <!-- Favorite Button -->
+            <button class="favorite-btn" onclick="toggleHeart(this)">
+                <i class="bi bi-heart"></i>
+            </button>
+        </div>
+
+        <!-- Quantity Selector -->
+        <div class="quantity-selector">
+            <button class="quantity-btn">-</button>
+            <span class="quantity-display">01</span>
+            <button class="quantity-btn">+</button>
+        </div>
+
+        <!-- Add to Cart -->
+        <button class="add-to-cart-btn" onclick="toggleCart(this)">
+            <i class="bi bi-cart"></i> Añadir a la cesta
+        </button>
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="product-right-column">
+        <h1 class="product-title">@Model.Name</h1>
+        <p class="product-short-description">@Model.Description</p>
+
+        <!-- Reviews -->
+        <div class="product-reviews">
+            @{
+                var averageRating = Model.Reviews.Any() ? Model.Reviews.Average(r => r.Rating) : 0;
+                for (int i = 1; i <= 5; i++)
+                {
+                    if (i <= Math.Floor(averageRating))
+                    {
+                        <i class="bi bi-star-fill star-filled"></i>
+                    }
+                    else if (i - averageRating < 1)
+                    {
+                        <i class="bi bi-star-half star-half"></i>
+                    }
+                    else
+                    {
+                        <i class="bi bi-star star-empty"></i>
+                    }
+                }
+                <span class="rating-number">(@averageRating.ToString("0.0"))</span>
+            }
+        </div>
+
+        <hr />
+
+        <!-- Price -->
+        <div class="product-price">€@Model.Price.ToString("F2")</div>
+
+        <!-- Size Selection -->
+        <div class="product-sizes">
+            <label>Talla:</label>
+            <div class="size-buttons">
+                @foreach (var size in new[] { "XS", "S", "M", "L", "XL", "XXL" })
+                {
+                    <button class="size-btn">@size</button>
+                }
+            </div>
+        </div>
+
+        <!-- Color Selection -->
+        <div class="product-colors">
+            <label>Color:</label>
+            <div class="color-options">
+                @for (int i = 0; i < 6; i++)
+                {
+                    <button class="color-btn">
+                        <img src="~/images/colors/color@(i + 1).png" alt="Color Option @(i + 1)" />
+                    </button>
+                }
+            </div>
+        </div>
+
+        <hr />
+
+        <!-- Long Description -->
+        <div class="product-long-description">
+            <h4>Descripción</h4>
+            <p>@Model.Description</p>
+        </div>
+
+        <!-- Stock -->
+        <div class="product-stock">
+            <p><strong>Estado:</strong> @(Model.Stock > 0 ? "Disponible" : "Agotado")</p>
+            <p><strong>Stock:</strong> @Model.Stock</p>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/js/site.js" asp-append-version="true"></script>
