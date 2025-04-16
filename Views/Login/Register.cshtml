@@ -1,0 +1,51 @@
+﻿@model Tradie.Models.Users.RegisterModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Tradie</title>
+    <link rel="stylesheet" href="~/css/Register.css" asp-append-version="true">
+    <link href="https://fonts.googleapis.com/css2?family=Murecho:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Monomaniac+One&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1 class="tradieLabel">tradie</h1>
+        <div class="buttonsContainer">
+            <button type="submit" class="buttonShifting1" asp-controller="Account" asp-action="Login">Iniciar sesi&oacute;n</button>
+            <button type="submit" class="buttonShifting2">Crear cuenta</button>
+        </div>
+        <div class="content">
+            <div class="labelContainer">
+                <h1 class="etiqueta">Vamos a crear tu cuenta.</h1>
+            </div>
+            <form method="post" asp-controller="Register" asp-action="VerifyRegister">
+                <label for="emailRegisterInput" asp-for="Email">Correo electr&oacute;nico</label>
+                <input type="email" id="emailRegisterInput" placeholder="ejemplo@email.com" asp-for="Email" />
+
+                <label for="passwordRegisterInput" asp-for="Password">Contraseña</label>
+                <input type="password" id="passwordRegisterInput" placeholder="Introduce tu contraseña" asp-for="Password" />
+
+                <label for="passwordRepetitionRegisterInput" asp-for="ConfirmPassword">Repetir Contrase&ntilde;a</label>
+                <input type="password" id="passwordRepetitionRegisterInput" placeholder="Introduce tu contraseña de nuevo" asp-for="ConfirmPassword" />
+
+                <label for="nameRegisterInput" asp-for="Name">Nombre</label>
+                <input type="text" id="nameRegisterInput" placeholder="Introduce tu nombre" asp-for="Name" />
+
+                <label for="lastNamesRegisterInput" asp-for="LastNames">Apellidos</label>
+                <input type="text" id="lastNamesRegisterInput" placeholder="Introduce tus apellidos" asp-for="LastNames" />
+
+                <button type="submit" class="createAccountButton">Crear mi cuenta</button>
+            </form>
+            <p class="etiquetaRegistro">¿Ya tienes cuenta? <a asp-controller="Account" asp-action="Login"><b>Iniciar sesi&oacuten</b></a></p>
+        </div>
+    </div>
+    <div class="imageContainer">
+        <img src="~/images/Login/FondoRegistro.png" alt="Imagen de registro">
+    </div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+﻿@model Tradie.Models.Users.LoginModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Tradie</title>
+    <link rel="stylesheet" href="~/css/Login.css" asp-append-version="true">
+    <link href="https://fonts.googleapis.com/css2?family=Murecho:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Monomaniac+One&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <h1 class="tradieLabel">tradie</h1>
+    <div class="contenedor">
+        <div class="buttonsContainer">
+            <button type="submit" class="buttonShifting1">Iniciar sesi&oacute;n</button>
+            <button type="submit" class="buttonShifting2" asp-controller="Register" asp-action="Register">Crear cuenta</button>
+        </div>
+        <div class="contenido">
+            <div class="contenedorEtiqueta">
+                <h1 class="etiqueta">Introduce tus datos para empezar.</h1>
+            </div>
+            <div>
+                <form asp-controller="Account" asp-action="VerifyLogin" method="post">
+                    <label for="emailLogin" asp-for="Email"><b class="letralabel">Correo electr&oacute;nico</b></label>
+                    <input type="email" id="emailLogin" placeholder="ejemplo@email.com" asp-for="Email" />
+
+                    <label for="passwordLogin" asp-for="Password"><b>Contrase&ntilde;a</b></label>
+                    <input type="password" id="passwordLogin" placeholder="Introduce tu Contraseña aquí" asp-for="Password" />
+
+                    <button type="submit" class="signupButton">Entrar</button>
+                </form>
+
+                <p class="etiquetaRegistro">¿No tienes cuenta? <a asp-controller="Register" asp-action="Register"><b>Reg&iacute;strate</b></a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
