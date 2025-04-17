@@ -1,31 +1,47 @@
-using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Tradie.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Tradie.Data;
 using Tradie.Models.Products;
 
 namespace Tradie.Controllers
 {
-	public class ProductManagementController : Controller
-	{
-		private readonly ILogger<ProductManagementController> _logger;
+    [Authorize(Roles = "Admin, Seller")]
+    public class ProductManagementController : Controller
+    {
+        private readonly ILogger<ProductManagementController> _logger;
+        private readonly ApplicationDbContext _context;
 
-		public ProductManagementController(ILogger<ProductManagementController> logger)
-		{
-			_logger = logger;
-		}
+        public ProductManagementController(
+            ILogger<ProductManagementController> logger,
+            ApplicationDbContext context)
+        {
+            _logger = logger;
+            _context = context;
+        }
 
-		public IActionResult ProductRegistry()
-		{
-			ViewData["AdminName"] = "Admin X44";
-			ViewData["AdminEmail"] = "admin@example.com";
-			return View(new ProductManagement());
-		}
+        public async Task<IActionResult> ProductRegistry(string searchTerm)
+        {
+            ViewData["AdminName"] = "Admin X44";
+            ViewData["AdminEmail"] = "admin@example.com";
 
+            var query = _context.Products.AsQueryable();
 
-		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-		public IActionResult Error()
-		{
-			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-		}
-	}
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                query = query
+                    .Where(p => p.Name.Contains(searchTerm)
+                             || p.Description.Contains(searchTerm));
+            }
+
+            var products = await query
+                .Include(p => p.Seller)
+                .ToListAsync();
+
+            return View(products);
+        }
+    }
 }
