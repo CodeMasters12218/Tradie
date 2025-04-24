@@ -1,4 +1,5 @@
-﻿@model Tradie.Models.Users.RegisterModel
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model Tradie.Models.Users.RegisterModel
 @{
     Layout = null;
 }
@@ -24,6 +25,7 @@
                 <h1 class="etiqueta">Vamos a crear tu cuenta.</h1>
             </div>
             <form method="post" asp-controller="Register" asp-action="VerifyRegister">
+                @Html.AntiForgeryToken()
                 <label for="emailRegisterInput" asp-for="Email">Correo electr&oacute;nico</label>
                 <input type="email" id="emailRegisterInput" placeholder="ejemplo@email.com" asp-for="Email" />
 

@@ -1,4 +1,5 @@
-﻿@model Tradie.Models.Users.LoginModel
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model Tradie.Models.Users.LoginModel
 @{
     Layout = null;
 }
@@ -26,6 +27,7 @@
             </div>
             <div>
                 <form asp-controller="Account" asp-action="VerifyLogin" method="post">
+                    @Html.AntiForgeryToken()
                     <label for="emailLogin" asp-for="Email"><b class="letralabel">Correo electr&oacute;nico</b></label>
                     <input type="email" id="emailLogin" placeholder="ejemplo@email.com" asp-for="Email" />
 

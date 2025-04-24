@@ -3,11 +3,13 @@ using Tradie.Models.Orders;
 using Tradie.Models.Products;
 using Tradie.Models.ShoppingCart;
 using Tradie.Models.Users;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace Tradie.Data
 {
 
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<User, IdentityRole<int>, int>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

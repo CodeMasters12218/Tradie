@@ -3,11 +3,24 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.IdentityModel.Tokens;
 using Tradie.Models.Users;
+using Microsoft.AspNetCore.Identity;
 
 namespace Tradie.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly UserManager<User> _userMgr;
+        private readonly SignInManager<User> _signInMgr;
+        
+        public AccountController(
+            UserManager<User> userMgr,
+            SignInManager<User> signInMgr)
+        {
+            _userMgr = userMgr;
+            _signInMgr = signInMgr;
+        }
+
+        [HttpGet]
         public IActionResult Login()
         {
             return View("~/Views/Login/Login.cshtml");
@@ -15,11 +28,18 @@ namespace Tradie.Controllers
 
 
         [HttpPost]
-        public IActionResult VerifyLogin(LoginModel model)
+        [ValidateAntiForgeryToken]
+        public async Task <IActionResult> VerifyLogin(LoginModel model)
         {
             if (ModelState.IsValid)
             {
-                if (!string.IsNullOrWhiteSpace(model.Email) && !string.IsNullOrWhiteSpace(model.Password))
+                var result = await _signInMgr.PasswordSignInAsync(
+                    model.Email,
+                    model.Password,
+                    isPersistent: false,
+                    lockoutOnFailure: false);
+                
+                if (result.Succeeded)
                 {
                     return RedirectToAction("Index", "Category");
                 }
