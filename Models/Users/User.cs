@@ -18,5 +18,18 @@ namespace Tradie.Models.Users
         [Required]
         public UserRole Role { get; set; }
         public DateTime CreatedAt { get; set; }
+        //public bool status { get; set; } = true;
+        /*public string StatusVerification()
+        {
+            if (status)
+            {
+                return "Activo";
+            }
+            else
+            {
+                return "Inactivo";
+            }
+        }*/
     }
+
 }

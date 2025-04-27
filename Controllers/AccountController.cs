@@ -41,7 +41,7 @@ namespace Tradie.Controllers
                 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Category");
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {

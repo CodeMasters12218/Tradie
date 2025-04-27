@@ -1,0 +1,152 @@
+body {
+    padding-top: 53px !important;
+}
+div.Global-Container{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start; 
+    justify-content: flex-start; 
+    height: 100vh; 
+}
+
+.Extra-Buttons{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    margin-top: 300px;
+}
+
+div.Extra-Buttons button{
+    text-align: center;
+    width: 140px;
+}
+
+dl {
+    display: none; /*The list from the sidebar wont be shown at the beginning*/
+}
+
+div button{
+    background-color: white;
+    border: none;
+    border-radius: 5px;
+    text-align: left;
+    font-size: 15px;
+    width: 200px;
+}
+
+div button:hover {
+    background-color: #c3c1c12d; 
+}
+
+.sidebar-Container {
+    width: 200px; /* Ancho fijo */
+    flex-shrink: 0; /* Previene que se reduzca más allá de este ancho */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 25px;
+    gap: 20px;
+}
+
+.CRUD_Container {
+    flex-grow: 1; /* Ocupa todo el espacio restante */
+    background-color: #f6f6f6;
+    height: 710px; /* Ajusta según tus necesidades */
+    padding: 20px;
+    overflow-x: auto; /* Maneja tablas grandes con desplazamiento horizontal */
+}
+
+
+
+
+.Admin-Management {
+    background-color: black;
+    text-align: center;
+    color: white;
+    padding-right: 50px;
+    padding-left: 50px;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-radius: 5px;
+}
+
+div.Admin-Management p{
+    font-size: 15px;
+    font-family: 'Murecho', sans-serif;
+}
+
+h1{
+    font-family: 'Murecho', sans-serif;
+    font-weight: 500;
+}
+
+table {
+    width: 100%; /* Ajusta el ancho al contenedor */
+    max-width: 100%; /* Previene desbordes */
+    border-collapse: collapse;
+}
+
+td, th {
+    padding: 10px; /* Reduce los espacios internos */
+    text-align: center; /* Centra el texto */
+    font-size: 14px; /* Tamaño más compacto */
+    word-wrap: break-word; /* Divide palabras largas si es necesario */
+}
+
+
+td.Name{
+    text-align: center;
+    font-family: 'Murecho', sans-serif;
+    padding-right: 200px;
+}
+
+td.Email{
+    text-align: center;
+    font-family: 'Murecho', sans-serif;
+    padding-right: 170px;
+}
+
+td.Email2{
+    text-align: center;
+    font-family: 'Murecho', sans-serif;
+    padding-right: 20px;
+}
+
+td.Role{
+    text-align: center;
+    font-family: 'Murecho', sans-serif;
+    padding-right: 70px;
+}
+
+td.Status{
+    text-align: center;
+    font-family: 'Murecho', sans-serif;
+    padding-right: 100px;
+}
+
+td.Action{
+    text-align: center;
+    font-family: 'Murecho', sans-serif;
+    padding-right: 150px;
+}
+
+.Edit-Button {
+    background-color: #97B2CA;
+    color: white;
+    text-align: center;
+    border: none;
+    border-radius: 10px;
+    padding: 5px 5px;
+    cursor: pointer;
+}
+
+.Delete-Button {
+    background-color: #FB8181;
+    color: white;
+    text-align: center;
+    border: none;
+    border-radius: 10px;
+    padding: 5px 5px;
+    cursor: pointer;
+}

@@ -41,7 +41,7 @@
                 <label for="lastNamesRegisterInput" asp-for="LastNames">Apellidos</label>
                 <input type="text" id="lastNamesRegisterInput" placeholder="Introduce tus apellidos" asp-for="LastNames" />
 
-                <button type="submit" class="createAccountButton">Crear mi cuenta</button>
+                <button type="submit" class="createAccountButton" asp-controller="Register" asp-action="VerifyRegister">Crear mi cuenta</button>
             </form>
             <p class="etiquetaRegistro">¿Ya tienes cuenta? <a asp-controller="Account" asp-action="Login"><b>Iniciar sesi&oacuten</b></a></p>
         </div>

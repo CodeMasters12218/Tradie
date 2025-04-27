@@ -1,0 +1,97 @@
+﻿@model IEnumerable<Tradie.Models.Users.User>
+@{
+    Layout = null;
+	ViewData["Title"] = "User Management";
+}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management Page</title>
+    <link rel="stylesheet" href="~/css/UserManagement.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Tradie.styles.css" asp-append-version="true" />
+    <link href="https://fonts.googleapis.com/css2?family=Murecho:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="admin-header bg-white border-bottom shadow-sm py-3 px-4 d-flex justify-content-between align-items-center">
+		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+			<div class="container-fluid">
+                <div class="logo">
+                    <a class="navbar-brand fs-4 fw-bold text-dark" asp-area="" asp-controller="Home" asp-action="Index">Tradie Admin</a>
+                </div>
+			</div>
+		</nav>
+	</header>
+    <div class="Global-Container">
+        <!-- This is the container for the sidebar-->
+        <div class="sidebar-Container">
+            <div class="Admin-Management">
+                <p>Gestión Admin</p>
+            </div>
+            <button type="button" onclick="toggleMenu('productMenu')">📦Gestión de productos</button>
+            <dl id="productMenu">
+                <a asp-controller="ProductManagement" asp-action="ProductRegistry">-Registro de productos</a>
+            </dl>
+
+            <button type="button" onclick="toggleMenu('userMenu')">👥Gestión de usuarios</button>
+            <dl id="userMenu">
+                <a>-Registro de usuarios</a>
+            </dl>
+            <button type="submit" class="Extra">👤+ Roles</button>
+            <button type="submit" class="Extra">👤✏️ Permisos</button>
+
+            <div class="Extra-Buttons">
+                <button type="submit" class="Extra">⚙ Configuración</button>
+                <button type="submit" class="Extra">🚪Cerrar sesión</button>
+            </div>
+        </div>
+        <!-- Container of CRUD -->
+        <div class="CRUD_Container">
+            <div>
+                <h1>Gestión de usuarios</h1>
+            </div>
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <td class="Name">Name&ID</td>
+                            <td class="Email">Email</td>
+                            <td class="Email2">Email</td>
+                            <td class="Role">Role</td>
+                            <td class="Status">Status</td>
+                            <td class="Action">Action</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var u in Model)
+                        {
+                            <tr>
+                                <td>
+							        <div>
+								        <p>@u.Name</p>
+								        <p>@u.Id</p>
+							        </div>
+                                </td>
+                                <td>@u.Email</td>
+                                <td>34</td>
+                                <td>@u.Role</td>
+                                <td></td>
+							    <td>
+								    <div>
+									    <button type="submit" class="Edit-Button" asp-controller="Users" asp-action="Edit">Editar</button>
+                                        <button type="submit" class="Delete-Button" asp-controller="Users" asp-action="Delete">Eliminar</button>
+								    </div>
+							    </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="~/js/UserManagement.js"></script>
+</body>
+</html>

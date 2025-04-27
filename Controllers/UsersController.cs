@@ -8,7 +8,7 @@ using Tradie.Models.Users;
 
 namespace Tradie.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class UsersController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -28,7 +28,7 @@ namespace Tradie.Controllers
             }
 
             var users = await usersQuery.ToListAsync();
-            return View(users);
+            return View("~/Views/UserManagement/UserManagement.cshtml", users);
         }
 
         public async Task<IActionResult> Details(int? id)

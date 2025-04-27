@@ -24,7 +24,7 @@ namespace Tradie.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task <IActionResult> VerifyRegister(RegisterModel model)
+        public async Task<IActionResult> VerifyRegister(RegisterModel model)
         {
             if (ModelState.IsValid)
             {
@@ -35,18 +35,23 @@ namespace Tradie.Controllers
                         UserName = model.Name,
                         Email = model.Email
                     };
+                    user.Name = model.Name;
                     var createRes = await _userMgr.CreateAsync(user, model.Password);
                     if (!createRes.Succeeded)
                     {
                         foreach (var e in createRes.Errors)
                             ModelState.AddModelError("", e.Description);
-                        return View(model);
+                        return View("~/Views/Login/Register.cshtml", model);
                     }
+                    await _userMgr.SetUserNameAsync(user, model.Name);
+
+                    await _userMgr.SetEmailAsync(user, model.Email);
+
                     await _userMgr.AddToRoleAsync(user, "Customer");
 
                     await _signInMgr.SignInAsync(user, isPersistent: false);
 
-                    return RedirectToAction("Index", "Category");
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
