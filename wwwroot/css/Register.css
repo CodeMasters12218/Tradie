@@ -1,122 +1,224 @@
 body {
-    display: flex; 
-    flex-direction: row; 
-    background-image: none; 
+    display: flex;
+    flex-direction: row;
     margin: 0;
+    min-height: 100vh;
+    font-family: 'Murecho', sans-serif;
 }
 
-.container{
+.container {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     background-color: white;
-    border-right: 1px solid black;
-    width: 42%;
-    height: 770px;
+    border-right: 3px solid #313131;
+    width: 40%;
+    padding: 2rem;
+    box-sizing: border-box;
+    position: relative;
 }
 
-.content{
-    margin: 0;
-    background-size: cover;
-}
-
-form{
+.content {
+    width: 100%;
+    max-width: 450px;
     display: flex;
     flex-direction: column;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
 
 input {
     border-radius: 5px;
-    margin-bottom: 20px;
-    padding: 10px;
+    margin-bottom: 15px;
+    padding: 15px;
     border: 1px solid #000000;
-    height: 10px;
-    width: 400px;
+    height: auto;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 label {
-    font-family: sans-serif;
+    font-family: 'Murecho', sans-serif;
     margin-bottom: 8px;
+    font-weight: 500;
 }
 
-.labelContainer{
+.labelContainer {
     display: flex;
     justify-content: center;
-    padding-bottom: 5%;
+    width: 100%;
+    margin-bottom: 20px;
 }
 
-.etiqueta{
+.etiqueta {
     font-family: 'Murecho', sans-serif;
-    font-weight: 100;
-    font-size: 30px;
+    font-weight: 300;
+    font-size: 1.5rem;
+    margin: 0;
+    align-self: center;
 }
 
-.tradieLabel{
-    margin-top: 0;
-    margin-bottom: 0;
+.tradieLabel {
+    margin: 0 0 30px 0;
     font-size: 40px;
     font-family: 'Monomaniac One', sans-serif;
+    align-self: center;
 }
 
-.etiquetaRegistro{
-    padding-left: 120px;
+.etiquetaRegistro {
+    margin-top: 20px;
     font-family: 'Murecho', sans-serif;
+    align-self: center;
 }
 
-.etiquetaRegistro a {
-    font-family: 'Murecho', sans-serif;
-    color: inherit; 
-    text-decoration: none; 
-}
+    .etiquetaRegistro a {
+        font-family: 'Murecho', sans-serif;
+        color: inherit;
+        text-decoration: none;
+    }
 
-.etiquetaRegistro a:hover {
-    text-decoration: underline; 
-}
+        .etiquetaRegistro a:hover {
+            text-decoration: underline;
+        }
 
-.createAccountButton{
+.createAccountButton {
     background-color: #313131;
     color: white;
     font-family: 'Murecho', sans-serif;
+    border: none;
     border-radius: 10px;
-    padding-top: 2%;
-    padding-bottom: 2%;
-}
-.createAccountButton:hover{
-    background-color: #000000;
+    padding: 15px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 10px;
 }
 
-.buttonsContainer{
+    .createAccountButton:hover {
+        background-color: #000000;
+    }
+
+.buttonsContainer {
     display: flex;
     border: 2px solid black;
     border-radius: 10px;
+    width: 300px;
+    margin-bottom: 20px;
+    align-self: center;
 }
 
-.buttonShifting1{
-    width: 150px;
+.buttonShifting1, .buttonShifting2 {
+    flex: 1;
     margin: 5px;
+    font-family: 'Murecho', sans-serif;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 0;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.buttonShifting1 {
     background-color: white;
     color: black;
-    font-family: 'Murecho', sans-serif;
-    border-radius: 10px;
-    padding-top: 2%;
-    padding-bottom: 2%;
 }
 
-.buttonShifting2{
-    width: 150px;
-    margin: 5px;
+.buttonShifting2 {
     background-color: #313131;
     color: white;
-    font-family: 'Murecho', sans-serif;
-    border-radius: 10px;
-    padding-top: 2%;
-    padding-bottom: 2%;
 }
 
-.imageContainer img {
-    width: 900px; 
-    height: 100%; 
-    border: 1px solid black; 
+/* Hover states */
+.buttonShifting1:hover {
+    background-color: #f0f0f0;
 }
 
+.buttonShifting2:hover {
+    background-color: #000000;
+}
+
+.imageContainer {
+    width: 60%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    .imageContainer img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border: none;
+    }
+
+/* Responsive design for smaller screens */
+@media (max-width: 1200px) {
+    .container {
+        padding: 1.5rem;
+    }
+
+    .content {
+        max-width: 400px;
+    }
+
+    input {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+
+    .container {
+        width: 100%;
+        border-right: none;
+        border-bottom: 3px solid #313131;
+        order: 2;
+        padding: 2rem 1rem;
+    }
+
+    .imageContainer {
+        width: 100%;
+        height: 150px;
+        order: 1;
+    }
+
+    .buttonsContainer {
+        width: 90%;
+        max-width: 300px;
+    }
+
+    .content, form {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .tradieLabel {
+        font-size: 36px;
+    }
+
+    .etiqueta {
+        font-size: 20px;
+    }
+
+    .buttonsContainer {
+        width: 100%;
+    }
+
+    .buttonShifting1, .buttonShifting2 {
+        font-size: 0.8rem;
+    }
+
+    .etiquetaRegistro {
+        padding-left: 0;
+        text-align: center;
+    }
+}
