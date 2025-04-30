@@ -2,9 +2,10 @@
     scroll-behavior: smooth;
 }
 
+/* NAVBAR */
 .category-navbar {
     position: fixed;
-    top: 65px;
+    top: 60px;
     left: 0;
     right: 0;
     background-color: #000;
@@ -18,8 +19,9 @@
     margin: 0 auto;
     padding: 0 20px;
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    white-space: nowrap;
     gap: 40px;
 }
 
@@ -27,9 +29,8 @@
     color: white;
     text-decoration: none;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 14px;
     transition: all 0.3s ease;
-    gap: 80px;
 }
 
     .category-nav-link:hover {
@@ -121,4 +122,19 @@
     font-weight:500;
     background: #f3ce00;
     color: black;
+}
+
+/****************** RESPONSIVENESS ****************/
+@media (max-width: 576px) {
+    .subcategory-cards {
+        flex-wrap: wrap; /* Allow wrapping */
+        justify-content: space-between;
+    }
+
+    .subcategory-card {
+        width: calc(50% - 4px); /* Two cards per row with spacing */
+        margin-bottom: 20px;
+    }
+
+    .category-nav-link
 }

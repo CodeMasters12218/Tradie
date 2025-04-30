@@ -106,20 +106,22 @@ label {
     display: flex;
     border: 2px solid black;
     border-radius: 10px;
-    width: 300px;
     margin-bottom: 20px;
-    align-self: center;
 }
 
 .buttonShifting1, .buttonShifting2 {
-    flex: 1;
+    min-width: 125px;
     margin: 5px;
     font-family: 'Murecho', sans-serif;
-    border: none;
-    border-radius: 8px;
-    padding: 10px 0;
+    border-radius: 10px;
+    padding: 10px 15px;
     cursor: pointer;
-    font-size: 0.9rem;
+    border: none;
+    transition: background-color 0.3s;
+    text-decoration: none;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .buttonShifting1 {
@@ -208,14 +210,7 @@ label {
     .etiqueta {
         font-size: 20px;
     }
-
-    .buttonsContainer {
-        width: 100%;
-    }
-
-    .buttonShifting1, .buttonShifting2 {
-        font-size: 0.8rem;
-    }
+    
 
     .etiquetaRegistro {
         padding-left: 0;

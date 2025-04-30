@@ -69,7 +69,7 @@ namespace Tradie.Controllers
 				new Subcategory { Id = 7002, CategoryName = "Hogar", SubCategoryName = "Comedor", ImageUrl = "/images/hogar/icons/chair.png" },
 				new Subcategory { Id = 7003, CategoryName = "Hogar", SubCategoryName = "Dormitorio", ImageUrl = "/images/hogar/icons/bedroom.png" },
 				new Subcategory { Id = 7004, CategoryName = "Hogar", SubCategoryName = "Salón", ImageUrl = "/images/hogar/icons/interior-design.png" },
-				new Subcategory { Id = 7005, CategoryName = "Hogar", SubCategoryName = "Bañó", ImageUrl = "/images/hogar/icons/public-toilet.png" },
+				new Subcategory { Id = 7005, CategoryName = "Hogar", SubCategoryName = "Baño", ImageUrl = "/images/hogar/icons/public-toilet.png" },
 				new Subcategory { Id = 7006, CategoryName = "Hogar", SubCategoryName = "Jardín", ImageUrl = "/images/hogar/icons/gardening.png" },
 				new Subcategory { Id = 7007, CategoryName = "Hogar", SubCategoryName = "Iluminación", ImageUrl = "/images/hogar/icons/roof-lamp.png" },
 				new Subcategory { Id = 7008, CategoryName = "Hogar", SubCategoryName = "pequeños electrodomésticos", ImageUrl = "/images/hogar/icons/microwave.png" },

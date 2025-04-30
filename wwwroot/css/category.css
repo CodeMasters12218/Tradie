@@ -2,10 +2,10 @@
     scroll-behavior: smooth;
 }
 
-
+/* NAV BAR */
 .category-navbar {
     position: fixed;
-    top: 65px;
+    top: 60px;
     left: 0;
     right: 0;
     background-color: #000;
@@ -19,8 +19,9 @@
     margin: 0 auto;
     padding: 0 20px;
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    white-space: nowrap;
     gap: 40px;
 }
 
@@ -28,7 +29,7 @@
     color: white;
     text-decoration: none;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 14px;
     transition: all 0.3s ease;
 }
 
@@ -40,12 +41,12 @@
 /* Category Container */
 .subcategory-section {
     margin-bottom: 20px;
-    padding: 10px;
+    padding: 0 0 10px;
     scroll-margin-top: 120px; /* Adjust based on your header height */
 }
 
 .subcategory-title {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 600;
     margin-bottom: 20px;
 }
@@ -120,8 +121,8 @@
     border: none;
     border-radius: 40px;
     text-align: center;
-    width: 220px;
-    height: 220px;
+    width: 200px;
+    height: 200px;
     padding: 20px;
     transition: transform all 0.2s ease;
     background: #b7b7b73d;
@@ -133,13 +134,13 @@
         transition: transform 0.2s ease-in-out;
         opacity: 1;
         background: #f8efa3;
-        text-weight: 600px;
+        font-weight: 600;
         color: black;
     }
 
 
 .subcategory-name {
-    font-size: 16px;
+    font-size: 14px;
     margin-top: 10px;
     text-decoration: none;
     color: #333;
@@ -164,8 +165,8 @@
 
 /* IMAGE */
 .subcategory-image {
-    width: 90px;
-    height: 90px;
+    width: 70px;
+    height: 70px;
     margin-top: 20px;
     object-fit: cover;
     border-radius: 8px;

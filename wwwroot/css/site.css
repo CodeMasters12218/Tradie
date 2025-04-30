@@ -4,7 +4,7 @@ html, body, * {
 
 /* Push content below fixed navbar */
 body {
-    padding-top: 130px; /* 80 (main nav) + 50 (category nav approx) */
+    padding-top: 130px; /* 80 (main nav) + 60 (category nav approx) */
 }
 
 
@@ -18,7 +18,7 @@ body {
 
 h1 {
     font-family: "Poppins", sans-serif;
-    font-size: 60px;
+    font-size: 40px;
     font-weight: 700;
     font-style: normal;
     text-align: left;
@@ -26,7 +26,7 @@ h1 {
 
 h2 {
     font-family: "Poppins", sans-serif;
-    font-size: 40px;
+    font-size: 30px;
     font-weight: 700;
     font-style: normal;
 }
@@ -35,7 +35,7 @@ h3 {
     font-family: "Poppins", sans-serif;
     font-weight: 500;
     font-style: normal;
-    font-size: 16px;
+    font-size: 14px;
     color: #9B9B9B;
     text-align: center;
 }
@@ -49,6 +49,8 @@ h3 {
     z-index: 999;
     background-color: white;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 0.5rem 0rem; /* More compact padding */
+    max-height: 60px;
 }
 
 .navbar-nav .btn {
@@ -57,21 +59,30 @@ h3 {
     border: none;
     background-color: #282828;
     padding: 12px 28px !important;
-    display: inline-block;
+
+    display: flex;
+    align-items: center;
+
+    flex-wrap: nowrap;
+    white-space: nowrap;
 }
 
 .input-group .form-control {
     border-radius: 30px 0 0 30px;
 }
 
-.input group .input-group-text {
+.form-control, .bi-search, .btn {
+    font-size: 14px;
+}
+
+.input-group .input-group-text {
     border-radius: 0 30px 30px 0;
     padding: 0.375rem 0.75rem;
     cursor: pointer;
 }
 
 .navbar .bi-cart3 {
-    font-size: 1.5rem;
+    font-size: 14px;
     color: #000;
 }
 
@@ -90,18 +101,49 @@ h3 {
 }
 
 .navbar-nav .nav-item .nav-link {
-    padding: 0 20px;
+    padding: 0 12px;
+    display: flex;
+    align-items: center; 
+    font-size: 14px;
 }
 
 .navbar-nav .nav-link {
     transition: all 0.3s ease;
     border-radius: 8px;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0.5rem 20px;
+    white-space: nowrap; /* Prevent multi-line */
+    /*overflow: hidden;*/
+    text-overflow: ellipsis;
 }
 
     .navbar-nav .nav-link:hover {
         color: black;
         transform: scale(1.05);
     }
+
+/* Ensure consistent height for all navbar items */
+.navbar .navbar-nav .nav-item,
+.navbar .navbar-nav .nav-link {
+    line-height: 1.5; 
+    margin: 0; 
+}
+
+/* Specific fixes for the search bar alignment */
+.navbar form.d-flex {
+    display: flex;
+    align-items: center;
+}
+
+/* Make sure all interactive elements have the same vertical centering */
+.navbar-nav .btn,
+.navbar-nav .nav-link,
+.navbar form .input-group {
+    display: flex;
+    align-items: center;
+}
 
 /* Login Button */
 .navbar-nav .btn {
@@ -114,3 +156,63 @@ h3 {
         background-color: #141414;
         color: white;
     }
+
+/********** RESPONSIVENSS **************/
+
+/* Medium screens (laptops) */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .navbar-nav .nav-link {
+        padding: 0.5rem 10px; /* Reduced horizontal padding */
+        font-size: 0.9rem; /* Slightly smaller font */
+    }
+
+    .navbar .navbar-brand {
+        font-size: 24px; /* Smaller brand name */
+    }
+
+    .input-group {
+        width: 180px; /* Fixed width for search */
+    }
+
+    /* Compact the search bar a bit */
+    .navbar form.d-flex {
+        margin-right: 10px;
+    }
+}
+
+@media (max-width: 576px) {
+    navbar navbar-expand-sm {
+        padding: 20px 15px;
+    }
+
+    .navbar-collapse {
+        background-color: white;
+        padding: 10px 15px;
+    }
+
+    .navbar-nav .nav-item .nav-link {
+        padding: 6px 10px;
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+    }
+
+    .form-control {
+        margin: 6px 0;
+    }
+
+    .navbar-nav.align-items-center {
+        flex-direction: row !important;
+        justify-content: flex-end;
+        gap: 10px;
+        padding-top: 10px;
+    }
+
+        .navbar-nav.align-items-center .nav-item {
+            margin-bottom: 0; /* Avoid vertical gaps */
+        }
+
+        .navbar-nav.align-items-center .btn {
+            font-size: 15px;
+        }
+}
