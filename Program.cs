@@ -71,7 +71,7 @@ using (var scope = app.Services.CreateScope())
     var adminEmail = "admin@example.com";
     if (await userMgr.FindByEmailAsync(adminEmail) == null)
     {
-        var admin = new User { UserName = "Admin", Email = adminEmail, Name = "Administrador", EmailConfirmed = true };
+        var admin = new User { UserName = adminEmail, Email = adminEmail, Name = "Administrador", EmailConfirmed = true };
         var result = await userMgr.CreateAsync(admin, "Admin123!");
         if (result.Succeeded)
         {

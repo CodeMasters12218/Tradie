@@ -33,8 +33,16 @@ namespace Tradie.Controllers
         {
             if (ModelState.IsValid)
             {
+                var user = await _userMgr.FindByEmailAsync(model.Email);
+
+                if (user == null)
+                {
+                    ModelState.AddModelError("", "El correo o la contraseña son incorrectos.");
+                    return View("~/Views/Login/Login.cshtml", model);
+                }
+
                 var result = await _signInMgr.PasswordSignInAsync(
-                    model.Email,
+                    user.UserName,
                     model.Password,
                     isPersistent: false,
                     lockoutOnFailure: false);
