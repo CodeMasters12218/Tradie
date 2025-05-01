@@ -38,7 +38,7 @@
 
             <button type="button" onclick="toggleMenu('userMenu')">👥Gestión de usuarios</button>
             <dl id="userMenu">
-                <a>-Registro de usuarios</a>
+                <a asp-controller="Users" asp-action="Index">-Registro de usuarios</a>
             </dl>
             <button type="submit" class="Extra">👤+ Roles</button>
             <button type="submit" class="Extra">👤✏️ Permisos</button>
@@ -81,8 +81,9 @@
                                 <td></td>
 							    <td>
 								    <div>
-									    <button type="submit" class="Edit-Button" asp-controller="Users" asp-action="Edit">Editar</button>
-                                        <button type="submit" class="Delete-Button" asp-controller="Users" asp-action="Delete">Eliminar</button>
+                                        <button class="Create-Button" asp-controller="Users" asp-action="Edit">Crear</button>
+									    <button class="Edit-Button" asp-controller="Users" asp-action="Edit">Editar</button>
+                                        <button class="Delete-Button" data-user-id="@u.Id" data-user-name="@u.Name" asp-controller="Users" asp-action="Delete">Eliminar</button>
 								    </div>
 							    </td>
                             </tr>
@@ -92,6 +93,112 @@
             </div>
         </div>
     </div>
-    <script src="~/js/UserManagement.js"></script>
+    <!--Pop ups-->
+    <!--Create user Pop-Up-->
+    <dialog id="CreateUser-PopUp">
+        <div class="User-LabelForm-Container">
+            <div class="Title-Container">
+                <h1 class="UserCreation">Creación de Usuario</h1>
+                <button id="closeCreatePopUp" class="CloseButton">X</button>
+            </div>
+            <div class="User-Form-Container">
+                <!--form-Containers-->
+                <div>
+                    <form class="UserCreation">
+                        <label for="Name-Input">Nombre*</label>
+                        <input type="text" name="Name-Input" />
+                        <label for="EmailAdress-Input">Dirección de correo electrónico*</label>
+                        <input type="text" name="Name-Input" />
+                        <label for="Age-Input">Edad*</label>
+                        <input type="number" name="Age-Input" />
+                        <label for="Phone-Input">Número de telefono*</label>
+                        <input type="number" name="Phone-Input" />
+                    </form>
+                </div>
+                <div>
+                    <form class="UserCreation" asp-controller="Users" asp-action="Create">
+                        <label for="LastNames-Input">Apellidos*</label>
+                        <input type="text" name="LastNames-Input" />
+                        <label for="Password-Input">Contraseña*</label>
+                        <input type="password" name="Password-Input" />
+                        <label for="Address-Input">Dirección*</label>
+                        <input type="text" name="Address-Input" />
+                        <label for="Role-Input">Rol*</label>
+                        <select>
+                            <option value="Customer">Cliente</option>
+                            <option value="Seller">Proveedor</option>
+                            <option value="Admin">Administrador</option>
+                        </select>
+                        <!--Create button-->
+                        <div class="Create-Button-Container">
+                            <button type="submit" class="Create-User" id="confirmCreate">Crear usuario</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </dialog>
+    <!--Create user Pop-Up-->
+    <dialog id="EditUser-PopUp">
+        <div class="User-LabelForm-Container">
+            <div class="Title-Container">
+                <h1 class="UserCreation">Modificación de Usuario</h1>
+                <button id="closeEditPopUp" class="CloseButton">X</button>
+            </div>
+            <div class="User-Form-Container">
+                <!--form-Containers-->
+                <div>
+                    <form class="UserCreation">
+                        <label for="Name-Input">Nombre</label>
+                        <input type="text" name="Name-Input" />
+                        <label for="EmailAdress-Input">Dirección de correo electrónico</label>
+                        <input type="text" name="Name-Input" />
+                        <label for="Age-Input">Edad</label>
+                        <input type="number" name="Age-Input" />
+                        <label for="Phone-Input">Número de telefono</label>
+                        <input type="number" name="Phone-Input" />
+                    </form>
+                </div>
+                <div>
+                    <form class="UserCreation">
+                        <label for="LastNames-Input">Apellidos</label>
+                        <input type="text" name="LastNames-Input"/>
+                        <label for="Password-Input">Contraseña</label>
+                        <input type="password" name="Password-Input" />
+                        <label for="Address-Input">Dirección</label>
+                        <input type="text" name="Address-Input" />
+                        <label for="Role-Input">Rol</label>
+                        <select>
+                            <option value="Customer">Cliente</option>
+                            <option value="Seller">Proveedor</option>
+                            <option value="Admin">Administrador</option>
+                        </select>
+                        <!--Edit button-->
+                        <div class="Create-Button-Container">
+                            <button type="submit" class="Create-User" id="confirmEdit">Modificar usuario</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </dialog>
+    <dialog id="DeleteUser-PopUp" class="Delete-Container">
+        <h1 class="Delete-User">Confirmación de eliminación de usuario</h1>
+        <p class="Delete-User">&iquest;Est&aacute;s seguro de que quieres eliminar este usuario?</p>
+        <div class="User-Delete-PopUp">
+            <div class="User-Container-Name">
+                <h3 id="deleteUserNameMessage"></h3>
+                <p id="deleteUserIdMessage"></p>
+            </div>
+        </div>
+        <form method="post" asp-controller="Users" asp-action="Delete">
+            <input type="hidden" id="deleteUserId" name="id" value="" />
+            <div class="Delete-Button-Container">
+                <button type="submit" id="confirmDelete" class="Confirm-Delete-Button">Confirmar</button>
+                <button type="button" id="closeDeletePopUp" class="Close-Delete-Button">Cancelar</button>
+            </div>
+        </form>
+    </dialog>
+    <script src="~/js/UserManagement.js" asp-append-version="true"></script>
 </body>
 </html>

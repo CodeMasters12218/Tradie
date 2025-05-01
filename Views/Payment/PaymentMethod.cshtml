@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment method page</title>
+    <link rel="stylesheet" href="~/css/Pago.css">
+    <link href="https://fonts.googleapis.com/css2?family=Murecho:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="Main-Container">
+        <div class="Container-Container">
+            <div class="Button-Container">
+                <button type="submit" class="Second-View-First-Button">1 Detalle de la entrega</button>
+                <button type="submit" class="Second-View-Second-Button">2 Método de pago</button>
+                <button type="submit" class="Second-View-Third-Button">3 Resumen del pedido</button>
+            </div>
+            <div class="Form-Container-Payment2">
+                <div>
+                    <h1>Forma de Pago</h1>
+                </div>
+                <div class="Change-Method-Container">
+                    <button class="Change-Method-Button">Tarjeta de crédito o débito</button>
+                    <button class="Change-Method-Button-NonActive">Pagar con PayPal</button>
+                    <button class="Change-Method-Button-NonActive">Pagar con Google Pay</button>
+                </div>
+                <div class="Main-Country-Container">
+                    <div class="Country-Container">
+                        <label for="payoneerInput">Titular de la tarjeta</label>
+                        <input type="text" name="payoneerInput" class="Country" placeholder="Introduce al titular de la tarjeta">
+                        <label for="cardNumber">Número de la tarjeta</label>
+                        <input type="number" maxlength="16" minlength="16" name="cardNumber" class="Country" placeholder="XXXX-XXXX-XXXX-XXXX">
+                    </div>
+                </div>
+                <div class="Card-Atributes-Container">
+                    <div class="Card-Atributes">
+                        <label for="expirationDate">Fecha de caducidad</label>
+                        <input type="date" name="expirationDate" placeholder="XX/XX/XXXX">
+                    </div>
+                    <div class="Card-Atributes">
+                        <label for="cvc">CVC</label>
+                        <input type="number" minlength="3" maxlength="3" name="cvc" placeholder="XXX">
+                    </div>
+                </div>
+                <div class="Checkbox-Container">
+                    <div class="Checkbox">
+                        <input type="checkbox" name="markAsmMainCard" class="Checkbox-Input">
+                        <label for="markAsmMainCard" class="Checkbox-Label">Marcar como tarjeta principal</label>
+                    </div>
+                    <div class="Checkbox">
+                        <input type="checkbox" name="keepPaymentData" class="Checkbox-Input">
+                        <label for="keepPaymentData" class="Checkbox-Label">Guardar los datos de pago para las compras en el futuro</label>
+                    </div>
+                </div>
+                <div class="Payment-Container">
+                    <button type="submit" class="Payment-Button">Ver Resumen del pedido</button>
+                </div>
+            </div>
+        </div>
+        <div class="Price-Container">
+            <h2>Resumen</h2>
+            <div class="Container">
+                <div class="p-Container">
+                    <p>Subtotal</p>
+                    <p>Envío</p>
+                    <p>Estimación total:</p>
+                </div>
+                <div class="p-Container">
+                    <p>154.75€</p>
+                    <p>4.00€</p>
+                    <p>203.92€</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

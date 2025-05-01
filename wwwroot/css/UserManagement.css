@@ -40,8 +40,8 @@ div button:hover {
 }
 
 .sidebar-Container {
-    width: 200px; /* Ancho fijo */
-    flex-shrink: 0; /* Previene que se reduzca más allá de este ancho */
+    width: 200px; 
+    flex-shrink: 0; 
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -50,11 +50,11 @@ div button:hover {
 }
 
 .CRUD_Container {
-    flex-grow: 1; /* Ocupa todo el espacio restante */
+    flex-grow: 1; 
     background-color: #f6f6f6;
-    height: 710px; /* Ajusta según tus necesidades */
+    height: 710px; 
     padding: 20px;
-    overflow-x: auto; /* Maneja tablas grandes con desplazamiento horizontal */
+    overflow-x: auto; 
 }
 
 
@@ -82,16 +82,16 @@ h1{
 }
 
 table {
-    width: 100%; /* Ajusta el ancho al contenedor */
-    max-width: 100%; /* Previene desbordes */
+    width: 100%;
+    max-width: 100%; 
     border-collapse: collapse;
 }
 
 td, th {
-    padding: 10px; /* Reduce los espacios internos */
-    text-align: center; /* Centra el texto */
-    font-size: 14px; /* Tamaño más compacto */
-    word-wrap: break-word; /* Divide palabras largas si es necesario */
+    padding: 10px;
+    text-align: center; 
+    font-size: 14px; 
+    word-wrap: break-word; 
 }
 
 
@@ -131,6 +131,15 @@ td.Action{
     padding-right: 150px;
 }
 
+.Create-Button {
+    background-color: #70D3C3;
+    color: white;
+    text-align: center;
+    border: none;
+    border-radius: 10px;
+    padding: 5px 5px;
+    cursor: pointer;
+}
 .Edit-Button {
     background-color: #97B2CA;
     color: white;
@@ -149,4 +158,159 @@ td.Action{
     border-radius: 10px;
     padding: 5px 5px;
     cursor: pointer;
+}
+
+.Confirm-Delete-Button{
+    background-color: #FB8181;
+    color: white;
+    text-align: center;
+    border: none;
+    border-radius: 10px;
+    padding: 5px 5px;
+    cursor: pointer;
+}
+
+dialog {
+    border-radius: 10px;
+    border: 1px solid black;
+    background-color: #EDEDED;
+    padding: 50px;
+}
+
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/*Users creation Pop-up*/
+div.User-LabelForm-Container {
+    display: flex;
+    flex-direction: column;
+}
+
+h1.UserCreation {
+    font-family: 'Murecho', sans-serif;
+    font-weight: 550;
+    font-size: 35px;
+}
+
+label {
+    font-family: 'Murecho', sans-serif;
+    font-weight: 600;
+    padding-bottom: 10px;
+    padding-top: 30px;
+}
+
+input {
+    border-radius: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 100px;
+}
+
+select {
+    border-radius: 5px;
+    border: 2px solid black;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 100px;
+}
+
+div.Title-Container{
+    display: flex;
+    flex-direction: row;
+    gap: 290px;
+}
+
+div.User-Form-Container {
+    display: flex;
+    flex-direction: row;
+    gap: 80px;
+    justify-content: center;
+}
+
+form.UserCreation {
+    display: flex;
+    flex-direction: column;
+}
+
+div.Create-Button-Container {
+    display: flex;
+    justify-content: end;
+    padding-top: 20px;
+}
+
+button.Create-User {
+    background-color: #70D3C3;
+    font-family: 'Murecho', sans-serif;
+    font-weight: 500;
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 10px 30px;
+}
+
+button.CloseButton{
+    background-color: white;
+    border-radius: 5px;
+    justify-content: center;
+    text-align: center;
+    width: 50px;
+    font-size: 30px;
+    font-weight: 500;
+}
+
+/*Delete user Pop-Up*/
+.Delete-Container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+h1.Delete-User {
+    font-family: 'Murecho', sans-serif;
+    font-weight: 550;
+    font-size: 35px;
+}
+
+p.Delete-User {
+    font-family: 'Murecho', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    padding-left: 100px;
+}
+
+div.Delete-Button-Container {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+    gap: 30px;
+}
+
+div.User-Delete-PopUp {
+    display: flex;
+    background-color: #DFDFDF;
+    border-radius: 10px;
+    border: 1px solid black;
+    margin-right: 100px;
+    margin-left: 100px;
+    justify-content:center;
+}
+
+div.User-Container-Name {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+.Close-Delete-Button {
+    background-color: white;
+    border-radius: 10px;
+    justify-content: center;
+    text-align: center;
+    width: 200px;
+    font-size: 20px;
+    font-weight: 500;
 }

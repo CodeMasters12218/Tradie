@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment details page</title>
+    <link rel="stylesheet" href="~/css/Pago.css">
+    <link href="https://fonts.googleapis.com/css2?family=Murecho:wght@400&display=swap" rel="stylesheet">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="Main-Container">
+        <div class="Container-Container">
+            <div class="Button-Container">
+                <button type="submit" class="First-Button">1 Detalle de la entrega</button>
+                <button type="submit" class="Second-Button">2 Método de pago</button>
+                <button type="submit" class="Third-Button">3 Resumen del pedido</button>
+            </div>
+            <div class="Form-Container">
+                <div>
+                    <h1>Detalles de la entrega</h1>
+                </div>
+                <div class="Primary-Inputs-Container">
+                    <!--Container for inputs-->
+                    <div class="Primary-Inputs">
+                        <label for="nameInput">Nombre</label>
+                        <input type="text" name="nameInput" placeholder="Introduce tu nombre">
+                        <label for="emailAddressInput">Correo electrónico</label>
+                        <input type="email" name="emailAddressInput" placeholder="Introduce tu correo electrónico">
+                    </div>
+                    <!--Container for inputs-->
+                    <div class="Primary-Inputs">
+                        <label for="LastNamesInput">Apellidos</label>
+                        <input type="text" name="LastNamesInput" placeholder="Introduce tus apellidos">
+                        <label for="phoneInput">Teléfono</label>
+                        <input type="number" name="PhoneInput" placeholder="Introduce tu número de telefono o móvil">
+                    </div>
+                </div>
+                <!--Other inputs-->
+                <div class="Main-Country-Container">
+                    <div class="Country-Container">
+                        <label for="addressInput">Dirección</label>
+                        <input type="text" name="addressInput" class="Country" placeholder="Introduce tu dirección">
+                        <label for="countryInput">País</label>
+                        <input type="text" name="countryInput" class="Country" placeholder="Introduce tu país">
+                    </div>
+                </div>
+                <div class="City-Container">
+                    <div class="Area-Container">
+                        <label for="cityInput">Ciudad</label>
+                        <input type="text" name="cityInput" class="Area" placeholder="Introduce tu ciudad">
+                    </div>
+                    <div class="Area-Container">
+                        <label for="areaInput">Región</label>
+                        <input type="text" name="areaInput" class="Area" placeholder="Región">
+                    </div>
+                    <div class="Area-Container">
+                        <label for="postalInput">Código postal</label>
+                        <input type="text" name="postalInput" class="Area" placeholder="Introduce tu código postal">
+                    </div>
+                </div>
+                <div class="Note-Container">
+                    <div class="Note">
+                        <label for="note">Nota del pedido:</label>
+                        <input type="text" name="note" class="Note" placeholder="No va el timbre llamame por telefono...">
+                    </div>
+                </div>
+                <div class="Payment-Container">
+                    <button type="submit" class="Payment-Button">Proceder al pago</button>
+                </div>
+            </div>
+        </div>
+        <div class="Price-Container">
+            <h2>Resumen</h2>
+            <div class="Container">
+                <div class="p-Container">
+                    <p>Subtotal</p>
+                    <p>Envío</p>
+                    <p>Estimación total:</p>
+                </div>
+                <div class="p-Container">
+                    <p>154.75€</p>
+                    <p>4.00€</p>
+                    <p>203.92€</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

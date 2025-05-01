@@ -8,7 +8,7 @@ using Tradie.Models.Users;
 
 namespace Tradie.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class UsersController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -41,11 +41,6 @@ namespace Tradie.Controllers
             return View(user);
         }
 
-        public IActionResult Create()
-        {
-            return View();
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(User user)
@@ -57,7 +52,9 @@ namespace Tradie.Controllers
                 TempData["Message"] = "Usuario creado exitosamente.";
                 return RedirectToAction(nameof(Index));
             }
-            return View(user);
+
+            TempData["Error"] = "Hubo un problema al crear el usuario. Por favor, verifica los datos ingresados.";
+            return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> Edit(int? id)
