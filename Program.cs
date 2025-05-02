@@ -83,6 +83,23 @@ using (var scope = app.Services.CreateScope())
                 Console.WriteLine($"ERROR creando admin: {e.Code} / {e.Description}");
         }
     }
+
+  
+    var sellerEmail = "seller@example.com";
+    if (await userMgr.FindByEmailAsync(sellerEmail) == null)
+    {
+        var seller = new Seller
+        {
+            UserName = sellerEmail,
+            Email = sellerEmail,
+            Name = "Vendedor",
+            EmailConfirmed = true
+        };
+        var resSeller = await userMgr.CreateAsync(seller, "Seller123!");
+        if (resSeller.Succeeded)
+            await userMgr.AddToRoleAsync(seller, "Seller");
+    }
+
 }
 
 app.Run();

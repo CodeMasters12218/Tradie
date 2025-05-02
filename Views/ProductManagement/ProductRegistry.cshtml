@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Tradie.Models.Products.Product>
+﻿@model Tradie.Models.Products.ProductRegistryViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
     ViewData["Title"] = "Product Management Page";
@@ -42,9 +43,9 @@
                            style="max-width: 250px;" />
                     <button type="submit" class="btn btn-outline-secondary ms-2">🔍</button>
                 </form>
-                <a href="@Url.Action("Create", "Products")" class="btn btn-success">
+                <button class="btn btn-success" onclick="openModal('addProductModal')">
                     + Agregar producto
-                </a>
+                </button>
             </div>
         </div>
 
@@ -60,7 +61,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var p in Model)
+                    @foreach (var p in Model.Products)
                     {
                         <tr>
                             <td>
@@ -70,7 +71,7 @@
                                          alt="@p.Name" />
                                     <div>
                                         <div class="fw-semibold">@p.Name</div>
-                                        <div class="text-muted small">#ID@p.Id</div>
+                                        <div class="text-muted small">#ID @p.Id</div>
                                     </div>
                                 </div>
                             </td>
@@ -87,23 +88,172 @@
                                 }
                             </td>
                             <td>
-                                <a asp-controller="Products" asp-action="Edit"
-                                   asp-route-id="@p.Id"
-                                   class="btn btn-sm btn-primary me-2">
+                                <button type="button"
+                                        class="btn btn-sm btn-primary me-2"
+                                        onclick="openEditModal(
+                                            @p.Id,
+                                            '@p.Name.Replace("'", "\\'")',
+                                            @p.Price,
+                                            @p.Stock,
+                                            '@(p.Subcategory?.Replace("'", "\\'") ?? string.Empty)',
+                                            '@(p.ImageUrl?.Replace("'", "\\'") ?? string.Empty)',
+                                            '@p.Description.Replace("'", "\\'")'
+                                        )">
                                     Editar
-                                </a>
-                                <a asp-controller="Products" asp-action="Delete"
-                                   asp-route-id="@p.Id"
-                                   class="btn btn-sm btn-danger">
+                                </button>
+
+                                <button type="button"
+                                        class="btn btn-sm btn-danger"
+                                        onclick="confirmDelete(@p.Id)">
                                     Eliminar
-                                </a>
+                                </button>
                             </td>
                         </tr>
                     }
                 </tbody>
             </table>
         </div>
+
+        <!-- Modal de Alta -->
+        <div class="modal-overlay" id="addProductModal" style="display:none;">
+            <div class="modal-content p-4 rounded shadow-lg bg-white position-relative">
+                <button class="btn-close position-absolute top-0 end-0 m-3"
+                        onclick="closeModal('addProductModal')"></button>
+                <h4>Añadir Nuevo Producto</h4>
+
+                <form asp-action="ProductRegistry" method="post">
+                    @Html.AntiForgeryToken()
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label asp-for="NewProduct.Name" class="form-label">Nombre</label>
+                                <input asp-for="NewProduct.Name" class="form-control" />
+                                <span asp-validation-for="NewProduct.Name" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="NewProduct.Price" class="form-label">Precio</label>
+                                <input asp-for="NewProduct.Price" class="form-control" />
+                                <span asp-validation-for="NewProduct.Price" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="NewProduct.Stock" class="form-label">Stock</label>
+                                <input asp-for="NewProduct.Stock" class="form-control" />
+                                <span asp-validation-for="NewProduct.Stock" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="NewProduct.Subcategory" class="form-label">Subcategoría</label>
+                                <input asp-for="NewProduct.Subcategory" class="form-control" />
+                                <span asp-validation-for="NewProduct.Subcategory" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label asp-for="NewProduct.ImageUrl" class="form-label">URL Imagen</label>
+                                <input asp-for="NewProduct.ImageUrl" class="form-control" />
+                                <span asp-validation-for="NewProduct.ImageUrl" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="NewProduct.Description" class="form-label">Descripción</label>
+                                <textarea asp-for="NewProduct.Description" class="form-control"></textarea>
+                                <span asp-validation-for="NewProduct.Description" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-primary">
+                            Guardar Producto
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </section>
+
+    <!-- Modal de Edición -->
+    <div class="modal-overlay" id="editProductModal" style="display:none;">
+        <div class="modal-content p-4 rounded shadow-lg bg-white position-relative" style="max-width:600px;">
+            <button class="btn-close position-absolute top-0 end-0 m-3" onclick="closeModal('editProductModal')"></button>
+            <h4>Editar Producto</h4>
+            <form asp-controller="ProductManagement" asp-action="EditProduct" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="NewProduct.Id" id="editProductId" />
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label asp-for="NewProduct.Name" class="form-label">Nombre</label>
+                            <input asp-for="NewProduct.Name" class="form-control" id="editProductName" />
+                            <span asp-validation-for="NewProduct.Name" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="NewProduct.Price" class="form-label">Precio</label>
+                            <input asp-for="NewProduct.Price" class="form-control" id="editProductPrice" />
+                            <span asp-validation-for="NewProduct.Price" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="NewProduct.Stock" class="form-label">Stock</label>
+                            <input asp-for="NewProduct.Stock" class="form-control" id="editProductStock" />
+                            <span asp-validation-for="NewProduct.Stock" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label asp-for="NewProduct.Subcategory" class="form-label">Subcategoría</label>
+                            <input asp-for="NewProduct.Subcategory" class="form-control" id="editProductSubcategory" />
+                            <span asp-validation-for="NewProduct.Subcategory" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="NewProduct.ImageUrl" class="form-label">URL Imagen</label>
+                            <input asp-for="NewProduct.ImageUrl" class="form-control" id="editProductImageUrl" />
+                            <span asp-validation-for="NewProduct.ImageUrl" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="NewProduct.Description" class="form-label">Descripción</label>
+                            <textarea asp-for="NewProduct.Description" class="form-control" id="editProductDescription"></textarea>
+                            <span asp-validation-for="NewProduct.Description" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-end">
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmación de Eliminación -->
+    <div class="modal-overlay" id="deleteProductModal" style="display:none;">
+        <div class="modal-content p-4 rounded shadow-lg bg-white position-relative" style="max-width:500px;">
+            <button class="btn-close position-absolute top-0 end-0 m-3" onclick="closeModal('deleteProductModal')"></button>
+            <h5>Confirmar eliminación</h5>
+            <p>¿Estás seguro de que deseas borrar este producto?</p>
+            <form asp-controller="ProductManagement" asp-action="DeleteProduct" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="id" id="deleteProductId" />
+                <div class="text-end">
+                    <button type="button" class="btn btn-outline-secondary me-2" onclick="closeModal('deleteProductModal')">Cancelar</button>
+                    <button type="submit" class="btn btn-danger">Borrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 <script src="~/js/admin.js" asp-append-version="true"></script>
+<script>
+    function openEditModal(id, name, price, stock, subcategory, imageUrl, description) {
+        document.getElementById('editProductId').value = id;
+        document.getElementById('editProductName').value = name;
+        document.getElementById('editProductPrice').value = price;
+        document.getElementById('editProductStock').value = stock;
+        document.getElementById('editProductSubcategory').value = subcategory;
+        document.getElementById('editProductImageUrl').value = imageUrl;
+        document.getElementById('editProductDescription').value = description;
+        document.getElementById('editProductModal').style.display = 'block';
+    }
+    function confirmDelete(id) {
+        document.getElementById('deleteProductId').value = id;
+        document.getElementById('deleteProductModal').style.display = 'block';
+    }
+</script>

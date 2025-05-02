@@ -7,6 +7,12 @@ namespace Tradie.Models.Products
 {
     public class Product
     {
+      public Product()
+        {
+            Reviews = new List<Review>();
+            OrderItems = new List<OrderItem>();
+        }
+        
         public int Id { get; set; }
 
         [Required(ErrorMessage = "El nombre es obligatorio.")]
@@ -17,7 +23,6 @@ namespace Tradie.Models.Products
         [Range(0.01, 1000000)]
 		public string? Subcategory { get; set; }
 		public decimal Price { get; set; }
-        [Required]
         public Seller? Seller { get; set; }
         public int SellerId { get; set; }
 		public string? ImageUrl { get; set; }
