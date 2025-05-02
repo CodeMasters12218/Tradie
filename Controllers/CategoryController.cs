@@ -1,19 +1,23 @@
 using System.Diagnostics;
 using System.Xml.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Tradie.Data;
 using Tradie.Models;
 using Tradie.Models.Products;
 
 namespace Tradie.Controllers
 {
-    public class CategoryController : Controller
-    {
-        private readonly ILogger<CategoryController> _logger;
+	public class CategoryController : Controller
+	{
+		private readonly ILogger<CategoryController> _logger;
+		private readonly ApplicationDbContext _context;
 
-        public CategoryController(ILogger<CategoryController> logger)
-        {
-            _logger = logger;
-        }
+		public CategoryController(ILogger<CategoryController> logger, ApplicationDbContext context)
+		{
+			_logger = logger;
+			_context = context;
+		}
 
 		public IActionResult Category()
 		{
@@ -35,8 +39,8 @@ namespace Tradie.Controllers
 				new Subcategory { Id = 2005, CategoryName = "Ropa de Mujeres", SubCategoryName = "Mochilas", ImageUrl = "/images/ropa_mujer/icons/handbag.png" },
 				new Subcategory { Id = 2006, CategoryName = "Ropa de Mujeres", SubCategoryName = "Acesorios", ImageUrl = "/images/ropa_mujer/icons/women_accessories.png" },
 				new Subcategory { Id = 2007, CategoryName = "Ropa de Mujeres", SubCategoryName = "Sudaderas", ImageUrl = "/images/ropa_mujer/icons/sweater.png" },
-				new Subcategory { Id = 2007, CategoryName = "Ropa de Mujeres", SubCategoryName = "Vestidos", ImageUrl = "/images/ropa_mujer/icons/dress.png" },
-				new Subcategory { Id = 2007, CategoryName = "Ropa de Mujeres", SubCategoryName = "Fiesta", ImageUrl = "/images/ropa_mujer/icons/wedding-dress.png" },
+				new Subcategory { Id = 2008, CategoryName = "Ropa de Mujeres", SubCategoryName = "Vestidos", ImageUrl = "/images/ropa_mujer/icons/dress.png" },
+				new Subcategory { Id = 2009, CategoryName = "Ropa de Mujeres", SubCategoryName = "Fiesta", ImageUrl = "/images/ropa_mujer/icons/wedding-dress.png" },
 
 				new Subcategory { Id = 3001, CategoryName = "Electrónica", SubCategoryName = "Camarás", ImageUrl = "/images/electronica/icons/camera.png" },
 				new Subcategory { Id = 3002, CategoryName = "Electrónica", SubCategoryName = "Móviles", ImageUrl = "/images/electronica/icons/mobile-phone.png" },
@@ -45,13 +49,13 @@ namespace Tradie.Controllers
 				new Subcategory { Id = 3005, CategoryName = "Electrónica", SubCategoryName = "Instrumentos musicales", ImageUrl = "/images/electronica/icons/live-music.png" },
 				new Subcategory { Id = 3006, CategoryName = "Electrónica", SubCategoryName = "Wi-fi", ImageUrl = "/images/electronica/icons/wifi.png" },
 
-				new Subcategory { Id = 4001, CategoryName = "Infromática", SubCategoryName = "Portátiles", ImageUrl = "/images/informatica/icons/laptop.png" },
-				new Subcategory { Id = 4002, CategoryName = "Infromática", SubCategoryName = "Tablets", ImageUrl = "/images/informatica/icons/tablet.png" },
-				new Subcategory { Id = 4003, CategoryName = "Infromática", SubCategoryName = "Sobremesas", ImageUrl = "/images/informatica/icons/computer.png" },
-				new Subcategory { Id = 4004, CategoryName = "Infromática", SubCategoryName = "Gaming", ImageUrl = "/images/informatica/icons/gaming.png" },
-				new Subcategory { Id = 4005, CategoryName = "Infromática", SubCategoryName = "Monitores", ImageUrl = "/images/informatica/icons/monitor.png" },
-				new Subcategory { Id = 4006, CategoryName = "Infromática", SubCategoryName = "Componentes", ImageUrl = "/images/informatica/icons/motherboard.png" },
-				new Subcategory { Id = 4007, CategoryName = "Infromática", SubCategoryName = "Software", ImageUrl = "/images/informatica/icons/software.png" },
+				new Subcategory { Id = 4001, CategoryName = "Informática", SubCategoryName = "Portátiles", ImageUrl = "/images/informatica/icons/laptop.png" },
+				new Subcategory { Id = 4002, CategoryName = "Informática", SubCategoryName = "Tablets", ImageUrl = "/images/informatica/icons/tablet.png" },
+				new Subcategory { Id = 4003, CategoryName = "Informática", SubCategoryName = "Sobremesas", ImageUrl = "/images/informatica/icons/computer.png" },
+				new Subcategory { Id = 4004, CategoryName = "Informática", SubCategoryName = "Gaming", ImageUrl = "/images/informatica/icons/gaming.png" },
+				new Subcategory { Id = 4005, CategoryName = "Informática", SubCategoryName = "Monitores", ImageUrl = "/images/informatica/icons/monitor.png" },
+				new Subcategory { Id = 4006, CategoryName = "Informática", SubCategoryName = "Componentes", ImageUrl = "/images/informatica/icons/motherboard.png" },
+				new Subcategory { Id = 4007, CategoryName = "Informática", SubCategoryName = "Software", ImageUrl = "/images/informatica/icons/software.png" },
 
 				new Subcategory { Id = 5001, CategoryName = "Kids & Toys", SubCategoryName = "Juguetes", ImageUrl = "/images/kids_toys/icons/bricks.png" },
 				new Subcategory { Id = 5002, CategoryName = "Kids & Toys", SubCategoryName = "Juegos", ImageUrl = "/images/kids_toys/icons/board-game.png" },
@@ -108,7 +112,7 @@ namespace Tradie.Controllers
 			return View(viewModel);
 		}
 
-		[Route("category/{name}/{subcategory}")]
+		[Route("Category{name}/{subcategory}")]
 		public IActionResult Subcategory(string name, string subcategory)
 		{
 			var products = Enumerable.Range(1, 20).Select(i => new Product
@@ -128,12 +132,38 @@ namespace Tradie.Controllers
 			return View(products);
 		}
 
+		// Details action to handle product details directly
+		[Route("Category{name}/{subcategory}/{id}")]
+		public IActionResult Details(string name, string subcategory, int id)
+		{
+			// First try to get product from database
+			var product = _context.Products
+				.Include(p => p.Reviews)
+				.FirstOrDefault(p => p.Id == id);
+
+			// If not found in database, generate a sample product
+			if (product == null)
+			{
+				product = new Product
+				{
+					Id = id,
+					Name = $"Producto de ejemplo {id}",
+					Description = "Esta es una descripción detallada del producto. Incluye características, beneficios y otros detalles importantes.",
+					Price = 20 + id,
+					ImageUrl = id % 2 == 0 ? "/images/tshirt1.png" : "/images/tshirt2.png",
+					Stock = 10 + id,
+					Reviews = new List<Review>() // Initialize empty reviews
+				};
+			}
+
+			return View("~/Views/Product/Product.cshtml", product);
+		}
 
 
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-    }
+		public IActionResult Error()
+		{
+			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+		}
+	}
 }

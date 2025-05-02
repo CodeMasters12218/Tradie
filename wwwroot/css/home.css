@@ -61,6 +61,7 @@ h1 {
     height: 40px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.15);
     display: flex;
+    padding: 10px;
     align-items: center;
     justify-content: center;
     transition: background-color 0.3s;

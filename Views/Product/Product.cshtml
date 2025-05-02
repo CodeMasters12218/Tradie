@@ -1,24 +1,25 @@
 ﻿@model Tradie.Models.Products.Product
 
 @{
-    ViewData["Title"] = "Product Page";
+    ViewData["Title"] = "Product Details Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <link rel="stylesheet" href="~/css/product-details.css" />
+<link rel="stylesheet" href="~/css/subcategory.css" />
 
 <!-- Category Navbar -->
 <nav class="category-navbar">
     <div class="container category-nav-container">
-        <a href="#ropa-de-hombres" class="category-nav-link">Ropa de Hombres</a>
-        <a href="#ropa-de-mujeres" class="category-nav-link">Ropa de Mujeres</a>
-        <a href="#electrónica" class="category-nav-link">Electrónica</a>
-        <a href="#infromática" class="category-nav-link">Informática</a>
-        <a href="#kids-toys" class="category-nav-link">Kids & Toys</a>
-        <a href="#oficina" class="category-nav-link">Oficina</a>
-        <a href="#hogar" class="category-nav-link">Hogar</a>
-        <a href="#libros" class="category-nav-link">Libros</a>
-        <a href="#videojuegos" class="category-nav-link">Videojuegos</a>
+        <a href="/Category/Category#ropa-de-hombres" class="category-nav-link">Ropa de Hombres</a>
+        <a href="/Category/Category#ropa-de-mujeres" class="category-nav-link">Ropa de Mujeres</a>
+        <a href="/Category/Category#electrónica" class="category-nav-link">Electrónica</a>
+        <a href="/Category/Category#informática" class="category-nav-link">Informática</a>
+        <a href="/Category/Category#kids-toys" class="category-nav-link">Kids & Toys</a>
+        <a href="/Category/Category#oficina" class="category-nav-link">Oficina</a>
+        <a href="/Category/Category#hogar" class="category-nav-link">Hogar</a>
+        <a href="/Category/Category#libros" class="category-nav-link">Libros</a>
+        <a href="/Category/Category#videojuegos" class="category-nav-link">Videojuegos</a>
     </div>
 </nav>
 
@@ -26,8 +27,10 @@
     <!-- LEFT COLUMN -->
     <div class="product-left-column">
         <div class="image-container">
+            <!-- Image -->
             <img src="@Model.ImageUrl" alt="@Model.Name" class="product-image" />
 
+            
             <!-- Favorite Button -->
             <button class="favorite-btn" onclick="toggleHeart(this)">
                 <i class="bi bi-heart"></i>
@@ -36,14 +39,14 @@
 
         <!-- Quantity Selector -->
         <div class="quantity-selector">
-            <button class="quantity-btn">-</button>
+            <button class="quantity-btn-minus">-</button>
             <span class="quantity-display">01</span>
-            <button class="quantity-btn">+</button>
+            <button class="quantity-btn-plus">+</button>
         </div>
 
         <!-- Add to Cart -->
         <button class="add-to-cart-btn" onclick="toggleCart(this)">
-            <i class="bi bi-cart"></i> Añadir a la cesta
+            Añadir a la cesta <i class="bi bi-cart"></i>
         </button>
     </div>
 
