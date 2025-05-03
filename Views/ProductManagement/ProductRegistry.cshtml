@@ -10,6 +10,8 @@
 
 <link rel="stylesheet" href="~/css/adminproduct.css" />
 
+<button class="mobile-nav-toggle" onclick="toggleSidebar()">☰ Menú</button>
+
 <div class="admin-dashboard d-flex">
     <!-- Sidebar -->
     <aside class="sidebar p-4">
@@ -289,5 +291,10 @@
     function confirmDelete(id) {
         document.getElementById('deleteProductId').value = id;
         document.getElementById('deleteProductModal').style.display = 'block';
+    }
+
+    function toggleSidebar() {
+        const sidebar = document.querySelector('.sidebar');
+        sidebar.classList.toggle('active');
     }
 </script>
