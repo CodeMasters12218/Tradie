@@ -23,7 +23,7 @@ namespace Tradie.Models.Products
         [Range(0.01, 1000000)]
 		public string? Subcategory { get; set; }
 		public decimal Price { get; set; }
-        public Seller? Seller { get; set; }
+        public User? Seller { get; set; }
         public int SellerId { get; set; }
 		public string? ImageUrl { get; set; }
 		public int Stock { get; set; }

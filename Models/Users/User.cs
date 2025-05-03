@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
+using Tradie.Models.Products;
 
 namespace Tradie.Models.Users
 {
@@ -33,6 +34,7 @@ namespace Tradie.Models.Users
         [Required(ErrorMessage = "El teléfono es obligatorio.")]
         [DataType(DataType.PhoneNumber)]
         public int Phone { get; set; }*/
+        public List<Product> Products { get; set; } = new List<Product>();
 
     }
 

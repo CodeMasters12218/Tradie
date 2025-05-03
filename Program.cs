@@ -12,6 +12,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString)); 
 
+
 builder.Services
     .AddIdentity<User, IdentityRole<int>>(options =>
     {
@@ -59,7 +60,7 @@ using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     dbContext.Database.EnsureCreated();
-    
+
     var roleMgr = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<int>>>();
     var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
 
@@ -69,22 +70,40 @@ using (var scope = app.Services.CreateScope())
             await roleMgr.CreateAsync(new IdentityRole<int>(role));
 
     var adminEmail = "admin@example.com";
-    if (await userMgr.FindByEmailAsync(adminEmail) == null)
+    var existing = await userMgr.FindByEmailAsync(adminEmail);
+
+    if (existing == null)
     {
-        var admin = new User { UserName = adminEmail, Email = adminEmail, Name = "Administrador", EmailConfirmed = true };
-        var result = await userMgr.CreateAsync(admin, "Admin123!");
-        if (result.Succeeded)
+        var admin = new Admin
         {
+            UserName = adminEmail,
+            Email = adminEmail,
+            Name = "Administrador",
+            EmailConfirmed = true
+        };
+        var createRes = await userMgr.CreateAsync(admin, "Admin123!");
+        if (createRes.Succeeded)
             await userMgr.AddToRoleAsync(admin, "Admin");
-        }
         else
-        {
-            foreach (var e in result.Errors)
+            foreach (var e in createRes.Errors)
                 Console.WriteLine($"ERROR creando admin: {e.Code} / {e.Description}");
-        }
+    }
+    else
+    {
+        var entry = dbContext.Entry(existing);
+        entry.Property("UserType").CurrentValue = nameof(Admin);
+        await dbContext.SaveChangesAsync();
+
+        if (!await userMgr.IsInRoleAsync(existing, "Admin"))
+            await userMgr.AddToRoleAsync(existing, "Admin");
+
+        var token = await userMgr.GeneratePasswordResetTokenAsync(existing);
+        var resetRes = await userMgr.ResetPasswordAsync(existing, token, "Admin123!");
+        if (!resetRes.Succeeded)
+            foreach (var e in resetRes.Errors)
+                Console.WriteLine($"ERROR reseteando contraseña admin: {e.Code} / {e.Description}");
     }
 
-  
     var sellerEmail = "seller@example.com";
     if (await userMgr.FindByEmailAsync(sellerEmail) == null)
     {
@@ -99,7 +118,7 @@ using (var scope = app.Services.CreateScope())
         if (resSeller.Succeeded)
             await userMgr.AddToRoleAsync(seller, "Seller");
     }
-
+    
 }
 
 app.Run();

@@ -29,7 +29,7 @@ namespace Tradie.Data
 
             modelBuilder.Entity<Product>()
                 .HasOne(p => p.Seller)
-                .WithMany(s => s.Products)
+                .WithMany(u => u.Products)
                 .HasForeignKey(p => p.SellerId)
                 .OnDelete(DeleteBehavior.Restrict);
 

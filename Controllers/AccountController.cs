@@ -29,6 +29,7 @@ namespace Tradie.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task <IActionResult> VerifyLogin(LoginModel model)
         {
             if (ModelState.IsValid)
@@ -42,7 +43,7 @@ namespace Tradie.Controllers
                 }
 
                 var result = await _signInMgr.PasswordSignInAsync(
-                    user.UserName,
+                    model.Email,
                     model.Password,
                     isPersistent: false,
                     lockoutOnFailure: false);
@@ -58,6 +59,14 @@ namespace Tradie.Controllers
                 }
             }
             return View("~/Views/Login/Login.cshtml", model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInMgr.SignOutAsync();
+            return RedirectToAction("Login", "Account");
         }
     }
 }
