@@ -19,3 +19,48 @@ function closeModal(modalId) {
         document.body.style.overflow = 'auto';
     }
 }
+
+// Submenu collapsible
+function toggleSubmenu(id, element) {
+    const submenu = document.getElementById(id);
+    const icon = element.querySelector('.bi-chevron-down, .bi-chevron-right');
+
+    if (submenu.style.display === 'none' || submenu.style.display === '') {
+        submenu.style.display = 'block';
+        // Update icon to down arrow
+        if (icon) {
+            icon.classList.remove('bi-chevron-right');
+            icon.classList.add('bi-chevron-down');
+        }
+    } else {
+        submenu.style.display = 'none';
+        // Update icon to right arrow
+        if (icon) {
+            icon.classList.remove('bi-chevron-down');
+            icon.classList.add('bi-chevron-right');
+        }
+    }
+}
+
+// Function to initialize the active state on "Registro de Productos"
+document.addEventListener('DOMContentLoaded', function () {
+    // Remove active class from "Gestión de Productos"
+    const gestionLink = document.querySelector('.ges-prod-label').closest('.nav-link');
+    if (gestionLink) {
+        gestionLink.classList.remove('active');
+    }
+
+    // Add active class to "Registro de Productos"
+    const registroLink = document.querySelector('a.nav-link[href="#"]:has(i.bi-clipboard-data)');
+    if (registroLink) {
+        registroLink.classList.add('active');
+    } else {
+        // Alternative selector if the :has selector is not supported in older browsers
+        const allNavLinks = document.querySelectorAll('a.nav-link');
+        allNavLinks.forEach(link => {
+            if (link.querySelector('i.bi-clipboard-data')) {
+                link.classList.add('active');
+            }
+        });
+    }
+});

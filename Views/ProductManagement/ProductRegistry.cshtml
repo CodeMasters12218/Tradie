@@ -13,47 +13,73 @@
 <div class="admin-dashboard d-flex">
     <!-- Sidebar -->
     <aside class="sidebar p-4">
-        <h5 class="text-uppercase fw-bold mb-4">Gestión Admin</h5>
-        <ul class="nav flex-column gap-3">
+        <div>
+            <p class="gestion-label"><i class="bi bi-grid-fill me-2"></i> Gestión Admin</p>
+        </div>
+
+        <ul class="nav flex-column gap-2">
             <li class="nav-item">
-                <a class="nav-link active" href="#">📦 Gestión de Productos</a>
-                <ul class="ps-3 mt-1">
-                    <li><a class="nav-link ps-2" href="#">➤ Registro de Productos</a></li>
+                <a class="nav-link d-flex align-items-center justify-content-between" href="#"
+                   onclick="toggleSubmenu('productSubMenu', this)">
+                    <div class="ges-prod-label">
+                        <div><i class="bi bi-chevron-down"></i></div>
+                        <div class="label-word"><span>Gestión de Productos</span></div>
+                    </div>
+                </a>
+
+                <ul class="ps-3 mt-1 list-unstyled" id="productSubMenu" style="display: block;">
+                    <li><a class="nav-link ps-4 active" href="#"><i class="bi bi-clipboard-data me-2"></i> Registro de Productos</a></li>
                 </ul>
             </li>
+
             <li class="nav-item">
-                <a class="nav-link" href="#">👥 Gestión de Usuarios</a>
+                <a class="nav-link d-flex align-items-center justify-content-between" href="#"
+                   onclick="toggleSubmenu('userSubMenu', this)">
+                    <div class="ges-usuario-label">
+                        <div><i class="bi bi-chevron-right"></i></div>
+                        <div class="label-word"><span>Gestión de Usuarios</span></div>
+                    </div>
+                </a>
+
+                <ul class="ps-3 mt-1 list-unstyled" id="userSubMenu" style="display: none;">
+                    <li><a asp-controller="Users" asp-action="Index" class="nav-link ps-4"><i class="bi bi-person-badge me-2"></i> Registro de usuarios</a></li>
+                    <li><a class="nav-link ps-4" href="#"><i class="bi bi-person-lock me-2"></i> Roles</a></li>
+                    <li><a class="nav-link ps-4" href="#"><i class="bi bi-shield-check me-2"></i> Permisos</a></li>
+                </ul>
             </li>
         </ul>
-
+        
+        <!-- Lower part -->
         <div class="mt-auto pt-5">
-            <a href="#" class="btn btn-light w-100 mb-2">⚙ Configuración</a>
-            <form asp-controller="Account"
-                  asp-action="Logout"
-                  method="post"
-                  class="d-inline">
+            <a href="#" class="nav-link"><i class="btn-config bi-gear-fill me-2"></i>Configuración</a>
+            <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
                 @Html.AntiForgeryToken()
-                <button type="submit" class="btn btn-danger w-100">
-                    🚪 Cerrar Sesión
-                </button>
+                <button type="submit" class="logout"><i class="bi bi-box-arrow-right me-2"></i> Cerrar Sesión</button>
             </form>
         </div>
     </aside>
 
+
     <!-- Main Content -->
     <section class="content p-4 flex-fill">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h3 class="mb-0">Gestión de Productos</h3>
-            <div class="d-flex gap-2">
-                <form asp-action="ProductRegistry" method="get" class="d-flex">
-                    <input type="text" name="searchTerm" value="@Context.Request.Query["searchTerm"]"
-                           class="form-control" placeholder="Buscar productos..."
-                           style="max-width: 250px;" />
-                    <button type="submit" class="btn btn-outline-secondary ms-2">🔍</button>
-                </form>
-                <button class="btn btn-success" onclick="openModal('addProductModal')">
-                    + Agregar producto
-                </button>
+        <div class="section-header"> 
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="mb-0">Gestión de Productos</h3>
+                <div class="d-flex gap-2">
+                    <form class="d-flex align-items-center me-3" role="search">
+                        <div class="input-group">
+                            <input type="search" name="searchTerm" value="@Context.Request.Query["searchTerm"]"
+                                   class="form-control" placeholder="Buscar productos..." aria-label="Search">
+                            <button type="submit" class="btn btn-outline-secondary">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </div>
+                    </form>
+
+                    <button class="btn btn-success" onclick="openModal('addProductModal')">
+                        + Agregar producto
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -170,7 +196,7 @@
                     </div>
 
                     <div class="text-end">
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn-save-add">
                             Guardar Producto
                         </button>
                     </div>
@@ -224,7 +250,7 @@
                     </div>
                 </div>
                 <div class="text-end">
-                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    <button type="submit" class="btn-save-edit">Guardar Cambios</button>
                 </div>
             </form>
         </div>

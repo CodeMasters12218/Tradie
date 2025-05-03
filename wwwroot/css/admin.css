@@ -7,11 +7,11 @@ html, body, * {
 
 /* Push content below fixed navbar */
 body {
-    padding-top: 100px; /* 80 (main nav) */
+    padding-top: 80px; /* 80 (main nav) */
 }
 
 .admin-header {
-    height: auto !important;
+    height: 60px; /* auto !important;*/
     min-height: 40px; /* optional if you want a base height */
     padding-top: 4px;
     padding-bottom: 4px;
@@ -71,5 +71,5 @@ img {
 
 /* FONT */
 .text-end .text-muted {
-    font-size: 12px;
+    font-size: 10px;
 }

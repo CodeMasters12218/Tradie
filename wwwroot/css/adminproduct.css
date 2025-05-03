@@ -1,39 +1,159 @@
 ﻿html, body, * {
     font-family: "Poppins", sans-serif !important;
     scroll-behavior: smooth;
+    font-size: 14px;
+}
+
+body {
+    background-color: #e1e1e1;
 }
 
 /* Layout structure */
 .admin-dashboard {
-    min-height: calc(100vh - 120px); /* minus header + footer */
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    padding-top: 0;
+    /*min-height: calc(100vh - 120px); /* minus header + footer */
+    display: flex;
+    flex-direction: row;
+    overflow-x: hidden;
 }
 
 .sidebar {
-    width: 18%;
-    min-width: 200px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 20%;
+    min-width: 260px;
+    height: 100vh;
     background-color: #f8f9fa;
+    backdrop-filter: blur(10px);
     border-right: 1px solid #ddd;
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
 }
-
     /* Sidebar nav styling */
     .sidebar .nav-link {
         color: #333;
-        font-weight: 500;
+        font-weight: 300;
         transition: 0.2s ease-in-out;
         padding-left: 0;
+        width: 100%;
+        text-align: left;
     }
 
-        .sidebar .nav-link:hover,
-        .sidebar .nav-link.active {
-            color: #0d6efd;
+        .sidebar .nav-link:hover {
+            color: #000000 !important; /* Darkest black for hover */
+            background-color: #ebebeb;
+            font-weight: 400;
+            border-radius: 12px;
         }
+
+        .sidebar .nav-link.active {
+            background-color: #d8d8d8; /* Soft gray background */
+            color: #000000; /* Black text */
+            font-weight: 600;
+            font-size: 13px;
+            border-radius: 5px;
+        }
+
+.gestion-label {
+    padding: 10px 16px;
+    color: white;
+    font-weight: 400;
+    font-size: 14px;
+    background-color: black;
+    border-radius: 10px;
+    width: 100%;
+    margin-top: 80px;
+}
+
+.ges-prod-label,
+.ges-usuario-label {
+    display: flex;
+    flex-direction: row;
+}
+
+.label-word {
+    padding-left: 12px;
+}
+
+dl {
+    margin: 0;
+}
+
+.logout {
+    color: #ED4A4A;
+    text-decoration: none;
+    margin: 0;
+    padding: 8px 16px 8px 12px;
+    border: none;
+    background-color: transparent;
+    width: 100%;
+    text-align: left;
+}
+
+    .logout:hover {
+        color: #ED4A4A;
+        font-weight: 500;
+        background-color: #f7e8e8;
+        border-radius: 12px;
+    }
+
+.btn-config {
+    text-decoration: none;
+    color: black;
+    margin: 6px 0 6px 0;
+    padding: 8px 8px 8px 12px;
+    border: none;
+    background-color: transparent;
+    width: 100%;
+    text-align: left;
+}
 
 /* Main content area */
 .content {
-    width: 82%;
-    background-color: #fff;
+    margin-left: 200px;
+    height: 90vh;
+    padding: 2rem;
+    width: 100%;
+    max-width: 100%;
+    flex-grow: 1;
+    background-color: transparent;
+}
+
+.section-header {
+    background-color: transparent;
+    padding: 0;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+}
+
+h3 {
+    font-size: 30px;
+    font-weight: 600;
+    color: black;
+    padding: 0;
+    text-align: left;
+}
+
+thead tr {
+    background-color: rgba(255, 255 , 255, 0.7) !important;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+th {
+    color: #808080;
+    font-weight: 400;
+}
+
+
+.btn.btn-success {
+    font-weight: 600;
 }
 
 /* Product images in table */
@@ -41,6 +161,7 @@ table img {
     border: 1px solid #ccc;
     object-fit: cover;
 }
+
 
 /* *********** **** POP UP Add Product **************************/
 /* Fullscreen overlay */
@@ -66,6 +187,46 @@ table img {
     overflow-y: auto;
 }
 
+h4 {
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.form-label {
+    font-weight: 500;
+}
+
+.btn-save-add {
+    background-color: #577839;
+    color: white;
+    padding: 8px 30px;
+    border-radius: 12px;
+    border: none;
+
+}
+
+    .btn-save-add:hover {
+        background-color: #588530;
+    }   
+
+.btn-save-edit {
+    background-color: #5884AC;
+    color: white;
+    padding: 8px 30px;
+    border-radius: 12px;
+    border: none;
+}
+
+    .btn-save-edit {
+        background-color: #4982b5;
+    }
+
+.btn-add:hover {
+    background-color: #598532;
+    color: white;
+}
+
 .btn.active {
     background-color: #0d6efd;
     color: white;
@@ -73,5 +234,6 @@ table img {
 }
 
 textarea {
+    height: 100px; /* or any height you want */
     resize: none;
 }

@@ -59,9 +59,10 @@ app.MapControllerRoute(
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    dbContext.Database.EnsureCreated();
+	dbContext.Database.EnsureCreated();
 
-    var roleMgr = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<int>>>();
+
+	var roleMgr = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<int>>>();
     var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
 
     string[] roles = { "Admin", "Seller", "Customer" };

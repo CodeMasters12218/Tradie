@@ -15,11 +15,10 @@
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Tradie.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header class="admin-header bg-white border-bottom shadow-sm py-3 px-4 d-flex justify-content-between align-items-center">
+    <header class="admin-header bg-white border-bottom shadow-sm py-1 px-4 d-flex justify-content-between align-items-center">
         <!-- Logo -->
         <div class="logo">
             <a class="navbar-brand fs-4 fw-bold text-dark" asp-area="" asp-controller="Home" asp-action="Index">
@@ -30,7 +29,7 @@
         <!-- Profile Container -->
         <div class="d-flex align-items-center gap-3">
             <!-- Profile Image -->
-            <img src="~/images/boy_black.png" alt="Admin Profile" class="rounded-circle" width="48" height="48" />
+            <img src="~/images/boy_black.png" alt="Admin Profile" class="rounded-circle" width="32" height="32" />
 
             <!-- Name and Email -->
             <div class="text-end">
@@ -51,11 +50,14 @@
         </main>
     </div>
 
+    <!-- 
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2025 - Tradie - All Rights Reserved - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+    -->
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
