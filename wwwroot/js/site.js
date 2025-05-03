@@ -56,6 +56,19 @@ function toggleCart(btn) {
     }
 }
 
+// ADD TO CART HOME
+function toggleCartHome(btn) {
+    btn.classList.toggle('active');
+    var icon = btn.querySelector('i');
+
+    if (btn.classList.contains('active')) {
+        btn.innerHTML = 'Añadido a la cesta <i class="bi bi-cart-check-fill"></i>';
+    } else {
+        btn.innerHTML = 'Añadir a la cesta <i class="bi bi-cart"></i>';
+    }
+}
+
+
 // Slider functionality
 let sliderPositions = {}; // Tracks current position of each slider
 

@@ -19,65 +19,40 @@ h1 {
     font-size: 20px;
 }
 
-/* ==== COMMON STYLES ==== */
-.see-more-btn-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0;
-}
-
-.btn-ver {
+/** HEART icon*/
+.image-container {
+    background-color: #cac7b9;
     position: relative;
-    padding: 8px 50px;
-    font-size: 14px;
-    border-radius: 40px;
-    background: #191919;
-    color: white;
-    text-decoration: none;
-    font-weight: 200;
-    font-family: "Poppins", sans-serif;
+    width: 100%;
+    border-radius: 20px;
+    align-items: center;
+    justify-content: center;
 }
 
-    .btn-ver:hover {
-        background: transparent;
-        color: black;
-        box-shadow: 5px 5px 10px gray;
-    }
+.product-image {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
 
-/* Heart Icon Styling - Common */
-.heart-icon-container {
+.favorite-btn {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    z-index: 2;
-}
-
-.heart-btn {
-    background-color: white;
-    border: none;
-    border-radius: 50%;
+    top: 12px;
+    right: 12px;
     width: 40px;
     height: 40px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-    display: flex;
+    background: white;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
     padding: 10px;
-    align-items: center;
-    justify-content: center;
     transition: background-color 0.3s;
     cursor: pointer;
 }
 
-    .heart-btn i {
-        font-size: 20px;
-        color: black; /* Default color for heart icon */
-        transition: color 0.3s ease;
+    .favorite-btn.favorited i {
+        color: red;
     }
-
-    .heart-btn.favorited i {
-        color: red; /* Change to red when favorited */
-    }
-
  
 
 
@@ -209,9 +184,52 @@ h1 {
         font-size: 14px;
     }
 
-    #home .addcart {
-        justify-content: center;
-        align-content: center;
+    /* Cart Button */
+    #home .cart-button {
+        font-size: 14px;
+        background-color: transparent;
+        outline-color: black;
+        border-radius: 16px;
+        border: thin solid black;
+        padding: 10px;
+        width: 100%;
+    }
+
+        #home .cart-button:hover {
+            box-shadow: 0 2px 8px #bebebe;
+        }
+
+        #home .cart-button.active {
+            background-color: black;
+            color: white;
+            font-weight: 500;
+            border: thin solid #010301;
+        }
+
+/** SEE MORE BUTTON */
+.see-more-btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+}
+
+.btn-ver {
+    position: relative;
+    padding: 8px 50px;
+    font-size: 14px;
+    border-radius: 40px;
+    background: #191919;
+    color: white;
+    text-decoration: none;
+    font-weight: 200;
+    font-family: "Poppins", sans-serif;
+}
+
+    .btn-ver:hover {
+        background: transparent;
+        color: black;
+        box-shadow: 5px 5px 10px gray;
     }
 
 /* ==== OFERTAS SECTION ==== */
