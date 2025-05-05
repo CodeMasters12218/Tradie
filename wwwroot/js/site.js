@@ -43,6 +43,7 @@ function toggleHeart(btn) {
     }
 }
 
+/*
 // ADD TO CART
 function toggleCart(btn) {
     btn.classList.toggle('active');
@@ -55,6 +56,51 @@ function toggleCart(btn) {
         icon.classList.add('bi-cart');
     }
 }
+*/
+
+// BETTER toggleCART
+function toggleCart(btn) {
+    btn.classList.toggle('active');
+    var icon = btn.querySelector('i');
+
+    const quantity = parseInt(document.querySelector('.quantity-display')?.innerText) || 1;
+
+    if (btn.classList.contains('active')) {
+        icon.classList.remove('bi-cart');
+        icon.classList.add('bi-cart-check-fill');
+
+        // Simulate sending data to server
+        const productId = btn.dataset.productId;
+        const price = parseFloat(document.querySelector('.price-label').dataset.price);
+
+        fetch('/ShoppingCart/AddToCart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]')?.value
+            },
+            body: JSON.stringify({
+                productId: productId,
+                quantity: quantity,
+                price: price
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Added to cart:', data);
+                // Optionally update cart UI here dynamically
+            })
+            .catch(error => {
+                console.error('Error adding to cart:', error);
+            });
+
+    } else {
+        icon.classList.remove('bi-cart-check-fill');
+        icon.classList.add('bi-cart');
+        // Optionally: Remove item from cart
+    }
+}
+
 
 // ADD TO CART HOME
 function toggleCartHome(btn) {
@@ -191,3 +237,38 @@ function showHideButtons(container) {
         rightBtn.style.display = 'block';
     }
 }
+
+// === QUANTITY FUNCTIONS ===
+document.addEventListener('DOMContentLoaded', function () {
+    const quantityDisplay = document.querySelector('.quantity-display');
+    const priceLabel = document.querySelector('.price-label');
+    const subtotalValue = document.querySelector('.subtotal-value');
+    const deliveryPayValue = document.querySelector('.delivery-pay-value');
+    const overallTotalValue = document.querySelector('.overall-total-value');
+
+    const unitPrice = parseFloat(priceLabel.dataset.price) || 0;
+    const deliveryFee = parseFloat(deliveryPayValue?.innerText?.replace(/[^\d.]/g, '')) || 0;
+
+    function updatePrices(quantity) {
+        const subtotal = unitPrice * quantity;
+        subtotalValue.innerText = `€${subtotal.toFixed(2)}`;
+        const total = subtotal + deliveryFee;
+        overallTotalValue.innerText = `€${total.toFixed(2)}`;
+    }
+
+    document.querySelector('.quantity-btn-plus')?.addEventListener('click', () => {
+        let quantity = parseInt(quantityDisplay.innerText) || 1;
+        quantity++;
+        quantityDisplay.innerText = quantity.toString().padStart(2, '0');
+        updatePrices(quantity);
+    });
+
+    document.querySelector('.quantity-btn-minus')?.addEventListener('click', () => {
+        let quantity = parseInt(quantityDisplay.innerText) || 1;
+        if (quantity > 1) {
+            quantity--;
+            quantityDisplay.innerText = quantity.toString().padStart(2, '0');
+            updatePrices(quantity);
+        }
+    });
+});

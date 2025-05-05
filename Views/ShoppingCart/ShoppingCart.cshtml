@@ -1,0 +1,102 @@
+﻿@model Tradie.Models.ShoppingCart.ShoppingCart
+
+@{
+    ViewData["Title"] = "Shopping Cart Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/shoppingCart.css" />
+<link rel="stylesheet" href="~/css/subcategory.css" />
+
+<!-- Category Navbar -->
+<nav class="category-navbar">
+    <div class="container category-nav-container">
+        <a href="/Category/Category#ropa-de-hombres" class="category-nav-link">Ropa de Hombres</a>
+        <a href="/Category/Category#ropa-de-mujeres" class="category-nav-link">Ropa de Mujeres</a>
+        <a href="/Category/Category#electrónica" class="category-nav-link">Electrónica</a>
+        <a href="/Category/Category#informática" class="category-nav-link">Informática</a>
+        <a href="/Category/Category#kids-toys" class="category-nav-link">Kids & Toys</a>
+        <a href="/Category/Category#oficina" class="category-nav-link">Oficina</a>
+        <a href="/Category/Category#hogar" class="category-nav-link">Hogar</a>
+        <a href="/Category/Category#libros" class="category-nav-link">Libros</a>
+        <a href="/Category/Category#videojuegos" class="category-nav-link">Videojuegos</a>
+    </div>
+</nav>
+
+<div class="product-page-container">
+    <!-- LEFT COLUMN -->
+    <div class="product-left-column">
+        <div class="cart-label-container">
+            <h2 class="cart-title">Carrito (@Model.Items.Count)</h2>
+            <p class="price-label">Precio</p>
+        </div>
+
+        <hr class="divider-line" />
+
+        <!-- Product Items List -->
+        @foreach (var item in Model.Items)
+        {
+            <div class="cart-item-row">
+                <!-- Product Image -->
+                <div class="item-image">
+                    <img src="" alt="@item.ProductName" />
+                </div>
+
+                <!-- Product Info -->
+                <div class="item-details">
+                    <p class="item-name">@item.ProductName</p>
+                    <p class="item-status">Disponible</p>
+
+
+                        <p class="item-size">Talla: M</p>
+                        <p class="item-color">Color: Blanca</p>
+
+
+                    <div class="quantity-selector">
+                        <button class="quantity-btn-minus" onclick="decreaseQuantity('@item.Id')">-</button>
+                        <span class="quantity-display">@item.Quantity</span>
+                        <button class="quantity-btn-plus" onclick="increaseQuantity('@item.Id')">+</button>
+                    </div>
+                </div>
+
+                <!-- Price & Delete -->
+                <div class="item-price-delete">
+                    <p class="item-price">€24.99</p>
+                    <form method="post" action="/ShoppingCart/RemoveItem">
+                        <input type="hidden" name="itemId" value="@item.Id" />
+                        <button type="submit" class="delete-btn">Eliminar</button>
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="summary-container">
+        <div class="summary-children">
+            <h2 class="resumen-title">Resumen</h2>
+
+            <div class="subtotal-group">
+                <p class="subtotal-label">Subtotal</p>
+                <p class="subtotal-value">€154.75</p>
+            </div>
+
+            <div class="delivery-pay-group">
+                <p class="delivery-pay-label">Envío</p>
+                <p class="delivery-pay-value">€4.00</p>
+            </div>
+
+            <div class="overall-total-group">
+                <p class="overall-total-label">Estimación Total</p>
+                <p class="overall-total-value">€203.92</p>
+            </div>
+
+            <a asp-controller="Payment" asp-action="PaymentDetails" class="checkout-btn">
+                Proceder al pago (@Model.Items.Count)
+            </a>
+
+        </div>
+    </div>
+</div>
+
+<script src="~/js/site.js" asp-append-version="true"></script>

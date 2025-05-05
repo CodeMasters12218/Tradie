@@ -9,12 +9,16 @@ namespace Tradie.Models.ShoppingCart
         public Product Product { get; set; }
 
         public string ProductName { get; set; }
+		public string ImageUrl { get; set; }
 
-        public int Quantity { get; set; }
+		public int Quantity { get; set; }
 
         public decimal PriceAtAddition { get; set; }
+		public string Size { get; set; }
+		public string Color { get; set; }
+		public string Status { get; set; }
 
-        public int ShoppingCartId { get; set; }
+		public int ShoppingCartId { get; set; }
         public ShoppingCart ShoppingCart { get; set; }
     }
 }
