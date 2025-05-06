@@ -110,7 +110,7 @@ h1 {
     }
 
     #home .btn:hover, #home .btn-plus:hover {
-        background: black;
+        background: #212121;
         color: white;
     }
 

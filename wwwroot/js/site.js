@@ -240,35 +240,40 @@ function showHideButtons(container) {
 
 // === QUANTITY FUNCTIONS ===
 document.addEventListener('DOMContentLoaded', function () {
-    const quantityDisplay = document.querySelector('.quantity-display');
-    const priceLabel = document.querySelector('.price-label');
-    const subtotalValue = document.querySelector('.subtotal-value');
     const deliveryPayValue = document.querySelector('.delivery-pay-value');
+    const subtotalValue = document.querySelector('.subtotal-value');
     const overallTotalValue = document.querySelector('.overall-total-value');
-
-    const unitPrice = parseFloat(priceLabel.dataset.price) || 0;
     const deliveryFee = parseFloat(deliveryPayValue?.innerText?.replace(/[^\d.]/g, '')) || 0;
 
-    function updatePrices(quantity) {
-        const subtotal = unitPrice * quantity;
-        subtotalValue.innerText = `€${subtotal.toFixed(2)}`;
-        const total = subtotal + deliveryFee;
-        overallTotalValue.innerText = `€${total.toFixed(2)}`;
-    }
+    document.querySelectorAll('.cart-item-row').forEach(row => {
+        const quantityDisplay = row.querySelector('.quantity-display');
+        const plusBtn = row.querySelector('.quantity-btn-plus');
+        const minusBtn = row.querySelector('.quantity-btn-minus');
+        const priceElement = row.querySelector('.item-price');
+        const unitPrice = parseFloat(priceElement?.innerText?.replace(/[^\d.]/g, '')) || 0;
 
-    document.querySelector('.quantity-btn-plus')?.addEventListener('click', () => {
-        let quantity = parseInt(quantityDisplay.innerText) || 1;
-        quantity++;
-        quantityDisplay.innerText = quantity.toString().padStart(2, '0');
-        updatePrices(quantity);
-    });
+        function updatePrices(quantity) {
+            const subtotal = unitPrice * quantity;
+            subtotalValue.innerText = `€${subtotal.toFixed(2)}`;
+            const total = subtotal + deliveryFee;
+            overallTotalValue.innerText = `€${total.toFixed(2)}`;
+        }
 
-    document.querySelector('.quantity-btn-minus')?.addEventListener('click', () => {
-        let quantity = parseInt(quantityDisplay.innerText) || 1;
-        if (quantity > 1) {
-            quantity--;
+        plusBtn?.addEventListener('click', () => {
+            let quantity = parseInt(quantityDisplay.innerText) || 1;
+            quantity++;
             quantityDisplay.innerText = quantity.toString().padStart(2, '0');
             updatePrices(quantity);
-        }
+        });
+
+        minusBtn?.addEventListener('click', () => {
+            let quantity = parseInt(quantityDisplay.innerText) || 1;
+            if (quantity > 1) {
+                quantity--;
+                quantityDisplay.innerText = quantity.toString().padStart(2, '0');
+                updatePrices(quantity);
+            }
+        });
     });
 });
+

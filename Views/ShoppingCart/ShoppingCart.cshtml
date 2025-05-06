@@ -54,7 +54,8 @@
 
                     <div class="quantity-selector">
                         <button class="quantity-btn-minus" onclick="decreaseQuantity('@item.Id')">-</button>
-                        <span class="quantity-display">@item.Quantity</span>
+                        <span class="quantity-display">@Math.Max(item.Quantity, 1).ToString("D2")</span>
+
                         <button class="quantity-btn-plus" onclick="increaseQuantity('@item.Id')">+</button>
                     </div>
                 </div>
@@ -64,10 +65,14 @@
                     <p class="item-price">€24.99</p>
                     <form method="post" action="/ShoppingCart/RemoveItem">
                         <input type="hidden" name="itemId" value="@item.Id" />
-                        <button type="submit" class="delete-btn">Eliminar</button>
+                        <button type="submit" class="btn btn-light btn-sm" title="Eliminar">
+                            <i class="bi bi-trash"></i>
+                        </button>
                     </form>
                 </div>
             </div>
+            
+            <hr class="divider-line" />
         }
     </div>
 
