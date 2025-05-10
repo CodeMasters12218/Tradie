@@ -80,7 +80,34 @@
             </div>
         </nav>
 
+        <!-- Category Navbar -->
+        <nav class="category-navbar">
+            <div class="container category-nav-container flex-column">
+                <!-- Toggle Button (Visible on small screens only) -->
+                <button class="category-toggle-btn d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#categoryCollapse" aria-expanded="false" aria-controls="categoryCollapse">
+                    Categorías <i class="bi bi-chevron-down"></i>
+                </button>
+
+                <!-- Collapsible Category Links (Hidden by default on small screens) -->
+                <div class="collapse d-md-flex container category-nav-container flex-md-row flex-column text-md-start text-center mt-2 mt-md-0" id="categoryCollapse">
+                    <a href="/Category/Category#ropa-de-hombres" class="category-nav-link">Ropa de Hombres</a>
+                    <a href="/Category/Category#ropa-de-mujeres" class="category-nav-link">Ropa de Mujeres</a>
+                    <a href="/Category/Category#electrónica" class="category-nav-link">Electrónica</a>
+                    <a href="/Category/Category#informática" class="category-nav-link">Informática</a>
+                    <a href="/Category/Category#kids-toys" class="category-nav-link">Kids & Toys</a>
+                    <a href="/Category/Category#oficina" class="category-nav-link">Oficina</a>
+                    <a href="/Category/Category#hogar" class="category-nav-link">Hogar</a>
+                    <a href="/Category/Category#libros" class="category-nav-link">Libros</a>
+                    <a href="/Category/Category#videojuegos" class="category-nav-link">Videojuegos</a>
+                </div>
+
+            </div>
+        </nav>
+
+
     </header>
+
+    
 
     <header>
         @RenderSection("Header", required: false)

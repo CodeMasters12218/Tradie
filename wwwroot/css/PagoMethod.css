@@ -27,7 +27,7 @@ h1 {
     width: 100%;
     padding: 0;
     margin: 0;
-    
+    text-decoration: none;
 }
 
 /* LEFT PART */
@@ -40,65 +40,18 @@ h1 {
     height: auto;
     border-radius: 10px;
     margin-top: 20px;
-    font-family: "Murecho", sans-serif !important;
-}
-
-.Form-Inner {
-    display: flex;
-    flex-direction: column;
-    gap: .2rem;
-    font-family: "Murecho", sans-serif !important;
-}
-
-.Area-Container{
-    display: flex;
-    flex-direction: column;
-    flex: 1;
+    gap: .4rem;
 }
 
 input{
     border: solid 1.4px #999999;
     border-radius: 8px;
-    padding-left: 20px;
+    padding: 0 12px;
     font-size: small;
     height: 30px;
     width: 100%;
     opacity: 70%;
 }
-
-.Note-Container {
-    display: flex;
-    justify-content: flex-start;
-    align-content: flex-start;
-    width: 100%;
-
-}
-input.Note{
-    height: 300px;
-    width: 100%;
-}
-
-div.Note {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-
-.NoteTextArea {
-    height: 300px;
-    width: 100%;
-    border: solid 1.4px #999999;
-    border-radius: 8px;
-    padding: 22px;
-    font-size: small;
-    opacity: 70%;
-    resize: none;
-    font-family: "Murecho", sans-serif;
-    line-height: 1.4; /* Ensures proper line spacing */
-    vertical-align: top; /* Key fix for vertical alignment */
-    box-sizing: border-box; /* Makes padding behave correctly */
-}
-
 
 input.Area{
     border-radius: 5px;
@@ -117,24 +70,24 @@ placeholder {
     margin-left: 30px;
 }
 
-.Payment-Container{
+.Payment-Container {
     display: flex;
     justify-content: flex-end;
     color: white;
 }
 
-.Payment-Button{
+.Payment-Button {
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #5D88B4;
     color: #F2F2F2;
     border-radius: 5px;
-    width: 200px;
+    width: 240px;
     height: 40px;
     margin-right: 0;
     margin-top: 30px;
-    border:rgba(0,0,0,0);
+    border: rgba(0,0,0,0);
     text-decoration: none;
 }
 
@@ -142,9 +95,9 @@ placeholder {
         background-color: #6f9dcc;
     }
 
-    .Payment-Container a {
-        color: white;
-    }   
+.Payment-Container a {
+    color: white;
+}  
 
 .Address-Row-Container {
     display: flex;
@@ -197,10 +150,8 @@ placeholder {
         padding-left: 2.2rem;
     }
 
-
-
 /* BUTTONS HEADER */
-.First-Button {
+.Second-Button {
     background-color: #5D88B4;
     color: #F2F2F2;
     font-size: small;
@@ -211,11 +162,11 @@ placeholder {
     cursor: default !important;
 }
 
-    .First-Button:hover {
+    .Second-Button:hover {
         cursor: default !important;
     }
 
-.Second-Button, .Third-Button {
+.First-Button, .Third-Button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -228,9 +179,10 @@ placeholder {
     border: rgba(0,0,0,0);
     align-items: center;
     justify-content: center;
+    text-decoration: none;
 }
 
-    .Second-Button:hover, .Third-Button:hover {
+    .First-Button:hover, .Third-Button:hover {
         background-color: #7095b97d;
         color: black;
         opacity: 50%;
@@ -244,10 +196,90 @@ placeholder {
     margin-right: 8px;
 }
 
-.First-Button .number-span {
+.Second-Button .number-span {
     color: #999999;
 }
 
+/* Change Payment Method */
+.Change-Method-Container {
+    display: flex;
+    flex-direction: row;
+    background-color: #EDEDED;
+    margin: 20px 0 8px 0;
+    padding: 6px;
+    height: 50px;
+    justify-content: center;
+    gap: 10px;
+}
+
+.Change-Method-Button {
+    background-color: white;
+    border-radius: 5px;
+    width: 35%;
+    font-size: 12px;
+    font-family: 'Poppins', sans-serif;
+    border: rgba(0,0,0,0);
+}
+
+.Change-Method-Button-NonActive {
+    background-color: #EDEDED;
+    border-radius: 5px;
+    width: 35%;
+    font-size: 12px;
+    font-family: 'Poppins', sans-serif;
+    border: rgba(0,0,0,0);
+}
+
+    .Change-Method-Button-NonActive:hover {
+        background-color: #f2f2f2;
+    }
+
+/* Card Attributes */
+.Card-Atributes-Container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+}
+
+.Card-Atributes {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Checkboxes */
+.Checkbox-Container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    justify-content: left;
+    margin: 16px 0 0 0;
+    padding: 0;
+}
+
+.Checkbox {
+    display: flex;
+    padding: 0;
+    margin: 10px 0 0 0;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.Checkbox-Input {
+    width: 20px;
+    height: 20px;
+    align-self: center;
+    margin-right: 10px;
+}
+
+.Checkbox-Label {
+    margin: 0;
+    padding: 0;
+    font-weight: 400;
+}
 
 /* RIGHT COLUMN (Summary) */
 .summary-container {
@@ -323,43 +355,6 @@ placeholder {
     opacity: 1 !important;
 }
 
-/*Third view CSS*/
-.Billing-Information{
-    display: flex;
-    flex-direction: column;
-    background-color:  #EDEDED;
-    margin-left: 80px;
-    margin-right: 80px;
-    border-radius: 10px;
-    justify-content: left;
-    padding-left: 50px;
-    padding-right: 50px;
-}
-
-.Billing-Container{
-    display: flex;
-    flex-direction: row;
-    gap: 50px;
-}
-
-.Billing{
-    color: #155D8FCC;
-}
-
-.Billing-Title{
-    display: flex;
-    justify-content: space-between;
-}
-
-.Billing-Edit{
-    padding-top: 16px;
-}
-
-a{
-    text-decoration: none;
-}
-
-
 /*************************************************************************
                             RESPONSIVENESS
 **************************************************************************/
@@ -385,20 +380,20 @@ a{
         padding: 1.5rem;
     }
 
+    .Change-Method-Container button {
+        width: 32%;
+        font-size: 11px;
+    }
+
     .Payment-Button {
-        width: 180px;
+        width: 200px;
     }
 
-    .NoteTextArea {
-        height: 250px;
-    }
-
-    .Button-Container .First-Button,
-    .Second-Button,
-    .Third-Button {
-        width: 33%;
+    .Card-Atributes-Container {
+        gap: 10px;
     }
 }
+
 
 /* ==========================
    TABLET (768px - 991px)
@@ -407,6 +402,7 @@ a{
     .Main-Container {
         flex-direction: column;
         padding: 1rem;
+        gap: 1rem;
         margin-top: -20px;
     }
 
@@ -417,7 +413,6 @@ a{
 
     .Button-Container {
         flex-direction: row;
-        gap: 0;
         margin-bottom: 1rem;
     }
 
@@ -428,16 +423,22 @@ a{
         }
 
     .Form-Container {
-        padding: 1.5rem;
+        padding: 1.5rem 1rem;
     }
 
-    .Address-Row-Container {
+    .Change-Method-Container {
         flex-direction: column;
-        gap: 0.8rem;
+        height: auto;
+        align-items: stretch;
     }
 
-    .NoteTextArea {
-        height: 200px;
+        .Change-Method-Container button {
+            width: 100%;
+        }
+
+    .Card-Atributes-Container {
+        flex-direction: column;
+        gap: 1rem;
     }
 
     .summary-container {
@@ -451,6 +452,7 @@ a{
     }
 }
 
+
 /* ==========================
    PHONE (max-width: 576px)
 ========================== */
@@ -461,8 +463,8 @@ a{
 
     .Main-Container {
         flex-direction: column;
-        gap: 1rem;
         padding: 1rem;
+        gap: 1rem;
         margin-top: -20px;
     }
 
@@ -489,14 +491,20 @@ a{
         padding: 1rem;
     }
 
-    .Input-Group input,
-    .NoteTextArea {
-        font-size: 12px;
+    .Change-Method-Container {
+        flex-direction: column;
+        height: auto;
+        gap: 8px;
     }
 
-    .NoteTextArea {
-        height: 150px;
-        padding: 1rem;
+        .Change-Method-Container button {
+            width: 100%;
+            font-size: 13px;
+        }
+
+    .Card-Atributes-Container {
+        flex-direction: column;
+        gap: 1rem;
     }
 
     .Payment-Button {
@@ -511,9 +519,16 @@ a{
         margin-top: 20px;
     }
 
-    .input-icon-note {
-        position: absolute;
-        top: 14px;
-        left: 12px;
+    .Checkbox-Input {
+        width: 18px;
+        height: 18px;
+    }
+
+    .Checkbox-Label {
+        font-size: 14px;
+    }
+
+    input {
+        font-size: 12px;
     }
 }

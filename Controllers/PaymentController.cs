@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Tradie.Models.Payments;
+
 
 namespace Tradie.Controllers
 {
@@ -6,7 +8,20 @@ namespace Tradie.Controllers
     {
         public IActionResult PaymentDetails()
         {
-            return View();
+            var model = new PaymentDetails();
+			return View();
         }
-    }
+
+		public IActionResult PaymentMethod()
+		{
+			var model = new PaymentMethod();
+			return View();
+		}
+
+		public IActionResult PaymentSummary()
+		{
+			var model = new PaymentSummary();
+			return View();
+		}
+	}
 }

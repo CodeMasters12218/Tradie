@@ -1,26 +1,65 @@
-﻿@model Tradie.Models.Payments.PaymentDetails
+﻿@model Tradie.Models.Payments.PaymentSummary
 
 @{
-    ViewData["Title"] = "Payment Details Page";
+    ViewData["Title"] = "Payment Summary Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<link rel="stylesheet" href="~/css/Pago.css" />
+<link rel="stylesheet" href="~/css/PagoSummary.css" />
 <link href="https://fonts.googleapis.com/css2?family=Murecho:wght@100..900&display=swap" rel="stylesheet">
 
-    <div class="Main-Container">
+
+<div class="Main-Container">
     <!-- LEFT COLUMN -->
         <div class="Container-Container">
             <!-- Header Buttons -->
             <div class="Button-Container">
-                <button type="submit" class="First-Button"><span class="number-span">1</span> Detalle de la entrega</button>
+                <a class="First-Button" asp-area="" asp-controller="Payment" asp-action="PaymentDetails"><span class="number-span">1</span> Detalle de la entrega</a>
                 <a class="Second-Button" asp-area="" asp-controller="Payment" asp-action="PaymentMethod"><span class="number-span">2</span> Método de pago</a>
-                <a class="Third-Button" asp-area="" asp-controller="Payment" asp-action="PaymentSummary"><span class="number-span">3</span> Resumen del pedido</a>
+                <button type="submit" class="Third-Button"><span class="number-span">3</span> Resumen del pedido</button>
             </div>
 
             <div class="Form-Container">
                 <div class="Form-Inner">
                     <h1>Detalles de la entrega</h1>
+
+                <div class="Billing-Information">
+                    <div class="Billing-Title">
+                        <p class="billing-box-label">Información de facturación</p>
+                        <a href="" class="Billing-Edit">Editar</a>
+                    </div>
+                    <p class="Billing">Martínez Jecson</p>
+                    <div class="Billing-Container">
+                        <div class="p-attribute-Container">
+                            <p>Dirección:</p>
+                            <br><p>Teléfono:</p>
+                            <p>Correo electrónico:</p>
+                        </div>
+                        <div class="p-Container">
+                            <p>123 Oakwood Driver, Westbrook Park,<br>San Francisco, CA 94103, Spain</p>
+                            <p>+34 123 456 789</p>
+                            <p>johndoe@example.com</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="Billing-Information">
+                    <div class="Billing-Title">
+                        <p class="billing-box-label">Método de Pago</p>
+                        <a href="" class="Billing-Edit">Editar</a>
+                    </div>
+
+                    <div class="selected-payment-method">
+                        <div class="img-container">
+                            <img src="https://brand.mastercard.com/content/dam/mccom/brandcenter/thumbnails/mastercard_circles_92px_2x.png" alt="credit-debitcard">
+                        </div>
+                        
+                        <div class="card-details">
+                            <p class="p-card-number">Mastercard ****9678</p>
+                            <p class="p-expiration-date">Caduca en 12/28</p>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Nombre -->
                 <div class="Input-Group">
@@ -100,7 +139,7 @@
                 </div>
 
                     <div class="Payment-Container">
-                        <a class="Payment-Button" asp-area="" asp-controller="Payment" asp-action="PaymentMethod">Proceder al pago</a>
+                        <a class="Payment-Button" asp-area="" asp-controller="UserProfile" asp-action="Index">Completar el pago</a>
                     </div>
                 </div>
             </div>
@@ -130,5 +169,3 @@
         </div>
 
     </div>
-
-<script src="script.js" defer></script>

@@ -7,6 +7,10 @@ body {
     padding-top: 130px; /* 80 (main nav) + 60 (category nav approx) */
 }
 
+/**********************************************************************
+                        HEADER NAV BAR
+************************************************************************/
+
 
 /* FONTS */
 .navbar .navbar-brand {
@@ -124,20 +128,17 @@ h3 {
         transform: scale(1.05);
     }
 
-/* Ensure consistent height for all navbar items */
 .navbar .navbar-nav .nav-item,
 .navbar .navbar-nav .nav-link {
     line-height: 1.5; 
     margin: 0; 
 }
 
-/* Specific fixes for the search bar alignment */
 .navbar form.d-flex {
     display: flex;
     align-items: center;
 }
 
-/* Make sure all interactive elements have the same vertical centering */
 .navbar-nav .btn,
 .navbar-nav .nav-link,
 .navbar form .input-group {
@@ -157,14 +158,79 @@ h3 {
         color: white;
     }
 
-/********** RESPONSIVENSS **************/
+/*********************************************************************
+                    CATEGORY NAVBAR
+**********************************************************************/
+
+.category-navbar {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background-color: #000;
+    padding: 10px 0;
+    z-index: 998;
+    transition: top 0.3s ease, position 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.category-nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    gap: 40px;
+}
+
+.category-nav-link {
+    color: white !important;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+    .category-nav-link:hover {
+        color: #FFD700 !important;
+        transform: scale(1.05);
+    }
+
+.category-toggle-btn {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+    .category-toggle-btn i {
+        transition: transform 0.3s ease;
+    }
+
+    .category-toggle-btn.active i {
+        transform: rotate(180deg);
+    }
+
+
+/**********************************************************************
+                        RESPONSIVENSS 
+***********************************************************************/
 
 /* Medium screens (laptops) */
 @media (min-width: 992px) and (max-width: 1199px) {
     .navbar-nav .nav-link {
-        padding: 0.5rem 10px; /* Reduced horizontal padding */
+        padding: 0.5rem 20px; /* Reduced horizontal padding */
         font-size: 0.9rem; /* Slightly smaller font */
     }
+
 
     .navbar .navbar-brand {
         font-size: 24px; /* Smaller brand name */
@@ -180,22 +246,152 @@ h3 {
     }
 }
 
+
+/*************************** TABLET *************************************/
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .navbar {
+        padding: 10px 15px;
+        display: flex;
+        justify-content: space-between;
+        z-index: 1002;
+    }
+
+    .navbar-toggler {
+        display: block !important;
+        order: 3; /* Push to the right */
+        margin-left: auto; /* Push to the right */
+    }
+
+    /* Hide navbar links by default */
+    .navbar-collapse {
+        position: absolute;
+        top: 60px;
+        left: 50%;
+        transform: translateX(-50%); /* Center horizontally */
+        width: 92%;
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    }
+
+        /* Show navbar when toggled */
+        .navbar-collapse.show {
+            display: block !important;
+            opacity: 1;
+            visibility: visible;
+            transition: all 0.3s ease-in;
+            z-index: 1001 !important;
+            position: relative;
+        }
+
+    .navbar-nav .nav-item .nav-link {
+        padding: 6px 10px;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .form-control {
+        margin: 6px 0;
+    }
+
+    /* Force navbar-nav to be a column in the collapsed menu */
+    .navbar-collapse .navbar-nav {
+        display: flex;
+        flex-direction: column !important;
+        width: 100%;
+    }
+
+    .navbar-nav.align-items-center {
+        flex-direction: row !important;
+        justify-content: center;
+        gap: 10px;
+        padding-top: 10px;
+    }
+
+        .navbar-nav.align-items-center .btn {
+            font-size: 15px;
+            width: 100%;
+        }
+
+    /* CATEGORY NAVBAR */
+    .category-navbar {
+        top: 60px; /* just below the main nav */
+        padding: 30px 0;
+        flex-direction: column;
+        z-index: 1000; /* stay below navbar but above content */
+    }
+
+    .category-toggle-btn {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        font-size: 16px;
+        font-weight: 500;
+        color: white;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    .category-nav-container {
+        padding: 0 30px;
+        flex-direction: column;
+        gap: 10px;
+        display: none; /* hidden by default for toggle */
+    }
+
+        .category-nav-container.show {
+            display: flex !important; /* show when toggled */
+        }
+
+    #categoryCollapse {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px 0;
+    }
+
+        #categoryCollapse .category-nav-link {
+            text-align: left;
+            padding: 6px 0;
+        }
+
+}
+
+
+/*************************** PHONE *************************************/
+
 @media (max-width: 576px) {
+    .category-navbar {
+        top: 58px;
+    }
+
     navbar navbar-expand-sm {
         padding: 20px 15px;
     }
 
     .navbar-collapse {
         background-color: white;
-        padding: 10px 15px;
+        margin-top: 10px;
+        padding: 15px 15px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
-    .navbar-nav .nav-item .nav-link {
-        padding: 6px 10px;
-        display: flex;
-        align-items: center;
-        font-size: 16px;
-    }
+        .navbar-nav .nav-item .nav-link {
+            padding: 6px 10px;
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+        }
 
     .form-control {
         margin: 6px 0;
@@ -214,5 +410,81 @@ h3 {
 
         .navbar-nav.align-items-center .btn {
             font-size: 15px;
+        }
+
+.navbar-toggler i {
+    transition: transform 0.3s ease;
+}
+
+.navbar-toggler.collapsed i {
+    transform: rotate(180deg);
+}
+
+    /* NAV BAR */
+    .navbar {
+        z-index: 1002;
+    }
+
+    .navbar-collapse.show {
+        display: block !important;
+        opacity: 1;
+        visibility: visible;
+        transition: all 0.3s ease-in;
+        z-index: 1001 !important;
+    }
+
+    .category-links {
+        display: flex !important;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        gap: 40px;
+    }
+
+    /* CATEGORY NAV BAR */
+    .category-toggle-btn {
+        background-color: transparent;
+        border: none;
+        color: white;
+        font-size: 16px;
+        font-weight: 500;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 5px;
+        cursor: pointer;
+    }
+
+    .category-navbar {
+        padding: 10px 0;
+        flex-direction: column;
+    }
+
+    .category-toggle-btn {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        width: 100%;
+        font-size: 16px;
+        font-weight: 500;
+        color: white;
+        background: none;
+        border: none;
+    }
+
+    .category-nav-container {
+        padding: 0 30px;
+        gap: 10px;
+    }
+
+    /* Collapse container style */
+    #categoryCollapse {
+        padding: 10px 0;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+        #categoryCollapse .category-nav-link {
+            text-align: right;
+            padding: 6px 0;
         }
 }

@@ -2,42 +2,6 @@
     scroll-behavior: smooth;
 }
 
-/* NAVBAR */
-.category-navbar {
-    position: fixed;
-    top: 60px;
-    left: 0;
-    right: 0;
-    background-color: #000;
-    padding: 10px 0;
-    z-index: 998; /* less than main navbar, more than content */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.category-nav-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: nowrap;
-    white-space: nowrap;
-    gap: 40px;
-}
-
-.category-nav-link {
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 14px;
-    transition: all 0.3s ease;
-}
-
-    .category-nav-link:hover {
-        color: #FFD700;
-        transform: scale(1.05);
-    }
-
 /*/ PRODUCT CARDS */
 
 .product-grid {
