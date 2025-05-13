@@ -1,0 +1,121 @@
+﻿@{
+    Layout = "_Layout";
+    ViewData["Title"] = "User profile main page";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User profile page</title>
+    <link rel="stylesheet" href="~/css/UserProfile.css">
+    <link href="https://fonts.googleapis.com/css2?family=Murecho:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" rel="stylesheet">
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+</head>
+<body>
+    <div class="Main-Container">
+        <div class="Logout-Container">
+            <h1>Mi cuenta</h1>
+            <button type="submit" class="Logout-Button">Cerrar sesión</button>
+        </div>
+        <!--User's data container-->
+        <div class="User-Data-Container">
+            <div class="Data-Container">
+                <h2>Diego Sánchez</h2>
+                <p>example@gmail.com</p>
+            </div>
+            <div class="Link-Container">
+                <a class="Edit-Profile">Editar detalles del perfil</a>
+                <a class="Delete-Account">Borrar mi cuenta</a>
+            </div>
+        </div>
+        <!--Orders container-->
+        <div class="Orders-Container">
+            <div class="Orders-Title-Container">
+                <h2>Pedidos</h2>
+                <a href="" class="Orders-Link">Ver todos</a>
+            </div>
+            <div class="Order-Buttons-Container">
+                <button class="Order-Button"><span class="iconify Icon-Mini" data-icon="solar:wallet-bold"></span><br />Pendientes de pago</button>
+                <button class="Order-Button"><span class="iconify Icon-Mini" data-icon="mdi:receipt-text-pending"></span><br />Pendientes de envío</button>
+                <button class="Order-Button"><span class="iconify Icon-Mini" data-icon="mdi:truck-delivery"></span><br />Paquetes enviados</button>
+                <button class="Order-Button"><span class="iconify Icon-Mini" data-icon="material-symbols:rate-review-rounded"></span><br />Pendientes de valoración</button>
+            </div>
+        </div>
+        <!--Other stuff container-->
+        <div class="Other-Stuff-Container">
+            <div class="Stuff-Container">
+                <div class="Stuff-Data-Container">
+                    <h2 class="Stuff-h2">Lista de deseos</h2>
+                    <div class="Stuff-Icon-Container">
+                        <div>
+                            <span class="iconify Icon" data-icon="solar:wallet-bold"></span>
+                        </div>
+                        <div>
+                            <p class="Stuff-Text">Ve y modifica tu lista de deseos o añade los productos a tu carrito</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="Stuff-Data-Container">
+                    <h2 class="Stuff-h2">Mis pedidos</h2>
+                    <div class="Stuff-Icon-Container">
+                        <div>
+                            <span class="iconify Icon" data-icon="solar:wallet-bold"></span>
+                        </div>
+                        <div>
+                            <p class="Stuff-Text">Rastrear, devolver, cancelar un pedido., descargar la factura o volver a comprar.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="Stuff-Data-Container">
+                    <h2 class="Stuff-h2">Mis pagos</h2>
+                    <div class="Stuff-Icon-Container">
+                        <div>
+                            <span class="iconify Icon" data-icon="solar:wallet-bold"></span>
+                        </div>
+                        <div>
+                            <p class="Stuff-Text">Administrar o añadir métodos de pago y ver tus transacciones.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="Stuff-Container">
+                <div class="Stuff-Data-Container">
+                    <h2 class="Stuff-h2">Direcciones de envío</h2>
+                    <div class="Stuff-Icon-Container">
+                        <div>
+                            <span class="iconify Icon" data-icon="solar:wallet-bold"></span>
+                        </div>
+                        <div>
+                            <p class="Stuff-Text">Editar, eliminar o configurar la dirrección de envío predeterminada.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="Stuff-Data-Container">
+                    <h2 class="Stuff-h2">Inicio de sesión</h2>
+                    <div class="Stuff-Icon-Container">
+                        <div>
+                            <span class="iconify Icon" data-icon="solar:wallet-bold"></span>
+                        </div>
+                        <div>
+                            <p class="Stuff-Text">Ver la historial de los inicios de sesión de tu cuenta.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="Stuff-Data-Container">
+                    <h2 class="Stuff-h2">Valoraciones</h2>
+                    <div class="Stuff-Icon-Container">
+                        <div>
+                            <span class="iconify Icon" data-icon="solar:wallet-bold"></span>
+                        </div>
+                        <div>
+                            <p class="Stuff-Text">Escribe, lee, modifica o borra tus valoraciones.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,96 @@
+﻿@{
+	Layout = "_Layout";
+    ViewData["Title"] = "User edit profile";
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User profile page</title>
+    <link rel="stylesheet" href="~/css/UserEditProfile" asp-append-version="true">
+    <link href="https://fonts.googleapis.com/css2?family=Murecho:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="Main-Container">
+        <div class="MyAccount-Container">
+            <h2 class="MyAccount">Mi cuenta ></h2><h2 class="EditH2">&nbsp;Editar perfil</h2>
+        </div>
+        <div class="Edit-Title-Container">
+            <h2>Editar perfil de miembro</h2>
+        </div>
+        <div class="Personal-Data">
+            <div>
+                <h2>Datos personales</h2>
+                <form action="post">
+                    <div class="NameLastNames-Container">
+                        <div class="Container">
+                            <label for="NameInput">Nombre</label>
+                            <input type="text" class="Name" placeholder="Introduce tu nombre">
+                        </div>
+                        <div class="Container">
+                            <label for="LastNamesInput">Apellidos</label>
+                            <input type="text" class="Name" placeholder="Introduce tus apellidos">
+                        </div>
+                    </div>
+                    <div class="EmailPhone-Container">
+                        <div class="Container">
+                            <label for="EmailInput">Correo electrónico</label>
+                            <input type="email" class="Name" placeholder="Introduce tu correo electrónico">
+                        </div>
+                        <div class="Container">
+                            <label for="PhoneInput">Teléfono</label>
+                            <input type="number" class="Name" minlength="9" maxlength="9"
+                                   placeholder="Introduce tu número de teléfono">
+                        </div>
+                    </div>
+                    <div class="Container">
+                        <label for="AddressInput">Dirección</label>
+                        <input type="text" placeholder="Introduce tu dirección completa">
+                    </div>
+                    <div class="Container">
+                        <label for="CountryInput">País</label>
+                        <input type="text" placeholder="Introduce tu país">
+                    </div>
+                    <div class="CityRegionPostal-Container">
+                        <div class="Container">
+                            <label for="CityInput">Ciudad</label>
+                            <input type="text" class="City" placeholder="Murcia">
+                        </div>
+                        <div class="Container">
+                            <label for="RegionInput">Región</label>
+                            <input type="text" class="City" placeholder="Región">
+                        </div>
+                        <div class="Container">
+                            <label for="PostalInput">Código postal</label>
+                            <input type="number" class="City" minlength="5" maxlength="5"
+                                   placeholder="Introduce tu código postal">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div>
+                <button class="Photo-Button">Cambiar o subir foto de perfil</button>
+            </div>
+        </div>
+        <div class="Security-Container">
+            <h2>Información de seguridad</h2>
+            <div class="Container">
+                <label for="NewPasswordInput">Nueva contraseña</label>
+                <input type="Password" placeholder="Introduce tu nueva contraseña">
+            </div>
+            <div class="Container">
+                <label for="RepeatPasswordInput">Confirmar contraseña</label>
+                <input type="Password" placeholder="Introduce tu contraseña nuevamente">
+            </div>
+        </div>
+        <div class="Save-Container">
+            <button type="submit" class="Save-Button">Guardar cambios</button>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,129 @@
+body{
+    background-color: #D3D3D3;
+}
+
+.Main-Container{
+    display: flex;
+    flex-direction: column;
+    gap: 2%;
+    margin: 5vh;
+}
+
+.Personal-Data{
+    display: flex;
+    background-color: white;
+    border-radius: 5px;
+    padding-left: 5vh;
+    padding-bottom: 7vh;
+    margin-top: 3vh;
+    gap: 10vh;
+}
+
+.NameLastNames-Container{
+    display: flex;
+    gap: 3vh;
+}
+.Container{
+    display: flex;
+    flex-direction: column;
+}
+
+.EmailPhone-Container{
+    display: flex;
+    gap: 3vh;
+}
+
+.CityRegionPostal-Container{
+    display: flex;
+    gap: 1vh;
+}
+
+.Edit-Title-Container{
+    background-color: white;
+    padding-left: 5vh;
+    border-radius: 5px;
+}
+
+.Security-Container{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding-left: 5vh;
+    border-radius: 5px;
+    margin-top: 3vh;
+    padding-bottom: 7vh;
+}
+
+h2{
+    font-family: 'Poppins', sans-serif;
+}
+
+label{
+    font-family: 'Murecho', sans-serif;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+input{
+    height: 4vh;
+    width: 124vh;
+    border-radius: 5px;
+    border-color: rgba(0,0,0,0.3);
+}
+
+.Name{
+    height: 4vh;
+    width: 60vh;
+    border-radius: 5px;
+}
+
+.City{
+    height: 4vh;
+    width: 40vh;
+    border-radius: 5px;
+}
+
+.Photo-Button{
+    background-color: #EFEFEF80;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
+    width: 30vh;
+    height: 4vh;
+    border: 0;
+    border-radius: 5px;
+    margin-top: 18vh;
+}
+
+.Photo-Button:hover{
+    background-color: #efefef;
+}
+
+.Save-Button{
+    background-color: #70D3C3;
+    border:1px solid black;
+    width: 25vh;
+    height: 6vh;
+    margin-top: 5vh;
+    border-radius: 5px;
+}
+
+.Save-Button:hover{
+    background-color: #50978a;
+}
+
+.Save-Container{
+    display: flex;
+    justify-content: end;
+}
+
+.MyAccount-Container{
+    display: flex;
+}
+
+.MyAccount{
+    font-weight: 700;
+}
+
+.EditH2{
+    font-weight: 700;
+    color: #B77D00;
+}

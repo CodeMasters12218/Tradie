@@ -1,0 +1,172 @@
+body{
+    background-color: #D3D3D3;
+}
+
+.Main-Container{
+    display: flex;
+    flex-direction: column;
+    gap: 2%;
+    margin: 5vh;
+}
+
+.MyAccount-Container{
+     display: flex;
+     justify-content: space-between;
+}
+
+.User-Data-Container{
+    display: flex;
+    justify-content: space-between;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+}
+
+.Data-Container{
+    display: flex;
+    flex-direction: column;
+    padding-left: 5vh;
+}
+
+.Orders-Container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #FFFFFF;
+    height: 20vh;
+    padding-bottom: 10vh;
+    padding-top: 1vh;
+    border-radius: 5px;
+    margin-top: 5vh;
+}
+
+.Orders-Title-Container{
+    display: flex;
+    justify-content: space-between;
+    margin-left: 5vh;
+    margin-right: 5vh;
+    border-bottom: 1px solid black;
+}
+
+.Order-Buttons-Container{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.Order-Button{
+    background-color: #FFFFFF;
+    border: 0;
+    border-radius: 5px;
+}
+
+.Order-Button:hover{
+    background-color: rgba(0,0,0,0.3);
+}
+
+.Orders-Link{
+    text-decoration: none;
+    color: black;
+    margin-top: 3vh;
+}
+
+.Orders-Link:hover{
+    color: blue;
+}
+
+.Other-Stuff-Container{
+    display: flex;
+    flex-direction: column;
+    background-color: #D3D3D3;
+    margin-top: 2vh;
+    gap: 2vh;
+    border-radius: 5px;
+}
+
+.Stuff-Container{
+    display: flex;
+    justify-content: space-evenly;
+    background-color: #D3D3D3;
+    gap: 2vh;
+    border-radius: 5px;
+}
+
+.Stuff-Data-Container{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    width: 50vh;
+    height: 20vh;
+    padding: 5vh;
+    border-radius: 5px;
+}
+
+.Stuff-Icon-Container{
+    display: flex;
+    gap: 10vh;
+}
+
+.Stuff-Text{
+    margin-bottom: 20px;
+}
+
+p{
+    font-family: 'Poppins', sans-serif;
+}
+
+.Stuff-h2{
+    border-bottom: 1px solid black;
+}
+
+.Logout-Container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.Logout-Button{
+    background-color: #D26355;
+    color: #FFFFFF;
+    border: 0;
+    border-radius: 5px;
+    height: 5vh;
+    width: 10%;
+    min-height: 30px;
+    margin-top: 3vh;
+}
+
+h1, h2{
+    font-family: 'Poppins', sans-serif;
+}
+
+a:hover{
+    text-decoration: underline;
+}
+
+.Delete-Account{
+    color: #D26355;
+}
+
+.Edit-Profile{
+    color: #155D8FCC;
+}
+
+.Link-Container{
+    display: flex;
+    flex-direction: column;
+    gap: 3vh;
+    justify-content: center;
+    padding-right: 5vh;
+}
+
+.Icon{
+    color: #c08403;
+    height: 60px;
+    width: 60px;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.Icon-Mini{
+    color: #c08403;
+    height: 40px;
+    width: 40px;
+}
+
