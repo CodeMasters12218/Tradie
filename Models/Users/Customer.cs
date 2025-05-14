@@ -42,7 +42,7 @@ namespace Tradie.Models.Users
             ShoppingCart.Clear();
             return order;
         }
-        public void WriteProductReview(Product product, Review review)
+        public void WriteProductReview(Product product, UserProfileMainPage review)
         {
             product.AddReview(review);
         }

@@ -152,7 +152,7 @@ namespace Tradie.Controllers
 					Price = 20 + id,
 					ImageUrl = id % 2 == 0 ? "/images/tshirt1.png" : "/images/tshirt2.png",
 					Stock = 10 + id,
-					Reviews = new List<Review>() // Initialize empty reviews
+					Reviews = new List<UserProfileMainPage>() // Initialize empty reviews
 				};
 			}
 

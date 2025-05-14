@@ -2,7 +2,7 @@
 
 namespace Tradie.Models.Products
 {
-    public class Review
+    public class UserProfileMainPage
     {
         public int Id { get; set; }
         public string? Content { get; set; }

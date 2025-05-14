@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Tradie.Models.UserProfile.UserProfileMainPageModel
+
+@{
     Layout = "_Layout";
     ViewData["Title"] = "User profile main page";
 }
@@ -22,11 +24,11 @@
         <!--User's data container-->
         <div class="User-Data-Container">
             <div class="Data-Container">
-                <h2>Diego Sánchez</h2>
-                <p>example@gmail.com</p>
+                <h2>@Model.FullName</h2>
+                <p>@Model.Email</p>
             </div>
             <div class="Link-Container">
-                <a class="Edit-Profile">Editar detalles del perfil</a>
+                <a asp-controller="UserProfile" asp-action="UserEditProfile" class="Edit-Profile">Editar detalles del perfil</a>
                 <a class="Delete-Account">Borrar mi cuenta</a>
             </div>
         </div>

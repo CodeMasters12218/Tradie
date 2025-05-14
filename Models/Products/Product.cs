@@ -9,7 +9,7 @@ namespace Tradie.Models.Products
     {
       public Product()
         {
-            Reviews = new List<Review>();
+            Reviews = new List<UserProfileMainPage>();
             OrderItems = new List<OrderItem>();
         }
         
@@ -28,11 +28,11 @@ namespace Tradie.Models.Products
 		public string? ImageUrl { get; set; }
 		public int Stock { get; set; }
 
-		public List<Review> Reviews { get; set; }
+		public List<UserProfileMainPage> Reviews { get; set; }
 
         public List<OrderItem> OrderItems { get; set; }
 
-        public void AddReview (Review review)
+        public void AddReview (UserProfileMainPage review)
         {
             Reviews.Add (review);
         }
