@@ -84,7 +84,15 @@
                                 <td>
                                     <div>
                                         <button class="Create-Button" asp-controller="Users" asp-action="Edit">Crear</button>
-                                        <button class="Edit-Button" asp-controller="Users" asp-action="Edit">Editar</button>
+                                        <!--<button class="Edit-Button" asp-controller="Users" asp-action="Edit" asp-route-id="">Editar</button>-->
+                                        <button class="Edit-Button"
+                                                data-user-id="@u.Id.ToString()"
+                                                data-user-name="@u.Name"
+                                                data-user-email="@u.Email"
+                                                data-user-role="@((int)u.Role)">
+                                            Editar
+                                        </button>
+
                                         <button class="Delete-Button" data-user-name="@u.Name" asp-controller="Users" asp-action="Delete">Eliminar</button>
                                     </div>
                                 </td>
@@ -115,6 +123,11 @@
                         <input asp-for="CurrentUser.Name" type="text" />
                         <span asp-validation-for="CurrentUser.Name" class="text-danger"></span>
 
+                        <label asp-for="CurrentUser.Email">Email*</label>
+                        <input asp-for="CurrentUser.Email" type="email" />
+                        <span asp-validation-for="CurrentUser.Email" class="text-danger"></span>
+
+
                         <label asp-for="CurrentUser.Password">Contraseña*</label>
                         <input asp-for="CurrentUser.Password" type="password" />
                         <span asp-validation-for="CurrentUser.Password" class="text-danger"></span>
@@ -135,7 +148,7 @@
                         <label asp-for="CurrentUser.Address">Dirección*</label>
                         <input asp-for="CurrentUser.Address" type="text" />
                         -->
-                        
+
 
                         <label asp-for="CurrentUser.Role">Rol*</label>
                         <select asp-for="CurrentUser.Role">
@@ -165,10 +178,18 @@
                     <form class="UserCreation" asp-controller="Users" asp-action="Edit" method="post">
                         @Html.AntiForgeryToken()
 
-                        <!--<input type="hidden" asp-for="CurrentUser.Id" />-->
+                        <input type="hidden" name="CurrentUser.Id" />
+                        <p>DEBUG: ID actual: @Model.CurrentUser.Id</p>
+
 
                         <label asp-for="CurrentUser.Name">Nombre</label>
                         <input asp-for="CurrentUser.Name" type="text" />
+                        <span asp-validation-for="CurrentUser.Name"></span>
+
+                        <label asp-for="CurrentUser.Email">Email</label>
+                        <input asp-for="CurrentUser.Email" type="email" />
+                        <span asp-validation-for="CurrentUser.Email"></span>
+
                         <!--
 
                         <label asp-for="CurrentUser.Email">Dirección de correo electrónico</label>
@@ -194,6 +215,7 @@
                             <option value="@UserRole.Seller">Proveedor</option>
                             <option value="@UserRole.Admin">Administrador</option>
                         </select>
+                        <span asp-validation-for="CurrentUser.Role"></span>
                         <!--Edit button-->
                         <div class="Create-Button-Container">
                             <button type="submit" class="Create-User" id="confirmEdit">Modificar usuario</button>
