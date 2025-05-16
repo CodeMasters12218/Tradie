@@ -220,6 +220,12 @@ namespace Tradie.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("AdminId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CustomerId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -245,6 +251,10 @@ namespace Tradie.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AdminId");
+
+                    b.HasIndex("CustomerId");
 
                     b.HasIndex("SellerId");
 
@@ -286,7 +296,7 @@ namespace Tradie.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Review");
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("Tradie.Models.ShoppingCart.CartItem", b =>
@@ -297,6 +307,12 @@ namespace Tradie.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Color")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal>("PriceAtAddition")
                         .HasColumnType("decimal(18,2)");
 
@@ -304,7 +320,6 @@ namespace Tradie.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ProductName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Quantity")
@@ -312,6 +327,12 @@ namespace Tradie.Migrations
 
                     b.Property<int>("ShoppingCartId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Size")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -329,6 +350,15 @@ namespace Tradie.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("DeliveryFee")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Subtotal")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -531,6 +561,14 @@ namespace Tradie.Migrations
 
             modelBuilder.Entity("Tradie.Models.Products.Product", b =>
                 {
+                    b.HasOne("Tradie.Models.Users.Admin", null)
+                        .WithMany("Products")
+                        .HasForeignKey("AdminId");
+
+                    b.HasOne("Tradie.Models.Users.Customer", null)
+                        .WithMany("Products")
+                        .HasForeignKey("CustomerId");
+
                     b.HasOne("Tradie.Models.Users.Seller", "Seller")
                         .WithMany("Products")
                         .HasForeignKey("SellerId")
@@ -543,9 +581,9 @@ namespace Tradie.Migrations
             modelBuilder.Entity("Tradie.Models.Products.Review", b =>
                 {
                     b.HasOne("Tradie.Models.Users.Customer", "Customer")
-                        .WithMany()
+                        .WithMany("Reviews")
                         .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Tradie.Models.Products.Product", "Product")
@@ -606,9 +644,18 @@ namespace Tradie.Migrations
                     b.Navigation("Items");
                 });
 
+            modelBuilder.Entity("Tradie.Models.Users.Admin", b =>
+                {
+                    b.Navigation("Products");
+                });
+
             modelBuilder.Entity("Tradie.Models.Users.Customer", b =>
                 {
                     b.Navigation("Orders");
+
+                    b.Navigation("Products");
+
+                    b.Navigation("Reviews");
                 });
 
             modelBuilder.Entity("Tradie.Models.Users.Seller", b =>

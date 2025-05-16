@@ -12,11 +12,13 @@ namespace Tradie.Models.Users
             Role = UserRole.Customer;
             ShoppingCart = new Tradie.Models.ShoppingCart.ShoppingCart();
             Orders = new List<Order>();
-        }
+			Reviews = new List<Review>();
+		}
         public Tradie.Models.ShoppingCart.ShoppingCart ShoppingCart { get; private set; }
         public List<Order> Orders { get; private set; }
+		public List<Review> Reviews { get; set; }
 
-        public void BrowseProducts(Category category) { /* ... */ }
+		public void BrowseProducts(Category category) { /* ... */ }
 
         public List<Product> SearchProducts(string query)
         {
@@ -42,9 +44,14 @@ namespace Tradie.Models.Users
             ShoppingCart.Clear();
             return order;
         }
-        public void WriteProductReview(Product product, UserProfileMainPage review)
-        {
-            product.AddReview(review);
-        }
-    }
+		public void WriteProductReview(Product product, Review review)
+		{
+			// Set the customer ID
+			review.CustomerId = this.Id;
+			// Add to product reviews
+			product.AddReview(review);
+			// Add to customer reviews
+			Reviews.Add(review);
+		}
+	}
 }

@@ -2,6 +2,7 @@
 using Tradie.Models.Users;
 using Tradie.Models.Products;
 using Tradie.Models.Orders;
+using Tradie.Models.UserProfile;
 
 namespace Tradie.Models.Products
 {
@@ -23,11 +24,11 @@ namespace Tradie.Models.Products
 		public string? ImageUrl { get; set; }
 		public int Stock { get; set; }
 
-		public List<UserProfileMainPage> Reviews { get; set; }
+		public List<UserProfileMainPageModel>? Reviews { get; set; }
 
-        public List<OrderItem> OrderItems { get; set; }
+        public List<OrderItem>? OrderItems { get; set; }
 
-        public void AddReview (UserProfileMainPage review)
+        public void AddReview (UserProfileMainPageModel review)
         {
             Reviews.Add (review);
         }

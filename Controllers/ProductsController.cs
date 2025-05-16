@@ -1,10 +1,13 @@
 ﻿using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Tradie.Data;
 using Tradie.Models.Products;
+using Tradie.Models.Users;
 
 namespace Tradie.Controllers
 {
@@ -12,119 +15,212 @@ namespace Tradie.Controllers
     public class ProductsController : Controller
     {
         private readonly ApplicationDbContext _context;
+		private readonly UserManager<User> _userManager;
 
-        public ProductsController(ApplicationDbContext context)
+		public ProductsController(ApplicationDbContext context, UserManager<User> userManager)
         {
             _context = context;
-        }
+			_userManager = userManager;
+		}
 
-        public async Task<IActionResult> Index(string searchTerm)
+        public async Task<IActionResult> Index(string searchTerm, string subcategory)
         {
-            var productsQuery = _context.Products.AsQueryable();
+			var productsQuery = _context.Products
+				.Include(p => p.Seller)
+				.AsQueryable();
 
-            if (!string.IsNullOrEmpty(searchTerm))
-            {
-                productsQuery = productsQuery.Where(p => p.Name.Contains(searchTerm) || p.Description.Contains(searchTerm));
-            }
+			if (!string.IsNullOrEmpty(searchTerm))
+			{
+				productsQuery = productsQuery.Where(p =>
+					p.Name.Contains(searchTerm) ||
+					p.Description.Contains(searchTerm));
+			}
 
-            var products = await productsQuery.ToListAsync();
+			if (!string.IsNullOrEmpty(subcategory))
+			{
+				productsQuery = productsQuery.Where(p => p.Subcategory == subcategory);
+			}
+
+			var products = await productsQuery.ToListAsync();
             return View(products);
         }
 
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null) return NotFound();
+		// GET: Products/Details/5
+		public async Task<IActionResult> Details(int? id)
+		{
+			if (id == null) return NotFound();
 
-            var product = await _context.Products
-                .Include(p => p.Seller)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (product == null) return NotFound();
+			var product = await _context.Products
+				.Include(p => p.Seller)
+				.Include(p => p.Reviews)
+					.ThenInclude(r => r.Customer)
+				.FirstOrDefaultAsync(m => m.Id == id);
 
-            return View(product);
-        }
+			if (product == null) return NotFound();
 
-        [Authorize(Roles = "Admin, Seller")]
+			// Check if current user has already reviewed this product
+			bool hasReviewed = false;
+			if (User.Identity.IsAuthenticated)
+			{
+				var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+				hasReviewed = product.Reviews.Any(r => r.Customer.Id.ToString() == userId);
+				ViewData["HasReviewed"] = hasReviewed;
+			}
+
+			return View(product);
+		}
+
+		// GET: Products/Create
+		[Authorize(Roles = "Admin, Seller")]
         public IActionResult Create()
         {
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Product product)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(product);
-                await _context.SaveChangesAsync();
-                TempData["Message"] = "Producto creado exitosamente.";
-                return RedirectToAction(nameof(Index));
-            }
-            return View(product);
-        }
+		// POST: Products/Create
+		// POST: Products/Create
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		[Authorize(Roles = "Admin,Seller")]
+		public async Task<IActionResult> Create(Product product)
+		{
+			if (ModelState.IsValid)
+			{
+				// Set the seller ID to the current user if they're a seller
+				var user = await _userManager.GetUserAsync(User);
+				if (user is Seller seller)
+				{
+					product.SellerId = seller.Id;
+				}
+				else if (User.IsInRole("Admin"))
+				{
+					// If admin is creating a product, needs to specify SellerId
+					if (product.SellerId == 0)
+					{
+						ModelState.AddModelError("SellerId", "El ID del vendedor es requerido cuando un administrador crea un producto.");
+						return View(product);
+					}
+				}
 
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null) return NotFound();
+				_context.Add(product);
+				await _context.SaveChangesAsync();
+				TempData["Message"] = "Producto creado exitosamente.";
+				return RedirectToAction(nameof(Index));
+			}
+			return View(product);
+		}
 
-            var product = await _context.Products.FindAsync(id);
-            if (product == null) return NotFound();
-            return View(product);
-        }
+		// GET: Products/Edit/5
+		[Authorize(Roles = "Admin,Seller")]
+		public async Task<IActionResult> Edit(int? id)
+		{
+			if (id == null) return NotFound();
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Product product)
-        {
-            if (id != product.Id) return NotFound();
+			var product = await _context.Products.FindAsync(id);
+			if (product == null) return NotFound();
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(product);
-                    await _context.SaveChangesAsync();
-                    TempData["Message"] = "Producto actualizado exitosamente.";
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ProductExists(product.Id))
-                        return NotFound();
-                    else
-                        throw;
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(product);
-        }
+			// Check if the current user is the seller of this product or an admin
+			var user = await _userManager.GetUserAsync(User);
+			if (!(user is Admin) && product.SellerId != user.Id)
+			{
+				return Forbid();
+			}
 
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null) return NotFound();
+			return View(product);
+		}
 
-            var product = await _context.Products
-                .Include(p => p.Seller)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (product == null) return NotFound();
+		// POST: Products/Edit/5
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		[Authorize(Roles = "Admin,Seller")]
+		public async Task<IActionResult> Edit(int id, Product product)
+		{
+			if (id != product.Id) return NotFound();
 
-            return View(product);
-        }
+			// Verify user is allowed to edit this product
+			var user = await _userManager.GetUserAsync(User);
+			var originalProduct = await _context.Products.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
 
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var product = await _context.Products.FindAsync(id);
-            if (product != null)
-            {
-                _context.Products.Remove(product);
-                await _context.SaveChangesAsync();
-                TempData["Message"] = "Producto eliminado exitosamente.";
-            }
-            return RedirectToAction(nameof(Index));
-        }
+			if (originalProduct == null)
+			{
+				return NotFound();
+			}
 
-        private bool ProductExists(int id)
+			if (!(user is Admin) && originalProduct.SellerId != user.Id)
+			{
+				return Forbid();
+			}
+
+			if (ModelState.IsValid)
+			{
+				try
+				{
+					// Maintain the original seller ID
+					product.SellerId = originalProduct.SellerId;
+
+					_context.Update(product);
+					await _context.SaveChangesAsync();
+					TempData["Message"] = "Producto actualizado exitosamente.";
+				}
+				catch (DbUpdateConcurrencyException)
+				{
+					if (!ProductExists(product.Id))
+						return NotFound();
+					else
+						throw;
+				}
+				return RedirectToAction(nameof(Index));
+			}
+			return View(product);
+		}
+
+		// GET: Products/Delete/5
+		[Authorize(Roles = "Admin,Seller")]
+		public async Task<IActionResult> Delete(int? id)
+		{
+			if (id == null) return NotFound();
+
+			var product = await _context.Products
+				.Include(p => p.Seller)
+				.FirstOrDefaultAsync(m => m.Id == id);
+
+			if (product == null) return NotFound();
+
+			// Check if the current user is the seller of this product or an admin
+			var user = await _userManager.GetUserAsync(User);
+			if (!(user is Admin) && product.SellerId != user.Id)
+			{
+				return Forbid();
+			}
+
+			return View(product);
+		}
+
+		// POST: Products/Delete/5
+		[HttpPost, ActionName("Delete")]
+		[ValidateAntiForgeryToken]
+		[Authorize(Roles = "Admin,Seller")]
+		public async Task<IActionResult> DeleteConfirmed(int id)
+		{
+			var product = await _context.Products.FindAsync(id);
+			if (product == null) return NotFound();
+
+			// Check if the current user is the seller of this product or an admin
+			var user = await _userManager.GetUserAsync(User);
+			if (!(user is Admin) && product.SellerId != user.Id)
+			{
+				return Forbid();
+			}
+
+			_context.Products.Remove(product);
+			await _context.SaveChangesAsync();
+			TempData["Message"] = "Producto eliminado exitosamente.";
+
+			return RedirectToAction(nameof(Index));
+		}
+
+
+		private bool ProductExists(int id)
         {
             return _context.Products.Any(e => e.Id == id);
         }
