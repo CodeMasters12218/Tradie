@@ -15,7 +15,8 @@ namespace Tradie.Models.Users
     {
         [Required(ErrorMessage = "El nombre es obligatorio.")]
         public string Name { get; set; }
-        /*[Required(ErrorMessage = "Los apellidos es obligatorio.")]
+		public string? ProfilePhotoUrl { get; set; }
+		/*[Required(ErrorMessage = "Los apellidos es obligatorio.")]
         public string LastNames { get; set; }
         [Required(ErrorMessage = "El correo electrónico es obligatorio.")]
         [EmailAddress(ErrorMessage = "El correo electrónico no es válido.")]
@@ -25,7 +26,7 @@ namespace Tradie.Models.Users
         public string password { get; set; }
         [Required]
         public int Age { get; set; }*/
-        [Required]
+		[Required]
         public UserRole Role { get; set; }
         [Required]
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;

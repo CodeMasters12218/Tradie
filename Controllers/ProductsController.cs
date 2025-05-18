@@ -17,13 +17,16 @@ namespace Tradie.Controllers
         private readonly ApplicationDbContext _context;
 		private readonly UserManager<User> _userManager;
 
-		public ProductsController(ApplicationDbContext context, UserManager<User> userManager)
-        {
-            _context = context;
+		public ProductsController(
+			ApplicationDbContext context, 
+			UserManager<User> userManager)
+			: base(userManager)
+		{
+			_context = context;
 			_userManager = userManager;
 		}
 
-        public async Task<IActionResult> Index(string searchTerm, string subcategory)
+		public async Task<IActionResult> Index(string searchTerm, string subcategory)
         {
 			var productsQuery = _context.Products
 				.Include(p => p.Seller)

@@ -1,22 +1,41 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Tradie.Models.UserProfile;
+using Tradie.Models.Users;
 
 namespace Tradie.Controllers
 {
 	public class BaseController : Controller
 	{
+		private readonly UserManager<User> _userManager;
+
+		public BaseController(UserManager<User> userManager)
+		{
+			_userManager = userManager;
+		}
+
 		public override void OnActionExecuting(ActionExecutingContext context)
 		{
-			// TEMP: Fake user — replace with real user logic later
-			var user = new UserProfileMainPageModel
+			if (User.Identity != null && User.Identity.IsAuthenticated)
 			{
-				FullName = "Juan Pérez",
-				Email = "juan.perez@example.com",
-				ProfilePhotoUrl = "/images/girl_denim.png"
-			};
-
-			ViewBag.UserProfile = user;
+				var userId = _userManager.GetUserId(User);
+				if (int.TryParse(userId, out int id))
+				{
+					var user = _userManager.Users.FirstOrDefault(u => u.Id == id);
+					if (user != null)
+					{
+						ViewBag.UserProfile = new UserProfileMainPageModel
+						{
+							FullName = user.Name ?? "No Name",
+							Email = user.Email,
+							ProfilePhotoUrl = !string.IsNullOrEmpty(user.ProfilePhotoUrl)
+								? user.ProfilePhotoUrl
+								: "/images/boy_black.png"
+						};
+					}
+				}
+			}
 
 			base.OnActionExecuting(context);
 		}

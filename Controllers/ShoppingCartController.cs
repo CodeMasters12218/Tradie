@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor.Compilation;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Tradie.Data;
 using Tradie.Models.ShoppingCart;
+using Tradie.Models.Users;
 
 namespace Tradie.Controllers
 {
@@ -15,8 +17,11 @@ namespace Tradie.Controllers
 	{
         private readonly ApplicationDbContext _context;
 
-        public ShoppingCartController(ApplicationDbContext context)
-        {
+        public ShoppingCartController(
+            ApplicationDbContext context,
+			UserManager<User> userManager)
+			: base(userManager)
+		{
             _context = context;
         }
 

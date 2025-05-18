@@ -7,20 +7,20 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Tradie.Controllers
 {
-    public class AccountController : Controller
-    {
-        private readonly UserManager<User> _userMgr;
-        private readonly SignInManager<User> _signInMgr;
-        
-        public AccountController(
-            UserManager<User> userMgr,
-            SignInManager<User> signInMgr)
-        {
-            _userMgr = userMgr;
-            _signInMgr = signInMgr;
-        }
+	public class AccountController : BaseController
 
-        [HttpGet]
+	{
+		private readonly UserManager<User> _userMgr;
+        private readonly SignInManager<User> _signInMgr;
+
+		public AccountController(UserManager<User> userMgr, SignInManager<User> signInMgr)
+		: base(userMgr)
+		{
+			_userMgr = userMgr;
+			_signInMgr = signInMgr;
+		}
+
+		[HttpGet]
         public IActionResult Login()
         {
             return View("~/Views/Login/Login.cshtml");

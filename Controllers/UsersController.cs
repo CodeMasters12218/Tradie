@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Tradie.Data;
 using Tradie.Models.Users;
+using Microsoft.AspNetCore.Identity;
 
 namespace Tradie.Controllers
 {
@@ -13,8 +14,10 @@ namespace Tradie.Controllers
 	{
         private readonly ApplicationDbContext _context;
 
-        public UsersController(ApplicationDbContext context)
-        {
+        public UsersController(ApplicationDbContext context, 
+            UserManager<User> userManager)
+            : base(userManager)
+		{
             _context = context;
         }
 

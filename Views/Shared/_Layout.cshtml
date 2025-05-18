@@ -74,10 +74,7 @@
                         @await Html.PartialAsync("_UserProfilePartial", ViewBag.UserProfile as Tradie.Models.UserProfile.UserProfileMainPageModel)
 
 
-                        <!-- Login Button -->
-                        <li class="nav-item">
-                            <a class="btn btn-primary text-white px-4 py-2 rounded-pill" asp-controller="Account" asp-action="Login">Login</a>
-                        </li>
+                        <!-- Login Button (appears via condiiton in _UserProfilePartial.cshtml) -->
                     </ul>
                 </div>
 
