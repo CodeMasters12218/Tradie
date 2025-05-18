@@ -8,7 +8,7 @@ using Tradie.Models.Products;
 
 namespace Tradie.Controllers
 {
-	public class CategoryController : Controller
+	public class CategoryController : BaseController
 	{
 		private readonly ILogger<CategoryController> _logger;
 		private readonly ApplicationDbContext _context;

@@ -1,0 +1,25 @@
+﻿@{
+    var profile = ViewBag.UserProfile as Tradie.Models.UserProfile.UserProfileMainPageModel;
+}
+
+@if (profile != null)
+{
+    <li class="nav-item dropdown me-3">
+        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userProfileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="@(!string.IsNullOrEmpty(profile.ProfilePhotoUrl) ? profile.ProfilePhotoUrl : Url.Content("~/images/default-profile.png"))" class="rounded-circle" width="32" height="32" />
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userProfileDropdown">
+            <li class="px-3 py-2">
+                <div class="d-flex align-items-center">
+                    <img src="@(!string.IsNullOrEmpty(profile.ProfilePhotoUrl) ? profile.ProfilePhotoUrl : Url.Content("~/images/default-profile.png"))" class="rounded-circle me-2" alt="Profile" width="48" height="48" />
+                    <div>
+                        <div class="fw-bold">@profile.FullName</div>
+                        <div class="text-muted small">@profile.Email</div>
+                    </div>
+                </div>
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li><a class="dropdown-item" asp-controller="UserProfile" asp-action="UserProfileMainPage">View Profile</a></li>
+        </ul>
+    </li>
+}

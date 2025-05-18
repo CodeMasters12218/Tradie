@@ -3,7 +3,7 @@ using Tradie.Models.UserProfile; // Needed to access UserProfileMainPageModel
 
 namespace Tradie.Controllers
 {
-	public class UserProfileController : Controller
+	public class UserProfileController : BaseController
 	{
 		public IActionResult UserProfileMainPage()
 		{

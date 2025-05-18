@@ -11,8 +11,8 @@ using Tradie.Models.ShoppingCart;
 
 namespace Tradie.Controllers
 {
-    public class ShoppingCartController : Controller
-    {
+    public class ShoppingCartController : BaseController
+	{
         private readonly ApplicationDbContext _context;
 
         public ShoppingCartController(ApplicationDbContext context)

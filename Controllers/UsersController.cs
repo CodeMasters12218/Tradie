@@ -9,8 +9,8 @@ using Tradie.Models.Users;
 namespace Tradie.Controllers
 {
     [Authorize(Roles = "Admin")]
-    public class UsersController : Controller
-    {
+    public class UsersController : BaseController
+	{
         private readonly ApplicationDbContext _context;
 
         public UsersController(ApplicationDbContext context)

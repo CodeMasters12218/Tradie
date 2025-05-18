@@ -11,7 +11,7 @@ using Tradie.Models.Users;
 
 namespace Tradie.Controllers
 {
-	public class ReviewsController : Controller
+	public class ReviewsController : BaseController
 	{
 		private readonly ApplicationDbContext _context;
 		private readonly UserManager<User> _userManager;

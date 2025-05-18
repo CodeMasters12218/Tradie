@@ -12,8 +12,8 @@ using Tradie.Models.Users;
 namespace Tradie.Controllers
 {
     [Authorize(Roles = "Admin, Seller")]
-    public class ProductsController : Controller
-    {
+    public class ProductsController : BaseController
+	{
         private readonly ApplicationDbContext _context;
 		private readonly UserManager<User> _userManager;
 

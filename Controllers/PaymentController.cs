@@ -4,8 +4,8 @@ using Tradie.Models.Payments;
 
 namespace Tradie.Controllers
 {
-    public class PaymentController : Controller
-    {
+    public class PaymentController : BaseController
+	{
         public IActionResult PaymentDetails()
         {
             var model = new PaymentDetails();
