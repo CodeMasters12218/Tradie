@@ -1,7 +1,11 @@
-﻿@model IEnumerable<Tradie.Models.Users.User>
+﻿@using Tradie.Models.Users
+
+
+@model UserManagementViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     Layout = null;
-	ViewData["Title"] = "User Management";
+    ViewData["Title"] = "User Management";
 }
 <!DOCTYPE html>
 <html lang="es">
@@ -17,14 +21,14 @@
 </head>
 <body>
     <header class="admin-header bg-white border-bottom shadow-sm py-3 px-4 d-flex justify-content-between align-items-center">
-		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-			<div class="container-fluid">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
                 <div class="logo">
                     <a class="navbar-brand fs-4 fw-bold text-dark" asp-area="" asp-controller="Home" asp-action="Index">Tradie Admin</a>
                 </div>
-			</div>
-		</nav>
-	</header>
+            </div>
+        </nav>
+    </header>
     <div class="Global-Container">
         <!-- This is the container for the sidebar-->
         <div class="sidebar-Container">
@@ -59,40 +63,42 @@
                         <tr>
                             <td class="Name">Name&ID</td>
                             <td class="Email">Email</td>
-                            <td class="Email2">Email</td>
                             <td class="Role">Role</td>
                             <td class="Status">Status</td>
                             <td class="Action">Action</td>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach(var u in Model)
+                        @foreach (var u in Model.Users)
                         {
                             <tr>
                                 <td>
-							        <div>
-								        <p>@u.Name</p>
-								        <p>@u.Id</p>
-							        </div>
+                                    <div>
+                                        <p>@u.Name ID:@u.Id</p>
+                                    </div>
                                 </td>
                                 <td>@u.Email</td>
                                 <td>34</td>
                                 <td>@u.Role</td>
                                 <td></td>
-							    <td>
-								    <div>
-                                        <button class="Create-Button" asp-controller="Users" asp-action="Edit">Crear</button>
-									    <button class="Edit-Button" asp-controller="Users" asp-action="Edit">Editar</button>
-                                        <button class="Delete-Button" data-user-id="@u.Id" data-user-name="@u.Name" asp-controller="Users" asp-action="Delete">Eliminar</button>
-								    </div>
-							    </td>
+                                <td>
+                                    <div>
+                                        <button class="Edit-Button" data-user-id="@u.Id" data-user-name="@u.Name" data-user-lastnames="@u.LastNames" data-user-email="@u.Email" data-user-role="@u.Role">Editar usuario</button>
+
+                                        <button class="Delete-Button" data-user-id="@u.Id" data-user-name="@u.Name" asp-controller="Users" asp-action="Delete">Eliminar usuario</button>
+                                    </div>
+                                </td>
                             </tr>
                         }
                     </tbody>
                 </table>
             </div>
+            <div class="Create-Button-Container">
+                <button class="Create-Button" asp-controller="Users" asp-action="Edit">Crear usuario</button>
+            </div>
         </div>
     </div>
+    <!--Button to create users-->
     <!--Pop ups-->
     <!--Create user Pop-Up-->
     <dialog id="CreateUser-PopUp">
@@ -101,35 +107,39 @@
                 <h1 class="UserCreation">Creación de Usuario</h1>
                 <button id="closeCreatePopUp" class="CloseButton">X</button>
             </div>
-            <div class="User-Form-Container">
+            <div>
                 <!--form-Containers-->
                 <div>
-                    <form class="UserCreation">
-                        <label for="Name-Input">Nombre*</label>
-                        <input type="text" name="Name-Input" />
-                        <label for="EmailAdress-Input">Dirección de correo electrónico*</label>
-                        <input type="text" name="Name-Input" />
-                        <label for="Age-Input">Edad*</label>
-                        <input type="number" name="Age-Input" />
-                        <label for="Phone-Input">Número de telefono*</label>
-                        <input type="number" name="Phone-Input" />
-                    </form>
-                </div>
-                <div>
-                    <form class="UserCreation" asp-controller="Users" asp-action="Create">
-                        <label for="LastNames-Input">Apellidos*</label>
-                        <input type="text" name="LastNames-Input" />
-                        <label for="Password-Input">Contraseña*</label>
-                        <input type="password" name="Password-Input" />
-                        <label for="Address-Input">Dirección*</label>
-                        <input type="text" name="Address-Input" />
-                        <label for="Role-Input">Rol*</label>
-                        <select>
-                            <option value="Customer">Cliente</option>
-                            <option value="Seller">Proveedor</option>
-                            <option value="Admin">Administrador</option>
-                        </select>
-                        <!--Create button-->
+                    <form class="UserCreation" asp-controller="Users" asp-action="Create" method="post">
+                        @Html.AntiForgeryToken()
+                        <!--<input type="hidden" asp-for="CurrentUser.Id" />-->
+                        <div class="User-Form-Container" >
+                            <div class="UserCreation">
+                                <label asp-for="CurrentUser.Name">Nombre*</label>
+                                <input asp-for="CurrentUser.Name" type="text" />
+                                <span asp-validation-for="CurrentUser.Name" class="text-danger"></span>
+
+                                <label asp-for="CurrentUser.Email">Dirección de correo electrónico*</label>
+                                <input asp-for="CurrentUser.Email" type="email" />
+                                <span asp-validation-for="CurrentUser.Email" class="text-danger"></span>
+                            </div>
+                            <div class="UserCreation">
+                                <label asp-for="CurrentUser.LastNames">Apellidos*</label>
+                                <input asp-for="CurrentUser.LastNames" type="text" />
+
+                                <label asp-for="CurrentUser.Password">Contraseña*</label>
+                                <input asp-for="CurrentUser.Password" type="password" />
+                                <span asp-validation-for="CurrentUser.Password" class="text-danger"></span>
+
+                                <label asp-for="CurrentUser.Role">Rol*</label>
+                                <select asp-for="CurrentUser.Role">
+                                    <option value="@UserRole.Customer">Cliente</option>
+                                    <option value="@UserRole.Seller">Proveedor</option>
+                                    <option value="@UserRole.Admin">Administrador</option>
+                                </select>
+                                <span asp-validation-for="CurrentUser.Role" class="text-danger"></span>
+                            </div>
+                        </div>
                         <div class="Create-Button-Container">
                             <button type="submit" class="Create-User" id="confirmCreate">Crear usuario</button>
                         </div>
@@ -138,41 +148,43 @@
             </div>
         </div>
     </dialog>
-    <!--Create user Pop-Up-->
+    <!--Edit user Pop-Up-->
     <dialog id="EditUser-PopUp">
         <div class="User-LabelForm-Container">
             <div class="Title-Container">
                 <h1 class="UserCreation">Modificación de Usuario</h1>
                 <button id="closeEditPopUp" class="CloseButton">X</button>
             </div>
-            <div class="User-Form-Container">
+            <div>
                 <!--form-Containers-->
                 <div>
-                    <form class="UserCreation">
-                        <label for="Name-Input">Nombre</label>
-                        <input type="text" name="Name-Input" />
-                        <label for="EmailAdress-Input">Dirección de correo electrónico</label>
-                        <input type="text" name="Name-Input" />
-                        <label for="Age-Input">Edad</label>
-                        <input type="number" name="Age-Input" />
-                        <label for="Phone-Input">Número de telefono</label>
-                        <input type="number" name="Phone-Input" />
-                    </form>
-                </div>
-                <div>
-                    <form class="UserCreation">
-                        <label for="LastNames-Input">Apellidos</label>
-                        <input type="text" name="LastNames-Input"/>
-                        <label for="Password-Input">Contraseña</label>
-                        <input type="password" name="Password-Input" />
-                        <label for="Address-Input">Dirección</label>
-                        <input type="text" name="Address-Input" />
-                        <label for="Role-Input">Rol</label>
-                        <select>
-                            <option value="Customer">Cliente</option>
-                            <option value="Seller">Proveedor</option>
-                            <option value="Admin">Administrador</option>
-                        </select>
+                    <form class="UserCreation" asp-controller="Users" asp-action="Edit" method="post">
+                        @Html.AntiForgeryToken()
+
+                        <input type="hidden" asp-for="CurrentUser.Id" id="editUserId" />
+                        <div class="User-Form-Container">
+                            <div class="UserCreation">
+                                <label asp-for="CurrentUser.Name">Nombre</label>
+                                <input id="editUserName" asp-for="CurrentUser.Name" type="text" />
+                                <span asp-validation-for="CurrentUser.Name"></span>
+
+                                <label asp-for="CurrentUser.Email">Dirección de correo electrónico</label>
+                                <input id="editUserEmail" asp-for="CurrentUser.Email" type="email" />
+                                <span asp-validation-for="CurrentUser.Email"></span>
+                            </div>
+                            <div class="UserCreation">
+                                <label asp-for="CurrentUser.LastNames">Apellidos</label>
+                                <input asp-for="CurrentUser.LastNames" id="editUserLastNames" type="text" />
+
+                                <label asp-for="CurrentUser.Role">Rol</label>
+                                <select id="editUserRole" asp-for="CurrentUser.Role">
+                                    <option value="@UserRole.Customer">Cliente</option>
+                                    <option value="@UserRole.Seller">Proveedor</option>
+                                    <option value="@UserRole.Admin">Administrador</option>
+                                </select>
+                                <span asp-validation-for="CurrentUser.Role"></span>
+                            </div>
+                        </div>
                         <!--Edit button-->
                         <div class="Create-Button-Container">
                             <button type="submit" class="Create-User" id="confirmEdit">Modificar usuario</button>
