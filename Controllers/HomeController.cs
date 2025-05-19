@@ -1,17 +1,20 @@
 using System.Diagnostics;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Tradie.Models;
+using Tradie.Models.Users;
 
 namespace Tradie.Controllers
 {
-	public class HomeController : Controller
+	public class HomeController : BaseController
 	{
-		private readonly ILogger<HomeController> _logger;
-
-		public HomeController(ILogger<HomeController> logger)
+		public HomeController(ILogger<HomeController> logger, UserManager<User> userManager)
+		: base(userManager)
 		{
 			_logger = logger;
 		}
+
+		private readonly ILogger<HomeController> _logger;
 
 		public IActionResult Index()
 		{

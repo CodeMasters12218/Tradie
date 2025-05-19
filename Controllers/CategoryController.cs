@@ -1,19 +1,25 @@
 using System.Diagnostics;
 using System.Xml.Linq;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Tradie.Data;
 using Tradie.Models;
 using Tradie.Models.Products;
+using Tradie.Models.Users;
 
 namespace Tradie.Controllers
 {
-	public class CategoryController : Controller
+	public class CategoryController : BaseController
 	{
 		private readonly ILogger<CategoryController> _logger;
 		private readonly ApplicationDbContext _context;
 
-		public CategoryController(ILogger<CategoryController> logger, ApplicationDbContext context)
+		public CategoryController(
+			ILogger<CategoryController> logger, 
+			ApplicationDbContext context,
+			UserManager<User> userManager
+		) : base(userManager)
 		{
 			_logger = logger;
 			_context = context;

@@ -1,10 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Tradie.Models.UserProfile; // Needed to access UserProfileMainPageModel
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Tradie.Models.UserProfile;
+using Tradie.Models.Users;
 
 namespace Tradie.Controllers
 {
-	public class UserProfileController : Controller
+	public class UserProfileController : BaseController
 	{
+		public UserProfileController(UserManager<User> userManager)
+			: base(userManager)
+		{
+		}
+
 		public IActionResult UserProfileMainPage()
 		{
 			var model = new UserProfileMainPageModel
