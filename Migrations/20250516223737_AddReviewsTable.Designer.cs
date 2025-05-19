@@ -11,7 +11,7 @@ using Tradie.Data;
 
 namespace Tradie.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(UserProfileActionFilter))]
     [Migration("20250516223737_AddReviewsTable")]
     partial class AddReviewsTable
     {

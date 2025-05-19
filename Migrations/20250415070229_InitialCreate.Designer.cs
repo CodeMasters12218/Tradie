@@ -11,7 +11,7 @@ using Tradie.Data;
 
 namespace Tradie.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(UserProfileActionFilter))]
     [Migration("20250415070229_InitialCreate")]
     partial class InitialCreate
     {

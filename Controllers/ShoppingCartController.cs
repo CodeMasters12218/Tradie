@@ -15,10 +15,10 @@ namespace Tradie.Controllers
 {
     public class ShoppingCartController : BaseController
 	{
-        private readonly ApplicationDbContext _context;
+        private readonly UserProfileActionFilter _context;
 
         public ShoppingCartController(
-            ApplicationDbContext context,
+            UserProfileActionFilter context,
 			UserManager<User> userManager)
 			: base(userManager)
 		{

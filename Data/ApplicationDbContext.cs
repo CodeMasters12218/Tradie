@@ -8,9 +8,9 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Tradie.Data
 {
-	public class ApplicationDbContext : IdentityDbContext<User, IdentityRole<int>, int>
+	public class UserProfileActionFilter : IdentityDbContext<User, IdentityRole<int>, int>
 	{
-		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+		public UserProfileActionFilter(DbContextOptions<UserProfileActionFilter> options)
 			: base(options)
 		{
 		}

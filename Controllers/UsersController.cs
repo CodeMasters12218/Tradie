@@ -12,9 +12,9 @@ namespace Tradie.Controllers
     [Authorize(Roles = "Admin")]
     public class UsersController : BaseController
 	{
-        private readonly ApplicationDbContext _context;
+        private readonly UserProfileActionFilter _context;
 
-        public UsersController(ApplicationDbContext context, 
+        public UsersController(UserProfileActionFilter context, 
             UserManager<User> userManager)
             : base(userManager)
 		{

@@ -11,7 +11,7 @@ using Tradie.Data;
 
 namespace Tradie.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(UserProfileActionFilter))]
     [Migration("20250518234019_AddProfilePhotoUrlToUser")]
     partial class AddProfilePhotoUrlToUser
     {

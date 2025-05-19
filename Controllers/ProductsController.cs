@@ -14,11 +14,11 @@ namespace Tradie.Controllers
     [Authorize(Roles = "Admin, Seller")]
     public class ProductsController : BaseController
 	{
-        private readonly ApplicationDbContext _context;
+        private readonly UserProfileActionFilter _context;
 		private readonly UserManager<User> _userManager;
 
 		public ProductsController(
-			ApplicationDbContext context, 
+			UserProfileActionFilter context, 
 			UserManager<User> userManager)
 			: base(userManager)
 		{
