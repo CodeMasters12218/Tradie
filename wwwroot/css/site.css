@@ -165,12 +165,14 @@ h3 {
     object-fit: cover;
     border-radius: 50%;
     flex-shrink: 0;
+    object-position: 100% 15%; /*Maybe y axis should be reverted to 0 for real photos*/
 }
 
 .navbar .profile-image-lg {
     width: 48px;
     height: 48px;
     object-fit: cover;
+    object-position: 100% 15%; /*Maybe y axis should be reverted to 0 for real photos*/
     border-radius: 50%;
     flex-shrink: 0;
 }

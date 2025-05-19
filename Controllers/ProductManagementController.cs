@@ -28,7 +28,7 @@ namespace Tradie.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ProductRegistry(string? searchTerm)
+        public async Task<IActionResult> ProductRegistry(string? searchTerm, string? category)
         {
             ViewData["AdminName"] = User.Identity?.Name;
             ViewData["AdminEmail"] = User.FindFirst("email")?.Value;
@@ -40,6 +40,12 @@ namespace Tradie.Controllers
                 query = query
                     .Where(p => p.Name.Contains(searchTerm!)
                              || p.Description.Contains(searchTerm!));
+            }
+
+            if (!string.IsNullOrEmpty(category))
+            {
+                query = query.Where(p => p.Subcategory != null &&
+                                        p.Subcategory.ToLower() == category.ToLower());
             }
 
             var vm = new ProductRegistryViewModel

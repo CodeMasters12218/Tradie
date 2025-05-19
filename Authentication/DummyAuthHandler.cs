@@ -7,16 +7,15 @@ namespace Tradie.Authentication;
 
 public class DummyAuthHandler : AuthenticationHandler<AuthenticationSchemeOptions>
 {
-    public DummyAuthHandler(
-        IOptionsMonitor<AuthenticationSchemeOptions> options,
-        ILoggerFactory logger,
-        UrlEncoder encoder,
-        ISystemClock clock)
-        : base(options, logger, encoder, clock)
-    {
-    }
+	public DummyAuthHandler(
+	IOptionsMonitor<AuthenticationSchemeOptions> options,
+	ILoggerFactory logger,
+	UrlEncoder encoder)
+	: base(options, logger, encoder)
+	{
+	}
 
-    protected override Task<AuthenticateResult> HandleAuthenticateAsync()
+	protected override Task<AuthenticateResult> HandleAuthenticateAsync()
     {
         var claims = new[]
         {

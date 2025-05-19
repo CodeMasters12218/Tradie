@@ -30,7 +30,10 @@ namespace Tradie.Models.Products
 
         public void AddReview (UserProfileMainPageModel review)
         {
-            Reviews.Add (review);
-        }
+			if (Reviews == null)
+				Reviews = new List<UserProfileMainPageModel>();
+
+			Reviews.Add(review);
+		}
     }
 }

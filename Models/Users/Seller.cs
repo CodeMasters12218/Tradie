@@ -10,7 +10,7 @@ namespace Tradie.Models.Users
             Role = UserRole.Seller;
             Products = new List<Product>();
         }
-        public List<Product> Products { get; private set; }
+        public new List<Product> Products { get; private set; }
 
         public void PublishProduct(Product product)
         {
@@ -22,13 +22,17 @@ namespace Tradie.Models.Users
             var product = Products.FirstOrDefault(p => p.Id == productId);
         }
 
-        public void RemoveProduct(int productId)
-        {
-            var product = Products.FirstOrDefault(p => p.Id == productId);
-            Products.Remove(product);
-        }
+		public void RemoveProduct(int productId)
+		{
+			var product = Products.FirstOrDefault(p => p.Id == productId);
+			if (product != null)
+			{
+				Products.Remove(product);
+			}
+		}
 
-        public void RespondToReview(int reviewId, string response)
+
+		public void RespondToReview(int reviewId, string response)
         {
         }
 

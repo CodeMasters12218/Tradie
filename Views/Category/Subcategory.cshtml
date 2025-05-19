@@ -9,28 +9,59 @@
 
 <!-- Breadcrumb or label -->
 <h2><span>@ViewBag.Category /</span> @ViewBag.Subcategory</h2>
-<p class="text-muted">Mostrando productos en <strong>@ViewBag.Subcategory</strong> de la categoría <strong>@ViewBag.Category</strong>.</p>
+<p class="text-muted">
+    Mostrando productos en <strong>@ViewBag.Subcategory</strong> de la categoría <strong>@ViewBag.Category</strong>.
+</p>
+
+@if (ViewBag.SourceType != null)
+{
+    <div class="alert @(ViewBag.SourceType == "Database" ? "alert-success" : "alert-warning") mb-3">
+        <i class="bi @(ViewBag.SourceType == "Database" ? "bi-database-check" : "bi-exclamation-triangle")"></i>
+        Fuente de datos: <strong>@ViewBag.SourceType</strong>
+
+        @if (ViewBag.SourceType == "Mock")
+        {
+            <span> - No se encontraron productos en la base de datos para esta subcategoría.</span>
+        }
+    </div>
+}
 
 <!-- Product Grid -->
 <div class="product-grid">
     @foreach (var product in Model)
     {
         <div class="card product-card">
-            <a asp-controller="Category" asp-action="Details" asp-route-name="@ViewBag.Category" asp-route-subcategory="@ViewBag.Subcategory" asp-route-id="@product.Id" class="product-link">
-                <img src="@product.ImageUrl" alt="@product.Name" class="product-image" />
+            <a asp-controller="Category"
+               asp-action="Details"
+               asp-route-name="@ViewBag.Category"
+               asp-route-subcategory="@ViewBag.Subcategory"
+               asp-route-id="@product.Id"
+               class="product-link">
+
+                <img src="@product.ImageUrl"
+                     alt="@product.Name"
+                     class="product-image" />
+
                 <div class="product-info">
                     <h4 class="product-name">@product.Name</h4>
                     <p class="product-description text-muted">@product.Description</p>
                     <p class="product-price">€@product.Price.ToString("F2")</p>
                 </div>
             </a>
+
             <div class="product-actions">
-                <form asp-controller="Cart" asp-action="AddToCart" method="post" class="d-inline">
+                <form asp-controller="Cart"
+                      asp-action="AddToCart"
+                      method="post"
+                      class="d-inline">
                     <input type="hidden" name="productId" value="@product.Id" />
                     <button type="submit" class="btn btn-sm btn-primary">Añadir a la cesta</button>
                 </form>
 
-                <form asp-controller="Wishlist" asp-action="AddToWishlist" method="post" class="d-inline">
+                <form asp-controller="Wishlist"
+                      asp-action="AddToWishlist"
+                      method="post"
+                      class="d-inline">
                     <input type="hidden" name="productId" value="@product.Id" />
                     <button type="submit" class="btn btn-sm btn-outline-secondary">Favorito</button>
                 </form>
@@ -38,6 +69,5 @@
         </div>
     }
 </div>
-
 
 <script src="~/js/site.js" asp-append-version="true"></script>

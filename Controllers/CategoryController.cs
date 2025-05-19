@@ -16,7 +16,7 @@ namespace Tradie.Controllers
 		private readonly UserProfileActionFilter _context;
 
 		public CategoryController(
-			ILogger<CategoryController> logger, 
+			ILogger<CategoryController> logger,
 			UserProfileActionFilter context,
 			UserManager<User> userManager
 		) : base(userManager)
@@ -110,8 +110,8 @@ namespace Tradie.Controllers
 				.GroupBy(s => s.CategoryName)
 				.Select(g => new CategoryWithSubcategoriesViewModel
 				{
-					CategoryName = g.Key,
-					Subcategories = g.ToList()
+					CategoryName = g.Key ?? "Unknown Category",
+					Subcategories = g.ToList() ?? new List<Subcategory>()
 				})
 				.ToList();
 
@@ -121,7 +121,29 @@ namespace Tradie.Controllers
 		[Route("Category{name}/{subcategory}")]
 		public IActionResult Subcategory(string name, string subcategory)
 		{
-			var products = Enumerable.Range(1, 20).Select(i => new Product
+			_logger.LogInformation($"Attempting to fetch products for category: {name}, subcategory: {subcategory}");
+
+			// 1st Get products from db 
+			var dbProducts = _context.Products
+				.Where(p => p.Subcategory != null &&
+					p.Subcategory.Trim().ToLower() == subcategory.Trim().ToLower())
+				.ToList();
+
+
+			// if products found
+			if (dbProducts != null && dbProducts.Any())
+			{
+				_logger.LogInformation($"Found {dbProducts.Count} products in database for subcategory: {subcategory}");
+				ViewBag.Category = name;
+				ViewBag.Subcategory = subcategory;
+				ViewBag.SourceType = "Database"; // Indicate source for the view
+				return View(dbProducts);
+			}
+
+			// if no products found, Mock Products
+			_logger.LogWarning($"No products found in database for subcategory: {subcategory}. Using mock products.");
+
+			var mockProducts = Enumerable.Range(1, 20).Select(i => new Product
 			{
 				Id = i,
 				Name = $"{subcategory} Producto {i}",
@@ -134,8 +156,9 @@ namespace Tradie.Controllers
 
 			ViewBag.Category = name;
 			ViewBag.Subcategory = subcategory;
+			ViewBag.SourceType = "Mock"; // Indicate source for the view
 
-			return View(products);
+			return View(mockProducts);
 		}
 
 		// Details action to handle product details directly

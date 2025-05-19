@@ -63,10 +63,10 @@ namespace Tradie.Controllers
 
 			// Check if current user has already reviewed this product
 			bool hasReviewed = false;
-			if (User.Identity.IsAuthenticated)
+			if (User?.Identity != null && User.Identity.IsAuthenticated)
 			{
 				var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-				hasReviewed = product.Reviews.Any(r => r.Customer.Id.ToString() == userId);
+				hasReviewed = product.Reviews.Any(r => r.Customer != null && r.Customer.Id.ToString() == userId);
 				ViewData["HasReviewed"] = hasReviewed;
 			}
 
@@ -124,6 +124,11 @@ namespace Tradie.Controllers
 
 			// Check if the current user is the seller of this product or an admin
 			var user = await _userManager.GetUserAsync(User);
+			if (user == null)
+			{
+				return Forbid();
+			}
+
 			if (!(user is Admin) && product.SellerId != user.Id)
 			{
 				return Forbid();
@@ -142,6 +147,11 @@ namespace Tradie.Controllers
 
 			// Verify user is allowed to edit this product
 			var user = await _userManager.GetUserAsync(User);
+			if (user == null)
+			{
+				return Forbid();
+			}
+
 			var originalProduct = await _context.Products.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
 
 			if (originalProduct == null)
@@ -191,6 +201,11 @@ namespace Tradie.Controllers
 
 			// Check if the current user is the seller of this product or an admin
 			var user = await _userManager.GetUserAsync(User);
+			if (user == null)
+			{
+				return Forbid();
+			}
+
 			if (!(user is Admin) && product.SellerId != user.Id)
 			{
 				return Forbid();
@@ -210,6 +225,12 @@ namespace Tradie.Controllers
 
 			// Check if the current user is the seller of this product or an admin
 			var user = await _userManager.GetUserAsync(User);
+
+			if (user == null)
+			{
+				return Forbid();
+			}
+
 			if (!(user is Admin) && product.SellerId != user.Id)
 			{
 				return Forbid();
