@@ -41,12 +41,6 @@ namespace Tradie.Controllers
 
             var users = await usersQuery.ToListAsync();
 
-            foreach (var u in users)
-            {
-                Console.WriteLine("ID del usuario: " + u.Id);  // Esto imprimirá en la consola del servidor
-            }
-
-
             var userViewModels = new List<AdminUserViewModel>();
             foreach (var user in users)
             {
@@ -54,13 +48,18 @@ namespace Tradie.Controllers
                 userViewModels.Add(new AdminUserViewModel
                 {
                     Name = user.Name,
+                    LastNames = user.LastNames, 
                     Role = roleName switch
                     {
                         "Admin" => UserRole.Admin,
                         "Seller" => UserRole.Seller,
                         _ => UserRole.Customer
                     },
+                    Id = user.Id,
+                    Email = user.Email
                 });
+                Console.WriteLine(user.LastNames);
+
             }
 
             var model = new UserManagementViewModel
@@ -82,9 +81,6 @@ namespace Tradie.Controllers
 
             return View(user);
         }
-        [HttpGet]
-        public IActionResult Create()
-            => View(new AdminUserViewModel());
 
 
         /*
@@ -261,60 +257,6 @@ namespace Tradie.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-        [HttpGet]
-        public async Task<IActionResult> Edit(int id)
-        {
-
-            var user = await _userMgr.FindByIdAsync(id.ToString());
-            if (user == null)
-            {
-                TempData["Error"] = "Usuario no encontrado.";
-                return RedirectToAction(nameof(Index));
-            }
-            var roles = await _userMgr.GetRolesAsync(user);
-            var roleName = roles.FirstOrDefault();
-
-            var roleEnum = UserRole.Customer;
-            if (!string.IsNullOrEmpty(roleName))
-            {
-                Enum.TryParse<UserRole>(roleName, out roleEnum);
-            }
-            var vm = new AdminUserViewModel
-            {
-                Id = user.Id,
-                Name = user.Name,
-                Email = user.Email,
-                Role = roleEnum
-            };
-
-            var users = await _userMgr.Users.ToListAsync();
-            var userViewModels = new List<AdminUserViewModel>();
-
-            foreach (var u in users)
-            {
-                var userRoles = await _userMgr.GetRolesAsync(u);
-                var userRoleName = userRoles.FirstOrDefault();
-
-                userViewModels.Add(new AdminUserViewModel
-                {
-                    Id = u.Id,
-                    Name = u.Name,
-                    Email = u.Email,
-                    Role = userRoleName switch
-                    {
-                        "Admin" => UserRole.Admin,
-                        "Seller" => UserRole.Seller,
-                        _ => UserRole.Customer
-                    }
-                });
-            }
-            var userManagementVm = new UserManagementViewModel
-            {
-                CurrentUser = vm,
-                Users = userViewModels
-            };
-            return View(userManagementVm);
-        }
 
         /*
         [HttpPost]
@@ -362,8 +304,6 @@ namespace Tradie.Controllers
         public async Task<IActionResult> Edit(UserManagementViewModel vm)
         {
             var userVm = vm.CurrentUser;
-
-            // Verificar si el usuario existe
             var user = await _userMgr.FindByIdAsync(userVm.Id.ToString());
             if (user == null)
             {
@@ -371,10 +311,14 @@ namespace Tradie.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            // Ejecutar SQL directo para actualizar
             try
             {
-                var sql = "UPDATE AspNetUsers SET Name = {0}, Email = {1}, Role = {2} WHERE Id = {3}";
+                var sql = @"UPDATE AspNetUsers
+                SET Name = {0},
+                Email = {1},
+                Role = {2}
+                WHERE Id = {3}";
+
                 int affectedRows = await _context.Database.ExecuteSqlRawAsync(
                     sql,
                     userVm.Name,
@@ -399,16 +343,6 @@ namespace Tradie.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null) return NotFound();
-
-            var user = await _context.Users.FirstOrDefaultAsync(m => m.Id == id);
-            if (user == null) return NotFound();
-
-            return View(user);
-        }
-
         /*
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -428,7 +362,7 @@ namespace Tradie.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             using (var tx = await _context.Database.BeginTransactionAsync())
             {

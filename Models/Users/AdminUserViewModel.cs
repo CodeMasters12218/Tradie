@@ -2,11 +2,14 @@
 
 namespace Tradie.Models.Users
 {
-    public class AdminUserViewModel
+    public class AdminUserViewModel 
     {
         public int Id { get; set; }
         [Required(ErrorMessage = "El nombre es obligatorio.")]
         public string Name { get; set; }
+
+        [Required(ErrorMessage = "Los apellidos son necesarios")]
+        public string LastNames { get; set; }
 
         [Required(ErrorMessage = "El rol es obligatorio.")]
         public UserRole Role { get; set; }

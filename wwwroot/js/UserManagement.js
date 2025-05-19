@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     editButtons.forEach(button => {
         button.addEventListener("click", function () {
-            editPopUp.showModal();
+            openEditPopup(button);
         });
     });
 
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     confirm
-
+    
     closeButton.addEventListener("click", function () {
         createPopUp.close();
     });
@@ -66,8 +66,22 @@ document.addEventListener("DOMContentLoaded", function () {
         const deletePopUp = document.getElementById("DeleteUser-PopUp");
         deletePopUp.showModal();
     }
-});
 
+    function openEditPopup(button) {
+        const userId = button.getAttribute("data-user-id");
+        const userName = button.getAttribute("data-user-name");
+        const userLastName = button.getAttribute("data-user-lastnames");
+        const userEmail = button.getAttribute("data-user-email");
+        const userRole = button.getAttribute("data-user-role");
+        document.getElementById("editUserId").value = userId;
+        document.getElementById("editUserName").value = userName;
+        document.getElementById("editUserEmail").value = userEmail;
+        document.getElementById("editUserLastNames").value = userLastName;
+        document.getElementById("editUserRole").value = userRole;
+        const editPopUp = document.getElementById("EditUser-PopUp");
+        editPopUp.showModal();
+    }
+});
 function toggleMenu(menuId) {
     const menu = document.getElementById(menuId);
     if (menu.style.display === "none" || menu.style.display === "") {
@@ -76,29 +90,6 @@ function toggleMenu(menuId) {
         menu.style.display = "none"; // Hide options
     }
 }
-
-document.addEventListener('click', function (event) {
-    if (event.target && event.target.matches('.Edit-Button')) {
-        const userId = event.target.dataset.userId;
-        const userName = event.target.dataset.userName;
-        const userEmail = event.target.dataset.userEmail;
-        const userRole = event.target.dataset.userRole;
-
-        // Comprobamos que los datos son correctos
-        console.log("Datos obtenidos:", userId, userName, userEmail, userRole);
-
-        // Asignamos valores al formulario
-        document.querySelector('input[name="CurrentUser.Id"]').value = userId;
-        document.querySelector('input[name="CurrentUser.Name"]').value = userName;
-        document.querySelector('input[name="CurrentUser.Email"]').value = userEmail;
-        document.querySelector('select[name="CurrentUser.Role"]').value = userRole;
-
-        // Abre el diálogo
-        document.getElementById('EditUser-PopUp').showModal();
-    }
-});
-
-
 
 document.querySelector('form').addEventListener('submit', function (e) {
     const id = document.querySelector('input[name="CurrentUser.Id"]').value;

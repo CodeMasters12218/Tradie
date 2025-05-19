@@ -132,13 +132,18 @@ td.Action{
 }
 
 .Create-Button {
-    background-color: #70D3C3;
+    background-color: #28a745;
     color: white;
     text-align: center;
     border: none;
     border-radius: 10px;
     padding: 5px 5px;
     cursor: pointer;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin-right: 85px;
+    margin-bottom: 20px;
 }
 .Edit-Button {
     background-color: #97B2CA;
@@ -147,6 +152,7 @@ td.Action{
     border: none;
     border-radius: 10px;
     padding: 5px 5px;
+    margin-bottom: 5px;
     cursor: pointer;
 }
 
@@ -157,6 +163,7 @@ td.Action{
     border: none;
     border-radius: 10px;
     padding: 5px 5px;
+    margin-top: 5px;
     cursor: pointer;
 }
 
@@ -228,7 +235,7 @@ div.User-Form-Container {
     justify-content: center;
 }
 
-form.UserCreation {
+.UserCreation {
     display: flex;
     flex-direction: column;
 }
@@ -313,4 +320,8 @@ div.User-Container-Name {
     width: 200px;
     font-size: 20px;
     font-weight: 500;
+}
+
+dialog:not([open]) {
+    display: none;
 }

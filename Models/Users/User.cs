@@ -27,8 +27,6 @@ namespace Tradie.Models.Users
         public int Age { get; set; }
         [Required]
         public UserRole Role { get; set; }
-        [Required]
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         [Required(ErrorMessage = "La dirección es obligatoria.")]
         public string Address { get; set; }
         [Required(ErrorMessage = "El teléfono es obligatorio.")]
