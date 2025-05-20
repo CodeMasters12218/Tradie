@@ -85,7 +85,7 @@ div.Note {
 }
 
 .NoteTextArea {
-    height: 300px;
+    height: 150px;
     width: 100%;
     border: solid 1.4px #999999;
     border-radius: 8px;
@@ -165,6 +165,15 @@ placeholder {
     display: flex;
     flex-direction: column;
     width: 100%;
+    flex: 1 1 calc(50% - 0.5rem); /* 2 items per row */
+    display: flex;
+    flex-direction: column;
+}
+
+.Form-Basic-Data-Container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem; /* Adjust spacing as needed */
 }
 
 /* ICONS INside Input Areas*/
@@ -321,42 +330,6 @@ placeholder {
 .delivery-pay-value, .subtotal-value {
     font-weight: 500;
     opacity: 1 !important;
-}
-
-/*Third view CSS*/
-.Billing-Information{
-    display: flex;
-    flex-direction: column;
-    background-color:  #EDEDED;
-    margin-left: 80px;
-    margin-right: 80px;
-    border-radius: 10px;
-    justify-content: left;
-    padding-left: 50px;
-    padding-right: 50px;
-}
-
-.Billing-Container{
-    display: flex;
-    flex-direction: row;
-    gap: 50px;
-}
-
-.Billing{
-    color: #155D8FCC;
-}
-
-.Billing-Title{
-    display: flex;
-    justify-content: space-between;
-}
-
-.Billing-Edit{
-    padding-top: 16px;
-}
-
-a{
-    text-decoration: none;
 }
 
 

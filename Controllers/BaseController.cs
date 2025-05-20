@@ -8,7 +8,7 @@ namespace Tradie.Controllers
 {
 	public class BaseController : Controller
 	{
-		private readonly UserManager<User> _userManager;
+		protected readonly UserManager<User> _userManager;
 
 		public BaseController(UserManager<User> userManager)
 		{
@@ -38,6 +38,11 @@ namespace Tradie.Controllers
 			}
 
 			base.OnActionExecuting(context);
+		}
+
+		protected async Task<User?> GetCurrentUserAsync()
+		{
+			return await _userManager.GetUserAsync(User);
 		}
 	}
 }

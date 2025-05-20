@@ -1,129 +1,233 @@
-body{
+body {
     background-color: #D3D3D3;
 }
 
-.Main-Container{
+.Main-Container {
     display: flex;
     flex-direction: column;
-    gap: 2%;
-    margin: 5vh;
+    gap: 1rem;
 }
 
-.Personal-Data{
+.Logout-Container {
     display: flex;
-    background-color: white;
-    border-radius: 5px;
-    padding-left: 5vh;
-    padding-bottom: 7vh;
-    margin-top: 3vh;
-    gap: 10vh;
+    align-items: center !important;
+    justify-content: space-between;
 }
 
-.NameLastNames-Container{
-    display: flex;
-    gap: 3vh;
-}
-.Container{
-    display: flex;
-    flex-direction: column;
+/* FONTS */
+
+h1 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
 }
 
-.EmailPhone-Container{
-    display: flex;
-    gap: 3vh;
-}
-
-.CityRegionPostal-Container{
-    display: flex;
-    gap: 1vh;
-}
-
-.Edit-Title-Container{
-    background-color: white;
-    padding-left: 5vh;
-    border-radius: 5px;
-}
-
-.Security-Container{
-    display: flex;
-    flex-direction: column;
-    background-color: white;
-    padding-left: 5vh;
-    border-radius: 5px;
-    margin-top: 3vh;
-    padding-bottom: 7vh;
-}
-
-h2{
+h2 {
     font-family: 'Poppins', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+    padding: 0;
 }
 
-label{
-    font-family: 'Murecho', sans-serif;
-    font-weight: 600;
-    margin-bottom: 5px;
-}
-
-input{
-    height: 4vh;
-    width: 124vh;
-    border-radius: 5px;
-    border-color: rgba(0,0,0,0.3);
-}
-
-.Name{
-    height: 4vh;
-    width: 60vh;
-    border-radius: 5px;
-}
-
-.City{
-    height: 4vh;
-    width: 40vh;
-    border-radius: 5px;
-}
-
-.Photo-Button{
-    background-color: #EFEFEF80;
-    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
-    width: 30vh;
-    height: 4vh;
-    border: 0;
-    border-radius: 5px;
-    margin-top: 18vh;
-}
-
-.Photo-Button:hover{
-    background-color: #efefef;
-}
-
-.Save-Button{
-    background-color: #70D3C3;
-    border:1px solid black;
-    width: 25vh;
-    height: 6vh;
-    margin-top: 5vh;
-    border-radius: 5px;
-}
-
-.Save-Button:hover{
-    background-color: #50978a;
-}
-
-.Save-Container{
-    display: flex;
-    justify-content: end;
-}
-
-.MyAccount-Container{
-    display: flex;
-}
-
-.MyAccount{
-    font-weight: 700;
-}
-
-.EditH2{
-    font-weight: 700;
+span {
     color: #B77D00;
+}
+
+.User-Data-Container {
+    display: flex;
+    justify-content: space-between;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    padding: 1rem 2rem;
+}
+
+.Container-Container {
+    width: 100%;
+}
+
+/* LEFT PART */
+.Form-Container {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding: 2rem 2rem;
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    font-family: "Murecho", sans-serif !important;
+}
+
+.Form-Inner {
+    display: flex;
+    flex-direction: column;
+    gap: .2rem;
+    font-family: "Murecho", sans-serif !important;
+}
+
+.Area-Container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+input {
+    border: solid 1.4px #999999;
+    border-radius: 8px;
+    padding-left: 20px;
+    font-size: small;
+    height: 30px;
+    width: 100%;
+    opacity: 70%;
+}
+
+.Note-Container {
+    display: flex;
+    justify-content: flex-start;
+    align-content: flex-start;
+    width: 100%;
+}
+
+input.Note {
+    height: 300px;
+    width: 100%;
+}
+
+div.Note {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.NoteTextArea {
+    height: 150px;
+    width: 100%;
+    border: solid 1.4px #999999;
+    border-radius: 8px;
+    padding: 22px;
+    font-size: small;
+    opacity: 70%;
+    resize: none;
+    font-family: "Murecho", sans-serif;
+    line-height: 1.4; /* Ensures proper line spacing */
+    vertical-align: top; /* Key fix for vertical alignment */
+    box-sizing: border-box; /* Makes padding behave correctly */
+}
+
+
+input.Area {
+    border-radius: 5px;
+    height: 30px;
+    width: 100%;
+}
+
+label {
+    font-size: 13px;
+    font-weight: 600;
+    margin: 10px 0 6px 0;
+    opacity: 80%;
+}
+
+placeholder {
+    margin-left: 30px;
+}
+
+.Payment-Container {
+    display: flex;
+    justify-content: flex-end;
+    color: white;
+}
+
+.Payment-Button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #5D88B4;
+    color: #F2F2F2;
+    border-radius: 5px;
+    width: 200px;
+    height: 40px;
+    margin-right: 0;
+    margin-top: 30px;
+    border: rgba(0,0,0,0);
+    text-decoration: none;
+}
+
+    .Payment-Button:hover {
+        background-color: #6f9dcc;
+    }
+
+.Payment-Container a {
+    color: black;
+    font-weight: 500;
+    font-size: small;
+}
+
+.Address-Row-Container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 100%;
+}
+
+.Row-Container {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    width: 100%;
+}
+
+.Input-Group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex: 1 1 calc(50% - 0.5rem); /* 2 items per row */
+    display: flex;
+    flex-direction: column;
+}
+
+.Form-Basic-Data-Container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem; /* Adjust spacing as needed */
+}
+
+/* ICONS INside Input Areas*/
+.input-icon-container {
+    position: relative;
+    width: 100%;
+}
+
+    .input-icon-container .input-icon {
+        position: absolute;
+        top: 50%;
+        left: 12px;
+        transform: translateY(-50%);
+        color: #999;
+        font-size: 1rem;
+        pointer-events: none;
+    }
+
+.input-icon-note {
+    position: absolute;
+    top: 20px;
+    left: 12px;
+    color: #999;
+    font-size: 1rem;
+    pointer-events: none;
+}
+
+.input-icon-container input,
+.input-icon-container textarea {
+    padding-left: 2.2rem;
+}
+
+.btn-save-changes {
+    background-color: #70D3C3;
+    padding: 10px 30px;
+    border-radius: 12px;
+    border: 1.5px solid black;
+    text-decoration: none;
 }
