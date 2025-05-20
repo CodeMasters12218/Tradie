@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-builder.Services.AddDbContext<UserProfileActionFilter>(options =>
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString)); 
 
 
@@ -20,7 +20,7 @@ builder.Services
         options.Password.RequiredLength = 6;
         options.Password.RequireNonAlphanumeric = false;
     })
-    .AddEntityFrameworkStores<UserProfileActionFilter>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
 builder.Services.ConfigureApplicationCookie(options =>
@@ -58,8 +58,8 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 using (var scope = app.Services.CreateScope())
 {
-    var dbContext = scope.ServiceProvider.GetRequiredService<UserProfileActionFilter>();
-	dbContext.Database.EnsureCreated();
+    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+	//dbContext.Database.EnsureCreated();
 
 
 	var roleMgr = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<int>>>();

@@ -15,12 +15,12 @@ namespace Tradie.Controllers
     public class ProductManagementController : Controller
     {
         private readonly ILogger<ProductManagementController> _logger;
-        private readonly UserProfileActionFilter _context;
+        private readonly ApplicationDbContext _context;
         private readonly UserManager<User> _userMgr;
 
         public ProductManagementController(
             ILogger<ProductManagementController> logger,
-            UserProfileActionFilter context, UserManager<User> userMgr)
+            ApplicationDbContext context, UserManager<User> userMgr)
         {
             _logger = logger;
             _context = context;

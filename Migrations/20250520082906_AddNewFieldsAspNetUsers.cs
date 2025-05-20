@@ -1,63 +1,19 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace Tradie.Migrations
 {
     /// <inheritdoc />
-    public partial class AddCustomFieldsToAspNetUsers : Migration
+    public partial class AddNewFieldsAspNetUsers : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<decimal>(
-                name: "DeliveryFee",
-                table: "ShoppingCarts",
-                type: "decimal(18,2)",
-                nullable: false,
-                defaultValue: 0m);
-
-            migrationBuilder.AddColumn<decimal>(
-                name: "Subtotal",
-                table: "ShoppingCarts",
-                type: "decimal(18,2)",
-                nullable: false,
-                defaultValue: 0m);
-
-            migrationBuilder.AddColumn<decimal>(
-                name: "Total",
-                table: "ShoppingCarts",
-                type: "decimal(18,2)",
-                nullable: false,
-                defaultValue: 0m);
-
-            migrationBuilder.AddColumn<string>(
-                name: "Color",
-                table: "CartItem",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "");
-
-            migrationBuilder.AddColumn<string>(
-                name: "ImageUrl",
-                table: "CartItem",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "");
-
-            migrationBuilder.AddColumn<string>(
-                name: "Size",
-                table: "CartItem",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "");
-
-            migrationBuilder.AddColumn<string>(
-                name: "Status",
-                table: "CartItem",
-                type: "nvarchar(max)",
-                nullable: false,
-                defaultValue: "");
+            migrationBuilder.DropColumn(
+                name: "CreatedAt",
+                table: "AspNetUsers");
 
             migrationBuilder.AlterColumn<string>(
                 name: "Email",
@@ -111,34 +67,6 @@ namespace Tradie.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "DeliveryFee",
-                table: "ShoppingCarts");
-
-            migrationBuilder.DropColumn(
-                name: "Subtotal",
-                table: "ShoppingCarts");
-
-            migrationBuilder.DropColumn(
-                name: "Total",
-                table: "ShoppingCarts");
-
-            migrationBuilder.DropColumn(
-                name: "Color",
-                table: "CartItem");
-
-            migrationBuilder.DropColumn(
-                name: "ImageUrl",
-                table: "CartItem");
-
-            migrationBuilder.DropColumn(
-                name: "Size",
-                table: "CartItem");
-
-            migrationBuilder.DropColumn(
-                name: "Status",
-                table: "CartItem");
-
-            migrationBuilder.DropColumn(
                 name: "Address",
                 table: "AspNetUsers");
 
@@ -167,6 +95,13 @@ namespace Tradie.Migrations
                 oldClrType: typeof(string),
                 oldType: "nvarchar(256)",
                 oldMaxLength: 256);
+
+            migrationBuilder.AddColumn<DateTime>(
+                name: "CreatedAt",
+                table: "AspNetUsers",
+                type: "datetime2",
+                nullable: false,
+                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
         }
     }
 }

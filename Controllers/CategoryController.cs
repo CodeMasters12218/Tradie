@@ -13,11 +13,11 @@ namespace Tradie.Controllers
 	public class CategoryController : BaseController
 	{
 		private readonly ILogger<CategoryController> _logger;
-		private readonly UserProfileActionFilter _context;
+		private readonly ApplicationDbContext _context;
 
 		public CategoryController(
 			ILogger<CategoryController> logger,
-			UserProfileActionFilter context,
+            ApplicationDbContext context,
 			UserManager<User> userManager
 		) : base(userManager)
 		{

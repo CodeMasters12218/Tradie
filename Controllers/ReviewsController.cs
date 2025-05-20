@@ -13,11 +13,11 @@ namespace Tradie.Controllers
 {
 	public class ReviewsController : BaseController
 	{
-		private readonly UserProfileActionFilter _context;
+		private readonly ApplicationDbContext _context;
 		private readonly UserManager<User> _userManager;
 
 		public ReviewsController(
-			UserProfileActionFilter context, 
+			ApplicationDbContext context, 
 			UserManager<User> userManager
 		) : base(userManager)
 		{

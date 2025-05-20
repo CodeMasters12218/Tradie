@@ -10,7 +10,7 @@ using Tradie.Data;
 
 namespace Tradie.Migrations
 {
-    [DbContext(typeof(UserProfileActionFilter))]
+    [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -308,11 +308,9 @@ namespace Tradie.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Color")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("PriceAtAddition")
@@ -331,11 +329,9 @@ namespace Tradie.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Size")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Status")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -369,7 +365,7 @@ namespace Tradie.Migrations
                     b.ToTable("ShoppingCarts");
                 });
 
-            modelBuilder.Entity("Tradie.Models.Users.User", b =>
+            modelBuilder.Entity("User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -390,9 +386,6 @@ namespace Tradie.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -480,14 +473,14 @@ namespace Tradie.Migrations
 
             modelBuilder.Entity("Tradie.Models.Users.Admin", b =>
                 {
-                    b.HasBaseType("Tradie.Models.Users.User");
+                    b.HasBaseType("User");
 
                     b.HasDiscriminator().HasValue("Admin");
                 });
 
             modelBuilder.Entity("Tradie.Models.Users.Customer", b =>
                 {
-                    b.HasBaseType("Tradie.Models.Users.User");
+                    b.HasBaseType("User");
 
                     b.Property<int>("ShoppingCartId")
                         .HasColumnType("int");
@@ -499,7 +492,7 @@ namespace Tradie.Migrations
 
             modelBuilder.Entity("Tradie.Models.Users.Seller", b =>
                 {
-                    b.HasBaseType("Tradie.Models.Users.User");
+                    b.HasBaseType("User");
 
                     b.HasDiscriminator().HasValue("Seller");
                 });
@@ -515,7 +508,7 @@ namespace Tradie.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
                 {
-                    b.HasOne("Tradie.Models.Users.User", null)
+                    b.HasOne("User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -524,7 +517,7 @@ namespace Tradie.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
                 {
-                    b.HasOne("Tradie.Models.Users.User", null)
+                    b.HasOne("User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -539,7 +532,7 @@ namespace Tradie.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Tradie.Models.Users.User", null)
+                    b.HasOne("User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -548,7 +541,7 @@ namespace Tradie.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
                 {
-                    b.HasOne("Tradie.Models.Users.User", null)
+                    b.HasOne("User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -587,7 +580,15 @@ namespace Tradie.Migrations
 
             modelBuilder.Entity("Tradie.Models.Products.Product", b =>
                 {
-                    b.HasOne("Tradie.Models.Users.User", "Seller")
+                    b.HasOne("Tradie.Models.Users.Admin", null)
+                        .WithMany("Products")
+                        .HasForeignKey("AdminId");
+
+                    b.HasOne("Tradie.Models.Users.Customer", null)
+                        .WithMany("Products")
+                        .HasForeignKey("CustomerId");
+
+                    b.HasOne("Tradie.Models.Users.Seller", "Seller")
                         .WithMany("Products")
                         .HasForeignKey("SellerId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -662,7 +663,7 @@ namespace Tradie.Migrations
                     b.Navigation("Items");
                 });
 
-            modelBuilder.Entity("Tradie.Models.Users.User", b =>
+            modelBuilder.Entity("Tradie.Models.Users.Admin", b =>
                 {
                     b.Navigation("Products");
                 });
@@ -670,6 +671,15 @@ namespace Tradie.Migrations
             modelBuilder.Entity("Tradie.Models.Users.Customer", b =>
                 {
                     b.Navigation("Orders");
+
+                    b.Navigation("Products");
+
+                    b.Navigation("Reviews");
+                });
+
+            modelBuilder.Entity("Tradie.Models.Users.Seller", b =>
+                {
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }
