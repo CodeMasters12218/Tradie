@@ -12,16 +12,30 @@ namespace Tradie.Controllers
 		{
 		}
 
-		public IActionResult UserProfileMainPage()
+		public async Task<IActionResult> UserProfileMainPage()
 		{
-			var model = new UserProfileMainPageModel
+			if (User.Identity != null && User.Identity.IsAuthenticated)
 			{
-				FullName = "Diego Sánchez",
-				Email = "example@gmail.com",
-				Orders = new List<string> { "Pedido 1", "Pedido 2" }
-			};
+				var user = await GetCurrentUserAsync();
 
-			return View(model); // Assumes there's a corresponding view at Views/UserProfile/UserProfileMainPage.cshtml
+				if (user != null)
+				{
+					var model = new UserProfileMainPageModel
+					{
+						FullName = user.Name ?? "No Name",
+						Email = user.Email,
+						ProfilePhotoUrl = !string.IsNullOrEmpty(user.ProfilePhotoUrl)
+					? user.ProfilePhotoUrl
+					: "/images/boy_black.png",
+						Orders = new List<string> { "Pedido 1", "Pedido 2" } // Replace with actual logic
+					};
+
+					return View(model);
+				}
+			}
+
+			// If user is not authenticated, redirect to login
+			return RedirectToAction("Login", "Account");
 		}
 
 		// Simulating data fetching; in real case, you'd fetch by logged-in user ID

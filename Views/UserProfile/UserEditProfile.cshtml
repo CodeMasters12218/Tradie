@@ -1,98 +1,130 @@
 ﻿@model Tradie.Models.UserProfile.UserEditProfileModel
 
 @{
-	Layout = "_Layout";
+    Layout = "_Layout";
     ViewData["Title"] = "User edit profile";
 }
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User profile page</title>
-    <link rel="stylesheet" href="~/css/UserEditProfile" asp-append-version="true">
-    <link href="https://fonts.googleapis.com/css2?family=Murecho:wght@400&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" rel="stylesheet">
-</head>
+<link rel="stylesheet" href="~/css/UserEditProfile.css" />
+<link href="https://fonts.googleapis.com/css2?family=Murecho:wght@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" rel="stylesheet">
 
-<body>
-    <div class="Main-Container">
-        <div class="MyAccount-Container">
-            <h2 class="MyAccount">Mi cuenta ></h2><h2 class="EditH2">&nbsp;Editar perfil</h2>
-        </div>
-        <div class="Edit-Title-Container">
-            <h2>Editar perfil de miembro</h2>
-        </div>
-        <div class="Personal-Data">
-            <div>
-                <h2>Datos personales</h2>
-                <form action="post">
-                    <div class="NameLastNames-Container">
-                        <div class="Container">
-                            <label for="NameInput">Nombre</label>
-                            <input type="text" class="Name" placeholder="Introduce tu nombre">
-                        </div>
-                        <div class="Container">
-                            <label for="LastNamesInput">Apellidos</label>
-                            <input type="text" class="Name" placeholder="Introduce tus apellidos">
-                        </div>
-                    </div>
-                    <div class="EmailPhone-Container">
-                        <div class="Container">
-                            <label for="EmailInput">Correo electrónico</label>
-                            <input type="email" class="Name" placeholder="Introduce tu correo electrónico">
-                        </div>
-                        <div class="Container">
-                            <label for="PhoneInput">Teléfono</label>
-                            <input type="number" class="Name" minlength="9" maxlength="9"
-                                   placeholder="Introduce tu número de teléfono">
+<div class="Main-Container">
+    <!-- Header -->
+    <div class="Logout-Container">
+        <h1>Mi cuenta ><span> Editar Perfil</span></h1>
+    </div>
+
+    <!-- Subheading -->
+    <div class="User-Data-Container">
+        <h2>Editar perfil de miembro</h2>
+    </div>
+
+    <!-- Profile Form -->
+    <div class="Container-Container">
+        <div class="Form-Container">
+            <div class="Form-Inner">
+                <h2>Datos Personales</h2>
+
+                <!-- Personal Info Fields -->
+                <div class="Form-Basic-Data-Container">
+                    <!-- Nombre -->
+                    <div class="Input-Group">
+                        <label for="nameInput">Nombre</label>
+                        <div class="input-icon-container">
+                            <i class="bi bi-person input-icon"></i>
+                            <input type="text" name="nameInput" placeholder="Introduce tu nombre">
                         </div>
                     </div>
-                    <div class="Container">
-                        <label for="AddressInput">Dirección</label>
-                        <input type="text" placeholder="Introduce tu dirección completa">
-                    </div>
-                    <div class="Container">
-                        <label for="CountryInput">País</label>
-                        <input type="text" placeholder="Introduce tu país">
-                    </div>
-                    <div class="CityRegionPostal-Container">
-                        <div class="Container">
-                            <label for="CityInput">Ciudad</label>
-                            <input type="text" class="City" placeholder="Murcia">
-                        </div>
-                        <div class="Container">
-                            <label for="RegionInput">Región</label>
-                            <input type="text" class="City" placeholder="Región">
-                        </div>
-                        <div class="Container">
-                            <label for="PostalInput">Código postal</label>
-                            <input type="number" class="City" minlength="5" maxlength="5"
-                                   placeholder="Introduce tu código postal">
+
+                    <!-- Apellidos -->
+                    <div class="Input-Group">
+                        <label for="LastNamesInput">Apellidos</label>
+                        <div class="input-icon-container">
+                            <i class="bi bi-person input-icon"></i>
+                            <input type="text" name="LastNamesInput" placeholder="Introduce tus apellidos">
                         </div>
                     </div>
-                </form>
+
+                    <!-- Correo Electrónico -->
+                    <div class="Input-Group">
+                        <label for="emailAddressInput">Correo electrónico</label>
+                        <div class="input-icon-container">
+                            <i class="bi bi-envelope input-icon"></i>
+                            <input type="email" name="emailAddressInput" placeholder="Introduce tu correo electrónico">
+                        </div>
+                    </div>
+
+                    <!-- Teléfono -->
+                    <div class="Input-Group">
+                        <label for="phoneInput">Teléfono</label>
+                        <div class="input-icon-container">
+                            <i class="bi bi-telephone input-icon"></i>
+                            <input type="number" name="PhoneInput" placeholder="Introduce tu número de teléfono o móvil">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dirección -->
+                <div class="Input-Group">
+                    <label for="addressInput">Dirección</label>
+                    <div class="input-icon-container">
+                        <i class="bi bi-geo-alt input-icon"></i>
+                        <input type="text" name="addressInput" class="Country" placeholder="Introduce tu dirección">
+                    </div>
+
+                    <label for="countryInput">País</label>
+                    <div class="input-icon-container">
+                        <i class="bi bi-map input-icon"></i>
+                        <input type="text" name="countryInput" class="Country" placeholder="Introduce tu país">
+                    </div>
+                </div>
+
+                <!-- Ciudad / Región / Código Postal -->
+                <div class="Address-Row-Container">
+                    <div class="Area-Container">
+                        <label for="cityInput">Ciudad</label>
+                        <input type="text" name="cityInput" class="Area" placeholder="Introduce tu ciudad">
+                    </div>
+                    <div class="Area-Container">
+                        <label for="areaInput">Región</label>
+                        <input type="text" name="areaInput" class="Area" placeholder="Región">
+                    </div>
+                    <div class="Area-Container">
+                        <label for="postalInput">Código postal</label>
+                        <input type="text" name="postalInput" class="Area" placeholder="Introduce tu código postal">
+                    </div>
+                </div>
+
+                <!-- Nota del Pedido -->
+                <div class="Note-Container">
+                    <div class="Note">
+                        <label for="note">Nota del pedido:</label>
+                        <div class="input-icon-container">
+                            <i class="bi bi-exclamation-circle input-icon-note"></i>
+                            <textarea name="note" class="NoteTextArea" placeholder="No va el timbre llámame por teléfono..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-            <div>
-                <button class="Photo-Button">Cambiar o subir foto de perfil</button>
-            </div>
-        </div>
-        <div class="Security-Container">
-            <h2>Información de seguridad</h2>
-            <div class="Container">
-                <label for="NewPasswordInput">Nueva contraseña</label>
-                <input type="Password" placeholder="Introduce tu nueva contraseña">
-            </div>
-            <div class="Container">
-                <label for="RepeatPasswordInput">Confirmar contraseña</label>
-                <input type="Password" placeholder="Introduce tu contraseña nuevamente">
-            </div>
-        </div>
-        <div class="Save-Container">
-            <button type="submit" class="Save-Button">Guardar cambios</button>
         </div>
     </div>
-</body>
 
-</html>
+    <!-- Security Section -->
+    <div class="Form-Container">
+        <h2>Información de seguridad</h2>
+        <div class="Container">
+            <label for="NewPasswordInput">Nueva contraseña</label>
+            <input type="Password" placeholder="Introduce tu nueva contraseña">
+        </div>
+        <div class="Container">
+            <label for="RepeatPasswordInput">Confirmar contraseña</label>
+            <input type="Password" placeholder="Introduce tu contraseña nuevamente">
+        </div>
+    </div>
+
+    <div class="Payment-Container">
+        <a class="btn-save-changes" asp-area="" asp-controller="" asp-action="">Guardar cambios</a>
+    </div>
+</div>

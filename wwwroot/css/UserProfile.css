@@ -5,119 +5,140 @@ body{
 .Main-Container{
     display: flex;
     flex-direction: column;
-    gap: 2%;
-    margin: 5vh;
+    gap: 1rem;
 }
 
-.MyAccount-Container{
-     display: flex;
-     justify-content: space-between;
-}
-
-.User-Data-Container{
+.User-Data-Container {
     display: flex;
     justify-content: space-between;
     background-color: #FFFFFF;
     border-radius: 5px;
+    padding: 1rem 2rem;
 }
 
 .Data-Container{
     display: flex;
-    flex-direction: column;
-    padding-left: 5vh;
+    flex-direction: row;
 }
 
-.Orders-Container{
+.Orders-Container {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     background-color: #FFFFFF;
-    height: 20vh;
-    padding-bottom: 10vh;
-    padding-top: 1vh;
+    height: 100%;
+    padding: 1rem 2rem;
     border-radius: 5px;
-    margin-top: 5vh;
 }
 
 .Orders-Title-Container{
     display: flex;
     justify-content: space-between;
-    margin-left: 5vh;
-    margin-right: 5vh;
+    align-items: center;
     border-bottom: 1px solid black;
+    margin-bottom: 1rem;
 }
 
 .Order-Buttons-Container{
     display: flex;
+    flex-direction: row;
+    align-items: center;
     justify-content: space-evenly;
 }
 
 .Order-Button{
     background-color: #FFFFFF;
-    border: 0;
+    border: none;
+    font-size: small;
     border-radius: 5px;
+    padding: 10px 30px;
 }
 
-.Order-Button:hover{
-    background-color: rgba(0,0,0,0.3);
-}
+    .Order-Button:hover{
+        background-color: rgb(193, 193, 193, 0.30);
+    }
 
-.Orders-Link{
+.Orders-Link {
     text-decoration: none;
     color: black;
-    margin-top: 3vh;
+    margin-bottom: 1rem;
 }
 
-.Orders-Link:hover{
-    color: blue;
-}
+    .Orders-Link:hover{
+        color: #9c6f0c;
+        font-weight: 500;
+        text-decoration: none;
+    }
 
 .Other-Stuff-Container{
     display: flex;
-    flex-direction: column;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
     background-color: #D3D3D3;
-    margin-top: 2vh;
-    gap: 2vh;
+    gap: 1rem;
     border-radius: 5px;
 }
 
 .Stuff-Container{
     display: flex;
-    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
     background-color: #D3D3D3;
-    gap: 2vh;
     border-radius: 5px;
 }
 
-.Stuff-Data-Container{
+.Stuff-Data-Container {
+    flex: 1 1 calc(33.333% - 1rem); /* 3 items per row, minus gap */
     display: flex;
     flex-direction: column;
     background-color: white;
-    width: 50vh;
-    height: 20vh;
-    padding: 5vh;
+    width: 100%;
+    height: 100%;
+    max-height: 11rem;
+    padding: 2rem;
     border-radius: 5px;
 }
 
 .Stuff-Icon-Container{
     display: flex;
-    gap: 10vh;
+    align-items: flex-start;
+    margin-top: 0.5rem;
+    gap: 2rem;
 }
 
 .Stuff-Text{
-    margin-bottom: 20px;
+    font-size: small;
 }
 
 p{
     font-family: 'Poppins', sans-serif;
 }
 
-.Stuff-h2{
+.Stuff-h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    padding: 0 0 10px 0;
     border-bottom: 1px solid black;
+}
+
+.profile-image-lg {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    object-position: 100% 15%; /*Maybe y axis should be reverted to 0 for real photos*/
+    border-radius: 50%;
+    flex-shrink: 0;
+    border: 1px solid black;
+    margin-right: 20px !important;
 }
 
 .Logout-Container{
     display: flex;
+    align-items: center !important;
     justify-content: space-between;
 }
 
@@ -126,14 +147,36 @@ p{
     color: #FFFFFF;
     border: 0;
     border-radius: 5px;
-    height: 5vh;
-    width: 10%;
-    min-height: 30px;
-    margin-top: 3vh;
+    height: 2rem;
+    width: 100%;
+    padding: 4px 30px;
+    font-size: small;
 }
 
-h1, h2{
+    .Logout-Button:hover {
+        background-color: #e96757;
+    }
+
+.form-btn-logout {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+h1 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+}
+
+h2 {
     font-family: 'Poppins', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+    padding: 0;
 }
 
 a:hover{
@@ -142,31 +185,118 @@ a:hover{
 
 .Delete-Account{
     color: #D26355;
+    text-decoration: none;
+    font-size: 0.9rem;
 }
 
-.Edit-Profile{
+    .Delete-Account:hover {
+        text-decoration: none;
+        cursor: pointer;
+        color: #be3f2f;
+    }
+
+.Edit-Profile {
     color: #155D8FCC;
+    text-decoration: none;
+    font-size: 0.9rem;
 }
+
+    .Edit-Profile:hover {
+        color: #2d88c8cc;
+        text-decoration: none;
+    }
 
 .Link-Container{
     display: flex;
     flex-direction: column;
-    gap: 3vh;
+    gap: 4px;
+    align-items: end;
     justify-content: center;
-    padding-right: 5vh;
+    font-weight: 500;
+}
+
+.Icon-container {
+    background-color:lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.8rem;
+    border-radius: 50px;
 }
 
 .Icon{
     color: #c08403;
-    height: 60px;
-    width: 60px;
-    margin-top: 20px;
-    margin-left: 20px;
+    height: 40px;
+    width: 40px;
+    margin: 0;
 }
 
 .Icon-Mini{
     color: #c08403;
-    height: 40px;
-    width: 40px;
+    height: 30px;
+    width: 30px;
 }
 
+
+/**********************************************************************
+                        RESPONSIVENSS 
+***********************************************************************/
+
+/* Laptop (Still show 3 per row) */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .Stuff-Data-Container {
+        flex: 1 1 calc(33.333% - 1rem);
+    }
+}
+
+/* Tablet: Show 2 per row */
+@media (min-width: 768px) and (max-width: 991px) {
+    .Stuff-Data-Container {
+        flex: 1 1 calc(50% - 1rem);
+    }
+}
+
+/* Phone: Show 1 per row */
+@media (max-width: 576px) {
+    .User-Data-Container,
+    .Orders-Container {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    .Order-Buttons-Container {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .Order-Button {
+        flex: 1 1 calc(50% - 0.5rem); /* 2 per row */
+    }
+
+    .Stuff-Data-Container {
+        flex: 1 1 calc(50% - 0.5rem);
+    }
+
+    .Logout-Container {
+        display: flex;
+        flex-direction: row;
+        flex: 1;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .form-btn-logout {
+        width: 40%;
+        justify-content: flex-end;
+    }
+
+    .Link-Container {
+        display: flex;
+        width: 100%;
+        font-size: smaller;
+        gap: 2rem;
+        flex-direction: row;
+        padding: 0.9rem 0 0 2rem;
+    }
+}

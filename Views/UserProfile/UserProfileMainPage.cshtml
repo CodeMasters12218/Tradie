@@ -19,16 +19,29 @@
     <div class="Main-Container">
         <div class="Logout-Container">
             <h1>Mi cuenta</h1>
-            <button type="submit" class="Logout-Button">Cerrar sesión</button>
+            <form asp-controller="Account"
+                  asp-action="Logout"
+                  method="post"
+                    class="form-btn-logout">
+                @Html.AntiForgeryToken()
+                <button type="submit" class="Logout-Button">
+                    <i class="bi bi-box-arrow-right me-2"></i> Cerrar Sesión
+                </button>
+            </form>
         </div>
         <!--User's data container-->
         <div class="User-Data-Container">
-            <div class="Data-Container">
-                <h2>@Model.FullName</h2>
-                <p>@Model.Email</p>
+            <div class="d-flex align-items-center Data-Container">
+                <img src="@(!string.IsNullOrEmpty(Model.ProfilePhotoUrl) ? Model.ProfilePhotoUrl : Url.Content("~/images/default-profile.png"))"
+                     alt="Profile"
+                     class="rounded-circle me-2 profile-image-lg" />
+                <div>
+                    <div class="fw-bold">@Model.FullName</div>
+                    <div class="text-muted small">@Model.Email</div>
+                </div>
             </div>
             <div class="Link-Container">
-                <a asp-controller="UserProfile" asp-action="UserEditProfile" class="Edit-Profile">Editar detalles del perfil</a>
+                <a class="Edit-Profile" asp-controller="UserProfile" asp-action="UserEditProfile">Editar detalles del perfil</a>
                 <a class="Delete-Account">Borrar mi cuenta</a>
             </div>
         </div>
@@ -51,7 +64,7 @@
                 <div class="Stuff-Data-Container">
                     <h2 class="Stuff-h2">Lista de deseos</h2>
                     <div class="Stuff-Icon-Container">
-                        <div>
+                        <div class="Icon-container">
                             <span class="iconify Icon" data-icon="solar:wallet-bold"></span>
                         </div>
                         <div>
@@ -62,7 +75,7 @@
                 <div class="Stuff-Data-Container">
                     <h2 class="Stuff-h2">Mis pedidos</h2>
                     <div class="Stuff-Icon-Container">
-                        <div>
+                        <div class="Icon-container">
                             <span class="iconify Icon" data-icon="solar:wallet-bold"></span>
                         </div>
                         <div>
@@ -73,7 +86,7 @@
                 <div class="Stuff-Data-Container">
                     <h2 class="Stuff-h2">Mis pagos</h2>
                     <div class="Stuff-Icon-Container">
-                        <div>
+                        <div class="Icon-container">
                             <span class="iconify Icon" data-icon="solar:wallet-bold"></span>
                         </div>
                         <div>
@@ -81,12 +94,10 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="Stuff-Container">
                 <div class="Stuff-Data-Container">
                     <h2 class="Stuff-h2">Direcciones de envío</h2>
                     <div class="Stuff-Icon-Container">
-                        <div>
+                        <div class="Icon-container">
                             <span class="iconify Icon" data-icon="solar:wallet-bold"></span>
                         </div>
                         <div>
@@ -97,7 +108,7 @@
                 <div class="Stuff-Data-Container">
                     <h2 class="Stuff-h2">Inicio de sesión</h2>
                     <div class="Stuff-Icon-Container">
-                        <div>
+                        <div class="Icon-container">
                             <span class="iconify Icon" data-icon="solar:wallet-bold"></span>
                         </div>
                         <div>
@@ -108,7 +119,7 @@
                 <div class="Stuff-Data-Container">
                     <h2 class="Stuff-h2">Valoraciones</h2>
                     <div class="Stuff-Icon-Container">
-                        <div>
+                        <div class="Icon-container">
                             <span class="iconify Icon" data-icon="solar:wallet-bold"></span>
                         </div>
                         <div>
