@@ -32,10 +32,13 @@ namespace Tradie.Controllers
                 {
                     var user = new User
                     {
-                        UserName = model.Name,
-                        Email = model.Email
+                        UserName = model.Email,
+                        Name = model.Name,
+                        LastNames = model.LastNames,
+                        Email = model.Email,
+                        Role = UserRole.Customer
                     };
-                    user.Name = model.Name;
+
                     var createRes = await _userMgr.CreateAsync(user, model.Password);
                     if (!createRes.Succeeded)
                     {
@@ -43,12 +46,8 @@ namespace Tradie.Controllers
                             ModelState.AddModelError("", e.Description);
                         return View("~/Views/Login/Register.cshtml", model);
                     }
-                    await _userMgr.SetUserNameAsync(user, model.Name);
-
-                    await _userMgr.SetEmailAsync(user, model.Email);
 
                     await _userMgr.AddToRoleAsync(user, "Customer");
-
                     await _signInMgr.SignInAsync(user, isPersistent: false);
 
                     return RedirectToAction("Index", "Home");

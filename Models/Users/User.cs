@@ -9,21 +9,8 @@ public class User : IdentityUser<int>
     public string Name { get; set; }
     [Required(ErrorMessage = "Los apellidos es obligatorio.")]
     public string LastNames { get; set; }
-    [Required(ErrorMessage = "El correo electrónico es obligatorio.")]
-    [EmailAddress(ErrorMessage = "El correo electrónico no es válido.")]
-    public string Email { get; set; }
-    [Required(ErrorMessage = "La contraseña es obligatoria.")]
-    [DataType(DataType.Password)]
-    public string password { get; set; }
-    [Required]
-    public int Age { get; set; }
     [Required]
     public UserRole Role { get; set; }
-    [Required(ErrorMessage = "La dirección es obligatoria.")]
-    public string Address { get; set; }
-    [Required(ErrorMessage = "El teléfono es obligatorio.")]
-    [DataType(DataType.PhoneNumber)]
-    public int Phone { get; set; }
     public List<Product> Products { get; set; } = new List<Product>();
     public string? ProfilePhotoUrl { get; set; }
 }

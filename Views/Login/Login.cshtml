@@ -35,8 +35,8 @@
                     <div>
                         <form asp-controller="Account" asp-action="VerifyLogin" method="post">
                             @Html.AntiForgeryToken()
-                            <label for="emailLogin" asp-for="Email"><b class="letralabel">Correo electr&oacute;nico</b></label>
-                            <input type="email" id="emailLogin" placeholder="ejemplo@email.com" asp-for="Email" />
+                            <label for="emailLogin" asp-for="UserName"><b class="letralabel">Correo electr&oacute;nico</b></label>
+                            <input type="email" id="emailLogin" placeholder="ejemplo@email.com" asp-for="UserName" />
                             <label for="passwordLogin" asp-for="Password"><b>Contrase&ntilde;a</b></label>
                             <input type="password" id="passwordLogin" placeholder="Introduce tu Contraseña aquí" asp-for="Password" />
                             <button type="submit" class="signupButton">Entrar</button>

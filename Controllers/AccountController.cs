@@ -34,7 +34,7 @@ namespace Tradie.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await _userMgr.FindByEmailAsync(model.Email);
+                var user = await _userMgr.FindByEmailAsync(model.UserName);
 
                 if (user == null)
                 {
@@ -43,7 +43,7 @@ namespace Tradie.Controllers
                 }
 
                 var result = await _signInMgr.PasswordSignInAsync(
-                    model.Email,
+                    model.UserName,
                     model.Password,
                     isPersistent: false,
                     lockoutOnFailure: false);

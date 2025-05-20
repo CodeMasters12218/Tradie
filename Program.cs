@@ -80,6 +80,7 @@ using (var scope = app.Services.CreateScope())
             UserName = adminEmail,
             Email = adminEmail,
             Name = "Administrador",
+            LastNames = "Sistema",
             EmailConfirmed = true
         };
         var createRes = await userMgr.CreateAsync(admin, "Admin123!");
@@ -113,6 +114,7 @@ using (var scope = app.Services.CreateScope())
             UserName = sellerEmail,
             Email = sellerEmail,
             Name = "Vendedor",
+            LastNames = "Prueba",
             EmailConfirmed = true
         };
         var resSeller = await userMgr.CreateAsync(seller, "Seller123!");
