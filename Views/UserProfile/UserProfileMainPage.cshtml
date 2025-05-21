@@ -11,6 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User profile page</title>
     <link rel="stylesheet" href="~/css/UserProfile.css">
+    <link rel="stylesheet" href="~/css/Logout.CSS">
     <link href="https://fonts.googleapis.com/css2?family=Murecho:wght@400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" rel="stylesheet">
     <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
@@ -19,15 +20,9 @@
     <div class="Main-Container">
         <div class="Logout-Container">
             <h1>Mi cuenta</h1>
-            <form asp-controller="Account"
-                  asp-action="Logout"
-                  method="post"
-                    class="form-btn-logout">
-                @Html.AntiForgeryToken()
-                <button type="submit" class="Logout-Button">
-                    <i class="bi bi-box-arrow-right me-2"></i> Cerrar Sesión
-                </button>
-            </form>
+            <button id="LogOutButton" type="submit" class="Logout-Button">
+                <i class="bi bi-box-arrow-right me-2"></i> Cerrar Sesión
+            </button>
         </div>
         <!--User's data container-->
         <div class="User-Data-Container">
@@ -42,7 +37,7 @@
             </div>
             <div class="Link-Container">
                 <a class="Edit-Profile" asp-controller="UserProfile" asp-action="UserEditProfile">Editar detalles del perfil</a>
-                <a class="Delete-Account">Borrar mi cuenta</a>
+                <a id="DeleteButton" class="Delete-Account" asp-controller="UserProfile" asp-action="UserDeleteProfile">Borrar mi cuenta</a>
             </div>
         </div>
         <!--Orders container-->
@@ -130,5 +125,28 @@
             </div>
         </div>
     </div>
+    <!--Pop-Ups-->
+    <!--Logout Pop-Up-->
+    <dialog id="LogOutPopUp">
+        <div class="Logout-PopUp-Container">
+            <div class="Leaving-Title-Container">
+                <h1>Te estas yendo</h1>
+            </div>
+            <div class="Question-Container">
+                <p>¿Estás seguro de que quieres cerrar la sesión?</p>
+            </div>
+            <div class="Logout-Button-Container">
+                <form asp-controller="Account"
+                  asp-action="Logout"
+                  method="post"
+                    class="form-btn-logout">
+                @Html.AntiForgeryToken()
+                <button id="LogOutButtonPopUp" type="submit" class="Logout-Button">Cerrar sesión</button>
+                </form>
+                <button id="CancelLogOutButton" class="Cancel-Button">Cancelar</button>
+            </div>
+        </div>
+    </dialog>
+    <script src="~/js/UserProfileMainPage.js" asp-append-version="true"></script>
 </body>
 </html>

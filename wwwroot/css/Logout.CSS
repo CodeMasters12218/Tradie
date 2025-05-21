@@ -1,0 +1,79 @@
+.Logout-PopUp-Container{
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.Leaving-Title-Container{
+    display: flex;
+    justify-content: center;
+}
+
+.Question-Container {
+    display: flex;
+    justify-content: center;
+}
+
+h1 {
+    font-size: 1.8em;
+}
+
+h1, p{
+    font-family: 'Murecho', sans-serif;
+}
+
+p {
+    font-weight: 600;
+    font-size: 1em;
+    color: black;
+}
+
+.Logout-Button-Container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+}
+
+.Logout-Button {
+    background-color: #F46464;
+    border-radius: 5px;
+    color: white;
+    border: 0;
+    width: 30vh;
+    height: 5vh;
+}
+
+.Logout-Button:hover{
+    background-color: #933e3e;
+}
+
+.Cancel-Button{
+    background-color: #DADADACC;
+    border-radius: 5px;
+    border: 0;
+    width: 30vh;
+    height: 5vh;
+}
+
+.Cancel-Button:hover{
+    background-color: #818181cc;
+}
+
+dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background: white;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    width: 40vw;
+    height: 18vw;
+}
+
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+}

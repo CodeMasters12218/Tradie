@@ -175,12 +175,11 @@ namespace Tradie.Controllers
                 {
                     // 1) Insertar en AspNetUsers
                     var insertUserSql = @"
-                INSERT INTO AspNetUsers
-                    (Name, UserName, Email, EmailConfirmed, PasswordHash, SecurityStamp, ConcurrencyStamp, Role, CreatedAt, UserType, AccessFailedCount, LockoutEnabled, PhoneNumberConfirmed, TwoFactorEnabled)
-                VALUES
-                    ({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, {12}, {13});
-                SELECT CAST(SCOPE_IDENTITY() AS int);
-            ";
+                        INSERT INTO AspNetUsers
+                        (Name, UserName, Email, EmailConfirmed, PasswordHash, SecurityStamp, ConcurrencyStamp, Role, UserType, AccessFailedCount, LockoutEnabled, PhoneNumberConfirmed, TwoFactorEnabled)
+                        VALUES
+                        ({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, {12});
+                        SELECT CAST(SCOPE_IDENTITY() AS int);";
                     // Obtiene el nuevo Id generado (Identity)
                     var newUserId = (await _context.Database.SqlQueryRaw<int>(
                         insertUserSql,
@@ -192,14 +191,12 @@ namespace Tradie.Controllers
                         securityStamp,
                         concurrencyStamp,
                         (int)userVm.Role,
-                        createdAt,
                         userType,
                         0,
                         false,
                         false,
-                        false)
-                    .ToListAsync())
-                    .FirstOrDefault();
+                        false
+                    ).ToListAsync()).FirstOrDefault();
                     if (newUserId <= 0)
                     {
                         TempData["Error"] = "No se pudo crear el usuario.";

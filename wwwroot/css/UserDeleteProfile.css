@@ -1,0 +1,82 @@
+body{
+    background-color: #D3D3D3;
+}
+
+.Main-Container{
+    display: flex;
+    flex-direction: column;
+    gap: 2%;
+    margin: 5vh;
+}
+
+.MyAccount-Container{
+    display: flex;
+}
+
+.MyAccount{
+    font-weight: 700;
+}
+
+.DeleteH2{
+    font-weight: 700;
+    color: #B77D00;
+}
+
+.Delete-Title-Container{
+    background-color: white;
+    padding-left: 5vh;
+    border-radius: 5px;
+}
+
+h2{
+    font-family: 'Poppins', sans-serif;
+}
+
+p{
+    font-family: 'Poppins', sans-serif;
+}
+
+ul{
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+    font-family: 'Poppins', sans-serif;
+}
+
+.Delete-Button{
+    background-color: #F46464;
+    color: black;
+    height: 6vh;
+    width: 20vh;
+    border-radius: 10px;
+    border: 3px solid black;
+}
+
+.Delete-Button:hover{
+    background-color: #b44b4b;
+}
+
+.Delete-Button-Container{
+    display: flex;
+    justify-content: end;
+    padding-right: 5vh;
+}
+.Delete-Information{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    height: 40vh;
+    gap: 10vh;
+}
+
+.Icon{
+    color: #F46464;
+    height: 60px;
+    width: 60px;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.Container{
+    display: flex;
+}

@@ -53,6 +53,11 @@ namespace Tradie.Controllers
 			return View(model); // Looks for Views/UserProfile/EditProfile.cshtml
 		}
 
+		public IActionResult UserDeleteProfile()
+		{
+			return View("UserDeleteProfile"); // Looks for Views/UserProfile/UserDeleteProfile.cshtml
+        }
+
 		[HttpPost]
 		public IActionResult SaveProfile(UserEditProfileModel model)
 		{
