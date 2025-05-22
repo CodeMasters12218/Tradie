@@ -1,8 +1,8 @@
 ﻿using Tradie.Models.Products;
 
-namespace Tradie.Models.ShoppingCart
+namespace Tradie.Models.Wishlist
 {
-	public class CartItem
+	public class WishlistItem
 	{
 		public int Id { get; set; }
 
@@ -13,13 +13,13 @@ namespace Tradie.Models.ShoppingCart
 		public string? ImageUrl { get; set; }
 
 		public int Quantity { get; set; }
-
 		public decimal PriceAtAddition { get; set; }
 		public string? Size { get; set; }
 		public string? Color { get; set; }
 		public string? Status { get; set; }
 
-		public int ShoppingCartId { get; set; }
-		public ShoppingCart? ShoppingCart { get; set; }
+		public int WishlistId { get; set; }
+		public Wishlist? Wishlist { get; set; }
 	}
+
 }

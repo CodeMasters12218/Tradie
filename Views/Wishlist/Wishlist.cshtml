@@ -1,4 +1,4 @@
-﻿@model Tradie.Models.ShoppingCart.ShoppingCart
+﻿@model Tradie.Models.Wishlist.Wishlist
 
 @{
     ViewData["Title"] = "Shopping Cart Page";
@@ -49,10 +49,18 @@
                 <!-- Price & Delete -->
                 <div class="item-price-delete">
                     <p class="item-price">€@item.PriceAtAddition.ToString("F2")</p>
+                    
                     <form method="post" action="/ShoppingCart/RemoveItem">
                         <input type="hidden" name="itemId" value="@item.Id" />
                         <button type="submit" class="btn btn-light btn-sm" title="Eliminar">
                             <i class="bi bi-trash"></i>
+                        </button>
+                    </form>
+
+                    <form method="post" asp-controller="Wishlist" asp-action="AddToCart">
+                        <input type="hidden" name="itemId" value="@item.Id" />
+                        <button type="submit" class="btn btn-primary add-to-cart-btn">
+                            Añadir a la cesta <i class="bi bi-cart"></i>
                         </button>
                     </form>
                 </div>
@@ -69,17 +77,17 @@
 
             <div class="subtotal-group">
                 <p class="subtotal-label">Subtotal</p>
-                <p class="subtotal-value">€@Model.Subtotal.ToString("F2")</p>
+                <p class="subtotal-value">€154.75</p>
             </div>
 
             <div class="delivery-pay-group">
                 <p class="delivery-pay-label">Envío</p>
-                <p class="delivery-pay-value">€@Model.DeliveryFee.ToString("F2")</p>
+                <p class="delivery-pay-value">€4.00</p>
             </div>
 
             <div class="overall-total-group">
                 <p class="overall-total-label">Estimación Total</p>
-                <p class="overall-total-value">€@Model.Total.ToString("F2")</p>
+                <p class="overall-total-value">€203.92</p>
             </div>
 
             <a asp-controller="Payment" asp-action="PaymentDetails" class="checkout-btn">
