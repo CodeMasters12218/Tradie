@@ -1,7 +1,12 @@
 .Logout-PopUp-Container{
     display: flex;
     flex-direction: column;
-    gap: 50px;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    margin: 0;
+    gap: 20px;
+    overflow: hidden;
 }
 
 .Leaving-Title-Container{
@@ -12,6 +17,7 @@
 .Question-Container {
     display: flex;
     justify-content: center;
+    font-weight: 600;
 }
 
 h1 {
@@ -22,13 +28,7 @@ h1, p{
     font-family: 'Murecho', sans-serif;
 }
 
-p {
-    font-weight: 600;
-    font-size: 1em;
-    color: black;
-}
-
-.Logout-Button-Container{
+.Logout-Button-Container {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -40,7 +40,7 @@ p {
     border-radius: 5px;
     color: white;
     border: 0;
-    width: 30vh;
+    width: 14rem;
     height: 5vh;
 }
 

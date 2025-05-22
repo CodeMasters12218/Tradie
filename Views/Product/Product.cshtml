@@ -101,7 +101,12 @@
 
         <!-- Stock -->
         <div class="product-stock">
-            <p><strong>Estado:</strong> @(Model.Stock > 0 ? "Disponible" : "Agotado")</p>
+            @{
+                var stockStatus = Model.Stock > 0 ? "Disponible" : "Agotado";
+                var statusClass = Model.Stock > 0 ? "status-available" : "status-out";
+            }
+            <p><strong>Estado:</strong> <span class="@statusClass">@stockStatus</span></p>
+
             <p><strong>Stock:</strong> @Model.Stock</p>
         </div>
     </div>

@@ -1,7 +1,7 @@
 ﻿.product-page-container {
     display: flex;
     gap: 4rem;
-    padding: 1rem 2rem;
+    padding: 0 2rem;
     font-family: 'Segoe UI', sans-serif;
 }
 
@@ -16,7 +16,7 @@
 .image-container {
     background-color: #cac7b9;
     position: relative;
-    height: 300px;
+    height: 350px;
     width: 100%;
     margin-bottom: 10px;
     border-radius: 20px;
@@ -29,7 +29,7 @@
 .product-image {
     width: 100%;
     height: 100%;
-    min-height: 350px;
+    min-height: 400px;
     object-fit: contain;
     border-radius: 20px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
@@ -148,4 +148,28 @@
 
 .product-stock p {
     margin: 0.3rem 0;
+}
+
+.status-available {
+    color: #48A761; /* green */
+    font-weight: 500;
+}
+
+.status-out {
+    color: #D9534F; /* red */
+    font-weight: 500;
+}
+
+
+/** RESPONSIVENSS *****/
+
+/* BIG SCREEN */
+@media screen and (min-width: 1441px) {
+    .image-container {
+        height: 400px;
+    }
+
+    .product-image {
+        max-height: 100%;
+    }
 }

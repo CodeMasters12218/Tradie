@@ -37,25 +37,23 @@ namespace Tradie.Controllers
 				await _context.SaveChangesAsync();
 			}
 
+			// Load subcategory dictionary once
+			var subcategoryMap = await _context.Subcategories
+				.Where(s => s.SubCategoryName != null && s.CategoryName != null)
+				.ToDictionaryAsync(s => s.SubCategoryName!.ToLower(), s => s.CategoryName!);
+
+			// Populate each cart item's CategoryName using its Product.Subcategory
+			foreach (var item in cart.Items)
+			{
+				var subcategory = item.Product?.Subcategory?.ToLower();
+				if (subcategory != null && subcategoryMap.ContainsKey(subcategory))
+				{
+					item.CategoryName = subcategoryMap[subcategory];
+				}
+			}
+
+
 			return View("~/Views/ShoppingCart/ShoppingCart.cshtml", cart);
-		}
-
-		// GET: ShoppingCarts/Details/5
-		public async Task<IActionResult> Details(int? id)
-		{
-			if (id == null)
-			{
-				return NotFound();
-			}
-
-			var shoppingCart = await _context.ShoppingCarts
-				.FirstOrDefaultAsync(m => m.Id == id);
-			if (shoppingCart == null)
-			{
-				return NotFound();
-			}
-
-			return View(shoppingCart);
 		}
 
 		// GET: ShoppingCarts/Create
@@ -134,10 +132,6 @@ namespace Tradie.Controllers
 			return RedirectToAction("Index");
 		}
 
-		private bool ShoppingCartExists(int id)
-		{
-			return _context.ShoppingCarts.Any(e => e.Id == id);
-		}
 
 		[HttpPost]
 		public async Task<IActionResult> UpdateQuantity([FromBody] QuantityUpdateDto dto)

@@ -11,6 +11,7 @@ namespace Tradie.Models.ShoppingCart
 
 		public string? ProductName { get; set; } = string.Empty;
 		public string? ImageUrl { get; set; }
+		public string? CategoryName { get; set; }
 
 		public int Quantity { get; set; }
 

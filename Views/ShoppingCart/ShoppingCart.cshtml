@@ -27,32 +27,43 @@
         @foreach (var item in Model.Items)
         {
             <div class="cart-item-row">
-                <!-- Product Image -->
+                @{
+                    var categorySegment = item.CategoryName?.Replace(" ", "") ?? "Categoria";
+                    var subcategory = item.Product?.Subcategory ?? "Subcategoria";
+                    var productId = item.Product?.Id ?? 0;
+                    var productDetailsUrl = $"/Category{categorySegment}/{subcategory}/{productId}";
+                }
+
                 <div class="item-image">
-                    <img src="@item.Product.ImageUrl" alt="@item.ProductName" />
-                    <input type="hidden" name="itemId" value="@item.Id" />
+                    <a href="@productDetailsUrl">
+                        <img src="@item.Product?.ImageUrl" alt="@item.ProductName" />
+                    </a>
                 </div>
 
-                <!-- Product Info -->
                 <div class="item-details">
-                    <p class="item-name">@item.ProductName</p>
-                    <p class="item-status">Disponible</p>
+                    <a href="@productDetailsUrl" class="item-name-link">
+                        <p class="item-name">@item.ProductName</p>
+                    </a>
 
 
-                    <p class="item-size">Talla: M</p>
-                    <p class="item-color">Color: Blanca</p>
+                    @{
+                        var inStock = item.Product?.Stock > 0;
+                        var statusText = inStock ? "Disponible" : "Agotado";
+                        var statusClass = inStock ? "item-status available" : "item-status out-of-stock";
+                    }
 
+                    <p class="@statusClass">@statusText</p>
+
+                    <p class="item-size">Talla: @item.Size</p>
+                    <p class="item-color">Color: @item.Color</p>
 
                     <div class="quantity-selector">
                         <button class="quantity-btn-minus">-</button>
-
                         <span class="quantity-display">@Math.Max(item.Quantity, 1).ToString("D2")</span>
-                        
                         <button class="quantity-btn-plus">+</button>
                     </div>
                 </div>
 
-                <!-- Price & Delete -->
                 <div class="item-price-delete">
                     <p class="item-price" data-unit-price="@item.PriceAtAddition.ToString("F2")">
                         €@item.PriceAtAddition.ToString("F2")
@@ -65,7 +76,6 @@
                             <i class="bi bi-trash"></i>
                         </button>
                     </form>
-
                 </div>
             </div>
 
