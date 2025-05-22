@@ -217,11 +217,13 @@ placeholder {
     height: 50px;
     width: 36%;
     border: rgba(0,0,0,0);
+    text-decoration: none;
     cursor: default !important;
 }
 
     .First-Button:hover {
         cursor: default !important;
+        text-decoration: none;
     }
 
 .Second-Button, .Third-Button {
@@ -237,12 +239,14 @@ placeholder {
     border: rgba(0,0,0,0);
     align-items: center;
     justify-content: center;
+    text-decoration: none;
 }
 
     .Second-Button:hover, .Third-Button:hover {
         background-color: #7095b97d;
         color: black;
         opacity: 50%;
+        text-decoration: none;
     }
 
 .number-span {

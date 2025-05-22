@@ -49,30 +49,24 @@
                         </li>
                     </ul>
 
-                    <!-- Search Bar -->
-                    <form class="d-flex align-items-center me-3" role="search">
-                        <div class="input-group">
-                            <input class="form-control" type="search" placeholder="¿Qué buscabas?" aria-label="Search">
-                            <span class="input-group-text bg-white border-start-0">
-                                <i class="bi bi-search"></i>
-                            </span>
-                        </div>
-                    </form>
+                    
 
                     <ul class="navbar-nav align-items-center">
-                        <!-- Cart Button with badge -->
-                        <li class="nav-item me-3 position-relative">
-                            <a class="nav-link position-relative" asp-area="" asp-controller="ShoppingCart" asp-action="Index">
-                                <i class="bi bi-cart3 fs-4"></i>
-                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                    03
+                        <!-- Search Bar -->
+                        <form class="d-flex align-items-center me-3" role="search">
+                            <div class="input-group">
+                                <input class="form-control" type="search" placeholder="¿Qué buscabas?" aria-label="Search">
+                                <span class="input-group-text bg-white border-start-0">
+                                    <i class="bi bi-search"></i>
                                 </span>
-                            </a>
-                        </li>
+                            </div>
+                        </form>
+
+                        <!-- Cart Button with badge -->
+                        @await Component.InvokeAsync("CartBadge")
 
                         <!-- User Profile Button -->
                         @await Html.PartialAsync("_UserProfilePartial", ViewBag.UserProfile as Tradie.Models.UserProfile.UserProfileMainPageModel)
-
 
                         <!-- Login Button (appears via condiiton in _UserProfilePartial.cshtml) -->
                     </ul>

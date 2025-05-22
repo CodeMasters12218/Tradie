@@ -43,22 +43,7 @@ function toggleHeart(btn) {
     }
 }
 
-/*
-// ADD TO CART
-function toggleCart(btn) {
-    btn.classList.toggle('active');
-    var icon = btn.querySelector('i');
-    if (btn.classList.contains('active')) {
-        icon.classList.remove('bi-cart');
-        icon.classList.add('bi-cart-check-fill');
-    } else {
-        icon.classList.remove('bi-cart-check-fill');
-        icon.classList.add('bi-cart');
-    }
-}
-*/
-
-// BETTER toggleCART
+// TOGGLE CART
 function toggleCart(btn) {
     btn.classList.toggle('active');
     var icon = btn.querySelector('i');
@@ -245,6 +230,30 @@ document.addEventListener('DOMContentLoaded', function () {
     const overallTotalValue = document.querySelector('.overall-total-value');
     const deliveryFee = parseFloat(deliveryPayValue?.innerText?.replace(/[^\d.]/g, '')) || 0;
 
+    async function updateQuantityOnServer(itemId, quantity) {
+        const response = await fetch('/ShoppingCart/UpdateQuantity', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]')?.value
+            },
+            body: JSON.stringify({ itemId, quantity })
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error("UpdateQuantity failed:", errorText);
+        }
+
+        if (response.ok) {
+            const data = await response.json();
+            if (data.success) {
+                subtotalValue.innerText = `€${data.subtotal.toFixed(2)}`;
+                overallTotalValue.innerText = `€${data.total.toFixed(2)}`;
+            }
+        }
+    }
+
     document.querySelectorAll('.cart-item-row').forEach(row => {
         const quantityDisplay = row.querySelector('.quantity-display');
         const plusBtn = row.querySelector('.quantity-btn-plus');
@@ -252,18 +261,16 @@ document.addEventListener('DOMContentLoaded', function () {
         const priceElement = row.querySelector('.item-price');
         const unitPrice = parseFloat(priceElement?.innerText?.replace(/[^\d.]/g, '')) || 0;
 
-        function updatePrices(quantity) {
-            const subtotal = unitPrice * quantity;
-            subtotalValue.innerText = `€${subtotal.toFixed(2)}`;
-            const total = subtotal + deliveryFee;
-            overallTotalValue.innerText = `€${total.toFixed(2)}`;
-        }
+        // Store the original unit price in a data attribute for easy access
+        priceElement.setAttribute('data-unit-price', unitPrice);
 
         plusBtn?.addEventListener('click', () => {
             let quantity = parseInt(quantityDisplay.innerText) || 1;
             quantity++;
             quantityDisplay.innerText = quantity.toString().padStart(2, '0');
-            updatePrices(quantity);
+            const itemId = row.querySelector('input[name="itemId"]').value;
+            console.log("Updating quantity for item:", itemId, "New quantity:", quantity);
+            updateQuantityOnServer(itemId, quantity);
         });
 
         minusBtn?.addEventListener('click', () => {
@@ -271,8 +278,11 @@ document.addEventListener('DOMContentLoaded', function () {
             if (quantity > 1) {
                 quantity--;
                 quantityDisplay.innerText = quantity.toString().padStart(2, '0');
-                updatePrices(quantity);
+                const itemId = row.querySelector('input[name="itemId"]').value;
+                console.log("Updating quantity for item:", itemId, "New quantity:", quantity);
+                updateQuantityOnServer(itemId, quantity);
             }
         });
+
     });
 });

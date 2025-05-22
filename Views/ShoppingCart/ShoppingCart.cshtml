@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Shopping Cart Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var totalItemCount = Model.Items.Sum(i => i.Quantity);
 }
 
 <link rel="stylesheet" href="~/css/shoppingCart.css" />
@@ -10,10 +11,13 @@
 
 
 <div class="product-page-container">
+    @Html.AntiForgeryToken()
+
     <!-- LEFT COLUMN -->
     <div class="product-left-column">
         <div class="cart-label-container">
-            <h2 class="cart-title">Carrito (@Model.Items.Count)</h2>
+            <h2 class="cart-title">Carrito (@totalItemCount)</h2>
+
             <p class="price-label">Precio</p>
         </div>
 
@@ -25,7 +29,8 @@
             <div class="cart-item-row">
                 <!-- Product Image -->
                 <div class="item-image">
-                    <img src="" alt="@item.ProductName" />
+                    <img src="@item.Product.ImageUrl" alt="@item.ProductName" />
+                    <input type="hidden" name="itemId" value="@item.Id" />
                 </div>
 
                 <!-- Product Info -->
@@ -34,30 +39,36 @@
                     <p class="item-status">Disponible</p>
 
 
-                        <p class="item-size">Talla: M</p>
-                        <p class="item-color">Color: Blanca</p>
+                    <p class="item-size">Talla: M</p>
+                    <p class="item-color">Color: Blanca</p>
 
 
                     <div class="quantity-selector">
-                        <button class="quantity-btn-minus" onclick="decreaseQuantity('@item.Id')">-</button>
-                        <span class="quantity-display">@Math.Max(item.Quantity, 1).ToString("D2")</span>
+                        <button class="quantity-btn-minus">-</button>
 
-                        <button class="quantity-btn-plus" onclick="increaseQuantity('@item.Id')">+</button>
+                        <span class="quantity-display">@Math.Max(item.Quantity, 1).ToString("D2")</span>
+                        
+                        <button class="quantity-btn-plus">+</button>
                     </div>
                 </div>
 
                 <!-- Price & Delete -->
                 <div class="item-price-delete">
-                    <p class="item-price">€@item.PriceAtAddition.ToString("F2")</p>
-                    <form method="post" action="/ShoppingCart/RemoveItem">
+                    <p class="item-price" data-unit-price="@item.PriceAtAddition.ToString("F2")">
+                        €@item.PriceAtAddition.ToString("F2")
+                    </p>
+
+                    <form asp-controller="ShoppingCart" asp-action="RemoveItem" method="post">
+                        @Html.AntiForgeryToken()
                         <input type="hidden" name="itemId" value="@item.Id" />
                         <button type="submit" class="btn btn-light btn-sm" title="Eliminar">
                             <i class="bi bi-trash"></i>
                         </button>
                     </form>
+
                 </div>
             </div>
-            
+
             <hr class="divider-line" />
         }
     </div>
@@ -82,9 +93,19 @@
                 <p class="overall-total-value">€@Model.Total.ToString("F2")</p>
             </div>
 
-            <a asp-controller="Payment" asp-action="PaymentDetails" class="checkout-btn">
-                Proceder al pago (@Model.Items.Count)
-            </a>
+            @if (Model.Items.Count == 0 ||Model.Total == 0)
+            {
+                <a class="checkout-btn disabled" href="javascript:void(0);" style="pointer-events: none; opacity: 0.5;">
+                    Proceder al pago (@totalItemCount)
+                </a>
+            }
+            else
+            {
+                <a asp-controller="Payment" asp-action="PaymentDetails" class="checkout-btn">
+                    Proceder al pago (@totalItemCount)
+                </a>
+            }
+            
 
         </div>
     </div>

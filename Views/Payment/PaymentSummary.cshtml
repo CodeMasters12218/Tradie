@@ -152,17 +152,17 @@
 
                 <div class="subtotal-group">
                     <p class="subtotal-label">Subtotal</p>
-                    <p class="subtotal-value">€154.75</p>
+                    <p class="subtotal-value">€@Model.Subtotal.ToString("0.00")</p>
                 </div>
 
                 <div class="delivery-pay-group">
                     <p class="delivery-pay-label">Envío</p>
-                    <p class="delivery-pay-value">€4.00</p>
+                    <p class="delivery-pay-value">€@Model.DeliveryFee.ToString("0.00")</p>
                 </div>
 
                 <div class="overall-total-group">
                     <p class="overall-total-label">Estimación Total</p>
-                    <p class="overall-total-value">€203.92</p>
+                    <p class="overall-total-value">€@Model.Total.ToString("0.00")</p>
                 </div>
 
             </div>

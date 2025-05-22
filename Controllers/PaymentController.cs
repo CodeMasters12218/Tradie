@@ -1,36 +1,88 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Tradie.Data;
 using Tradie.Models.Payments;
-using Tradie.Models.Users;
-
 
 namespace Tradie.Controllers
 {
-    public class PaymentController : BaseController
+	public class PaymentController : BaseController
 	{
-		// Constructor that accepts UserManager<User> and passes it to the BaseController constructor
+		private readonly ApplicationDbContext _context;
+
 		public PaymentController(
-			UserManager<User> userManager
-		) : base(userManager)  // Passing UserManager to the BaseController constructor
+			UserManager<User> userManager,
+			ApplicationDbContext context
+		) : base(userManager)
 		{
+			_context = context;
 		}
 
-		public IActionResult PaymentDetails()
-        {
-            var model = new PaymentDetails();
-			return View();
-        }
-
-		public IActionResult PaymentMethod()
+		public async Task<IActionResult> PaymentDetails()
 		{
-			var model = new PaymentMethod();
-			return View();
+			var user = await _userManager.GetUserAsync(User);
+			if (user == null)
+				return RedirectToAction("Login", "Account");
+
+			var cart = await _context.ShoppingCarts
+				.Include(c => c.Items)
+				.FirstOrDefaultAsync(c => c.UserId == user.Id.ToString());
+
+			if (cart == null || !cart.Items.Any())
+				return RedirectToAction("Index", "ShoppingCart");
+
+			var model = new PaymentDetails
+			{
+				Name = user.Name,
+				EmailAddress = user.Email,
+				Items = cart.Items
+			};
+
+			return View(model);
 		}
 
-		public IActionResult PaymentSummary()
+		public async Task<IActionResult> PaymentMethod()
 		{
-			var model = new PaymentSummary();
-			return View();
+			var user = await _userManager.GetUserAsync(User);
+			if (user == null)
+				return RedirectToAction("Login", "Account");
+
+			var cart = await _context.ShoppingCarts
+				.Include(c => c.Items)
+				.FirstOrDefaultAsync(c => c.UserId == user.Id.ToString());
+
+			if (cart == null || !cart.Items.Any())
+				return RedirectToAction("Index", "ShoppingCart");
+
+			var model = new PaymentMethod
+			{
+				Items = cart.Items
+			};
+
+			return View(model);
 		}
+
+
+		public async Task<IActionResult> PaymentSummary()
+		{
+			var user = await _userManager.GetUserAsync(User);
+			if (user == null)
+				return RedirectToAction("Login", "Account");
+
+			var cart = await _context.ShoppingCarts
+				.Include(c => c.Items)
+				.FirstOrDefaultAsync(c => c.UserId == user.Id.ToString());
+
+			if (cart == null || !cart.Items.Any())
+				return RedirectToAction("Index", "ShoppingCart");
+
+			var model = new PaymentSummary
+			{
+				Items = cart.Items
+			};
+
+			return View(model);
+		}
+
 	}
 }
