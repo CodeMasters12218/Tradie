@@ -1,0 +1,65 @@
+﻿@model Tradie.Models.UserProfile.UserEditProfileModel
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "User delete profile";
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User profile page</title>
+    <link rel="stylesheet" href="../CSS/UserDeleteProfile.css">
+    <link rel="stylesheet" href="~/css/Logout.CSS">
+    <link href="https://fonts.googleapis.com/css2?family=Murecho:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" rel="stylesheet">
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+</head>
+
+<body>
+    <div class="Main-Container">
+        <div class="MyAccount-Container">
+            <h2 class="MyAccount">Mi cuenta ></h2><h2 class="DeleteH2">&nbsp;Eliminar cuenta</h2>
+        </div>
+        <div class="Delete-Title-Container">
+            <h2>Eliminar mi cuenta</h2>
+        </div>
+        <p>Cuando usted utilice Tradie, almacenaremos sus datos para permitirle realizar transacciones con los vendedores, así como para propocionarle servicios relacionados. Si decide eliminar su cuenta personal, borraremos sus datos personales generados en Traide, y ya no podremos prestarle servicios.</p>
+        <div class="Delete-Information">
+            <div class="Container">
+                <div>
+                    <span class="iconify Icon" data-icon="mingcute:warning-fill"></span>
+                </div>
+                <div>
+                    <ul>
+                        <li>La petición de eliminar su cuenta es difinitiva y no se puede deshacer. Por favor, piénselo detenidamente antes de continuar.</li>
+                        <li>Esta operación puede anular otras peticiones que haya podido realizar.</li>
+                        <li>Antes de eliminar su cuenta, evaluaremos el estado de la misma. Revisaremos cuidadosamente su petición de eliminación, incluyendo la posibilidad de que la eliminación de sus pedidos existentes en Tradie peuda afectar a sus derechos e intereses legítimos o a las obligaciones legales que usted necesite cumplir.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="Delete-Button-Container">
+                <button id="DeleteButton" type="submit" class="Delete-Button"><b>Eliminar mi cuenta</b></button>
+            </div>
+        </div>
+    </div>
+    <!--Delete Pop-Up-->
+    <dialog id="DeletePopUp">
+        <div class="Logout-PopUp-Container">
+            <div class="Leaving-Title-Container">
+                <h1>Confirmar eliminación de cuenta</h1>
+            </div>
+            <div class="Question-Container">
+                <p>¿Estás seguro de que quieres eliminar tu cuenta personal?</p>
+            </div>
+            <div class="Logout-Button-Container">
+                <button id="DeleteButtonPopUp" class="Logout-Button">Borrar mi cuenta</button>
+                <button id="CancelDeleteButton" class="Cancel-Button">Cancelar</button>
+            </div>
+        </div>
+    </dialog>
+    <script src="~/js/UserProfileMainPage.js" asp-append-version="true"></script>
+</body>
+</html>

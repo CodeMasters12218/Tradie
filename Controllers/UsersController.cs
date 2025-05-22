@@ -166,43 +166,43 @@ namespace Tradie.Controllers
 			var createdAt = DateTime.UtcNow;
 			var userType = userVm.Role.ToString();
 
-			using (var tx = await _context.Database.BeginTransactionAsync())
-			{
-				try
-				{
-					// 1) Insertar en AspNetUsers
-					var insertUserSql = @"
+            using (var tx = await _context.Database.BeginTransactionAsync())
+            {
+                try
+                {
+                    // 1) Insertar en AspNetUsers
+                    var insertUserSql = @"
                 INSERT INTO AspNetUsers
                     (Name, UserName, Email, EmailConfirmed, PasswordHash, SecurityStamp, ConcurrencyStamp, Role, CreatedAt, UserType, AccessFailedCount, LockoutEnabled, PhoneNumberConfirmed, TwoFactorEnabled)
                 VALUES
                     ({0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, {12}, {13});
                 SELECT CAST(SCOPE_IDENTITY() AS int);
             ";
-					// Obtiene el nuevo Id generado (Identity)
-					var newUserId = (await _context.Database.SqlQueryRaw<int>(
-						insertUserSql,
-						userVm.Name,
-						userVm.Name,
-						userVm.Email,
-						true,
-						passwordHash,
-						securityStamp,
-						concurrencyStamp,
-						(int)userVm.Role,
-						createdAt,
-						userType,
-						0,
-						false,
-						false,
-						false)
-					.ToListAsync())
-					.FirstOrDefault();
-					if (newUserId <= 0)
-					{
-						TempData["Error"] = "No se pudo crear el usuario.";
-						await tx.RollbackAsync();
-						return RedirectToAction(nameof(Index));
-					}
+                    // Obtiene el nuevo Id generado (Identity)
+                    var newUserId = (await _context.Database.SqlQueryRaw<int>(
+                        insertUserSql,
+                        userVm.Name,
+                        userVm.Name,
+                        userVm.Email,
+                        true,
+                        passwordHash,
+                        securityStamp,
+                        concurrencyStamp,
+                        (int)userVm.Role,
+                        createdAt,
+                        userType,
+                        0,
+                        false,
+                        false,
+                        false)
+                    .ToListAsync())
+                    .FirstOrDefault();
+                    if (newUserId <= 0)
+                    {
+                        TempData["Error"] = "No se pudo crear el usuario.";
+                        await tx.RollbackAsync();
+                        return RedirectToAction(nameof(Index));
+                    }
 
 					// 2) Asegurar existencia del rol
 					var roleName = userVm.Role.ToString();
