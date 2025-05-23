@@ -102,6 +102,10 @@ namespace Tradie.Controllers
 
 			await _context.SaveChangesAsync();
 
+			var addedItem = cart.Items.FirstOrDefault(i => i.ProductId == product.Id);
+			TempData["ToastMessage"] = $"<strong>{addedItem.ProductName}</strong> ({addedItem.Quantity}x) was added to your <a href='/ShoppingCart'>cart</a>.";
+
+
 			return RedirectToAction("Subcategory", "Category", new
 			{
 				name = product.Subcategory,

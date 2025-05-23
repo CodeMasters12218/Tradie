@@ -6,7 +6,7 @@
     var totalItemCount = Model.Items.Sum(i => i.Quantity);
 }
 
-<link rel="stylesheet" href="~/css/shoppingCart.css" />
+<link rel="stylesheet" href="~/css/Wishlist.css" />
 <link rel="stylesheet" href="~/css/subcategory.css" />
 
 <div class="product-page-container">
@@ -31,12 +31,19 @@
                 <!-- Product Info -->
                 <div class="item-details">
                     <p class="item-name">@item.ProductName</p>
-                    <p class="item-status">Disponible</p>
+
+                    @{
+                        var inStock = item.Product?.Stock > 0;
+                        var statusText = inStock ? "Disponible" : "Agotado";
+                        var statusClass = inStock ? "item-status available" : "item-status out-of-stock";
+                    }
+
+                    <p class="@statusClass">@statusText</p>
 
                     <p class="item-size">Talla: M</p>
                     <p class="item-color">Color: Blanca</p>
 
-                    <div class="quantity-selector">
+                    <div class="quantity-selector" disabled>
                         <button class="quantity-btn-minus" disabled>-</button>
                         <span class="quantity-display">@Math.Max(item.Quantity, 1).ToString("D2")</span>
                         <button class="quantity-btn-plus" disabled>+</button>
@@ -58,7 +65,7 @@
                     <!-- Add to Cart -->
                     <form method="post" asp-controller="Wishlist" asp-action="AddToCart">
                         <input type="hidden" name="itemId" value="@item.Id" />
-                        <button type="submit" class="btn btn-primary add-to-cart-btn">
+                        <button type="submit" class="btn btn-primary add-to-cart-btn text-white">
                             Añadir a la cesta <i class="bi bi-cart"></i>
                         </button>
                     </form>

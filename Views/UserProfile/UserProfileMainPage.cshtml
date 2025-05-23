@@ -56,72 +56,90 @@
         <!--Other stuff container-->
         <div class="Other-Stuff-Container">
             <div class="Stuff-Container">
-                <div class="Stuff-Data-Container">
-                    <h2 class="Stuff-h2">Lista de deseos</h2>
-                    <div class="Stuff-Icon-Container">
-                        <div class="Icon-container">
-                            <span class="iconify Icon" data-icon="solar:wallet-bold"></span>
-                        </div>
-                        <div>
-                            <p class="Stuff-Text">Ve y modifica tu lista de deseos o añade los productos a tu carrito</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="Stuff-Data-Container">
-                    <h2 class="Stuff-h2">Mis pedidos</h2>
-                    <div class="Stuff-Icon-Container">
-                        <div class="Icon-container">
-                            <span class="iconify Icon" data-icon="solar:wallet-bold"></span>
-                        </div>
-                        <div>
-                            <p class="Stuff-Text">Rastrear, devolver, cancelar un pedido., descargar la factura o volver a comprar.</p>
+                <a asp-controller="Wishlist" asp-action="Index" class="Stuff-Link">
+                    <div class="Stuff-Data-Container">
+                        <h2 class="Stuff-h2">Lista de deseos</h2>
+                        <div class="Stuff-Icon-Container">
+                            <div class="Icon-container">
+                                <span class="iconify Icon" data-icon="solar:wallet-bold"></span>
+                            </div>
+                            <div>
+                                <p class="Stuff-Text">Ve y modifica tu lista de deseos o añade los productos a tu carrito</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="Stuff-Data-Container">
-                    <h2 class="Stuff-h2">Mis pagos</h2>
-                    <div class="Stuff-Icon-Container">
-                        <div class="Icon-container">
-                            <span class="iconify Icon" data-icon="solar:wallet-bold"></span>
-                        </div>
-                        <div>
-                            <p class="Stuff-Text">Administrar o añadir métodos de pago y ver tus transacciones.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="Stuff-Data-Container">
-                    <h2 class="Stuff-h2">Direcciones de envío</h2>
-                    <div class="Stuff-Icon-Container">
-                        <div class="Icon-container">
-                            <span class="iconify Icon" data-icon="solar:wallet-bold"></span>
-                        </div>
-                        <div>
-                            <p class="Stuff-Text">Editar, eliminar o configurar la dirrección de envío predeterminada.</p>
+                </a>
+
+                <a asp-controller="UserProfile" asp-action="Orders" class="Stuff-Link">
+                    <div class="Stuff-Data-Container">
+                        <h2 class="Stuff-h2">Mis pedidos</h2>
+                        <div class="Stuff-Icon-Container">
+                            <div class="Icon-container">
+                                <span class="iconify Icon" data-icon="solar:wallet-bold"></span>
+                            </div>
+                            <div>
+                                <p class="Stuff-Text">Rastrear, devolver, cancelar un pedido, descargar la factura o volver a comprar.</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="Stuff-Data-Container">
-                    <h2 class="Stuff-h2">Inicio de sesión</h2>
-                    <div class="Stuff-Icon-Container">
-                        <div class="Icon-container">
-                            <span class="iconify Icon" data-icon="solar:wallet-bold"></span>
-                        </div>
-                        <div>
-                            <p class="Stuff-Text">Ver la historial de los inicios de sesión de tu cuenta.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="Stuff-Data-Container">
-                    <h2 class="Stuff-h2">Valoraciones</h2>
-                    <div class="Stuff-Icon-Container">
-                        <div class="Icon-container">
-                            <span class="iconify Icon" data-icon="solar:wallet-bold"></span>
-                        </div>
-                        <div>
-                            <p class="Stuff-Text">Escribe, lee, modifica o borra tus valoraciones.</p>
+                </a>
+
+                <a asp-controller="UserProfile" asp-action="Payments" class="Stuff-Link">
+                    <div class="Stuff-Data-Container">
+                        <h2 class="Stuff-h2">Mis pagos</h2>
+                        <div class="Stuff-Icon-Container">
+                            <div class="Icon-container">
+                                <span class="iconify Icon" data-icon="solar:wallet-bold"></span>
+                            </div>
+                            <div>
+                                <p class="Stuff-Text">Administrar o añadir métodos de pago y ver tus transacciones.</p>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </a>
+
+                <a asp-controller="UserProfile" asp-action="ShippingAddresses" class="Stuff-Link">
+                    <div class="Stuff-Data-Container">
+                        <h2 class="Stuff-h2">Direcciones de envío</h2>
+                        <div class="Stuff-Icon-Container">
+                            <div class="Icon-container">
+                                <span class="iconify Icon" data-icon="solar:wallet-bold"></span>
+                            </div>
+                            <div>
+                                <p class="Stuff-Text">Editar, eliminar o configurar la dirección de envío predeterminada.</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <a asp-controller="UserProfile" asp-action="LoginHistory" class="Stuff-Link">
+                    <div class="Stuff-Data-Container">
+                        <h2 class="Stuff-h2">Inicio de sesión</h2>
+                        <div class="Stuff-Icon-Container">
+                            <div class="Icon-container">
+                                <span class="iconify Icon" data-icon="solar:wallet-bold"></span>
+                            </div>
+                            <div>
+                                <p class="Stuff-Text">Ver el historial de los inicios de sesión de tu cuenta.</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <a asp-controller="UserProfile" asp-action="Reviews" class="Stuff-Link">
+                    <div class="Stuff-Data-Container">
+                        <h2 class="Stuff-h2">Valoraciones</h2>
+                        <div class="Stuff-Icon-Container">
+                            <div class="Icon-container">
+                                <span class="iconify Icon" data-icon="solar:wallet-bold"></span>
+                            </div>
+                            <div>
+                                <p class="Stuff-Text">Escribe, lee, modifica o borra tus valoraciones.</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
             </div>
         </div>
     </div>
