@@ -70,7 +70,7 @@ namespace Tradie.Controllers
 				ViewData["HasReviewed"] = hasReviewed;
 			}
 
-			return View(product);
+			return View("~/Views/Product/Product.cshtml", product);
 		}
 
 		// GET: Products/Create
@@ -243,8 +243,32 @@ namespace Tradie.Controllers
 			return RedirectToAction(nameof(Index));
 		}
 
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> AddReview(int productId, int rating, string content)
+        {
+            // Obtén el ID del usuario autenticado
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
-		private bool ProductExists(int id)
+            // Crea la nueva reseña
+            var review = new Review
+            {
+                ProductId = productId,
+                CustomerId = userId,
+                Rating = rating,
+                Content = content,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            // Añade y guarda la reseña en la base de datos
+            _context.Reviews.Add(review);
+            await _context.SaveChangesAsync();
+
+            // Redirige a la acción que muestra el producto
+            return RedirectToAction("Details", new { id = productId });
+        }
+
+        private bool ProductExists(int id)
         {
             return _context.Products.Any(e => e.Id == id);
         }
