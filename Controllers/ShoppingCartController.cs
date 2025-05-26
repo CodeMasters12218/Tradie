@@ -13,7 +13,7 @@ namespace Tradie.Controllers
 		public ShoppingCartController(
 			ApplicationDbContext context,
 			UserManager<User> userManager)
-			: base(userManager)
+			: base(userManager, context)
 		{
 			_context = context;
 		}
@@ -78,7 +78,7 @@ namespace Tradie.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> AddToCart(int productId)
+		public async Task<IActionResult> AddToCart(int productId, string returnUrl)
 		{
 			var user = await _userManager.GetUserAsync(User);
 			if (user == null)
@@ -98,20 +98,16 @@ namespace Tradie.Controllers
 				_context.ShoppingCarts.Add(cart);
 			}
 
-			cart.AddItem(product, 1); // Use your existing AddItem logic
+			cart.AddItem(product, 1); // Existing AddItem logic
 
 			await _context.SaveChangesAsync();
 
 			var addedItem = cart.Items.FirstOrDefault(i => i.ProductId == product.Id);
 
-			TempData["ToastMessage"] = $"<strong>{addedItem.ProductName}</strong> ({addedItem.Quantity}x) was added to your <a href='/ShoppingCart'>cart</a>.";
+			TempData["ToastMessage"] = $"<strong>{addedItem.ProductName}</strong> was added to your <a href='/ShoppingCart'>cart</a>.";
 			TempData["ToastType"] = "success";
 
-			return RedirectToAction("Subcategory", "Category", new
-			{
-				name = product.Subcategory,
-				subcategory = product.Subcategory
-			});
+			return LocalRedirect(returnUrl ?? "/");
 		}
 
 		[HttpPost]

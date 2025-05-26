@@ -1,12 +1,9 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Tradie.Data;
 using Tradie.Models.Products;
-using Microsoft.AspNetCore.Identity;
 using Tradie.Models.Users;
 
 namespace Tradie.Controllers
@@ -17,9 +14,9 @@ namespace Tradie.Controllers
 		private readonly UserManager<User> _userManager;
 
 		public ReviewsController(
-			ApplicationDbContext context, 
+			ApplicationDbContext context,
 			UserManager<User> userManager
-		) : base(userManager)
+		) : base(userManager, context)
 		{
 			_context = context;
 			_userManager = userManager;

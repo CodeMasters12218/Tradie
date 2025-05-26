@@ -13,7 +13,7 @@ namespace Tradie.Controllers
 		public PaymentController(
 			UserManager<User> userManager,
 			ApplicationDbContext context
-		) : base(userManager)
+		) : base(userManager, context)
 		{
 			_context = context;
 		}

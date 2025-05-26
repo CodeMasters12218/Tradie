@@ -16,22 +16,23 @@
             <img src="@Model.ImageUrl" alt="@Model.Name" class="product-image" />
 
             <!-- Favorite Button -->
+            @{
+                var isFavorited = ViewBag.WishlistProductIds != null &&
+                ((List<int>)ViewBag.WishlistProductIds).Contains(Model.Id);
+            }
+
             <form asp-controller="Wishlist"
-                  asp-action="AddToWishlist"
+                  asp-action="ToggleWishlistItem"
                   method="post"
                   class="d-inline">
                 <input type="hidden" name="productId" value="@Model.Id" />
-                <button class="favorite-btn" onclick="toggleHeart(this)">
-                    <i class="bi bi-heart"></i>
+                <input type="hidden" name="returnUrl" value="@($"{Context.Request.Path}{Context.Request.QueryString}")" />
+                <button type="submit"
+                        class="btn btn-sm favorite-btn @(isFavorited ? "favorited" : "")"
+                        onclick="toggleHeart(this)">
+                    <i class="bi @(isFavorited ? "bi-heart-fill" : "bi-heart")"></i>
                 </button>
             </form>
-        </div>
-
-        <!-- Quantity Selector -->
-        <div class="quantity-selector">
-            <button class="quantity-btn-minus">-</button>
-            <span class="quantity-display">01</span>
-            <button class="quantity-btn-plus">+</button>
         </div>
 
         <!-- Add to Cart -->
@@ -40,10 +41,17 @@
               method="post"
               class="d-inline">
             <input type="hidden" name="productId" value="@Model.Id" />
-            <button class="add-to-cart-btn" onclick="toggleCart(this)">
-                Añadir a la cesta <i class="bi bi-cart"></i>
+            <input type="hidden" name="returnUrl" value="@($"{Context.Request.Path}{Context.Request.QueryString}")" />
+            <button type="submit"
+                    class="btn btn-sm add-to-cart-btn @(ViewBag.CartProductIds != null && ((List<int>)ViewBag.CartProductIds).Contains(Model.Id) ? "added disabled" : "")"
+            @(ViewBag.CartProductIds != null && ((List<int>)ViewBag.CartProductIds).Contains(Model.Id) ? "disabled" : "")
+                    onclick="toggleCart(this)">
+                <i class="bi @(ViewBag.CartProductIds != null && ((List<int>)ViewBag.CartProductIds).Contains(Model.Id) ? "bi-cart-check" : "bi-cart")"></i>
+                @(ViewBag.CartProductIds != null && ((List<int>)ViewBag.CartProductIds).Contains(Model.Id) ? "Añadido en la cesta" : "Añadir a la cesta")
             </button>
         </form>
+
+
     </div>
 
     <!-- RIGHT COLUMN -->
@@ -122,6 +130,7 @@
             <p><strong>Stock:</strong> @Model.Stock</p>
         </div>
         <hr />
+
         <h4>Deja tu reseña</h4>
         @if (User.Identity.IsAuthenticated)
         {

@@ -12,7 +12,7 @@ namespace Tradie.Controllers
 		private readonly ApplicationDbContext _context;
 
 		public WishlistController(ApplicationDbContext context, UserManager<User> userManager)
-			: base(userManager)
+			: base(userManager, context)
 		{
 			_context = context;
 		}
@@ -99,7 +99,7 @@ namespace Tradie.Controllers
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> AddToWishList(int productId)
+		public async Task<IActionResult> AddToWishList(int productId, string returnUrl)
 		{
 			var user = await _userManager.GetUserAsync(User);
 			if (user == null)
@@ -148,8 +148,63 @@ namespace Tradie.Controllers
 			TempData["ToastMessage"] = $"<strong>{product.Name}</strong> was added to your <a href='/Wishlist'>wishlist</a>.";
 			TempData["ToastType"] = "success";
 
-			return RedirectToAction(nameof(Index));
+			return LocalRedirect(returnUrl ?? "/");
 		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> ToggleWishlistItem(int productId, string returnUrl)
+		{
+			var user = await _userManager.GetUserAsync(User);
+			if (user == null)
+				return RedirectToAction("Login", "Account");
+
+			var wishlist = await _context.Wishlists
+				.Include(w => w.Items)
+				.FirstOrDefaultAsync(w => w.UserId == user.Id.ToString());
+
+			if (wishlist == null)
+			{
+				wishlist = new Wishlist
+				{
+					UserId = user.Id.ToString(),
+					Items = new List<WishlistItem>()
+				};
+				_context.Wishlists.Add(wishlist);
+				await _context.SaveChangesAsync();
+			}
+
+			var existingItem = wishlist.Items.FirstOrDefault(i => i.ProductId == productId);
+			if (existingItem != null)
+			{
+				_context.WishlistItems.Remove(existingItem);
+				TempData["ToastMessage"] = $"Item removed from <a href='/Wishlist'>wishlist</a>.";
+				TempData["ToastType"] = "info";
+			}
+			else
+			{
+				var product = await _context.Products.FindAsync(productId);
+				if (product == null) return NotFound();
+
+				wishlist.Items.Add(new WishlistItem
+				{
+					ProductId = product.Id,
+					ProductName = product.Name,
+					Quantity = 1,
+					PriceAtAddition = product.Price,
+					ImageUrl = product.ImageUrl,
+					Size = "Default",
+					Color = "Default"
+				});
+
+				TempData["ToastMessage"] = $"<strong>{product.Name}</strong> added to <a href='/Wishlist'>wishlist</a>.";
+				TempData["ToastType"] = "success";
+			}
+
+			await _context.SaveChangesAsync();
+			return LocalRedirect(returnUrl ?? "/");
+		}
+
 
 	}
 }

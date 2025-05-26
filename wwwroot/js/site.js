@@ -43,6 +43,16 @@ function toggleHeart(btn) {
     }
 }
 
+// CART
+function toggleCart(btn) {
+    btn.classList.add('added');
+    const icon = btn.querySelector('i');
+    icon.classList.remove('bi-cart');
+    icon.classList.add('bi-cart-check');
+    // Let the form submit normally (no return false!)
+}
+
+/*
 // TOGGLE CART
 function toggleCart(btn) {
     btn.classList.toggle('active');
@@ -85,6 +95,7 @@ function toggleCart(btn) {
         // Optionally: Remove item from cart
     }
 }
+*/
 
 
 // ADD TO CART HOME
@@ -285,4 +296,31 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
     });
+});
+
+/* Quantity Selector for Product Details page */
+document.addEventListener('DOMContentLoaded', function () {
+    const productPage = document.querySelector('.product-details-page');
+    if (productPage) {
+        const quantityDisplay = productPage.querySelector('.quantity-display');
+        const quantityInput = productPage.querySelector('input[name="quantity"]');
+        const plusBtn = productPage.querySelector('.quantity-btn-plus');
+        const minusBtn = productPage.querySelector('.quantity-btn-minus');
+
+        plusBtn?.addEventListener('click', () => {
+            let quantity = parseInt(quantityDisplay.innerText) || 1;
+            quantity++;
+            quantityDisplay.innerText = quantity.toString().padStart(2, '0');
+            quantityInput.value = quantity;
+        });
+
+        minusBtn?.addEventListener('click', () => {
+            let quantity = parseInt(quantityDisplay.innerText) || 1;
+            if (quantity > 1) {
+                quantity--;
+                quantityDisplay.innerText = quantity.toString().padStart(2, '0');
+                quantityInput.value = quantity;
+            }
+        });
+    }
 });

@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Tradie.Data;
 using Tradie.Models.UserProfile;
-using Tradie.Models.Users;
 
 namespace Tradie.Controllers
 {
 	public class UserProfileController : BaseController
 	{
-		public UserProfileController(UserManager<User> userManager)
-			: base(userManager)
+		public UserProfileController(UserManager<User> userManager, ApplicationDbContext context)
+			: base(userManager, context)
 		{
 		}
 
@@ -56,7 +56,7 @@ namespace Tradie.Controllers
 		public IActionResult UserDeleteProfile()
 		{
 			return View("UserDeleteProfile"); // Looks for Views/UserProfile/UserDeleteProfile.cshtml
-        }
+		}
 
 		[HttpPost]
 		public IActionResult SaveProfile(UserEditProfileModel model)

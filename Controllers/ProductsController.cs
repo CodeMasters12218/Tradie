@@ -1,33 +1,31 @@
-﻿using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 using Tradie.Data;
 using Tradie.Models.Products;
 using Tradie.Models.Users;
 
 namespace Tradie.Controllers
 {
-    [Authorize(Roles = "Admin, Seller")]
-    public class ProductsController : BaseController
+	[Authorize(Roles = "Admin, Seller")]
+	public class ProductsController : BaseController
 	{
-        private readonly ApplicationDbContext _context;
+		private readonly ApplicationDbContext _context;
 		private readonly UserManager<User> _userManager;
 
 		public ProductsController(
-			ApplicationDbContext context, 
+			ApplicationDbContext context,
 			UserManager<User> userManager)
-			: base(userManager)
+			: base(userManager, context)
 		{
 			_context = context;
 			_userManager = userManager;
 		}
 
 		public async Task<IActionResult> Index(string searchTerm, string subcategory)
-        {
+		{
 			var productsQuery = _context.Products
 				.Include(p => p.Seller)
 				.AsQueryable();
@@ -45,8 +43,8 @@ namespace Tradie.Controllers
 			}
 
 			var products = await productsQuery.ToListAsync();
-            return View(products);
-        }
+			return View(products);
+		}
 
 		// GET: Products/Details/5
 		public async Task<IActionResult> Details(int? id)
@@ -75,10 +73,10 @@ namespace Tradie.Controllers
 
 		// GET: Products/Create
 		[Authorize(Roles = "Admin, Seller")]
-        public IActionResult Create()
-        {
-            return View();
-        }
+		public IActionResult Create()
+		{
+			return View();
+		}
 
 		// POST: Products/Create
 		// POST: Products/Create
@@ -243,35 +241,35 @@ namespace Tradie.Controllers
 			return RedirectToAction(nameof(Index));
 		}
 
-        [HttpPost]
-        [Authorize]
-        public async Task<IActionResult> AddReview(int productId, int rating, string content)
-        {
-            // Obtén el ID del usuario autenticado
-            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+		[HttpPost]
+		[Authorize]
+		public async Task<IActionResult> AddReview(int productId, int rating, string content)
+		{
+			// Obtén el ID del usuario autenticado
+			var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
-            // Crea la nueva reseña
-            var review = new Review
-            {
-                ProductId = productId,
-                CustomerId = userId,
-                Rating = rating,
-                Content = content,
-                CreatedAt = DateTime.UtcNow
-            };
+			// Crea la nueva reseña
+			var review = new Review
+			{
+				ProductId = productId,
+				CustomerId = userId,
+				Rating = rating,
+				Content = content,
+				CreatedAt = DateTime.UtcNow
+			};
 
-            // Añade y guarda la reseña en la base de datos
-            _context.Reviews.Add(review);
-            await _context.SaveChangesAsync();
+			// Añade y guarda la reseña en la base de datos
+			_context.Reviews.Add(review);
+			await _context.SaveChangesAsync();
 
-            // Redirige a la acción que muestra el producto
-            return RedirectToAction("Details", new { id = productId });
-        }
+			// Redirige a la acción que muestra el producto
+			return RedirectToAction("Details", new { id = productId });
+		}
 
-        private bool ProductExists(int id)
-        {
-            return _context.Products.Any(e => e.Id == id);
-        }
+		private bool ProductExists(int id)
+		{
+			return _context.Products.Any(e => e.Id == id);
+		}
 
 	}
 }
