@@ -95,8 +95,6 @@ namespace Tradie.Controllers
 			TempData["ToastType"] = "success";
 
 			return RedirectToAction(nameof(Index));
-
-
 		}
 
 		[HttpPost]
@@ -150,11 +148,7 @@ namespace Tradie.Controllers
 			TempData["ToastMessage"] = $"<strong>{product.Name}</strong> was added to your <a href='/Wishlist'>wishlist</a>.";
 			TempData["ToastType"] = "success";
 
-			return RedirectToAction("Subcategory", "Category", new
-			{
-				name = product.Subcategory,
-				subcategory = product.Subcategory
-			});
+			return RedirectToAction(nameof(Index));
 		}
 
 	}

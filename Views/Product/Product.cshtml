@@ -16,9 +16,15 @@
             <img src="@Model.ImageUrl" alt="@Model.Name" class="product-image" />
 
             <!-- Favorite Button -->
-            <button class="favorite-btn" onclick="toggleHeart(this)">
-                <i class="bi bi-heart"></i>
-            </button>
+            <form asp-controller="Wishlist"
+                  asp-action="AddToWishlist"
+                  method="post"
+                  class="d-inline">
+                <input type="hidden" name="productId" value="@Model.Id" />
+                <button class="favorite-btn" onclick="toggleHeart(this)">
+                    <i class="bi bi-heart"></i>
+                </button>
+            </form>
         </div>
 
         <!-- Quantity Selector -->
@@ -29,9 +35,15 @@
         </div>
 
         <!-- Add to Cart -->
-        <button class="add-to-cart-btn" onclick="toggleCart(this)">
-            Añadir a la cesta <i class="bi bi-cart"></i>
-        </button>
+        <form asp-controller="ShoppingCart"
+              asp-action="AddToCart"
+              method="post"
+              class="d-inline">
+            <input type="hidden" name="productId" value="@Model.Id" />
+            <button class="add-to-cart-btn" onclick="toggleCart(this)">
+                Añadir a la cesta <i class="bi bi-cart"></i>
+            </button>
+        </form>
     </div>
 
     <!-- RIGHT COLUMN -->

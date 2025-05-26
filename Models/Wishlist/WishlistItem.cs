@@ -12,6 +12,8 @@ namespace Tradie.Models.Wishlist
 		public string? ProductName { get; set; } = string.Empty;
 		public string? ImageUrl { get; set; }
 
+		public string? CategoryName { get; set; }
+
 		public int Quantity { get; set; }
 		public decimal PriceAtAddition { get; set; }
 		public string? Size { get; set; }

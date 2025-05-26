@@ -23,14 +23,25 @@
         @foreach (var item in Model.Items)
         {
             <div class="cart-item-row">
+                
+                @{
+                    var categorySegment = item.CategoryName?.Replace(" ", "") ?? "Categoria";
+                    var subcategory = item.Product?.Subcategory ?? "Subcategoria";
+                    var productId = item.Product?.Id ?? 0;
+                    var productDetailsUrl = $"/Category{categorySegment}/{subcategory}/{productId}";
+                }
+
                 <!-- Product Image -->
                 <div class="item-image">
-                    <img src="@item.Product.ImageUrl" alt="@item.ProductName" />
+                    <a href="@productDetailsUrl">
+                        <img src="@item.Product?.ImageUrl" alt="@item.ProductName" />
+                    </a>
                 </div>
 
-                <!-- Product Info -->
                 <div class="item-details">
-                    <p class="item-name">@item.ProductName</p>
+                    <a href="@productDetailsUrl" class="item-name-link">
+                        <p class="item-name">@item.ProductName</p>
+                    </a>
 
                     @{
                         var inStock = item.Product?.Stock > 0;
