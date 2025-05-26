@@ -121,6 +121,66 @@
 
             <p><strong>Stock:</strong> @Model.Stock</p>
         </div>
+        <hr />
+        <h4>Deja tu reseña</h4>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <form asp-controller="Products" asp-action="AddReview" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="productId" value="@Model.Id" />
+
+                <div class="mb-3">
+                    <label for="rating">Valoración:</label>
+                    <select name="rating" id="rating" class="form-select" style="max-width: 120px;">
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            <option value="@i">@i estrella@(i > 1 ? "s" : "")</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="content">Tu reseña:</label>
+                    <textarea name="content" id="content" class="form-control" rows="3"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Enviar reseña</button>
+            </form>
+        }
+        else
+        {
+            <p>Debes <a asp-controller="Account" asp-action="Login">iniciar sesión</a> para escribir una reseña.</p>
+        }
+
+        <hr />
+        <h4>Reseñas de usuarios</h4>
+        @foreach (var r in Model.Reviews.OrderByDescending(r => r.CreatedAt))
+        {
+            <div class="review mb-4">
+                <div class="d-flex align-items-center mb-1">
+                    @for (int i = 1; i <= 5; i++)
+                    {
+                        if (i <= r.Rating)
+                        {
+                            <i class="bi bi-star-fill text-warning"></i>
+                        }
+                        else
+                        {
+                            <i class="bi bi-star text-muted"></i>
+                        }
+                    }
+                    <small class="text-muted ms-2">— @(r.Customer?.Name ?? "Usuario desconocido"), @r.CreatedAt.ToShortDateString()</small>
+                </div>
+                <p>@r.Content</p>
+                @if (!string.IsNullOrEmpty(r.SellerResponse))
+                {
+                    <div class="ps-3 border-start">
+                        <strong>Respuesta del vendedor:</strong>
+                        <p>@r.SellerResponse</p>
+                    </div>
+                }
+            </div>
+        }
     </div>
 </div>
 
