@@ -1,103 +1,141 @@
 ﻿@using Tradie.Models.Users
 
-
 @model UserManagementViewModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
-    Layout = null;
     ViewData["Title"] = "User Management";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    var adminName = (string)ViewData["AdminName"]!;
+    var adminEmail = (string)ViewData["AdminEmail"]!;
 }
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Management Page</title>
-    <link rel="stylesheet" href="~/css/UserManagement.css" asp-append-version="true">
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Tradie.styles.css" asp-append-version="true" />
-    <link href="https://fonts.googleapis.com/css2?family=Murecho:wght@400;500;700&display=swap" rel="stylesheet">
-</head>
-<body>
-    <header class="admin-header bg-white border-bottom shadow-sm py-3 px-4 d-flex justify-content-between align-items-center">
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <div class="logo">
-                    <a class="navbar-brand fs-4 fw-bold text-dark" asp-area="" asp-controller="Home" asp-action="Index">Tradie Admin</a>
+
+<link rel="stylesheet" href="~/css/UserManagement.css" asp-append-version="true">
+
+<button class="mobile-nav-toggle" onclick="toggleSidebar()">☰ Menú</button>
+
+    <div class="admin-dashboard d-flex">
+        <!-- Sidebar -->
+        <aside class="sidebar p-4">
+            <div>
+                <p class="gestion-label"><i class="bi bi-grid-fill me-2"></i> Gestión Admin</p>
+            </div>
+
+            <ul class="nav flex-column gap-2">
+                <li class="nav-item">
+                    <a class="nav-link d-flex align-items-center justify-content-between" href="#"
+                       onclick="toggleSubmenu('productSubMenu', this)">
+                        <div class="ges-prod-label">
+                            <div><i class="bi bi-chevron-down"></i></div>
+                            <div class="label-word"><span>Gestión de Productos</span></div>
+                        </div>
+                    </a>
+
+                    <ul class="ps-3 mt-1 list-unstyled" id="productSubMenu" style="display: block;">
+                    <li><a asp-controller="ProductManagement" asp-action="ProductRegistry" class="nav-link nav-link-reg-prod ps-4"><i class="bi bi-clipboard-data me-2"></i> Registro de Productos</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link d-flex align-items-center justify-content-between" href="#"
+                       onclick="toggleSubmenu('userSubMenu', this)">
+                        <div class="ges-usuario-label">
+                            <div><i class="bi bi-chevron-right"></i></div>
+                            <div class="label-word"><span>Gestión de Usuarios</span></div>
+                        </div>
+                    </a>
+
+                    <ul class="ps-3 mt-1 list-unstyled" id="userSubMenu" style="display: none;">
+                        <li><a class="nav-link ps-4 active"><i class="bi bi-person-badge me-2"></i> Registro de usuarios</a></li>
+                        <li><a class="nav-link ps-4" href="#"><i class="bi bi-person-lock me-2"></i> Roles</a></li>
+                        <li><a class="nav-link ps-4" href="#"><i class="bi bi-shield-check me-2"></i> Permisos</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <!-- Lower part -->
+            <div class="mt-auto pt-5">
+                <a href="#" class="nav-link"><i class="btn-config bi-gear-fill me-2"></i>Configuración</a>
+                <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="logout"><i class="bi bi-box-arrow-right me-2"></i> Cerrar Sesión</button>
+                </form>
+            </div>
+        </aside>
+
+    <!-- Main Content -->
+    <section class="content p-4 flex-fill">
+        <div class="section-header">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="mb-0">Gestión de Usuarios</h3>
+                <div class="d-flex gap-2">
+                    <form class="d-flex align-items-center me-3" role="search">
+                        <div class="input-group">
+                            <input type="search" name="searchTerm" value="@Context.Request.Query["searchTerm"]"
+                                   class="form-control" placeholder="Buscar usuarios..." aria-label="Search">
+                            <button type="submit" class="btn btn-outline-secondary">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </div>
+                    </form>
+
+                    <button class="Create-Button" asp-controller="Users" asp-action="Edit">+ Crear usuario</button>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="Global-Container">
-        <!-- This is the container for the sidebar-->
-        <div class="sidebar-Container">
-            <div class="Admin-Management">
-                <p>Gestión Admin</p>
-            </div>
-            <button type="button" onclick="toggleMenu('productMenu')">📦Gestión de productos</button>
-            <dl id="productMenu">
-                <a asp-controller="ProductManagement" asp-action="ProductRegistry">-Registro de productos</a>
-            </dl>
-
-            <button type="button" onclick="toggleMenu('userMenu')">👥Gestión de usuarios</button>
-            <dl id="userMenu">
-                <a asp-controller="Users" asp-action="Index">-Registro de usuarios</a>
-            </dl>
-            <button type="submit" class="Extra">👤+ Roles</button>
-            <button type="submit" class="Extra">👤✏️ Permisos</button>
-
-            <div class="Extra-Buttons">
-                <button type="submit" class="Extra">⚙ Configuración</button>
-                <button type="submit" class="Extra">🚪Cerrar sesión</button>
-            </div>
         </div>
-        <!-- Container of CRUD -->
-        <div class="CRUD_Container">
-            <div>
-                <h1>Gestión de usuarios</h1>
-            </div>
-            <div>
-                <table>
-                    <thead>
+
+        <div class="table-responsive">
+            <table class="table align-middle text-start">
+                <!-- added text-start here -->
+                <thead class="text-start">
+                    <!-- force header left aligned -->
+                    <tr>
+                        <th>Nombre &amp; ID</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="text-start">
+                    <!-- force body rows left aligned -->
+                    @foreach (var u in Model.Users)
+                    {
                         <tr>
-                            <td class="Name">Name&ID</td>
-                            <td class="Email">Email</td>
-                            <td class="Role">Role</td>
-                            <td class="Status">Status</td>
-                            <td class="Action">Action</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var u in Model.Users)
-                        {
-                            <tr>
-                                <td>
-                                    <div>
-                                        <p>@u.Name ID:@u.Id</p>
-                                    </div>
-                                </td>
-                                <td>@u.Email</td>
-                                <td>34</td>
-                                <td>@u.Role</td>
-                                <td></td>
-                                <td>
-                                    <div>
-                                        <button class="Edit-Button" data-user-id="@u.Id" data-user-name="@u.Name" data-user-lastnames="@u.LastNames" data-user-email="@u.Email" data-user-role="@u.Role">Editar usuario</button>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <img src="@(!string.IsNullOrEmpty(u.ProfilePhotoUrl) ? u.ProfilePhotoUrl : "/images/default-user.png")"
+                                         class="rounded me-3"
+                                         width="48" height="48"
+                                         style="object-fit: cover;"
+                                         alt="@u.Name" />
 
-                                        <button class="Delete-Button" data-user-id="@u.Id" data-user-name="@u.Name" asp-controller="Users" asp-action="Delete">Eliminar usuario</button>
+                                    <div>
+                                        <div class="fw-semibold">@u.Name</div>
+                                        <div class="text-muted small">ID: @u.Id</div>
                                     </div>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-            <div class="Create-Button-Container">
-                <button class="Create-Button" asp-controller="Users" asp-action="Edit">Crear usuario</button>
-            </div>
+                                </div>
+                            </td>
+                            <td>@u.Email</td>
+                            <td>@u.Role</td>
+                            <td>
+                                <span class="badge bg-secondary">Activo</span>
+                            </td>
+                            <td>
+                                <div class="d-flex gap-2">
+                                    <button class="Edit-Button" data-user-id="@u.Id" data-user-name="@u.Name" data-user-lastnames="@u.LastNames" data-user-email="@u.Email" data-user-role="@u.Role">Editar</button>
+
+                                    <button class="Delete-Button" data-user-id="@u.Id" data-user-name="@u.Name" asp-controller="Users" asp-action="Delete">Eliminar</button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
-    </div>
+    </section>
+
+
+
     <!--Button to create users-->
     <!--Pop ups-->
     <!--Create user Pop-Up-->
@@ -148,6 +186,7 @@
             </div>
         </div>
     </dialog>
+
     <!--Edit user Pop-Up-->
     <dialog id="EditUser-PopUp">
         <div class="User-LabelForm-Container">
@@ -212,5 +251,3 @@
         </form>
     </dialog>
     <script src="~/js/UserManagement.js" asp-append-version="true"></script>
-</body>
-</html>

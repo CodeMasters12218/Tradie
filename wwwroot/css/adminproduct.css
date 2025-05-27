@@ -54,7 +54,7 @@ body {
         .sidebar .nav-link.active {
             background-color: #d8d8d8; /* Soft gray background */
             color: #000000; /* Black text */
-            font-weight: 600;
+            font-weight: 500;
             font-size: 13px;
             border-radius: 5px;
         }
@@ -153,7 +153,8 @@ th {
 
 
 .btn.btn-success {
-    font-weight: 600;
+    font-weight: 400;
+    font-weight: 400;
 }
 
 /* Product images in table */

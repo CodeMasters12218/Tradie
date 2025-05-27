@@ -8,9 +8,11 @@ namespace Tradie.Models.Users
 		Seller,
 		Customer
 	}
+
 	public class AdminUserViewModel
 	{
 		public int Id { get; set; }
+
 		[Required(ErrorMessage = "El nombre es obligatorio.")]
 		public string? Name { get; set; }
 
@@ -28,6 +30,6 @@ namespace Tradie.Models.Users
 		[DataType(DataType.Password)]
 		[StringLength(100, MinimumLength = 6, ErrorMessage = "La contraseña debe tener al menos 6 caracteres.")]
 		public string? Password { get; set; }
+		public string? ProfilePhotoUrl { get; set; }
 	}
-
 }
