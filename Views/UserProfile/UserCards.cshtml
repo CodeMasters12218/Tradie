@@ -1,0 +1,103 @@
+﻿@using Tradie.Models.UserCards  
+
+@model Tradie.Models.Users.AdminUserViewModel
+@{  
+    Layout = "_Layout";  
+    ViewData["Title"] = "User's cards page";  
+}  
+
+<link rel="stylesheet" href="~/css/UserEditProfile.css"/>  
+<link rel="stylesheet" href="~/css/Logout.CSS" />
+<link href="https://fonts.googleapis.com/css2?family=Murecho:wght@400&display=swap" rel="stylesheet">  
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" rel="stylesheet">  
+<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+
+<div class="Main-Container">  
+    <!-- Header -->  
+    <div class="Logout-Container">  
+        <h1>Mi cuenta ><span> Mis tarjetas</span></h1>  
+    </div>  
+
+    <!-- Subheading -->  
+    <div class="User-Data-Container">  
+        <h2>Mis tarjetas</h2>  
+    </div>  
+
+    <!-- Cards container -->  
+    <div class="Container-Container">
+        <div class="MainContainer">  
+            <div class="Cards-Title-Container">
+            </div>
+            <div class="Cards-Container">  
+                <div class="CreateCard-Button-Container">  
+                    <a class="CreateCard-Button" asp-controller="UserCardProfile" asp-action="UserCardCreate">+</a>
+                    <p class="Add-Card-Label">Añadir tarjeta</p>  
+                </div>  
+                @if (Model.UserCardProfile.Cards != null && Model.UserCardProfile.Cards.Any())
+                {
+                    foreach (var c in Model.UserCardProfile.Cards.Take(5))
+                    {
+                        <div class="Card-Item">
+                            @if (c.CardType == CardType.PayPal)
+                            {
+                                <div class="Card-Icon-Container">
+                                    <p>@c.Payeer</p>
+                                    <span class="iconify Icon" data-icon="logos:paypal"></span>
+                                </div>
+                                <p>Email: @c.Email</p>
+                                <div class="Delete-Button-Container">
+                                    <p>@c.CardType</p>
+                                    <button class="Delete-Button" id=".DeleteCardButton"><span class="iconify" data-icon="mdi:delete"></span></button>
+                                </div>
+                            }else
+                            {
+                                if (c.CardType == CardType.GooglePay)
+                                {
+                                    <div class="Card-Icon-Container">
+                                        <p>@c.Payeer</p>
+                                        <span class="iconify Icon" data-icon="logos:google-pay"></span>
+                                    </div>
+                                    <p>Email: @c.Email</p>
+                                    <div class="Delete-Button-Container">
+                                        <p>@c.CardType</p>
+                                        <button class="Delete-Button" id=".DeleteCardButton"><span class="iconify" data-icon="mdi:delete"></span></button>
+                                    </div>
+                                }else
+                                {
+                                    <div class="Card-Icon-Container">
+                                        <p>@c.Payeer</p>
+                                        <span class="iconify Icon" data-icon="logos:mastercard"></span>
+                                    </div>
+                                    <p>@c.Number</p>
+                                    <div class="Delete-Button-Container">
+                                        <p>@c.CardType</p>
+                                        <button class="Delete-Button" id=".DeleteCardButton"><span class="iconify" data-icon="mdi:delete"></span></button>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>No tienes tarjetas registradas.</p>
+                }
+
+            </div>  
+        </div>  
+    </div>  
+</div>
+<!--Delete card Pop up-->
+<dialog id="DeleteCardPopup">
+    <div class="Logout-PopUp-Container">
+        <div class="Leaving-Title-Container">
+            <h1>Confirmar eliminación de cuenta</h1>
+        </div>
+        <p>¿Estás seguro de que quieres eliminar esta tarjeta de pago?</p>
+        <div class="Logout-Button-Container">
+            <button class="Logout-Button">Eliminar tarjeta</button>
+            <button id="CancelButton" class="Cancel-Button">Cancelar</button>
+        </div>
+    </div>
+    <script src="~/js/UserCards.js" asp-append-version="true"></script>
+</dialog>

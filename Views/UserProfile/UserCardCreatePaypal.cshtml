@@ -1,0 +1,41 @@
+﻿@using Tradie.Models.UserCards
+
+@model Tradie.Models.UserCards.UserCardModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Link Paypal account";
+}
+
+<link rel="stylesheet" href="~/css/UserCreateCard.css" />
+<link href="https://fonts.googleapis.com/css2?family=Murecho:wght@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" rel="stylesheet">
+<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+
+<div class="Main-Container">
+    <h1>Añadir nuevo método de pago</h1>
+    <div class="Buttons-Container">
+        <a class="Other-Button" asp-controller="UserCardProfile" asp-action="UserCardCreate"><span class="iconify Icon" data-icon="logos:mastercard"></span>Tarjeta de crédito o débito</a>
+        <a class="CreditCard-Button"><span class="iconify Icon" data-icon="logos:paypal"></span>PayPal</a>
+        <a class="Other-Button" asp-controller="UserCardProfile" asp-action="UserGooglePayCard"><span class="iconify Icon" data-icon="logos:google-pay"></span>Google Pay</a>
+    </div>
+    <form method="post" asp-controller="UserCardProfile" asp-action="CreateCard" class="Payment-Form">
+        <label for="Payeer">Titular de la tarjeta</label>
+        <input type="text" asp-for="Payeer" placeholder="Titular de la tarjeta" class="Inputs">
+        <label for="PaypalEmail">Correo electrónico de PayPal</label>
+        <input type="email" asp-for="Email" placeholder="Correo de tu cuenta PayPal" class="Inputs">
+
+        <div class="Checkbox">
+            <input type="checkbox" name="keepPaymentData" class="Checkbox-Input">
+            <label for="keepPaymentData" class="Checkbox-Label">Marcar como método de pago principal</label>
+        </div>
+        <!--Hidden inputs-->
+        <input type="hidden" minlength="3" maxlength="3" asp-for="Cvv" value="000" class="Input-Expiration">
+        <input type="hidden" asp-for="ExpiryDate" value="12/12/2012" class="Input-Expiration">
+        <input type="hidden" asp-for="Number" minlength="16" maxlength="16" value="0000000000000000" class="Inputs">
+        <input type="hidden" asp-for="CardType" value="PayPal" class="Inputs">
+
+        <div class="SaveCard-Container">
+            <button type="submit" class="Save-Button" asp-controller="UserCardProfile" asp-action="CreateCard">Vincular cuenta</button>
+        </div>
+    </form>
+</div>

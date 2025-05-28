@@ -1,0 +1,42 @@
+﻿@using Tradie.Models.UserCards
+
+@model Tradie.Models.UserCards.UserCardModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Create user card page";
+}
+<link rel="stylesheet" href="~/css/UserCreateCard.css" />
+<link href="https://fonts.googleapis.com/css2?family=Murecho:wght@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" rel="stylesheet">
+<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+<div class="Main-Container">
+    <h1>Añadir nuevo método de pago</h1>
+    <div class="Buttons-Container">
+        <a class="CreditCard-Button"><span class="iconify Icon" data-icon="logos:mastercard"></span>Tarjeta de crédito o débito</a>
+        <a class="Other-Button" asp-controller="UserCardProfile" asp-action="UserCardCreatePaypal"><span class="iconify Icon" data-icon="logos:paypal"></span>Paypal</a>
+        <a class="Other-Button" asp-controller="UserCardProfile" asp-action="UserGooglePayCard"><span class="iconify Icon" data-icon="logos:google-pay"></span>Google Pay</a>
+    </div>
+    <form method="post" asp-controller="UserCardProfile" asp-action="CreateCard" class="Payment-Form">
+        <label for="Payeer">Titular de la tarjeta</label>
+        <input type="text" asp-for="Payeer" placeholder="Titular de la tarjeta" class="Inputs">
+        <label for="Number">Número de la tarjeta</label>
+        <input type="text" asp-for="Number" minlength="16" maxlength="16" placeholder="XXXX XXXX XXXX XXXX" class="Inputs">
+        <div class="ExpirationDate-Container">
+            <div class="Attributes-Container">
+                <label for="ExpiryDate">Fecha de expiración</label>
+                <input type="date" asp-for="ExpiryDate" class="Input-Expiration">
+            </div>
+            <div class="Attributes-Container">
+                <label for="Cvv">CVV</label>
+                <input type="Number" minlength="3" maxlength="3" asp-for="Cvv" placeholder="XXX" class="Input-Expiration">
+            </div>
+        </div>
+        <div class="Checkbox">
+            <input type="checkbox" name="keepPaymentData" class="Checkbox-Input">
+            <label for="keepPaymentData" class="Checkbox-Label">Marcar como método de pago principal</label>
+        </div>
+        <div class="SaveCard-Container">
+            <button type="submit" class="Save-Button" asp-controller="UserCardProfile" asp-action="CreateCard">Guardar tarjeta</button>
+        </div>
+    </form>
+</div>

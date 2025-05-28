@@ -231,3 +231,107 @@ placeholder {
     border: 1.5px solid black;
     text-decoration: none;
 }
+
+/*Cards classes*/
+.CreateCard-Button-Container {
+    display: flex;
+    background-color: #ECF4F6;
+    border: 1px dashed #A2A2A2B2;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    width: 20vw;
+    height: 20vh;
+    margin: 10px;
+    vertical-align: top;
+    border-radius: 10px;
+}
+
+.Card-Item {
+    display: inline-block;
+    background-color: #ECF4F6;
+    width: 20vw;
+    height: 20vh;
+    margin: 10px;
+    padding: 10px;
+    vertical-align: top;
+    border-radius: 10px;
+}
+
+.Cards-Container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    height: 80vh;
+    width: 50vw;
+}
+
+.MainContainer {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    background-color: white;
+    padding: 2rem 2rem;
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    font-family: "Murecho", sans-serif !important;
+}
+
+.CreateCard-Button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border: 1px solid #000000B2;
+    border-radius: 10px;
+    width: 2vw;
+    height: 4vh;
+    margin-right: 2vh;
+    text-decoration: none;
+    color: black;
+}
+
+p{
+    font-weight: 500;
+    color: black;
+}
+
+.Card-Icon-Container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.Icon{
+    color: #c08403;
+    height: 30px;
+    width: 30px;
+}
+
+.Delete-Button{
+    border-radius: 5px;
+    background-color: white;
+    border: none;
+    width: 2vw;
+    height: 4vh;
+}
+
+.Delete-Button-Container{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6vh;
+}
+
+.Cards-Title-Container{
+    display: flex;
+    justify-content: left;
+    border: 1px solid black;
+}
+
+.Add-Card-Label{
+    padding-top: 15px;
+}

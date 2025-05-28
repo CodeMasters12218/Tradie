@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Tradie.Models.Products;
+using Tradie.Models.UserCards;
 using Tradie.Models.Users;
 
 public class User : IdentityUser<int>
@@ -13,4 +15,6 @@ public class User : IdentityUser<int>
 	public UserRole Role { get; set; }
 	public List<Product> Products { get; set; } = new List<Product>();
 	public string? ProfilePhotoUrl { get; set; }
+    [NotMapped]
+    public UserCardProfileModel? UserCardProfile { get; set; } = new UserCardProfileModel();
 }

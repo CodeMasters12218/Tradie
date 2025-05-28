@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tradie.Data;
 
@@ -11,9 +12,11 @@ using Tradie.Data;
 namespace Tradie.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250527224355_Tarjetas")]
+    partial class Tarjetas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -412,10 +415,9 @@ namespace Tradie.Migrations
                     b.Property<DateTime>("ExpiryDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Number")
-                        .IsRequired()
+                    b.Property<int>("Number")
                         .HasMaxLength(16)
-                        .HasColumnType("nvarchar(16)");
+                        .HasColumnType("int");
 
                     b.Property<string>("Payeer")
                         .IsRequired()
@@ -427,16 +429,6 @@ namespace Tradie.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("UserCards");
-                });
-
-            modelBuilder.Entity("Tradie.Models.UserCards.UserCardProfileModel", b =>
-                {
-                    b.Property<int>("CurrentCardId")
-                        .HasColumnType("int");
-
-                    b.HasIndex("CurrentCardId");
-
-                    b.ToTable("UserCardProfileModel");
                 });
 
             modelBuilder.Entity("Tradie.Models.Wishlist.Wishlist", b =>
@@ -775,17 +767,6 @@ namespace Tradie.Migrations
                         .HasForeignKey("UserId1");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Tradie.Models.UserCards.UserCardProfileModel", b =>
-                {
-                    b.HasOne("Tradie.Models.UserCards.UserCardModel", "CurrentCard")
-                        .WithMany()
-                        .HasForeignKey("CurrentCardId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CurrentCard");
                 });
 
             modelBuilder.Entity("Tradie.Models.Wishlist.Wishlist", b =>

@@ -54,6 +54,11 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
+    name: "userCards",
+    pattern: "UserCardProfile/{action=Index}/{userId?}",
+    defaults: new { controller = "UserCardProfile" });
+
+app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 using (var scope = app.Services.CreateScope())
