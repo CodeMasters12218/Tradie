@@ -9,9 +9,11 @@ namespace Tradie.Models.Users
 		Seller,
 		Customer
 	}
+
 	public class AdminUserViewModel
 	{
 		public int Id { get; set; }
+
 		[Required(ErrorMessage = "El nombre es obligatorio.")]
 		public string? Name { get; set; }
 

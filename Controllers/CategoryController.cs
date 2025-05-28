@@ -1,12 +1,10 @@
-using System.Diagnostics;
-using System.Xml.Linq;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 using Tradie.Data;
 using Tradie.Models;
 using Tradie.Models.Products;
-using Tradie.Models.Users;
 
 namespace Tradie.Controllers
 {
@@ -17,9 +15,9 @@ namespace Tradie.Controllers
 
 		public CategoryController(
 			ILogger<CategoryController> logger,
-            ApplicationDbContext context,
+			ApplicationDbContext context,
 			UserManager<User> userManager
-		) : base(userManager)
+		) : base(userManager, context)
 		{
 			_logger = logger;
 			_context = context;

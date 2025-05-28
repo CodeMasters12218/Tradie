@@ -49,22 +49,36 @@
                 </div>
             </a>
 
-            <div class="product-actions">
+            <div class="product-actions mt-2">
                 <form asp-controller="ShoppingCart"
                       asp-action="AddToCart"
                       method="post"
-                      class="d-inline">
+                      class="w-100">
                     <input type="hidden" name="productId" value="@product.Id" />
-                    <button type="submit" class="btn btn-sm btn-primary">Añadir a la cesta</button>
+                    <input type="hidden" name="returnUrl" value="@($"{Context.Request.Path}{Context.Request.QueryString}")" />
+                    <button type="submit" class="btn btn-sm btn-primary w-100">Añadir a la cesta</button>
                 </form>
 
+
+                <!-- Favorite Button -->
+                @{
+                    var isFavorited = ViewBag.WishlistProductIds != null &&
+                    ((List<int>)ViewBag.WishlistProductIds).Contains(product.Id);
+                }
+
                 <form asp-controller="Wishlist"
-                      asp-action="AddToWishlist"
+                      asp-action="ToggleWishlistItem"
                       method="post"
                       class="d-inline">
                     <input type="hidden" name="productId" value="@product.Id" />
-                    <button type="submit" class="btn btn-sm btn-outline-secondary">Favorito</button>
+                    <input type="hidden" name="returnUrl" value="@($"{Context.Request.Path}{Context.Request.QueryString}")" />
+                    <button type="submit"
+                            class="btn btn-sm favorite-btn @(isFavorited ? "favorited" : "")"
+                            onclick="toggleHeart(this)">
+                        <i class="bi @(isFavorited ? "bi-heart-fill" : "bi-heart")"></i>
+                    </button>
                 </form>
+
             </div>
         </div>
     }

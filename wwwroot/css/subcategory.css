@@ -55,14 +55,23 @@
     margin: 10px 0;
 }
 
-.product-actions {
+.product-actions  {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     padding: 0.8rem 1rem;
     border-top: 1px solid #eee;
     background-color: #fafafa;
 }
+
+    .product-actions .btn-primary {
+        width: 100%;
+        padding: 6px 12px;
+        font-weight: 500;
+        background-color: black;
+        border: none;
+        transition: background 0.3s, color 0.3s;
+    }
 
 .card .product-card a {
     text-decoration: none;
@@ -81,6 +90,8 @@
     padding: 5px 8px;
     background-color: black;
     border: none;
+    border-radius: 10px;
+    width: 100%;
 }
 
 .btn-primary:hover {

@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Tradie.Data;
 using Tradie.Models.UserCards;
 using Tradie.Models.UserProfile;
-using Tradie.Models.Users;
 
 namespace Tradie.Controllers
 {
@@ -61,7 +60,7 @@ namespace Tradie.Controllers
 		public IActionResult UserDeleteProfile()
 		{
 			return View("UserDeleteProfile"); // Looks for Views/UserProfile/UserDeleteProfile.cshtml
-        }
+		}
 
 		[HttpPost]
 		public IActionResult SaveProfile(UserEditProfileModel model)

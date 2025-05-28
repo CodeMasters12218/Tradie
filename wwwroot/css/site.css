@@ -90,6 +90,26 @@ h3 {
     color: #000;
 }
 
+
+/* Add to Cart */
+    .add-to-cart-btn:hover {
+        background-color: #262626 !important;
+        color: white !important;
+    }
+
+    .add-to-cart-btn:disabled {
+        background-color: transparent !important;
+        color: #999;
+        border: 1px solid #ccc;
+        cursor: not-allowed;
+    }
+
+.add-to-cart-btn.added i {
+    color: green;
+    font-size: medium;
+    font-weight: bolder;
+}
+
 .navbar .badge {
     font-size: 0.7rem;
     margin-top: 10px;

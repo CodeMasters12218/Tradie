@@ -103,3 +103,65 @@ document.querySelector('form').addEventListener('submit', function (e) {
     console.log("Email:", email);
     console.log("Rol:", role);
 });
+
+// Submenu collapsible
+function toggleSubmenu(id, element) {
+    const submenu = document.getElementById(id);
+    const icon = element.querySelector('.bi-chevron-down, .bi-chevron-right');
+
+    if (submenu.style.display === 'none' || submenu.style.display === '') {
+        submenu.style.display = 'block';
+        // Update icon to down arrow
+        if (icon) {
+            icon.classList.remove('bi-chevron-right');
+            icon.classList.add('bi-chevron-down');
+        }
+    } else {
+        submenu.style.display = 'none';
+        // Update icon to right arrow
+        if (icon) {
+            icon.classList.remove('bi-chevron-down');
+            icon.classList.add('bi-chevron-right');
+        }
+    }
+}
+
+// Function to initialize the active state on "Registro de Productos"
+document.addEventListener('DOMContentLoaded', function () {
+    // Collapse "Gestión de Productos"
+    const productSubMenu = document.getElementById('productSubMenu');
+    if (productSubMenu) productSubMenu.style.display = 'none';
+
+    const productLink = document.querySelector('.ges-prod-label').closest('.nav-link');
+    if (productLink) {
+        const productIcon = productLink.querySelector('.bi-chevron-down, .bi-chevron-right');
+        if (productIcon) {
+            productIcon.classList.remove('bi-chevron-down');
+            productIcon.classList.add('bi-chevron-right');
+        }
+    }
+
+    // Expand "Gestión de Usuarios" submenu (no active class on the parent)
+    const userSubMenu = document.getElementById('userSubMenu');
+    if (userSubMenu) userSubMenu.style.display = 'block';
+
+    const userLink = document.querySelector('.ges-usuario-label').closest('.nav-link');
+    if (userLink) {
+        const userIcon = userLink.querySelector('.bi-chevron-down, .bi-chevron-right');
+        if (userIcon) {
+            userIcon.classList.remove('bi-chevron-right');
+            userIcon.classList.add('bi-chevron-down');
+        }
+    }
+
+    // Set only "Registro de usuarios" as active
+    const allLinks = document.querySelectorAll('.nav-link');
+    allLinks.forEach(link => link.classList.remove('active'));
+
+    const registroUsuariosLink = Array.from(document.querySelectorAll('#userSubMenu .nav-link')).find(link =>
+        link.innerText.includes('Registro de usuarios')
+    );
+    if (registroUsuariosLink) {
+        registroUsuariosLink.classList.add('active');
+    }
+});
