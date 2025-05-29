@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Tradie.Data;
+using Tradie.Models.UserAddress;
 using Tradie.Models.UserCards;
 using Tradie.Models.UserProfile;
 using Tradie.Models.Users;
@@ -92,9 +93,32 @@ namespace Tradie.Controllers
                 LastNames = user.LastNames,
                 Role = user.Role,
                 Password = user.PasswordHash,
-                UserCardProfile = new UserCardProfileModel()
+                UserCardProfile = new UserCardProfileModel(),
+				UserAddressProfile = new UserAddressProfileModel()
             });
 
         }
+
+		public async Task<IActionResult> UserAddressAsync()
+		{
+            var user = await GetCurrentUserAsync();
+            if (user == null)
+            {
+                ModelState.AddModelError("", "Usuario no encontrado.");
+                return View("~/Views/UserProfile/UserCards.cshtml");
+            }
+
+            return RedirectToAction("Index", "UserAddress", new AdminUserViewModel
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Email = user.Email,
+                LastNames = user.LastNames,
+                Role = user.Role,
+                Password = user.PasswordHash,
+                UserCardProfile = new UserCardProfileModel(),
+                UserAddressProfile = new UserAddressProfileModel()
+            });
+		}
     }
 }
