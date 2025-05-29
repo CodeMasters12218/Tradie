@@ -116,6 +116,7 @@ dl {
 /* Main content area */
 .content {
     margin-left: 200px;
+    margin-right: 0;
     height: 90vh;
     padding: 2rem;
     width: 100%;

@@ -15,6 +15,6 @@ public class User : IdentityUser<int>
 	public UserRole Role { get; set; }
 	public List<Product> Products { get; set; } = new List<Product>();
 	public string? ProfilePhotoUrl { get; set; }
-    [NotMapped]
-    public UserCardProfileModel? UserCardProfile { get; set; } = new UserCardProfileModel();
+	[NotMapped]
+	public UserCardProfileModel? UserCardProfile { get; set; } = new UserCardProfileModel();
 }
