@@ -11,8 +11,10 @@ namespace Tradie.Controllers
     public class UserCardProfileController : BaseController
     {
         private readonly ApplicationDbContext _context;
+        private object _logger;
+
         public UserCardProfileController(UserManager<User> userManager, ApplicationDbContext context)
-            : base(userManager)
+            : base(userManager, context)
         {
             _context = context;
         }
@@ -101,10 +103,14 @@ namespace Tradie.Controllers
             return View("~/Views/UserProfile/UserCards.cshtml", AdminUser);
         }
 
+        public object Get_logger()
+        {
+            return _logger;
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteCard(int cardId)
+        public async Task<IActionResult> DeleteCard(int cardId, object _logger)
         {
             using (var tx = await _context.Database.BeginTransactionAsync())
             {
@@ -138,7 +144,6 @@ namespace Tradie.Controllers
                 catch (Exception ex)
                 {
                     await tx.RollbackAsync();
-                    _logger.LogError(ex, "Error eliminando tarjeta de crédito");
                     TempData["Error"] = $"Error al eliminar tarjeta: {ex.Message}";
                 }
             }

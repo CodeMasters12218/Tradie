@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Tradie.Data;
 using Tradie.Models.UserCards;
 using Tradie.Models.UserProfile;
+using Tradie.Models.Users;
 
 namespace Tradie.Controllers
 {
@@ -11,10 +12,7 @@ namespace Tradie.Controllers
 	{
         private readonly ApplicationDbContext _context;
         public UserProfileController(UserManager<User> userManager, ApplicationDbContext context)
-			: base(userManager)
-		{
-            _context = context;
-        }
+            : base(userManager, context) => _context = context;
 
         public async Task<IActionResult> UserProfileMainPage()
 		{

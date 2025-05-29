@@ -32,6 +32,7 @@ namespace Tradie.Models.Users
 		[StringLength(100, MinimumLength = 6, ErrorMessage = "La contraseña debe tener al menos 6 caracteres.")]
 		public string? Password { get; set; }
         public UserCardProfileModel? UserCardProfile { get; set; } = new UserCardProfileModel();
+        public string? ProfilePhotoUrl { get; internal set; }
     }
 
 }

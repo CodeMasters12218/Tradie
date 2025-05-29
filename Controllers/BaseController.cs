@@ -11,13 +11,13 @@ namespace Tradie.Controllers
 		protected readonly UserManager<User> _userManager;
 		private readonly ApplicationDbContext _context;
 
-		public BaseController(UserManager<User> userManager, ApplicationDbContext context)
-		{
-			_userManager = userManager;
-			_context = context;
-		}
+        public BaseController(UserManager<User> userManager, ApplicationDbContext context)
+        {
+            _userManager = userManager;
+            _context = context;
+        }
 
-		public override void OnActionExecuting(ActionExecutingContext context)
+        public override void OnActionExecuting(ActionExecutingContext context)
 		{
 			if (User.Identity != null && User.Identity.IsAuthenticated)
 			{
