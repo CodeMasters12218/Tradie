@@ -2,11 +2,12 @@ html, body, * {
     font-family: "Poppins", sans-serif !important;
     scroll-behavior: smooth;
     font-size: 14px;
+    overflow-x: hidden;
 }
 
 body {
-    /*padding-top: 53px !important;*/
     background-color: #e1e1e1;
+    padding-top: 40px;
 }
 
 /* Layout structure */
@@ -15,13 +16,10 @@ body {
     width: 100%;
     max-width: 100%;
     padding-top: 0;
-    /*min-height: calc(100vh - 120px); /* minus header + footer */
     display: flex;
     flex-direction: row;
     overflow-x: hidden;
 }
-
-
 
 .sidebar {
     position: fixed;
@@ -123,9 +121,10 @@ dl {
 /* Main content area */
 .content {
     margin-left: 200px;
+    margin-right: 0px;
     height: 90vh;
     padding: 2rem;
-    width: 100%;
+    width: calc(100% - 200px); /* subtract sidebar width */
     max-width: 100%;
     flex-grow: 1;
     background-color: transparent;
@@ -134,9 +133,31 @@ dl {
 .section-header {
     background-color: transparent;
     padding: 0;
-    border-radius: 12px;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 }
+
+.mb-4 {
+    margin-bottom: 0 !important;
+}
+
+table {
+    background-color: white;
+}
+
+.table-responsive {
+    border-radius: 12px;
+    max-height: 70vh;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+    .table-responsive thead th {
+        position: sticky;
+        top: 0;
+        background-color: #fff;
+        z-index: 2;
+        box-shadow: 0 8px 8px rgba(0,0,0,0.5);
+    }
 
 h3 {
     font-size: 30px;
@@ -172,77 +193,6 @@ table img {
 
 /************/
 
-.Admin-Management {
-    background-color: black;
-    text-align: center;
-    color: white;
-    padding-right: 50px;
-    padding-left: 50px;
-    padding-top: 0;
-    padding-bottom: 0;
-    border-radius: 5px;
-}
-
-div.Admin-Management p{
-    font-size: 15px;
-    font-family: 'Murecho', sans-serif;
-}
-
-h1{
-    font-family: 'Murecho', sans-serif;
-    font-weight: 500;
-}
-
-table {
-    width: 100%;
-    max-width: 100%; 
-    border-collapse: collapse;
-}
-
-td, th {
-    padding: 10px;
-    text-align: left; 
-    font-size: 14px; 
-    word-wrap: break-word; 
-}
-
-
-td.Name{
-    text-align: center;
-    font-family: 'Murecho', sans-serif;
-    padding-right: 200px;
-}
-
-td.Email{
-    text-align: center;
-    font-family: 'Murecho', sans-serif;
-    padding-right: 170px;
-}
-
-td.Email2{
-    text-align: center;
-    font-family: 'Murecho', sans-serif;
-    padding-right: 20px;
-}
-
-td.Role{
-    text-align: center;
-    font-family: 'Murecho', sans-serif;
-    padding-right: 70px;
-}
-
-td.Status{
-    text-align: center;
-    font-family: 'Murecho', sans-serif;
-    padding-right: 100px;
-}
-
-td.Action{
-    text-align: center;
-    font-family: 'Murecho', sans-serif;
-    padding-right: 150px;
-}
-
 .Create-Button {
     color: #fff;
     background-color: #198754;
@@ -270,6 +220,7 @@ td.Action{
     background-color: #709dc6;
     color: white;
     text-align: center;
+    min-width: 5rem;
     justify-content: flex-start;
     border: none;
     border-radius: 10px;
@@ -281,6 +232,7 @@ td.Action{
     background-color: #f36767;
     color: white;
     text-align: center;
+    min-width: 5rem;
     border: none;
     border-radius: 10px;
     padding: 5px 10px;
@@ -444,4 +396,47 @@ div.User-Container-Name {
 
 dialog:not([open]) {
     display: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .mobile-nav-toggle {
+        display: block;
+        position: fixed;
+        top: 50px;
+        left: 0;
+        right: 0;
+        background-color: black;
+        color: white;
+        padding: 6px 15px;
+        cursor: pointer;
+        font-size: 16px;
+        border: none;
+        width: 100%;
+        text-align: left;
+        z-index: 1000;
+    }
+
+    .admin-dashboard {
+        flex-direction: column;
+        padding-top: 10px;
+    }
+
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        transition: left 0.3s ease-in-out;
+        z-index: 100;
+        height: 100vh;
+    }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+    .content {
+        margin-left: 0 !important; /* Avoid space when sidebar is hidden */
+        padding: 1rem;
+    }
 }

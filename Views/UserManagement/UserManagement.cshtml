@@ -85,10 +85,8 @@
         </div>
 
         <div class="table-responsive">
-            <table class="table align-middle text-start">
-                <!-- added text-start here -->
+            <table class="table align-middle">
                 <thead class="text-start">
-                    <!-- force header left aligned -->
                     <tr>
                         <th>Nombre &amp; ID</th>
                         <th>Email</th>
@@ -97,8 +95,7 @@
                         <th>Acciones</th>
                     </tr>
                 </thead>
-                <tbody class="text-start">
-                    <!-- force body rows left aligned -->
+                <tbody>
                     @foreach (var u in Model.Users)
                     {
                         <tr>
@@ -251,4 +248,11 @@
             </div>
         </form>
     </dialog>
+
     <script src="~/js/UserManagement.js" asp-append-version="true"></script>
+<script >
+    function toggleSidebar() {
+        const sidebar = document.querySelector('.sidebar');
+        sidebar.classList.toggle('active');
+    }
+</script>
