@@ -5,6 +5,7 @@ using Tradie.Models;
 using Tradie.Models.Orders;
 using Tradie.Models.Products;
 using Tradie.Models.ShoppingCart;
+using Tradie.Models.UserAddressModel;
 using Tradie.Models.UserCards;
 using Tradie.Models.Users;
 using Tradie.Models.Wishlist;
@@ -28,6 +29,7 @@ namespace Tradie.Data
 		public DbSet<WishlistItem> WishlistItems { get; set; }
 		public DbSet<Review> Reviews { get; set; }
 		public DbSet<UserCardModel> UserCards { get; set; }
+        public DbSet<UsersAddressModel> UserAddress { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

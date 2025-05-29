@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Tradie.Data;
+using Tradie.Models.UserAddress;
 using Tradie.Models.UserCards;
 using Tradie.Models.UserProfile;
 using Tradie.Models.Users;
@@ -9,12 +10,12 @@ namespace Tradie.Controllers
 {
 	public class UserProfileController : BaseController
 	{
-		private readonly ApplicationDbContext _context;
-		public UserProfileController(UserManager<User> userManager, ApplicationDbContext context)
-			: base(userManager, context)
+        private readonly ApplicationDbContext _context;
+        public UserProfileController(UserManager<User> userManager, ApplicationDbContext context)
+			: base(userManager)
 		{
-			_context = context;
-		}
+            _context = context;
+        }
 
 		public async Task<IActionResult> UserProfileMainPage()
 		{
@@ -86,17 +87,17 @@ namespace Tradie.Controllers
 				return View("~/Views/UserProfile/UserCards.cshtml");
 			}
 
-			return RedirectToAction("Index", "UserCardProfile", new AdminUserViewModel
-			{
-				Id = user.Id,
-				Name = user.Name,
-				Email = user.Email,
-				LastNames = user.LastNames,
-				Role = user.Role,
-				Password = user.PasswordHash,
-				UserCardProfile = new UserCardProfileModel()
-			});
+            return RedirectToAction("Index", "UserCardProfile", new AdminUserViewModel
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Email = user.Email,
+                LastNames = user.LastNames,
+                Role = user.Role,
+                Password = user.PasswordHash,
+                UserCardProfile = new UserCardProfileModel()
+            });
 
-		}
-	}
+        }
+    }
 }

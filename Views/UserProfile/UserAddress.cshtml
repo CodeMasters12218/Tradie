@@ -1,0 +1,104 @@
+﻿@using Tradie.Models.UserCards
+
+@model Tradie.Models.Users.AdminUserViewModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "User's address page";
+}
+
+<link rel="stylesheet" href="~/css/UserEditProfile.css" />
+<link rel="stylesheet" href="~/css/Logout.CSS" />
+<link href="https://fonts.googleapis.com/css2?family=Murecho:wght@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" rel="stylesheet">
+<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+
+<div class="Main-Container">
+    <!-- Header -->
+    <div class="Logout-Container">
+        <h1>Mi cuenta ><span> Mis direcciones</span></h1>
+    </div>
+
+    <!-- Subheading -->
+    <div class="User-Data-Container">
+        <h2>Mis direcciones</h2>
+    </div>
+
+    <!-- Cards container -->
+    <div class="Container-Container">
+        <div class="MainContainer">
+            <div class="Cards-Title-Container-Container">
+                <div class="Address-Title-Container">
+                    <h1>Tus tarjetas de direcciones</h1>
+                </div>
+            </div>
+            <div class="Addresses-Container">
+                <div class="CreateAddress-Button-Container">
+                    <a class="CreateCard-Button" id="CreateAddressButton">+</a>
+                    <p class="Add-Card-Label">Añadir dirección</p>
+                </div>
+                @if (Model.UserAddressProfile.Addresses != null && Model.UserAddressProfile.Addresses.Any())
+                {
+                    foreach (var a in Model.UserAddressProfile.Addresses.Take(5))
+                    {
+                        <div class="Address-Item">
+                            <p><b>@(a.Name + " " + a.LastNames)</b></p>
+                            <p>@a.Street</p>
+                            <p>@(a.City + " " + a.PostalCode)</p>
+                            <p>@a.Country</p>
+                            <p>@("Número de teléfono: " + a.Phone)</p>
+                            <div class="Delete-Button-Container">
+                                <button class="Delete-Button" id="EditAddressButton"><span class="iconify" data-icon="mdi:pencil"></span></button>
+                                <button class="Delete-Button" id="DeleteAddressButton"><span class="iconify" data-icon="mdi:delete"></span></button>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>No tienes direcciones registradas.</p>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Create address Pop up-->
+<dialog id="CreateAddressPopUp" class="Create-Address-PopUp">
+    <h1>Añadir una nueva dirección</h1>
+    <form method="post" asp-controller="UserAddress" asp-action="CreateAddress">
+        <label for="Name">Nombre</label>
+        <input type="text" asp-for="UserAddressProfile.CurrentAddress.Name" placeholder="Introduce tu nombre">
+        <label for="LastNames">Apellidos</label>
+        <input type="text" asp-for="UserAddressProfile.CurrentAddress.LastNames" placeholder="Introduce tus apellidos">
+        <label for="City">Ciudad</label>
+        <input type="text" asp-for="UserAddressProfile.CurrentAddress.City" placeholder="Introduce tu ciudad">
+        <label for="PostalCode">Código postal</label>
+        <input type="text" asp-for="UserAddressProfile.CurrentAddress.PostalCode" placeholder="Introduce tu código postal">
+        <label for="Street">Calle</label>
+        <input type="text" asp-for="UserAddressProfile.CurrentAddress.Street" placeholder="Introduce tu calle">
+        <label for="Country">País</label>
+        <input type="text" asp-for="UserAddressProfile.CurrentAddress.Country" placeholder="Introduce tu país">
+        <label for="Phone">Teléfono</label>
+        <input type="Number" asp-for="UserAddressProfile.CurrentAddress.Phone" placeholder="Introduce tu Teléfono">
+        <div class="Add-Address-Button-Container">
+            <button type="submit" class="Add-Address-Button">Añadir dirección</button>
+            <button id="CancelCreateButton" class="Cancel-Button" type="button">Cancelar</button>
+        </div>
+    </form>
+</dialog>
+
+<!--Delete address Pop up-->
+<dialog id="DeleteAddressPopup" class="Create-Address-PopUp">
+    <div class="Logout-PopUp-Container">
+        <div class="Leaving-Title-Container">
+            <h1>Confirmar eliminación de dirección</h1>
+        </div>
+        <p>¿Estás seguro de que quieres eliminar esta dirección?</p>
+        <div class="Logout-Button-Container">
+            <button id="DeleteAddressButton" class="Logout-Button">Eliminar dirección</button>
+            <button id="CancelButton" class="Cancel-Button" type="button">Cancelar</button>
+        </div>
+    </div>
+    <script src="~/js/UserAddress.js" asp-append-version="true"></script>
+</dialog>

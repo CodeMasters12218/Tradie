@@ -7,22 +7,20 @@ using Tradie.Models.Users;
 
 namespace Tradie.Controllers
 {
+    public class UserCardProfileController : BaseController
+    {
+        private readonly ApplicationDbContext _context;
+        private object _logger;
 
-	public class UserCardProfileController : BaseController
-	{
-		private readonly ApplicationDbContext _context;
-		private readonly ILogger<UserCardProfileController> _logger;
-		public UserCardProfileController(UserManager<User> userManager, ApplicationDbContext context, ILogger<UserCardProfileController> logger)
-			: base(userManager, context)
-		{
-			_context = context;
-			_logger = logger;
-			_logger = logger;
-		}
-		public IActionResult Index(AdminUserViewModel user)
-		{
-			int userID = user.Id;
-			var cards = _context.UserCards.Where(card => card.UserId == user.Id).ToList();
+        public UserCardProfileController(UserManager<User> userManager, ApplicationDbContext context)
+            : base(userManager, context)
+        {
+            _context = context;
+        }
+        public IActionResult Index(AdminUserViewModel user)
+        {
+            int userID = user.Id;
+            var cards = _context.UserCards.Where(card => card.UserId == user.Id).ToList();
 
 			AdminUserViewModel model = new AdminUserViewModel
 			{
@@ -104,22 +102,26 @@ namespace Tradie.Controllers
 			return View("~/Views/UserProfile/UserCards.cshtml", AdminUser);
 		}
 
+        public object Get_logger()
+        {
+            return _logger;
+        }
 
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> DeleteCard(int cardId)
-		{
-			using (var tx = await _context.Database.BeginTransactionAsync())
-			{
-				try
-				{
-					// Verificar si la tarjeta existe antes de eliminarla
-					var cardExists = await _context.UserCards.AnyAsync(c => c.Id == cardId);
-					if (!cardExists)
-					{
-						TempData["Error"] = "No se encontró la tarjeta de crédito para eliminar.";
-						return RedirectToAction(nameof(Index));
-					}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteCard(int cardId, object _logger)
+        {
+            using (var tx = await _context.Database.BeginTransactionAsync())
+            {
+                try
+                {
+                    // Verificar si la tarjeta existe antes de eliminarla
+                    var cardExists = await _context.UserCards.AnyAsync(c => c.Id == cardId);
+                    if (!cardExists)
+                    {
+                        TempData["Error"] = "No se encontró la tarjeta de crédito para eliminar.";
+                        return RedirectToAction(nameof(Index));
+                    }
 
 					// Eliminar la tarjeta de crédito seleccionada
 					var rowsAffected = await _context.Database.ExecuteSqlRawAsync(
@@ -127,24 +129,23 @@ namespace Tradie.Controllers
 						cardId
 					);
 
-					if (rowsAffected == 0)
-					{
-						TempData["Error"] = "No se pudo eliminar la tarjeta.";
-						await tx.RollbackAsync();
-					}
-					else
-					{
-						await tx.CommitAsync();
-						TempData["Message"] = "Tarjeta eliminada exitosamente.";
-					}
-				}
-				catch (Exception ex)
-				{
-					await tx.RollbackAsync();
-					_logger.LogError(ex, "Error eliminando tarjeta de crédito");
-					TempData["Error"] = $"Error al eliminar tarjeta: {ex.Message}";
-				}
-			}
+                    if (rowsAffected == 0)
+                    {
+                        TempData["Error"] = "No se pudo eliminar la tarjeta.";
+                        await tx.RollbackAsync();
+                    }
+                    else
+                    {
+                        await tx.CommitAsync();
+                        TempData["Message"] = "Tarjeta eliminada exitosamente.";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    await tx.RollbackAsync();
+                    TempData["Error"] = $"Error al eliminar tarjeta: {ex.Message}";
+                }
+            }
 
 			return RedirectToAction(nameof(Index));
 		}
