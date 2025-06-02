@@ -1,6 +1,8 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@model Tradie.Models.Home.HomeViewModel
+
 
 <link rel="stylesheet" href="~/css/home.css">
 <link rel="stylesheet" href="~/css/category.css" />
@@ -17,208 +19,45 @@
 
     <div class="content-box">
         <span class="btn-box">
-            <!-- Updated links to point to the specific subcategories -->
-            <a class="btn-active">Ropa</a>
-            <a href="/Category/Category#electrónica" class="btn">Electrónica</a>
-            <a href="/Category/Category#infromática" class="btn">Informática</a>
-            <a asp-controller="Category" asp-action="Category" class="btn-plus">+</a>
+            <a class="btn" onclick="showCategory('ropa')">Ropa</a>
+            <a class="btn" onclick="showCategory('electronica')">Electrónica</a>
+            <a class="btn" onclick="showCategory('informatica')">Informática</a>
+            <a asp-controller="Category" asp-action="Category" class="btn-plus" title="Ver todas las categorías">+</a>
         </span>
     </div>
+
 
     <!-- Updated container with navigation arrows -->
     <div class="slider-container">
         <div class="slider-wrapper" id="home-slider">
-            <div class="card-container">
-                <div class="card">
-                    <div class="image-container">
-                        <!-- Image -->
-                        <img src="~/images/girl_denim.png" class="card-img-top" alt="girl_denim">
-
-                        <!-- Favorite Button -->
-                        <button class="favorite-btn" onclick="toggleHeart(this)">
-                            <i class="bi bi-heart"></i>
-                        </button>
-                    </div>
-
-                    <!-- Card Body -->
-                    <div class="card-body">
-                         <h5 class="card-title">Badocor T-shirt</h5>
-                         <p class="card-text"> Classic T-shirt for daily</p>
-                         <h5>€24.99</h5>
-
-                         <!-- Add to Cart -->
-                        <button class="cart-button" onclick="toggleCartHome(this)">
-                             Añadir a la cesta <i class="bi bi-cart"></i>
-                         </button>
-                    </div>
+            <div class="product-group" id="ropa-products">
+                <div class="card-container">
+                    @foreach (var product in Model.RopaProducts)
+                    {
+                        @Html.Partial("_ProductCard", product)
+                    }
                 </div>
+            </div>
 
-                <div class="card">
-                    <div class="image-container">
-                        <img src="~/images/boy_white.png" class="card-img-top" alt="girl_denim">
-
-                        <button class="favorite-btn" onclick="toggleHeart(this)">
-                            <i class="bi bi-heart"></i>
-                        </button>
-                    </div>
-
-                    <div class="card-body">
-                         <h5 class="card-title">Badocor T-shirt</h5>
-                         <p class="card-text"> Classic T-shirt for daily</p>
-                         <h5>€24.99</h5>
-
-                        <!-- Add to Cart -->
-                        <button class="cart-button" onclick="toggleCartHome(this)">
-                            Añadir a la cesta <i class="bi bi-cart"></i>
-                        </button>
-                    </div>
+            <div class="product-group d-none" id="electronica-products">
+                <div class="card-container">
+                    @foreach (var product in Model.ElectronicaProducts)
+                    {
+                        @Html.Partial("_ProductCard", product)
+                    }
                 </div>
+            </div>
 
-                <div class="card">
-                    <div class="image-container">
-                        <img src="~/images/boy_black.png" class="card-img-top" alt="girl_denim">
-
-                        <button class="favorite-btn" onclick="toggleHeart(this)">
-                            <i class="bi bi-heart"></i>
-                        </button>
-                    </div>
-
-                    <div class="card-body">
-                         <h5 class="card-title">Badocor T-shirt</h5>
-                         <p class="card-text"> Classic T-shirt for daily</p>
-                         <h5>€24.99</h5>
-
-                        <button class="cart-button" onclick="toggleCartHome(this)">
-                            Añadir a la cesta <i class="bi bi-cart"></i>
-                        </button>
-                    </div>
+            <div class="product-group d-none" id="informatica-products">
+                <div class="card-container">
+                    @foreach (var product in Model.InformaticaProducts)
+                    {
+                        @Html.Partial("_ProductCard", product)
+                    }
                 </div>
-
-                <div class="card">
-                    <div class="image-container">
-                        <img src="~/images/girl_denim.png" class="card-img-top" alt="girl_denim">
-
-                        <button class="favorite-btn" onclick="toggleHeart(this)">
-                            <i class="bi bi-heart"></i>
-                        </button>
-                    </div>
-
-                    <div class="card-body">
-                         <h5 class="card-title">Badocor T-shirt</h5>
-                         <p class="card-text"> Classic T-shirt for daily</p>
-                         <h5>€24.99</h5>
-
-                        <button class="cart-button" onclick="toggleCartHome(this)">
-                            Añadir a la cesta <i class="bi bi-cart"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="image-container">
-                        <img src="~/images/boy_white.png" class="card-img-top" alt="girl_denim">
-
-                        <button class="favorite-btn" onclick="toggleHeart(this)">
-                            <i class="bi bi-heart"></i>
-                        </button>
-                    </div>
-
-                    <div class="card-body">
-                         <h5 class="card-title">Badocor T-shirt</h5>
-                         <p class="card-text"> Classic T-shirt for daily</p>
-                         <h5>€24.99</h5>
-
-                        <button class="cart-button" onclick="toggleCartHome(this)">
-                            Añadir a la cesta <i class="bi bi-cart"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="image-container">
-                        <img src="~/images/boy_black.png" class="card-img-top" alt="girl_denim">
-
-                        <button class="favorite-btn" onclick="toggleHeart(this)">
-                            <i class="bi bi-heart"></i>
-                        </button>
-                    </div>
-
-                    <div class="card-body">
-                        <h5 class="card-title">Badocor T-shirt</h5>
-                        <p class="card-text"> Classic T-shirt for daily</p>
-                        <h5>€24.99</h5>
-
-                        <button class="cart-button" onclick="toggleCartHome(this)">
-                            Añadir a la cesta <i class="bi bi-cart"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="image-container">
-                        <!-- Image -->
-                        <img src="~/images/girl_denim.png" class="card-img-top" alt="girl_denim">
-
-                        <!-- Favorite Button -->
-                        <button class="favorite-btn" onclick="toggleHeart(this)">
-                            <i class="bi bi-heart"></i><span class="cart-text">añadido</span>
-                        </button>
-                    </div>
-
-                    <!-- Card Body -->
-                    <div class="card-body">
-                         <h5 class="card-title">Badocor T-shirt</h5>
-                         <p class="card-text"> Classic T-shirt for daily</p>
-                         <h5>€24.99</h5>
-
-                        <button class="cart-button" onclick="toggleCartHome(this)">
-                            Añadir a la cesta <i class="bi bi-cart"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="image-container">
-                        <img src="~/images/boy_white.png" class="card-img-top" alt="girl_denim">
-
-                        <button class="favorite-btn" onclick="toggleHeart(this)">
-                            <i class="bi bi-heart"></i>
-                        </button>
-                    </div>
-
-                    <div class="card-body">
-                         <h5 class="card-title">Badocor T-shirt</h5>
-                         <p class="card-text"> Classic T-shirt for daily</p>
-                         <h5>€24.99</h5>
-
-                        <button class="cart-button" onclick="toggleCartHome(this)">
-                            Añadir a la cesta <i class="bi bi-cart"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="image-container">
-                        <img src="~/images/boy_black.png" class="card-img-top" alt="girl_denim">
-
-                        <button class="favorite-btn" onclick="toggleHeart(this)">
-                            <i class="bi bi-heart"></i>
-                        </button>
-                    </div>
-
-                    <div class="card-body">
-                         <h5 class="card-title">Badocor T-shirt</h5>
-                         <p class="card-text"> Classic T-shirt for daily</p>
-                         <h5>€24.99</h5>
-
-                        <button class="cart-button" onclick="toggleCartHome(this)">
-                            Añadir a la cesta <i class="bi bi-cart"></i>
-                        </button>
-                    </div>
-                </div>
-
             </div>
         </div>
+
 
         <!-- Navigation Arrows - Placed in a single line -->
         <div class="slider-controls home-controls">

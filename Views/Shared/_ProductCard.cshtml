@@ -1,0 +1,25 @@
+﻿@model Tradie.Models.Products.Product
+
+<div class="card">
+    <div class="image-container">
+        <!-- Image -->
+        <img src="@(string.IsNullOrEmpty(Model.ImageUrl) ? Url.Content("~/images/default-product.png") : Model.ImageUrl)" class="card-img-top" alt="@Model.Name">
+
+        <!-- Favorite Button -->
+        <button class="favorite-btn" onclick="toggleHeart(this)">
+            <i class="bi bi-heart"></i>
+        </button>
+    </div>
+
+    <!-- Card Body -->
+    <div class="card-body">
+        <h5 class="card-title">@Model.Name</h5>
+        <p class="card-text"> @Model.Description</p>
+        <h5 class="card-price">@Model.Price</h5>
+
+        <!-- Add to Cart -->
+        <button class="cart-button" onclick="toggleCartHome(this)">
+            Añadir a la cesta <i class="bi bi-cart"></i>
+        </button>
+    </div>
+</div>

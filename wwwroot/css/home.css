@@ -23,15 +23,22 @@ h1 {
 .image-container {
     background-color: #cac7b9;
     position: relative;
+    display: flex;
     width: 100%;
+    height: 200px;
     border-radius: 20px;
     align-items: center;
     justify-content: center;
 }
 
 .product-image {
+    display: flex;
     width: 100%;
+    height: 200px;
+    object-fit: contain;
     border-radius: 8px;
+    align-self: center;
+    justify-self: center;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
@@ -84,7 +91,7 @@ h1 {
     #home .btn, #home .btn-plus {
         position: relative;
         padding: 12px 25px;
-        font-size: 14px;
+        font-size: 12px;
         text-decoration: none;
         border: 2px solid black;
         border-radius: 40px;
@@ -93,10 +100,10 @@ h1 {
         font-family: "Poppins", sans-serif;
     }
 
-    #home .btn-active, #home .btn-plus-active {
+    #home .btn-plus-active {
         position: relative;
         padding: 10px 25px;
-        font-size: 14px;
+        font-size: 12px;
         border: 4px solid black;
         border-radius: 40px;
         background: black;
@@ -105,9 +112,19 @@ h1 {
         text-decoration: none;
     }
 
-    .btn-active {
-        cursor: default;
-    }
+.btn-active {
+    padding: 10px 25px;
+    font-size: 12px;
+    border: 4px solid black;
+    border-radius: 40px;
+    background: black;
+    color: white;
+    font-family: "Poppins", sans-serif;
+    text-decoration: none;
+    box-shadow: 5px 5px 10px gray;
+    cursor: default;
+}
+
 
     #home .btn:hover, #home .btn-plus:hover {
         background: #212121;
@@ -140,19 +157,19 @@ h1 {
         }
 
     /* HOME Card Styles */
-    #home .card-container {
-        display: flex;
-        flex-direction: row;
-        justify-content: start;
-        align-items: center;
-        width: 100%;
-        gap: 10px;
-        margin: 24px 0;
-    }
+#home .card-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+    margin: 24px 0;
+}
 
     #home .card {
         min-width: 250px;
-        height: 450px; /* Reset height to auto for original home cards */
+        height: auto; /* Reset height to auto for original home cards */
         position: relative;
         display: flex;
         flex-direction: column;
@@ -165,7 +182,7 @@ h1 {
     #home .card-img-top {
         max-height: 16.5rem;
         width: 100%;
-        height: auto;
+        height: 200px;
         border-radius: 10px;
         object-fit: cover;
     }
@@ -175,18 +192,23 @@ h1 {
     }
 
     #home .card-title {
-        font-size: 18px;
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    #home .card-price {
+        font-size: 16px;
         font-weight: 500;
     }
 
     #home .card-text {
-        margin-bottom: .5rem;
+        margin-bottom: 12px;
         font-size: 14px;
     }
 
     /* Cart Button */
     #home .cart-button {
-        font-size: 14px;
+        font-size: 12.5px;
         background-color: transparent;
         outline-color: black;
         border-radius: 16px;

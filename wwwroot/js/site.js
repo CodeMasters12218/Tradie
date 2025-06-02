@@ -27,6 +27,9 @@ document.addEventListener('DOMContentLoaded', function () {
             showHideButtons(container);
         });
     });
+
+    // Select 'ropa' as default category
+    showCategory('ropa'); 
 });
 
 // FAVORITES
@@ -52,51 +55,6 @@ function toggleCart(btn) {
     // Let the form submit normally (no return false!)
 }
 
-/*
-// TOGGLE CART
-function toggleCart(btn) {
-    btn.classList.toggle('active');
-    var icon = btn.querySelector('i');
-
-    const quantity = parseInt(document.querySelector('.quantity-display')?.innerText) || 1;
-
-    if (btn.classList.contains('active')) {
-        icon.classList.remove('bi-cart');
-        icon.classList.add('bi-cart-check-fill');
-
-        // Simulate sending data to server
-        const productId = btn.dataset.productId;
-        const price = parseFloat(document.querySelector('.price-label').dataset.price);
-
-        fetch('/ShoppingCart/AddToCart', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]')?.value
-            },
-            body: JSON.stringify({
-                productId: productId,
-                quantity: quantity,
-                price: price
-            })
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Added to cart:', data);
-                // Optionally update cart UI here dynamically
-            })
-            .catch(error => {
-                console.error('Error adding to cart:', error);
-            });
-
-    } else {
-        icon.classList.remove('bi-cart-check-fill');
-        icon.classList.add('bi-cart');
-        // Optionally: Remove item from cart
-    }
-}
-*/
-
 
 // ADD TO CART HOME
 function toggleCartHome(btn) {
@@ -116,7 +74,7 @@ let sliderPositions = {}; // Tracks current position of each slider
 
 function slideCards(sliderId, direction) {
     const sliderWrapper = document.getElementById(sliderId);
-    const cardContainer = sliderWrapper.querySelector('.card-container');
+    const cardContainer = sliderWrapper.querySelector('.product-group:not(.d-none) .card-container');
     const cards = cardContainer.querySelectorAll('.card');
 
     // Initialize position if not set
@@ -152,7 +110,8 @@ function updateArrowVisibility(sliderId) {
     const container = sliderWrapper.parentElement;
     const leftArrow = container.querySelector('.slider-arrow.left');
     const rightArrow = container.querySelector('.slider-arrow.right');
-    const cardContainer = sliderWrapper.querySelector('.card-container');
+
+    const cardContainer = sliderWrapper.querySelector('.product-group:not(.d-none) .card-container');
     const cards = cardContainer.querySelectorAll('.card');
 
     // Calculate maximum positions
@@ -324,3 +283,48 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+
+// Show products in HOME Category selectors
+function showCategory(cat) {
+    document.querySelectorAll('.product-group').forEach(g => g.classList.add('d-none'));
+
+    if (cat === 'ropa') {
+        document.getElementById('ropa-products').classList.remove('d-none');
+    } else if (cat === 'electronica') {
+        document.getElementById('electronica-products').classList.remove('d-none');
+    } else if (cat === 'informatica') {
+        document.getElementById('informatica-products').classList.remove('d-none');
+    }
+
+    document.querySelectorAll('.btn-box .btn, .btn-box .btn-active').forEach(btn => btn.classList.remove('btn-active'));
+    const clicked = [...document.querySelectorAll('.btn-box a')].find(a => a.textContent.toLowerCase().includes(cat));
+    if (clicked) clicked.classList.add('btn-active');
+}
+
+// CATEGORY SWITCHER
+function showCategory(category) {
+    // Hide all groups
+    document.querySelectorAll('.product-group').forEach(group => group.classList.add('d-none'));
+
+    // Show the selected group
+    const selectedGroup = document.getElementById(`${category}-products`);
+    if (selectedGroup) {
+        selectedGroup.classList.remove('d-none');
+    }
+
+    // Update buttons
+    document.querySelectorAll('.btn-box a').forEach(btn => {
+        btn.classList.remove('btn-active');
+        btn.classList.add('btn');
+    });
+
+    // Find and activate the clicked button
+    const activeBtn = Array.from(document.querySelectorAll('.btn-box a')).find(btn =>
+        btn.getAttribute('onclick')?.includes(category)
+    );
+
+    if (activeBtn) {
+        activeBtn.classList.remove('btn');
+        activeBtn.classList.add('btn-active');
+    }
+}
