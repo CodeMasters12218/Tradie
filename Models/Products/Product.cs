@@ -10,6 +10,7 @@ namespace Tradie.Models.Products
 		{
 			Reviews = new List<Review>();
 			OrderItems = new List<OrderItem>();
+			DateAdded = DateTime.UtcNow;
 		}
 
 		public int Id { get; set; }
@@ -33,6 +34,7 @@ namespace Tradie.Models.Products
 		public string? ImageUrl { get; set; }
 		public int Stock { get; set; }
 		public int SellerId { get; set; }
+		public DateTime DateAdded { get; set; }
 		public Seller? Seller { get; set; }
 		public List<Review> Reviews { get; set; }
 		public List<OrderItem> OrderItems { get; set; }

@@ -30,6 +30,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Select 'ropa' as default category
     showCategory('ropa'); 
+
+    // For Recien Llegados
+    sliderPositions['recientes-slider'] = 0;
+    updateArrowVisibility('recientes-slider');
 });
 
 // FAVORITES
@@ -68,14 +72,33 @@ function toggleCartHome(btn) {
     }
 }
 
+/***********************************************
+ *          ARROW SLIDER FUNCTIONS
+ * ******************************************* */
 
-// Slider functionality
+// SLIDER FUNCTIONALITY
 let sliderPositions = {}; // Tracks current position of each slider
 
+// GET CARD CONTIANER
+function getCardContainer(sliderWrapper) {
+    // Try to get from visible product-group (for Home section)
+    let container = sliderWrapper.querySelector('.product-group:not(.d-none) .card-container');
+
+    // Fallback to direct child (for Recien Llegados)
+    if (!container) {
+        container = sliderWrapper.querySelector('.card-container');
+    }
+
+    return container;
+}
+
+// SLIDE CARDS
 function slideCards(sliderId, direction) {
     const sliderWrapper = document.getElementById(sliderId);
-    const cardContainer = sliderWrapper.querySelector('.product-group:not(.d-none) .card-container');
+    const cardContainer = getCardContainer(sliderWrapper);
     const cards = cardContainer.querySelectorAll('.card');
+
+    if (!cards.length) return;
 
     // Initialize position if not set
     if (!(sliderId in sliderPositions)) {
@@ -111,8 +134,10 @@ function updateArrowVisibility(sliderId) {
     const leftArrow = container.querySelector('.slider-arrow.left');
     const rightArrow = container.querySelector('.slider-arrow.right');
 
-    const cardContainer = sliderWrapper.querySelector('.product-group:not(.d-none) .card-container');
+    const cardContainer = getCardContainer(sliderWrapper);
     const cards = cardContainer.querySelectorAll('.card');
+
+    if (!cards.length) return;
 
     // Calculate maximum positions
     const containerWidth = sliderWrapper.parentElement.offsetWidth;

@@ -38,12 +38,14 @@ namespace Tradie.Controllers
 				OfertaProducts = await _context.Products
 					.Where(p => p.Discount > 0) // If you have a Discount field
 					.OrderByDescending(p => p.Discount)
-					.Take(10).ToListAsync(),
+					.Take(10).ToListAsync(), 
+				*/
 
 				RecienLlegados = await _context.Products
-					.OrderByDescending(p => p.CreatedAt) // If you have CreatedAt field
+					.OrderByDescending(p => p.DateAdded)
 					.Take(10).ToListAsync(),
 
+				/*
 				Famosos = await _context.Products
 					.OrderByDescending(p => p.SalesCount) // If you track sales
 					.Take(10).ToListAsync(),
@@ -62,6 +64,19 @@ namespace Tradie.Controllers
 		public IActionResult Error()
 		{
 			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+		}
+
+
+		// For recien llegados to return 10 products
+		public async Task<IActionResult> RecienLlegados(int count = 10)
+		{
+			var recentProducts = await _context.Products
+				.Include(p => p.Seller)
+				.OrderByDescending(p => p.DateAdded)
+				.Take(count)
+				.ToListAsync();
+
+			return View(recentProducts);
 		}
 	}
 

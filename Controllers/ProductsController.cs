@@ -79,7 +79,6 @@ namespace Tradie.Controllers
 		}
 
 		// POST: Products/Create
-		// POST: Products/Create
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		[Authorize(Roles = "Admin,Seller")]
@@ -87,6 +86,9 @@ namespace Tradie.Controllers
 		{
 			if (ModelState.IsValid)
 			{
+				// set time added now
+				product.DateAdded = DateTime.UtcNow;
+
 				// Set the seller ID to the current user if they're a seller
 				var user = await _userManager.GetUserAsync(User);
 				if (user is Seller seller)

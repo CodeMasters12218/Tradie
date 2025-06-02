@@ -4,7 +4,7 @@ namespace Tradie.Models.Home
 {
 	public class HomeViewModel
 	{
-		// Section: HOME (e.g. 3 categories)
+		// Section: HOME (3 categories)
 		public List<Product> RopaProducts { get; set; } = new();
 		public List<Product> ElectronicaProducts { get; set; } = new();
 		public List<Product> InformaticaProducts { get; set; } = new();
@@ -15,7 +15,7 @@ namespace Tradie.Models.Home
 
 
 		// Section: Recién Llegados (New Arrivals)
-		public List<Product> RecienLlegados { get; set; } = new();
+		public List<Product> RecienLlegados { get; set; } = new List<Product>();
 
 
 		// Section: Famosos (Best Sellers / Popular)
