@@ -50,7 +50,7 @@
                 </ul>
             </li>
         </ul>
-        
+
         <!-- Lower part -->
         <div class="mt-auto pt-5">
             <a href="#" class="nav-link"><i class="btn-config bi-gear-fill me-2"></i>Configuración</a>
@@ -61,14 +61,13 @@
         </div>
     </aside>
 
-
     <!-- Main Content -->
     <section class="content p-4 flex-fill">
-        <div class="section-header"> 
+        <div class="section-header">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h3 class="mb-0">Gestión de Productos</h3>
                 <div class="d-flex gap-2">
-                    <form class="d-flex align-items-center me-3" role="search">
+                    <form class="d-flex align-items-center me-3" role="search" method="get">
                         <div class="input-group">
                             <input type="search" name="searchTerm" value="@Context.Request.Query["searchTerm"]"
                                    class="form-control" placeholder="Buscar productos..." aria-label="Search">
@@ -90,6 +89,8 @@
                 <thead>
                     <tr>
                         <th>Nombre &amp; ID</th>
+                        <th>Categoría</th>
+                        <th>Subcategoría</th>
                         <th>Precio</th>
                         <th>Stock</th>
                         <th>Estado</th>
@@ -111,6 +112,8 @@
                                     </div>
                                 </div>
                             </td>
+                            <td>@(p.Category?.Name ?? "Sin categoría")</td>
+                            <td>@(p.Subcategory ?? "Sin subcategoría")</td>
                             <td>€@p.Price.ToString("F2")</td>
                             <td>@p.Stock</td>
                             <td>
@@ -128,16 +131,18 @@
                                     <button type="button"
                                             class="Edit-Button"
                                             onclick="openEditModal(
-                                                @p.Id,
-                                                '@p.Name.Replace("'", "\\'")',
-                                                @p.Price,
-                                                @p.Stock,
-                                                '@(p.Subcategory?.Replace("'", "\\'") ?? string.Empty)',
-                                                '@(p.ImageUrl?.Replace("'", "\\'") ?? string.Empty)',
-                                                '@p.Description.Replace("'", "\\'")'
-                                            )">
+                                            @p.Id,
+                                            '@p.Name.Replace("'", "\\'")',
+                                            @p.Price,
+                                            @p.Stock,
+                                            '@p.CategoryId',
+                                            '@(p.Subcategory?.Replace("'", "\\'") ?? string.Empty)',
+                                            '@(p.ImageUrl?.Replace("'", "\\'") ?? string.Empty)',
+                                            '@p.Description.Replace("'", "\\'")'
+                                        )">
                                         Editar
                                     </button>
+
 
                                     <button type="button"
                                             class="Delete-Button"
@@ -180,12 +185,28 @@
                                 <span asp-validation-for="NewProduct.Stock" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
+                                <label asp-for="NewProduct.Category" class="form-label">Categoría</label>
+                                <select asp-for="NewProduct.Category" class="form-control">
+                                    <option value="">Selecciona una categoría</option>
+                                    <option value="Ropa de Hombres">Ropa de Hombres</option>
+                                    <option value="Ropa de Mujeres">Ropa de Mujeres</option>
+                                    <option value="Electrónica">Electrónica</option>
+                                    <option value="Informática">Informática</option>
+                                    <option value="Kids & Toys">Kids & Toys</option>
+                                    <option value="Oficina">Oficina</option>
+                                    <option value="Hogar">Hogar</option>
+                                    <option value="Libros">Libros</option>
+                                    <option value="Videojuegos">Videojuegos</option>
+                                </select>
+                                <span asp-validation-for="NewProduct.Category" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
                                 <label asp-for="NewProduct.Subcategory" class="form-label">Subcategoría</label>
                                 <input asp-for="NewProduct.Subcategory" class="form-control" />
                                 <span asp-validation-for="NewProduct.Subcategory" class="text-danger"></span>
                             </div>
-                        </div>
-                        <div class="col-md-6">
                             <div class="mb-3">
                                 <label asp-for="NewProduct.ImageUrl" class="form-label">URL Imagen</label>
                                 <input asp-for="NewProduct.ImageUrl" class="form-control" />
@@ -209,72 +230,81 @@
         </div>
 
         <!-- Modal de Edición -->
-    <div class="modal-overlay" id="editProductModal" style="display:none;">
-        <div class="modal-content p-4 rounded shadow-lg bg-white" style="max-width:600px;">
-            <button class="btn-close position-absolute top-0 end-0 m-3" onclick="closeModal('editProductModal')"></button>
-            <h4>Editar Producto</h4>
-            <form asp-controller="ProductManagement" asp-action="EditProduct" method="post">
-                @Html.AntiForgeryToken()
-                <input type="hidden" asp-for="NewProduct.Id" id="editProductId" />
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label asp-for="NewProduct.Name" class="form-label">Nombre</label>
-                            <input asp-for="NewProduct.Name" class="form-control" id="editProductName" />
-                            <span asp-validation-for="NewProduct.Name" class="text-danger"></span>
-                        </div>
-                        <div class="mb-3">
-                            <label asp-for="NewProduct.Price" class="form-label">Precio</label>
-                            <input asp-for="NewProduct.Price" class="form-control" id="editProductPrice" />
-                            <span asp-validation-for="NewProduct.Price" class="text-danger"></span>
-                        </div>
-                        <div class="mb-3">
-                            <label asp-for="NewProduct.Stock" class="form-label">Stock</label>
-                            <input asp-for="NewProduct.Stock" class="form-control" id="editProductStock" />
-                            <span asp-validation-for="NewProduct.Stock" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label asp-for="NewProduct.Subcategory" class="form-label">Subcategoría</label>
-                            <input asp-for="NewProduct.Subcategory" class="form-control" id="editProductSubcategory" />
-                            <span asp-validation-for="NewProduct.Subcategory" class="text-danger"></span>
-                        </div>
-                        <div class="mb-3">
-                            <label asp-for="NewProduct.ImageUrl" class="form-label">URL Imagen</label>
-                            <input asp-for="NewProduct.ImageUrl" class="form-control" id="editProductImageUrl" />
-                            <span asp-validation-for="NewProduct.ImageUrl" class="text-danger"></span>
-                        </div>
-                        <div class="mb-3">
-                            <label asp-for="NewProduct.Description" class="form-label">Descripción</label>
-                            <textarea asp-for="NewProduct.Description" class="form-control" id="editProductDescription"></textarea>
-                            <span asp-validation-for="NewProduct.Description" class="text-danger"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="text-end">
-                    <button type="submit" class="btn-save-edit">Guardar Cambios</button>
-                </div>
-            </form>
-        </div>
-    </div>
+        <div class="modal-overlay" id="editProductModal" style="display:none;">
+            <div class="modal-content p-4 rounded shadow-lg bg-white" style="max-width:600px;">
+                <button class="btn-close position-absolute top-0 end-0 m-3" onclick="closeModal('editProductModal')"></button>
+                <h4>Editar Producto</h4>
+                <form asp-controller="ProductManagement" asp-action="EditProduct" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" asp-for="NewProduct.Id" id="editProductId" />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label asp-for="NewProduct.Name" class="form-label">Nombre</label>
+                                <input asp-for="NewProduct.Name" class="form-control" id="editProductName" />
+                                <span asp-validation-for="NewProduct.Name" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="NewProduct.Price" class="form-label">Precio</label>
+                                <input asp-for="NewProduct.Price" class="form-control" id="editProductPrice" />
+                                <span asp-validation-for="NewProduct.Price" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="NewProduct.Stock" class="form-label">Stock</label>
+                                <input asp-for="NewProduct.Stock" class="form-control" id="editProductStock" />
+                                <span asp-validation-for="NewProduct.Stock" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="NewProduct.Category" class="form-label">Categoría</label>
+                                
+                                <select id="editProductCategory" asp-for="NewProduct.CategoryId" asp-items="@(new SelectList(Model.Categories, "Id", "Name"))" class="form-control">
+                                    <option value="">Selecciona una categoría</option>
+                                </select>
 
-    <!-- Modal de Confirmación de Eliminación -->
-    <div class="modal-overlay" id="deleteProductModal" style="display:none;">
-        <div class="modal-content p-4 rounded shadow-lg bg-white" style="max-width:500px;">
-            <button class="btn-close position-absolute top-0 end-0 m-3" onclick="closeModal('deleteProductModal')"></button>
-            <h5>Confirmar eliminación</h5>
-            <p>¿Estás seguro de que deseas borrar este producto?</p>
-            <form asp-controller="ProductManagement" asp-action="DeleteProduct" method="post">
-                @Html.AntiForgeryToken()
-                <input type="hidden" name="id" id="deleteProductId" />
-                <div class="text-end">
-                    <button type="button" class="btn btn-outline-secondary me-2" onclick="closeModal('deleteProductModal')">Cancelar</button>
-                    <button type="submit" class="btn btn-danger">Borrar</button>
-                </div>
-            </form>
+                                <span asp-validation-for="NewProduct.Category" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label asp-for="NewProduct.Subcategory" class="form-label">Subcategoría</label>
+                                <input asp-for="NewProduct.Subcategory" class="form-control" id="editProductSubcategory" />
+                                <span asp-validation-for="NewProduct.Subcategory" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="NewProduct.ImageUrl" class="form-label">URL Imagen</label>
+                                <input asp-for="NewProduct.ImageUrl" class="form-control" id="editProductImageUrl" />
+                                <span asp-validation-for="NewProduct.ImageUrl" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="NewProduct.Description" class="form-label">Descripción</label>
+                                <textarea asp-for="NewProduct.Description" class="form-control" id="editProductDescription"></textarea>
+                                <span asp-validation-for="NewProduct.Description" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-end">
+                        <button type="submit" class="btn-save-edit">Guardar Cambios</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
+
+        <!-- Modal de Confirmación de Eliminación -->
+        <div class="modal-overlay" id="deleteProductModal" style="display:none;">
+            <div class="modal-content p-4 rounded shadow-lg bg-white" style="max-width:500px;">
+                <button class="btn-close position-absolute top-0 end-0 m-3" onclick="closeModal('deleteProductModal')"></button>
+                <h5>Confirmar eliminación</h5>
+                <p>¿Estás seguro de que deseas borrar este producto?</p>
+                <form asp-controller="ProductManagement" asp-action="DeleteProduct" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="id" id="deleteProductId" />
+                    <div class="text-end">
+                        <button type="button" class="btn btn-outline-secondary me-2" onclick="closeModal('deleteProductModal')">Cancelar</button>
+                        <button type="submit" class="btn btn-danger">Borrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
 </div>
 
 <!-- For toast feedback -->
@@ -287,22 +317,22 @@
     </div>
 </div>
 
-    </section>
-
-
+</section>
 
 <script src="~/js/admin.js" asp-append-version="true"></script>
 <script>
-    function openEditModal(id, name, price, stock, subcategory, imageUrl, description) {
+    function openEditModal(id, name, price, stock, category, subcategory, imageUrl, description) {
         document.getElementById('editProductId').value = id;
         document.getElementById('editProductName').value = name;
         document.getElementById('editProductPrice').value = price;
         document.getElementById('editProductStock').value = stock;
+        document.getElementById('editProductCategory').value = category;
         document.getElementById('editProductSubcategory').value = subcategory;
         document.getElementById('editProductImageUrl').value = imageUrl;
         document.getElementById('editProductDescription').value = description;
         document.getElementById('editProductModal').style.display = 'block';
     }
+
     function confirmDelete(id) {
         document.getElementById('deleteProductId').value = id;
         document.getElementById('deleteProductModal').style.display = 'block';
@@ -325,6 +355,4 @@
       const toast = new bootstrap.Toast(toastEl);
       toast.show();
     }
-
-
 </script>

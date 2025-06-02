@@ -19,6 +19,7 @@ namespace Tradie.Data
 		{
 		}
 		public DbSet<Product> Products { get; set; }
+		public DbSet<Category> Categories { get; set; }
 		public DbSet<Subcategory> Subcategories { get; set; }
 		public new DbSet<User> Users { get; set; }
 		public DbSet<Order> Orders { get; set; }

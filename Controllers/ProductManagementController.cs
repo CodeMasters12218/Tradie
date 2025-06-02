@@ -47,7 +47,8 @@ namespace Tradie.Controllers
 			var vm = new ProductRegistryViewModel
 			{
 				Products = await query.ToListAsync(),
-				SearchTerm = searchTerm
+				SearchTerm = searchTerm,
+				Categories = await _context.Categories.ToListAsync()
 			};
 			return View(vm);
 		}
@@ -59,6 +60,7 @@ namespace Tradie.Controllers
 			var currentUser = await _userMgr.GetUserAsync(User);
 
 			product.SellerId = currentUser!.Id;
+
 			if (ModelState.IsValid)
 			{
 				_context.Products.Add(product);
@@ -70,6 +72,9 @@ namespace Tradie.Controllers
 			vm.Products = await _context.Products
 				.Include(p => p.Seller)
 				.ToListAsync();
+
+			vm.Categories = await _context.Categories.ToListAsync();
+
 			return View(vm);
 		}
 
@@ -89,6 +94,9 @@ namespace Tradie.Controllers
 			vm.Products = await _context.Products
 				 .Include(p => p.Seller)
 				 .ToListAsync();
+
+			vm.Categories = await _context.Categories.ToListAsync();
+
 			return View("ProductRegistry", vm);
 		}
 

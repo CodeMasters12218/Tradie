@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Tradie.Models.Users;
-using Tradie.Models.Products;
 using Tradie.Models.Orders;
+using Tradie.Models.Users;
 
 namespace Tradie.Models.Products
 {
@@ -24,6 +23,11 @@ namespace Tradie.Models.Products
 
 		[Range(0.01, 1000000)]
 		public decimal Price { get; set; }
+
+		public int? CategoryId { get; set; }  // nullable FK
+
+		[Required(ErrorMessage = "La categoría es obligatoria.")]
+		public Category? Category { get; set; }
 
 		public string? Subcategory { get; set; }
 		public string? ImageUrl { get; set; }
