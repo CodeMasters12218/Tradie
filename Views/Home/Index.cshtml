@@ -34,7 +34,7 @@
                 <div class="card-container">
                     @foreach (var product in Model.RopaProducts)
                     {
-                        @Html.Partial("_ProductCard", product)
+                        @await Html.PartialAsync("_ProductCard", product)
                     }
                 </div>
             </div>
@@ -43,7 +43,7 @@
                 <div class="card-container">
                     @foreach (var product in Model.ElectronicaProducts)
                     {
-                        @Html.Partial("_ProductCard", product)
+                        @await Html.PartialAsync("_ProductCard", product)
                     }
                 </div>
             </div>
@@ -52,7 +52,7 @@
                 <div class="card-container">
                     @foreach (var product in Model.InformaticaProducts)
                     {
-                        @Html.Partial("_ProductCard", product)
+                        @await Html.PartialAsync("_ProductCard", product)
                     }
                 </div>
             </div>

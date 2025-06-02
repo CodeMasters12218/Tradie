@@ -19,6 +19,27 @@ namespace Tradie.Controllers
 
 		public async Task<IActionResult> Index()
 		{
+			// Step 1: Get the logged-in user
+			var user = await _userManager.GetUserAsync(User);
+			var wishlistProductIds = new List<int>();
+
+			// Step 2: If user is logged in, fetch their wishlist product IDs
+			if (user != null)
+			{
+				var wishlist = await _context.Wishlists
+					.Include(w => w.Items)
+					.FirstOrDefaultAsync(w => w.UserId == user.Id.ToString());
+
+				if (wishlist != null)
+				{
+					wishlistProductIds = wishlist.Items.Select(i => i.ProductId).ToList();
+				}
+			}
+
+			// Step 3: Set ViewBag so the _ProductCard.cshtml can use it
+			ViewBag.WishlistProductIds = wishlistProductIds;
+
+			// Step 4: Build the HomeViewModel
 			var vm = new Tradie.Models.Home.HomeViewModel
 
 			{

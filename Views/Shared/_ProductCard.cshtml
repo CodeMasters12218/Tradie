@@ -6,9 +6,23 @@
         <img src="@(string.IsNullOrEmpty(Model.ImageUrl) ? Url.Content("~/images/default-product.png") : Model.ImageUrl)" class="card-img-top" alt="@Model.Name">
 
         <!-- Favorite Button -->
-        <button class="favorite-btn" onclick="toggleHeart(this)">
-            <i class="bi bi-heart"></i>
-        </button>
+        @{
+            var isFavorited = ViewBag.WishlistProductIds != null &&
+            ((List<int>)ViewBag.WishlistProductIds).Contains(Model.Id);
+        }
+
+        <form asp-controller="Wishlist"
+              asp-action="ToggleWishlistItem"
+              method="post"
+              class="d-inline">
+            <input type="hidden" name="productId" value="@Model.Id" />
+            <input type="hidden" name="returnUrl" value="@($"{Context.Request.Path}{Context.Request.QueryString}")" />
+            <button type="submit"
+                    class="favorite-btn btn-sm favorite-btn @(isFavorited ? "favorited" : "")"
+                    onclick="toggleHeart(this)">
+                <i class="bi @(isFavorited ? "bi-heart-fill" : "bi-heart")"></i>
+            </button>
+        </form>
     </div>
 
     <!-- Card Body -->

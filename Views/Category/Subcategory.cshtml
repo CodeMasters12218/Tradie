@@ -38,9 +38,10 @@
                asp-route-id="@product.Id"
                class="product-link">
 
-                <img src="@product.ImageUrl"
+                <img src="@(string.IsNullOrEmpty(product.ImageUrl) ? Url.Content("~/images/default-product.png") : product.ImageUrl)"
                      alt="@product.Name"
-                     class="product-image" />
+                     class="product-image"
+                     onerror="this.onerror=null; this.src='@Url.Content("~/images/default-product.png")';" />
 
                 <div class="product-info">
                     <h4 class="product-name">@product.Name</h4>
