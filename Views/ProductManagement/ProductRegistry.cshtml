@@ -231,7 +231,8 @@
 
         <!-- Modal de Edición -->
         <div class="modal-overlay" id="editProductModal" style="display:none;">
-            <div class="modal-content p-4 rounded shadow-lg bg-white" style="max-width:600px;">
+            <div class="custom-modal-box p-4 rounded shadow-lg bg-white position-relative">
+
                 <button class="btn-close position-absolute top-0 end-0 m-3" onclick="closeModal('editProductModal')"></button>
                 <h4>Editar Producto</h4>
                 <form asp-controller="ProductManagement" asp-action="EditProduct" method="post">
@@ -291,7 +292,8 @@
 
         <!-- Modal de Confirmación de Eliminación -->
         <div class="modal-overlay" id="deleteProductModal" style="display:none;">
-            <div class="modal-content p-4 rounded shadow-lg bg-white" style="max-width:500px;">
+            <div class="custom-modal-box p-4 rounded shadow-lg bg-white position-relative">
+
                 <button class="btn-close position-absolute top-0 end-0 m-3" onclick="closeModal('deleteProductModal')"></button>
                 <h5>Confirmar eliminación</h5>
                 <p>¿Estás seguro de que deseas borrar este producto?</p>
@@ -305,6 +307,7 @@
                 </form>
             </div>
         </div>
+    </section>
 </div>
 
 <!-- For toast feedback -->
@@ -316,8 +319,6 @@
         </div>
     </div>
 </div>
-
-</section>
 
 <script src="~/js/admin.js" asp-append-version="true"></script>
 <script>

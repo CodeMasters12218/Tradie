@@ -204,7 +204,7 @@ h2 {
 }
 
 a:hover{
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 .Delete-Account{
