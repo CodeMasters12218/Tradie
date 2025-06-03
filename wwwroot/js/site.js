@@ -353,3 +353,15 @@ function showCategory(category) {
         activeBtn.classList.add('btn-active');
     }
 }
+
+/***** USER PROFILE ********/
+
+// Dropdowns
+document.querySelectorAll('.dropdown-submenu .dropdown-toggle').forEach(item => {
+    item.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        let submenu = this.nextElementSibling;
+        if (submenu) submenu.classList.toggle('show');
+    });
+});

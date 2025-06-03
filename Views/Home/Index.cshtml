@@ -118,26 +118,59 @@
             <div class="card-container">
                 @if (Model.RecienLlegados != null && Model.RecienLlegados.Any())
                 {
-                    foreach (var product in Model.RecienLlegados)
+                    @foreach (var product in Model.RecienLlegados)
                     {
                         <div class="card">
                             <div class="heart-icon-container">
-                                <button class="favorite-btn" onclick="toggleHeart(this)">
-                                    <i class="bi bi-heart"></i>
-                                </button>
+                                <!-- Favorite Button -->
+                                @{
+                                    var isFavorited = ViewBag.WishlistProductIds != null &&
+                                    ((List<int>)ViewBag.WishlistProductIds).Contains(product.Id);
+                                }
+
+                                <form asp-controller="Wishlist"
+                                      asp-action="ToggleWishlistItem"
+                                      method="post"
+                                      class="d-inline">
+                                    <input type="hidden" name="productId" value="@product.Id" />
+                                    <input type="hidden" name="returnUrl" value="@($"{Context.Request.Path}{Context.Request.QueryString}")" />
+                                    <button type="submit"
+                                            class="favorite-btn btn-sm favorite-btn @(isFavorited ? "favorited" : "")"
+                                            onclick="toggleHeart(this)">
+                                        <i class="bi @(isFavorited ? "bi-heart-fill" : "bi-heart")"></i>
+                                    </button>
+                                </form>
                             </div>
-                            <img src="@Url.Content(product.ImageUrl ?? "~/images/default_product.png")" class="card-img-top" alt="@product.Name" />
+
+                            <img src="@(string.IsNullOrEmpty(product.ImageUrl) ? Url.Content("~/images/default-product.png") : product.ImageUrl)"
+                                 class="card-img-top"
+                                 alt="@product.Name"
+                                 onerror="this.onerror=null; this.src='@Url.Content("~/images/default-product.png")';" />
+
                             <div class="card-body">
                                 <h5 class="card-title">@product.Name</h5>
                                 <p class="card-text">@product.Description</p>
                                 <h5 class="price">€@product.Price.ToString("F2")</h5>
-                                <div class="cart-icon-container">
-                                    <button class="cart-btn" onclick="toggleCart(this)">
-                                        <i class="bi bi-cart"></i>
-                                        <span class="cart-text">añadido</span>
-                                    </button>
+
+                                <div class="cart-icon-container mt-2">
+                                    <!-- Add to Cart -->
+                                    <form asp-controller="ShoppingCart"
+                                          asp-action="AddToCart"
+                                          method="post"
+                                          class="w-100">
+                                        <input type="hidden" name="productId" value="@product.Id" />
+                                        <input type="hidden" name="returnUrl" value="@($"{Context.Request.Path}{Context.Request.QueryString}")" />
+                                        <button type="submit"
+                                                class="add-to-cart-btn btn-sm w-100 add-to-cart-btn @(ViewBag.CartProductIds != null && ((List<int>)ViewBag.CartProductIds).Contains(product.Id) ? "added disabled" : "")"
+                                        @(ViewBag.CartProductIds != null && ((List<int>)ViewBag.CartProductIds).Contains(product.Id) ? "disabled" : "")
+                                                onclick="toggleCart(this)">
+                                            @(ViewBag.CartProductIds != null && ((List<int>)ViewBag.CartProductIds).Contains(product.Id) ? "Añadido en la cesta" : "Añadir a la cesta")
+                                            <i class="bi @(ViewBag.CartProductIds != null && ((List<int>)ViewBag.CartProductIds).Contains(product.Id) ? "bi-cart-check" : "bi-cart")"></i>
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
+
                         </div>
                     }
                 }

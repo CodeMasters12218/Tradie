@@ -50,14 +50,20 @@
                 </div>
             </a>
 
-            <div class="product-actions mt-2">
+            <div class="product-actions">
                 <form asp-controller="ShoppingCart"
                       asp-action="AddToCart"
                       method="post"
                       class="w-100">
                     <input type="hidden" name="productId" value="@product.Id" />
                     <input type="hidden" name="returnUrl" value="@($"{Context.Request.Path}{Context.Request.QueryString}")" />
-                    <button type="submit" class="btn btn-sm btn-primary w-100">Añadir a la cesta</button>
+                    <button type="submit"
+                            class="btn btn-sm add-to-cart-btn @(ViewBag.CartProductIds != null && ((List<int>)ViewBag.CartProductIds).Contains(product.Id) ? "added disabled" : "")"
+                    @(ViewBag.CartProductIds != null && ((List<int>)ViewBag.CartProductIds).Contains(product.Id) ? "disabled" : "")
+                            onclick="toggleCart(this)">
+                        @(ViewBag.CartProductIds != null && ((List<int>)ViewBag.CartProductIds).Contains(product.Id) ? "Añadido en la cesta" : "Añadir a la cesta")
+                        <i class="bi @(ViewBag.CartProductIds != null && ((List<int>)ViewBag.CartProductIds).Contains(product.Id) ? "bi-cart-check" : "bi-cart")"></i>
+                    </button>
                 </form>
 
 

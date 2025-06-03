@@ -26,16 +26,29 @@ namespace Tradie.Controllers
 		[HttpGet]
 		public async Task<IActionResult> ProductRegistry(string? searchTerm, string? category)
 		{
-			ViewData["AdminName"] = User.Identity?.Name;
-			ViewData["AdminEmail"] = User.FindFirst("email")?.Value;
+			// For logged in admin 
+			var currentAdmin = await _userMgr.GetUserAsync(User);
+			if (currentAdmin != null)
+			{
+				ViewData["AdminName"] = currentAdmin.Name;
+				ViewData["AdminEmail"] = currentAdmin.Email;
+				ViewData["AdminPhoto"] = currentAdmin.ProfilePhotoUrl;
+			}
+			else
+			{
+				// Optional fallback
+				ViewData["AdminName"] = "Admin";
+				ViewData["AdminEmail"] = "admin@example.com";
+				ViewData["AdminPhoto"] = null;
+			}
 
 			var query = _context.Products.Include(p => p.Seller).AsQueryable();
 
 			if (!string.IsNullOrEmpty(searchTerm))
 			{
 				query = query
-					.Where(p => p.Name.Contains(searchTerm!)
-							 || p.Description.Contains(searchTerm!));
+					.Where(p => p.Name.Contains(searchTerm)
+							 || p.Description.Contains(searchTerm));
 			}
 
 			if (!string.IsNullOrEmpty(category))
@@ -50,8 +63,11 @@ namespace Tradie.Controllers
 				SearchTerm = searchTerm,
 				Categories = await _context.Categories.ToListAsync()
 			};
+
 			return View(vm);
 		}
+
+
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> ProductRegistry(ProductRegistryViewModel vm)

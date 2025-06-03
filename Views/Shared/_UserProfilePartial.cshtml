@@ -48,16 +48,34 @@
                     <a class="dropdown-item"
                        asp-controller="UserProfile"
                        asp-action="UserProfileMainPage">
-                        View Profile
+                        Ver Perfil
                     </a>
                 </li>
 
-                <li>
-                    <a class="dropdown-item"
-                       asp-controller="UserProfile"
-                       asp-action="UserProfileMainPage">
-                        Configuración
-                    </a>
+                <li class="dropdown-submenu">
+                    <a class="dropdown-item dropdown-toggle" href="#">Configuración</a>
+                    <ul class="dropdown-menu">
+
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li><hr class="dropdown-divider" /></li>
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-item dropdown-toggle" href="#">Admin</a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a class="dropdown-item custom-click-bg" asp-controller="ProductManagement" asp-action="ProductRegistry">
+                                            Registro de productos
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item custom-click-bg" asp-controller="Users" asp-action="Index">
+                                            Registro de usuarios
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+                    </ul>
                 </li>
 
                 <li>

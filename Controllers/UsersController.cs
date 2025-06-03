@@ -39,6 +39,23 @@ namespace Tradie.Controllers
 
 			var users = await usersQuery.ToListAsync();
 
+			// Get logged admin
+			var currentAdmin = await _userMgr.GetUserAsync(User);
+
+			if (currentAdmin != null)
+			{
+				ViewData["AdminName"] = currentAdmin.Name;
+				ViewData["AdminEmail"] = currentAdmin.Email;
+				ViewData["AdminPhoto"] = currentAdmin.ProfilePhotoUrl;
+			}
+			else
+			{
+				// if not: fallback
+				ViewData["AdminName"] = "Admin";
+				ViewData["AdminEmail"] = "admin@example.com";
+				ViewData["AdminPhoto"] = null;
+			}
+
 			var userViewModels = new List<AdminUserViewModel>();
 			foreach (var user in users)
 			{

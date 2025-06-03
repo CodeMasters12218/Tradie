@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var photoFromViewData = ViewData["AdminPhoto"] as string;
+    var finalPhotoUrl = !string.IsNullOrWhiteSpace(photoFromViewData)
+        ? photoFromViewData
+        : Url.Content("~/images/default-admin.jpg");
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -29,7 +36,12 @@
         <!-- Profile Container -->
         <div class="d-flex align-items-center gap-3">
             <!-- Profile Image -->
-            <img src="@ViewData["AdminPhoto"]" alt="Admin Profile" class="rounded-circle" width="32" height="32" />
+            <img src="@finalPhotoUrl"
+                 alt="Admin Profile"
+                 class="rounded-circle"
+                 width="32"
+                 height="32"
+                 onerror="this.onerror=null; this.src='@Url.Content("~/images/default-admin.jpg")';" />
 
             <!-- Name and Email -->
             <div class="text-end">
@@ -38,6 +50,7 @@
             </div>
         </div>
     </header>
+
 
 
     <header>
