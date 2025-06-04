@@ -33,6 +33,11 @@ h2 {
 
 span {
     color: #B77D00;
+    font-family: 'Murecho', sans-serif;
+    font-weight: bold;
+    font-size: 1.8rem;
+    padding: 0;
+    margin: 0;
 }
 
 .User-Data-Container {
@@ -245,6 +250,8 @@ placeholder {
     margin: 10px;
     vertical-align: top;
     border-radius: 10px;
+    padding: 10px;
+    box-sizing: border-box;
 }
 
 .Card-Item {
@@ -258,14 +265,30 @@ placeholder {
     border-radius: 10px;
 }
 
+.Card-Item-none {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ECF4F6;
+    width: 20vw;
+    height: 20vh;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.Card-Item-none p {
+    margin: 0;
+}
+
 .Cards-Container {
     display: flex;
     flex-wrap: wrap;
+    margin-top: 2rem;
     gap: 10px;
     justify-content: center;
     align-items: center;
     padding: 10px;
-    height: 80vh;
     width: 50vw;
 }
 
@@ -290,9 +313,11 @@ placeholder {
     background-color: white;
     border: 1px solid #000000B2;
     border-radius: 10px;
-    width: 2vw;
-    height: 4vh;
-    margin-right: 2vh;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    margin-right: 16px;
+    font-weight: normal;
     text-decoration: none;
     color: black;
 }
@@ -340,7 +365,7 @@ p{
     border-bottom: 1px solid black;
     justify-content: left;
     background-color: white;
-    width: 80vw;
+    width: 100%;
 }
 
 .Add-Card-Label{

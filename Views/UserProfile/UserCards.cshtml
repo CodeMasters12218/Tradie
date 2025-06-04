@@ -26,11 +26,11 @@
     <!-- Cards container -->  
     <div class="Container-Container">
         <div class="MainContainer">  
-            <div class="Cards-Title-Container-Container">
-                <div class="Cards-Title-Container">
-                    <h1>Tus tarjetas de pago</h1>
-                </div>
+
+            <div class="Cards-Title-Container">
+                <h2>Tus tarjetas de pago</h2>
             </div>
+
             <div class="Cards-Container">  
                 <div class="CreateCard-Button-Container">  
                     <a class="CreateCard-Button" asp-controller="UserCardProfile" asp-action="UserCardCreate">+</a>
@@ -83,13 +83,16 @@
                 }
                 else
                 {
-                    <p>No tienes tarjetas registradas.</p>
+                    <div class="Card-Item-none">
+                        <p>No tienes tarjetas registradas.</p>
+                    </div>
                 }
 
             </div>  
         </div>  
     </div>  
 </div>
+
 <!--Delete card Pop up-->
 <dialog id="DeleteCardPopup">
     <div class="Logout-PopUp-Container">
