@@ -1,0 +1,120 @@
+﻿@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Write Product Review";
+}
+
+<link rel="stylesheet" href="~/css/Reviews.css" />
+<link href="https://fonts.googleapis.com/css2?family=Murecho:wght@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" rel="stylesheet">
+<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+
+<div class="Main-Container">
+    <!-- Header -->
+    <div class="Logout-Container">
+        <h1>Mi cuenta > Valoraciones > <span> Escribir Reseña</span></h1>
+    </div>
+
+    <!-- Subheading -->
+    <div class="User-Data-Container">
+        <a asp-controller="UserProfile" asp-action="UserProductReviews">Pedidos pendientes de mi valoración (3)</a>
+        <a asp-controller="UserProfile" asp-action="UserProductReviewsAboutYou">Valoraciones sobre ti</a>
+        <a asp-controller="UserProfile" asp-action="UserProductReviewsYouWrote">Tus valoraciones</a>
+    </div>
+
+    <!-- Review Form Card -->
+    <div class="Container-Container">
+        <div class="Cards-Container">
+
+            <!-- Order Header -->
+            <div class="Cards-Title-Container">
+                <p class="order-number-text">
+                    <span class="order-number">Nº del pedido:&nbsp;</span>456789123300
+                </p>
+            </div>
+
+            <!-- Review Row -->
+            <div class="Review-Row">
+                <!-- Column 1: Product Info -->
+                <div class="Review-Column product-info">
+                    <img src="https://picsum.photos/80" alt="Product Image" class="product-image" />
+                    <div class="product-details">
+                        <p class="product-name">Wireless Mouse</p>
+                        <p class="product-price">€23.99 <span class="product-qty">x2</span></p>
+                    </div>
+                </div>
+
+                <!-- Column 2: Review Form -->
+                <div class="Review-Column review-client">
+                    <div class="client-review-details">
+                        <p class="review-title">Escribir una reseña:</p>
+                        <div class="star-rating interactive-stars">
+                            <span class="iconify" data-icon="material-symbols:star-outline" data-index="1"></span>
+                            <span class="iconify" data-icon="material-symbols:star-outline" data-index="2"></span>
+                            <span class="iconify" data-icon="material-symbols:star-outline" data-index="3"></span>
+                            <span class="iconify" data-icon="material-symbols:star-outline" data-index="4"></span>
+                            <span class="iconify" data-icon="material-symbols:star-outline" data-index="5"></span>
+                            <span class="review-score">0.0</span>
+                        </div>
+
+                        <textarea class="review-textarea" placeholder="Escribir tu reseña aquí..."></textarea>
+                        <button class="submit-review-btn">Guardar valoración</button>
+                    </div>
+                </div>
+
+                <!-- Column 3: Reserved for seller response -->
+                <div class="Review-Column review-seller">
+                    <!-- Optional future content -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Script for stars hover and click -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const starContainer = document.querySelector(".interactive-stars");
+        const stars = starContainer?.querySelectorAll(".iconify");
+        const scoreEl = starContainer?.querySelector(".review-score");
+
+        let currentRating = 0;      // Locked rating
+        let hoverRating = 0;        // Temporary hover state
+
+        if (!stars) return;
+
+        stars.forEach((star, index) => {
+            star.addEventListener("mouseover", () => {
+                hoverRating = index + 1;
+                updateStars(hoverRating);
+            });
+
+            star.addEventListener("mouseout", () => {
+                updateStars(currentRating);
+            });
+
+            star.addEventListener("click", () => {
+                currentRating = index + 1;
+                updateStars(currentRating);
+            });
+        });
+
+        function updateStars(rating) {
+            stars.forEach((star, i) => {
+                if (i < rating) {
+                    star.setAttribute("data-icon", "material-symbols:star");
+                    star.style.color = "#D49409";
+                } else {
+                    star.setAttribute("data-icon", "material-symbols:star-outline");
+                    star.style.color = "#ccc";
+                }
+            });
+
+            // Only update score visually on click or hover
+            if (scoreEl) {
+                scoreEl.textContent = rating.toFixed(1);
+            }
+        }
+    });
+</script>
+

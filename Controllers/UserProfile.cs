@@ -98,5 +98,25 @@ namespace Tradie.Controllers
 			});
 
 		}
+
+		public IActionResult UserProductReviews()
+		{
+			return View();
+		}
+
+		public IActionResult UserProductReviewsAboutYou()
+		{
+			return View();
+		}
+
+		public IActionResult UserProductReviewsYouWrote()
+		{
+			return View();
+		}
+
+		public IActionResult UserProductReviewsWrite()
+		{
+			return View();
+		}
 	}
 }

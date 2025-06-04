@@ -1,0 +1,127 @@
+﻿
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Product Pending Reviews";
+}
+
+<link rel="stylesheet" href="~/css/Reviews.css" />
+<link href="https://fonts.googleapis.com/css2?family=Murecho:wght@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" rel="stylesheet">
+<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+
+<div class="Main-Container">
+    <!-- Header -->
+    <div class="Logout-Container">
+        <h1>Mi cuenta ><span> Valoraciones</span></h1>
+    </div>
+
+    <!-- Subheading -->
+    <div class="User-Data-Container">
+        <h2 class="h2-active">Pedidos pendientes de mi valoración&nbsp;<span class="pending-count">(3)</span></h2>
+        <a asp-controller="UserProfile" asp-action="UserProductReviewsAboutYou">Valoraciones sobre ti</a>
+        <a asp-controller="UserProfile" asp-action="UserProductReviewsYouWrote">Tus valoraciones</a>
+    </div>
+
+    <!-- Cards -->
+    <div class="Container-Container">
+
+         <div class="Cards-Container">
+            <div class="Cards-Title-Container">
+                <p class="order-number-text"><span class="order-number">Nº del pedido:&nbsp;</span>456789123300</p>
+                <a asp-controller="UserProfile" asp-action="UserProductReviewsWrite" class="write-review-link">Escribir una valoración</a>
+            </div>
+
+            <div class="Review-Row">
+                <!-- Column 1: Product details -->
+                <div class="Review-Column product-info">
+                    <img src="https://picsum.photos/80" alt="Product Image" class="product-image" />
+                    <div class="product-details">
+                        <p class="product-name">Wireless Mouse</p>
+                        <p class="product-price">€23.99 <span class="product-qty">x2</span></p>
+                    </div>
+                </div>
+
+                <!-- Column 2: Review from client (empty for now) -->
+                <div class="Review-Column review-client">
+                    <!-- Future client review content -->
+                </div>
+
+                <!-- Column 3: Review to client (empty for now) -->
+                <div class="Review-Column review-seller">
+                    <!-- Future seller response content -->
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Cards -->
+    <div class="Container-Container">
+
+         <div class="Cards-Container">
+            <div class="Cards-Title-Container">
+                <p>Nº del pedido:&nbsp;<span class="order-number">456789123300</span></p>
+                <a asp-controller="Reviews" asp-action="Write" class="write-review-link">Escribir una valoración</a>
+            </div>
+
+            <div class="Review-Row">
+                <!-- Column 1: Product details -->
+                <div class="Review-Column product-info">
+                    <img src="https://picsum.photos/80" alt="Product Image" class="product-image" />
+                    <div class="product-details">
+                        <p class="product-name">Wireless Mouse</p>
+                        <p class="product-price">€23.99 <span class="product-qty">x2</span></p>
+                    </div>
+                </div>
+
+                <!-- Column 2: Review from client (empty for now) -->
+                <div class="Review-Column review-client">
+                    <!-- Future client review content -->
+                </div>
+
+                <!-- Column 3: Review to client (empty for now) -->
+                <div class="Review-Column review-seller">
+                    <!-- Future seller response content -->
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Cards -->
+    <div class="Container-Container">
+
+         <div class="Cards-Container">
+            <div class="Cards-Title-Container">
+                <p>Nº del pedido:&nbsp;<span class="order-number">456789123300</span></p>
+                <a asp-controller="Reviews" asp-action="Write" class="write-review-link">Escribir una valoración</a>
+            </div>
+
+            <div class="Review-Row">
+                <!-- Column 1: Product details -->
+                <div class="Review-Column product-info">
+                    <img src="https://picsum.photos/80" alt="Product Image" class="product-image" />
+                    <div class="product-details">
+                        <p class="product-name">Wireless Mouse</p>
+                        <p class="product-price">€23.99 <span class="product-qty">x2</span></p>
+                    </div>
+                </div>
+
+                <!-- Column 2: Review from client (empty for now) -->
+                <div class="Review-Column review-client">
+                    <!-- Future client review content -->
+                </div>
+
+                <!-- Column 3: Review to client (empty for now) -->
+                <div class="Review-Column review-seller">
+                    <!-- Future seller response content -->
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

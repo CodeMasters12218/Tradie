@@ -1,0 +1,258 @@
+﻿@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Reviews You Wrote";
+}
+
+<link rel="stylesheet" href="~/css/Reviews.css" />
+<link href="https://fonts.googleapis.com/css2?family=Murecho:wght@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" rel="stylesheet">
+<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+
+<div class="Main-Container">
+    <!-- Header -->
+    <div class="Logout-Container">
+        <h1>Mi cuenta ><span> Valoraciones</span></h1>
+    </div>
+
+    <!-- Subheading -->
+    <div class="User-Data-Container">
+        <a asp-controller="UserProfile" asp-action="UserProductReviews">Pedidos pendientes de mi valoración (3)</a>
+        <a asp-controller="UserProfile" asp-action="UserProductReviewsAboutYou">Valoraciones sobre ti</a>
+        <h2 class="h2-active">Tus valoriaciones</h2>
+    </div>
+
+    <!-- Cards -->
+    <div class="Container-Container">
+        <div class="Cards-Container">
+
+            <!-- Order Header -->
+            <div class="Cards-Title-Container">
+                <p class="order-number-text">
+                    <span class="order-number">Nº del pedido:&nbsp;</span>456789123300
+                </p>
+            </div>
+
+            <!-- Review Row -->
+            <div class="Review-Row">
+                <!-- Column 1: Product details -->
+                <div class="Review-Column product-info">
+                    <img src="https://picsum.photos/80" alt="Product Image" class="product-image" />
+                    <div class="product-details">
+                        <p class="product-name">Wireless Mouse</p>
+                        <p class="product-price">€23.99 <span class="product-qty">x2</span></p>
+                    </div>
+                </div>
+
+                <!-- Column 2: Client review (this user as reviewer) -->
+                <div class="Review-Column review-client">
+                    <div class="client-review-details">
+                        <p class="review-title">Valoración emitida:</p>
+                        <div class="star-rating">
+                            <span class="iconify" data-icon="material-symbols:star" style="color: #D49409;"></span>
+                            <span class="iconify" data-icon="material-symbols:star" style="color: #D49409;"></span>
+                            <span class="iconify" data-icon="material-symbols:star" style="color: #D49409;"></span>
+                            <span class="iconify" data-icon="material-symbols:star" style="color: #D49409;"></span>
+                            <span class="iconify" data-icon="material-symbols:star-outline" style="color: #ccc;"></span>
+                            <span class="review-score">4.0</span>
+                        </div>
+                        <p class="review-comment">
+                            This is an example valoración. Yada yada Lorme ipsum tadatada. This is an example valoración.
+                            Yada yada Lorme ipsum tadatada. This is an example valoración. Yada yada Lorme ipsum tadatada.
+                        </p>
+                        <p class="review-date">Posted on: 29/04/2025</p>
+                    </div>
+                </div>
+
+                <!-- Column 3: Seller review (still shown if applicable) -->
+                <div class="Review-Column review-seller">
+                    <div class="seller-review-details">
+                        <p class="review-title">Valoración emitida por el vendedor:</p>
+                        <div class="star-rating">
+                            <span class="iconify" data-icon="material-symbols:star" style="color: #D49409;"></span>
+                            <span class="iconify" data-icon="material-symbols:star" style="color: #D49409;"></span>
+                            <span class="iconify" data-icon="material-symbols:star" style="color: #D49409;"></span>
+                            <span class="iconify" data-icon="material-symbols:star" style="color: #D49409;"></span>
+                            <span class="iconify" data-icon="material-symbols:star" style="color: #D49409;"></span>
+                            <span class="review-score">5.0</span>
+                        </div>
+                        <p class="review-comment">
+                            This is an example valoración. Yada yada Lorme ipsum tadatada. This is an example valoración.
+                            Yada yada Lorme ipsum tadatada. This is an example valoración. Yada yada Lorme ipsum tadatada.
+                        </p>
+                        <p class="review-date">Posted on: 29/04/2025</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Card review -->
+    <div class="Container-Container">
+        <div class="Cards-Container">
+
+            <!-- Order Header -->
+            <div class="Cards-Title-Container">
+                <p class="order-number-text">
+                    <span class="order-number">Nº del pedido:&nbsp;</span>456789123300
+                </p>
+            </div>
+
+            <!-- Review Row -->
+            <div class="Review-Row">
+                <!-- Column 1: Product details -->
+                <div class="Review-Column product-info">
+                    <img src="https://picsum.photos/80" alt="Product Image" class="product-image" />
+                    <div class="product-details">
+                        <p class="product-name">Wireless Mouse</p>
+                        <p class="product-price">€23.99 <span class="product-qty">x2</span></p>
+                    </div>
+                </div>
+
+                <!-- Column 2: Client review (this user as reviewer) -->
+                <div class="Review-Column review-client">
+                    <div class="client-review-details">
+                        <p class="review-title">Valoración emitida:</p>
+                        <div class="star-rating">
+                            <span class="iconify" data-icon="material-symbols:star" style="color: #D49409;"></span>
+                            <span class="iconify" data-icon="material-symbols:star" style="color: #D49409;"></span>
+                            <span class="iconify" data-icon="material-symbols:star" style="color: #D49409;"></span>
+                            <span class="iconify" data-icon="material-symbols:star" style="color: #D49409;"></span>
+                            <span class="iconify" data-icon="material-symbols:star-outline" style="color: #ccc;"></span>
+                            <span class="review-score">4.0</span>
+                        </div>
+                        <p class="review-comment">
+                            This is an example valoración. Yada yada Lorme ipsum tadatada. This is an example valoración.
+                            Yada yada Lorme ipsum tadatada. This is an example valoración. Yada yada Lorme ipsum tadatada.
+                        </p>
+                        <p class="review-date">Posted on: 29/04/2025</p>
+                    </div>
+                </div>
+
+                <!-- Column 3: Seller review -->
+                <div class="Review-Column review-seller">
+                    
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Card review -->
+    <div class="Container-Container">
+        <div class="Cards-Container">
+
+            <!-- Order Header -->
+            <div class="Cards-Title-Container">
+                <p class="order-number-text">
+                    <span class="order-number">Nº del pedido:&nbsp;</span>456789123300
+                </p>
+            </div>
+
+            <!-- Review Row -->
+            <div class="Review-Row">
+                <!-- Column 1: Product details -->
+                <div class="Review-Column product-info">
+                    <img src="https://picsum.photos/80" alt="Product Image" class="product-image" />
+                    <div class="product-details">
+                        <p class="product-name">Wireless Mouse</p>
+                        <p class="product-price">€23.99 <span class="product-qty">x2</span></p>
+                    </div>
+                </div>
+
+                <!-- Column 2: Client review (this user as reviewer) -->
+                <div class="Review-Column review-client">
+                    <div class="client-review-details">
+                        <p class="review-title">Valoración emitida:</p>
+                        <div class="star-rating">
+                            <span class="iconify" data-icon="material-symbols:star" style="color: #D49409;"></span>
+                            <span class="iconify" data-icon="material-symbols:star" style="color: #D49409;"></span>
+                            <span class="iconify" data-icon="material-symbols:star" style="color: #D49409;"></span>
+                            <span class="iconify" data-icon="material-symbols:star" style="color: #D49409;"></span>
+                            <span class="iconify" data-icon="material-symbols:star-outline" style="color: #ccc;"></span>
+                            <span class="review-score">4.0</span>
+                        </div>
+                        <p class="review-comment">
+                            This is an example valoración. Yada yada Lorme ipsum tadatada. This is an example valoración.
+                            Yada yada Lorme ipsum tadatada. This is an example valoración. Yada yada Lorme ipsum tadatada.
+                        </p>
+                        <p class="review-date">Posted on: 29/04/2025</p>
+                    </div>
+                </div>
+
+                <!-- Column 3: Seller review -->
+                <div class="Review-Column review-seller">
+                    
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Cards -->
+    <div class="Container-Container">
+        <div class="Cards-Container">
+
+            <!-- Order Header -->
+            <div class="Cards-Title-Container">
+                <p class="order-number-text">
+                    <span class="order-number">Nº del pedido:&nbsp;</span>456789123300
+                </p>
+            </div>
+
+            <!-- Review Row -->
+            <div class="Review-Row">
+                <!-- Column 1: Product details -->
+                <div class="Review-Column product-info">
+                    <img src="https://picsum.photos/80" alt="Product Image" class="product-image" />
+                    <div class="product-details">
+                        <p class="product-name">Wireless Mouse</p>
+                        <p class="product-price">€23.99 <span class="product-qty">x2</span></p>
+                    </div>
+                </div>
+
+                <!-- Column 2: Client review (this user as reviewer) -->
+                <div class="Review-Column review-client">
+                    <div class="client-review-details">
+                        <p class="review-title">Valoración emitida:</p>
+                        <div class="star-rating">
+                            <span class="iconify" data-icon="material-symbols:star" style="color: #D49409;"></span>
+                            <span class="iconify" data-icon="material-symbols:star" style="color: #D49409;"></span>
+                            <span class="iconify" data-icon="material-symbols:star" style="color: #D49409;"></span>
+                            <span class="iconify" data-icon="material-symbols:star" style="color: #D49409;"></span>
+                            <span class="iconify" data-icon="material-symbols:star-outline" style="color: #ccc;"></span>
+                            <span class="review-score">4.0</span>
+                        </div>
+                        <p class="review-comment">
+                            This is an example valoración. Yada yada Lorme ipsum tadatada. This is an example valoración.
+                            Yada yada Lorme ipsum tadatada. This is an example valoración. Yada yada Lorme ipsum tadatada.
+                        </p>
+                        <p class="review-date">Posted on: 29/04/2025</p>
+                    </div>
+                </div>
+
+                <!-- Column 3: Seller review (still shown if applicable) -->
+                <div class="Review-Column review-seller">
+                    <div class="seller-review-details">
+                        <p class="review-title">Valoración emitida por el vendedor:</p>
+                        <div class="star-rating">
+                            <span class="iconify" data-icon="material-symbols:star" style="color: #D49409;"></span>
+                            <span class="iconify" data-icon="material-symbols:star" style="color: #D49409;"></span>
+                            <span class="iconify" data-icon="material-symbols:star" style="color: #D49409;"></span>
+                            <span class="iconify" data-icon="material-symbols:star" style="color: #D49409;"></span>
+                            <span class="iconify" data-icon="material-symbols:star" style="color: #D49409;"></span>
+                            <span class="review-score">5.0</span>
+                        </div>
+                        <p class="review-comment">
+                            This is an example valoración. Yada yada Lorme ipsum tadatada. This is an example valoración.
+                            Yada yada Lorme ipsum tadatada. This is an example valoración. Yada yada Lorme ipsum tadatada.
+                        </p>
+                        <p class="review-date">Posted on: 29/04/2025</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
