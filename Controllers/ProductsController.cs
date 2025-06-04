@@ -267,8 +267,28 @@ namespace Tradie.Controllers
 			// Redirige a la acción que muestra el producto
 			return RedirectToAction("Details", new { id = productId });
 		}
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> Search(string searchTerm)
+        {
+            if (string.IsNullOrWhiteSpace(searchTerm))
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
-		private bool ProductExists(int id)
+            var productosFiltrados = await _context.Products
+                .Where(p =>
+                    p.Name.Contains(searchTerm) ||
+                    p.Description.Contains(searchTerm))
+                .OrderBy(p => p.Name)
+                .ToListAsync();
+
+            ViewBag.SearchTerm = searchTerm;
+
+            return View("~/Views/Product/SearchResults.cshtml", productosFiltrados);
+        }
+
+        private bool ProductExists(int id)
 		{
 			return _context.Products.Any(e => e.Id == id);
 		}
