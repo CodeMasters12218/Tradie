@@ -14,7 +14,7 @@ VALUES
 (6, 'oficina'),
 (7, 'Hogar'),
 (8, 'Libros'),
-(9, 'Videojuegos'),
+(9, 'Videojuegos');
 
 INSERT INTO dbo.Products (Name, Description, Price, Subcategory, ImageUrl, Stock, SellerId, CategoryId )
 VALUES
