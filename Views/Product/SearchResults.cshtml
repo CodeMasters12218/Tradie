@@ -1,0 +1,81 @@
+﻿@model IEnumerable<Tradie.Models.Products.Product>
+
+@{
+    ViewData["Title"] = $"Resultados de \"{ViewBag.SearchTerm}\"";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/subcategory.css" />  <!-- O el CSS que uses para rejilla/productos -->
+
+<h2>Resultados de búsqueda para “@ViewBag.SearchTerm”</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info mt-3">
+        No se encontraron productos que contengan “@ViewBag.SearchTerm”.
+    </div>
+}
+else
+{
+    <div class="product-grid mt-4">
+        @foreach (var product in Model)
+        {
+            <div class="card product-card">
+                <a asp-controller="Product"
+                   asp-action="Details"
+                   asp-route-id="@product.Id"
+                   class="product-link text-decoration-none text-dark">
+
+                    <img src="@product.ImageUrl"
+                         alt="@product.Name"
+                         class="product-image" />
+
+                    <div class="product-info p-2">
+                        <h5 class="product-name">@product.Name</h5>
+                        <p class="product-description text-muted small">
+                            @product.Description
+                        </p>
+                        <p class="product-price fw-bold">
+                            €@product.Price.ToString("F2")
+                        </p>
+                    </div>
+                </a>
+
+                <div class="product-actions mt-2 px-2 pb-2">
+                    <form asp-controller="ShoppingCart"
+                          asp-action="AddToCart"
+                          method="post"
+                          class="d-inline w-100">
+                        <input type="hidden" name="productId" value="@product.Id" />
+                        <input type="hidden" name="returnUrl"
+                               value="@($"{Context.Request.Path}{Context.Request.QueryString}")" />
+                        <button type="submit" class="btn btn-sm btn-primary w-100">
+                            Añadir a la cesta
+                        </button>
+                    </form>
+
+                    @* Botón de favorito (wishlist) *@
+                    @{
+                        var wishlistIds = ViewBag.WishlistProductIds as List<int> ?? new List<int>();
+                        var estaFavorito = wishlistIds.Contains(product.Id);
+                    }
+                    <form asp-controller="Wishlist"
+                          asp-action="ToggleWishlistItem"
+                          method="post"
+                          class="d-inline ms-2">
+                        <input type="hidden" name="productId" value="@product.Id" />
+                        <input type="hidden" name="returnUrl"
+                               value="@($"{Context.Request.Path}{Context.Request.QueryString}")" />
+                        <button type="submit"
+                                class="btn btn-sm favorite-btn @(estaFavorito ? "favorited" : "")"
+                                onclick="toggleHeart(this)">
+                            <i class="bi @(estaFavorito ? "bi-heart-fill" : "bi-heart")"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+<script src="~/js/site.js" asp-append-version="true"></script>

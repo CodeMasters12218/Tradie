@@ -19,28 +19,30 @@
     <link rel="stylesheet" href="~/Tradie.styles.css" asp-append-version="true" />
 </head>
 
-@if (TempData["ToastMessage"] != null)
-{
-    <div id="toast"
-         class="toast show text-white bg-@TempData["ToastType"] position-fixed bottom-0 end-0 m-4"
-         role="alert" aria-live="assertive" aria-atomic="true"
-         style="z-index: 9999; min-width: 300px;">
-        <div class="toast-body">
-            @Html.Raw(TempData["ToastMessage"])
-            <button type="button" class="btn-close btn-close-white ms-2 me-1 float-end"
-                    data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-    </div>
 
-    <script>
-        setTimeout(() => {
-            const toast = document.getElementById("toast");
-            if (toast) toast.classList.remove("show");
-        }, 5000); // hide after 5 seconds
-    </script>
-}
 
 <body>
+
+    @if (TempData["ToastMessage"] != null)
+    {
+        <div id="toast"
+             class="toast show text-white bg-@TempData["ToastType"] position-fixed bottom-0 end-0 m-4"
+             role="alert" aria-live="assertive" aria-atomic="true"
+             style="z-index: 9999; min-width: 300px;">
+            <div class="toast-body">
+                @Html.Raw(TempData["ToastMessage"])
+                <button type="button" class="btn-close btn-close-white ms-2 me-1 float-end"
+                        data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+
+        <script>
+            setTimeout(() => {
+                const toast = document.getElementById("toast");
+                if (toast) toast.classList.remove("show");
+            }, 5000); // hide after 5 seconds
+        </script>
+    }
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
@@ -68,21 +70,34 @@
                     
 
                     <ul class="navbar-nav align-items-center">
-                        <!-- Search Bar -->
-                        <form class="d-flex align-items-center me-3" role="search">
-                            <div class="input-group">
-                                <input class="form-control" type="search" placeholder="¿Qué buscabas?" aria-label="Search">
-                                <span class="input-group-text bg-white border-start-0">
-                                    <i class="bi bi-search"></i>
-                                </span>
-                            </div>
-                        </form>
+                        <li class="nav-item me-3">
+                            <form asp-controller="Products"
+                                  asp-action="Search"
+                                  method="get"
+                                  class="d-flex"
+                                  role="search">
+                                <div class="input-group">
+                                    <input name="searchTerm"
+                                           class="form-control"
+                                           type="search"
+                                           placeholder="¿Qué buscabas?"
+                                           aria-label="Search" />
+                                    <button class="btn btn-outline-secondary" type="submit">
+                                        <i class="bi bi-search"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </li>
 
                         <!-- Cart Button with badge -->
-                        @await Component.InvokeAsync("CartBadge")
+                        <li class="nav-item">
+                            @await Component.InvokeAsync("CartBadge")
+                        </li>
 
                         <!-- User Profile Button -->
-                        @await Html.PartialAsync("_UserProfilePartial", ViewBag.UserProfile as Tradie.Models.UserProfile.UserProfileMainPageModel)
+                        <li class="nav-item">
+                            @await Html.PartialAsync("_UserProfilePartial", ViewBag.UserProfile as Tradie.Models.UserProfile.UserProfileMainPageModel)
+                        </li>
 
                         <!-- Login Button (appears via condiiton in _UserProfilePartial.cshtml) -->
                     </ul>
