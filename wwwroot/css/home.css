@@ -204,6 +204,17 @@ h1 {
         font-size: 14px;
     }
 
+.product-card-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+    .product-card-link:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        transition: box-shadow 0.2s ease-in-out;
+        color: #d9a22e;
+    }
+
     /* Cart Button */
     #home .cart-button {
         font-size: 12.5px;

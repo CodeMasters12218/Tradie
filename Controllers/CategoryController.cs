@@ -167,7 +167,6 @@ namespace Tradie.Controllers
 		}
 
 
-		// Details action to handle product details directly
 		[Route("Category{name}/{subcategory}/{id}")]
 		public IActionResult Details(string name, string subcategory, int id)
 		{
