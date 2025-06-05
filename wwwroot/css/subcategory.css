@@ -26,7 +26,8 @@
 }
 
     .product-card:hover {
-        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        transform: scale(1.01);
     }
 
 .product-link {

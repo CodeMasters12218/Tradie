@@ -27,13 +27,14 @@
     </div>
 
 
-    <!-- Updated container with navigation arrows -->
+    <!-- Navigation arrows -->
     <div class="slider-container">
         <div class="slider-wrapper" id="home-slider">
             <div class="product-group" id="ropa-products">
                 <div class="card-container">
                     @foreach (var product in Model.RopaProducts)
                     {
+                        ViewData["CategoryName"] = "Ropa de Hombres";
                         @await Html.PartialAsync("_ProductCard", product)
                     }
                 </div>
@@ -43,6 +44,7 @@
                 <div class="card-container">
                     @foreach (var product in Model.ElectronicaProducts)
                     {
+                        ViewData["CategoryName"] = "Electrónica";
                         @await Html.PartialAsync("_ProductCard", product)
                     }
                 </div>
@@ -52,6 +54,7 @@
                 <div class="card-container">
                     @foreach (var product in Model.InformaticaProducts)
                     {
+                        ViewData["CategoryName"] = "Informática";
                         @await Html.PartialAsync("_ProductCard", product)
                     }
                 </div>
