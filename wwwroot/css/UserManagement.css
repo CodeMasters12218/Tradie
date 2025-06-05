@@ -192,8 +192,11 @@ table img {
     object-fit: cover;
 }
 
-/************/
+.badge {
+    background-color: #d3e24b !important;
+}
 
+/************/
 .Create-Button {
     color: #fff;
     background-color: #198754;
@@ -437,7 +440,9 @@ dialog:not([open]) {
         }
 
     .content {
+        margin-top: 40px;
         margin-left: 0 !important; /* Avoid space when sidebar is hidden */
         padding: 1rem;
+        width: 100%;
     }
 }

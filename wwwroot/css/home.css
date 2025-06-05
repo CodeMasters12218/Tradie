@@ -357,7 +357,7 @@ h1 {
         align-items: center;
         width: 100%;
         gap: 10px;
-        margin: 0 20px;
+        margin: 24px 20px;
     }
 
     #recientes .card {
@@ -370,7 +370,13 @@ h1 {
         margin: 6px;
         border-radius: 12px;
         overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
+
+        #recientes .card:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            transform: scale(1.02);
+        }
 
     #recientes .card-img-top {
         max-height: 16.5rem;
@@ -381,6 +387,31 @@ h1 {
     }
 
     #recientes p {
+        font-size: 14px;
+    }
+
+    #recientes .card-body a {
+        text-decoration: none !important;
+        color: black;
+    }
+
+        #recientes .card-body a:hover {
+            text-decoration: none !important;
+            color: #d45e49;
+        }
+
+    #recientes .card-title {
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    #recientes .card-price {
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    #recientes .card-text {
+        margin-bottom: 12px;
         font-size: 14px;
     }
 
@@ -761,9 +792,21 @@ h1 {
         position: static;
     }
 
+    #home .card-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 20px;
+    }
+
+    #home .card {
+        min-width: 100%;
+        height: auto;
+    }
+
     #recientes .recientes-controls {
         display: none;
     }
+
 
     #recientes .card-container {
         display: grid;
@@ -812,7 +855,11 @@ h1 {
         max-width: 100%;
         margin-bottom: 20px;
     }
-}
+
+    .slider-arrow.right, 
+    .slider-arrow.left {
+        display: none;
+    }
 
 @media (max-width: 480px) {
     #home .card-container,
