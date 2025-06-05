@@ -277,6 +277,18 @@ a:hover{
     width: 30px;
 }
 
+/* DISABNLED PEDIDO PART */
+.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+    .disabled .Order-Button, .disabled .Orders-Link {
+        pointer-events: none;
+        cursor: not-allowed;
+    }
+
+
 
 /**********************************************************************
                         RESPONSIVENSS 

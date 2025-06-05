@@ -241,12 +241,13 @@ placeholder {
 .CreateCard-Button-Container {
     display: flex;
     background-color: #ECF4F6;
-    border: 1px dashed #A2A2A2B2;
+    border: 1px dashed #878787b2;
     justify-content: center;
     align-content: center;
     align-items: center;
     width: 20vw;
-    height: 20vh;
+    min-height: 10rem;
+    height: auto;
     margin: 10px;
     vertical-align: top;
     border-radius: 10px;
@@ -258,12 +259,19 @@ placeholder {
     display: inline-block;
     background-color: #ECF4F6;
     width: 20vw;
-    height: 20vh;
+    min-height: 10rem;
+    height: auto;
     margin: 10px;
     padding: 10px;
     vertical-align: top;
     border-radius: 10px;
 }
+
+    .Card-Item p {
+        opacity: 1 !important;
+        font-weight: 400;
+        margin: 0;
+    }
 
 .Card-Item-none {
     display: flex;
@@ -271,7 +279,8 @@ placeholder {
     align-items: center;
     background-color: #ECF4F6;
     width: 20vw;
-    height: 20vh;
+    min-height: 10rem;
+    height: auto;
     margin: 10px;
     padding: 10px;
     border-radius: 10px;
@@ -286,7 +295,7 @@ placeholder {
     flex-wrap: wrap;
     margin-top: 2rem;
     gap: 10px;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     padding: 10px;
     width: 50vw;
@@ -319,11 +328,13 @@ placeholder {
     margin-right: 16px;
     font-weight: normal;
     text-decoration: none;
-    color: black;
+    color: black !important;
+    opacity: 1 !important;
+    cursor: pointer;
 }
 
 .CreateCard-Button:hover {
-    background-color: #c9c9c9;
+    background-color: #d7e2ed;
 }
 
 p{
@@ -343,21 +354,35 @@ p{
 }
 
 .Delete-Button{
-    border-radius: 5px;
+    border-radius: 12px;
     background-color: white;
     border: none;
-    width: 2vw;
-    height: 4vh;
+    min-width: 2vw;
+    min-height: 4vh;
 }
 
     .Delete-Button:hover {
-        background-color: #c9c9c9;
+        background-color: #e6c2c2;
+    }
+
+.Edit-Button {
+    border-radius: 12px;
+    background-color: white;
+    border: none;
+    min-width: 2vw;
+    min-height: 4vh;
+}
+
+    .Edit-Button:hover {
+        background-color: #c3f5ed;
     }
 
 .Delete-Button-Container{
     display: flex;
-    justify-content: space-between;
-    margin-top: 6vh;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 4vh;
 }
 
 .Cards-Title-Container {
@@ -379,6 +404,7 @@ p{
     border-top-right-radius: 5px;
     padding: 30px;
 }
+
 /*User address view*/
 .Create-Address-PopUp {
     height: 80vh;
@@ -403,13 +429,21 @@ p{
 
 .Address-Item {
     display: inline-block;
-    background-color: #ECF4F6;
+    background-color: #eeeeee;
     width: 20vw;
-    height: 35vh;
+    min-height: 10rem;
+    height: auto;
     margin: 10px;
     padding: 10px;
     vertical-align: top;
     border-radius: 10px;
+    border: 1.8px solid #A2A2A2;
+}
+
+.Address-Item p {
+    color: black !important;
+    opacity: 1 !important;
+    font-weight: 400;
 }
 
 .CreateAddress-Button-Container {
@@ -420,7 +454,8 @@ p{
     align-content: center;
     align-items: center;
     width: 20vw;
-    height: 35vh;
+    min-height: 16rem;
+    height: auto;
     margin: 10px;
     vertical-align: top;
     border-radius: 10px;
@@ -433,22 +468,189 @@ a:hover{
 .Addresses-Container {
     display: flex;
     flex-wrap: wrap;
+    margin-top: 2rem;
     gap: 10px;
     justify-content: center;
     align-items: center;
     padding: 10px;
-    height: 120vh;
     width: 50vw;
 }
 
-.Address-Title-Container {
-    display: flex;
-    border-bottom: 1px solid black;
-    justify-content: left;
-    background-color: white;
-    width: 80vw;
+/**********************************************************************
+                        RESPONSIVENSS 
+***********************************************************************/
+
+/* Medium Screens (laptops) */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .Create-Address-PopUp {
+        width: 40vw;
+    }
+
+    .Address-Item {
+        width: 25vw;
+    }
+
+    .CreateAddress-Button-Container {
+        width: 25vw;
+    }
+
+    .Addresses-Container {
+        width: 60vw;
+    }
+
+    .Add-Address-Button {
+        width: 20vw;
+    }
+
+    /* Payment Cards */
+    .CreateCard-Button-Container {
+        width: 25vw;
+    }
+
+    .Card-Item {
+        width: 25vw;
+    }
+
+    .Cards-Container {
+        width: 60vw;
+    }
+
+    .CreateCard-Button {
+        width: 30px;
+        height: 30px;
+    }
+
+    .Card-Icon-Container {
+        justify-content: space-between;
+    }
+
+    .Delete-Button-Container {
+        margin-top: 3vh;
+    }
 }
 
+/* Tablet */
+@media (min-width: 768px) and (max-width: 991px) {
+    .Create-Address-PopUp {
+        width: 60vw;
+    }
+
+    .Address-Item {
+        width: 40vw;
+    }
+
+    .CreateAddress-Button-Container {
+        width: 40vw;
+    }
+
+    .Addresses-Container {
+        width: 80vw;
+    }
+
+    .Add-Address-Button {
+        width: 30vw;
+    }
+
+    /* Payment Cards */
+    .CreateCard-Button-Container {
+        width: 35vw;
+    }
+
+    .Card-Item {
+        width: 35vw;
+    }
+
+    .Cards-Container {
+        width: 70vw;
+    }
+
+    .CreateCard-Button {
+        width: 35px;
+        height: 35px;
+    }
+
+    .Card-Icon-Container {
+        justify-content: space-between;
+    }
+
+    .Delete-Button-Container {
+        margin-top: 3vh;
+    }
+}
+
+/* Phone */
+@media (max-width: 576px) {
+    .Create-Address-PopUp {
+        width: 80vw;
+    }
+
+    .Address-Item {
+        width: 80vw;
+        min-height: 12rem;
+    }
+
+    .CreateAddress-Button-Container {
+        width: 80vw;
+        min-height: 12rem;
+    }
+
+    .Addresses-Container {
+        width: 100%;
+    }
+
+    .Add-Address-Button {
+        width: 70vw;
+    }
+
+    .Card-Item {
+        display: flex;
+    }
+
+    .Add-Address-Button-Container {
+        flex-direction: column;
+    }
+
+    .Add-Address-Button {
+        margin-bottom: 10px;
+        width: 100%;
+    }
+
+    /* Payment CArds */
+    .CreateCard-Button-Container {
+        width: 70vw;
+        min-height: 12rem;
+    }
+
+    .Card-Item {
+        width: 70vw;
+        min-height: 12rem;
+    }
+
+    .Cards-Container {
+        width: 100%;
+    }
+
+    .CreateCard-Button {
+        width: 40px;
+        height: 40px;
+    }
+
+    .Card-Icon-Container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .Delete-Button-Container {
+        flex-direction: column;
+        margin-top: 3vh;
+    }
+
+    .Card-Item-none {
+        width: 70vw;
+        min-height: 12rem;
+    }
+
+}
 
 
 
