@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Tradie.Models.Products.WriteReviewViewModel
+
+@{
     Layout = "_Layout";
     ViewData["Title"] = "Write Product Review";
 }
@@ -16,7 +18,7 @@
 
     <!-- Subheading -->
     <div class="User-Data-Container">
-        <a asp-controller="UserProfile" asp-action="UserProductReviews">Pedidos pendientes de mi valoración (3)</a>
+        <a asp-controller="UserProfile" asp-action="UserProductReviews">Pedidos pendientes de mi valoración (@ViewBag.PendingCount)</a>
         <a asp-controller="UserProfile" asp-action="UserProductReviewsAboutYou">Valoraciones sobre ti</a>
         <a asp-controller="UserProfile" asp-action="UserProductReviewsYouWrote">Tus valoraciones</a>
     </div>
@@ -28,7 +30,7 @@
             <!-- Order Header -->
             <div class="Cards-Title-Container">
                 <p class="order-number-text">
-                    <span class="order-number">Nº del pedido:&nbsp;</span>456789123300
+                    <span class="order-number">Nº del pedido:&nbsp;</span>@Model.OrderNumber
                 </p>
             </div>
 
@@ -36,10 +38,10 @@
             <div class="Review-Row">
                 <!-- Column 1: Product Info -->
                 <div class="Review-Column product-info">
-                    <img src="https://picsum.photos/80" alt="Product Image" class="product-image" />
+                    <img src="@Model.Product.ImageUrl" alt="@Model.Product.Name" class="product-image" />
                     <div class="product-details">
-                        <p class="product-name">Wireless Mouse</p>
-                        <p class="product-price">€23.99 <span class="product-qty">x2</span></p>
+                        <p class="product-name">@Model.Product.Name</p>
+                        <p class="product-price">€@Model.Product.Price.ToString("F2") <span class="product-qty">x@Model.Quantity</span></p>
                     </div>
                 </div>
 
@@ -47,17 +49,38 @@
                 <div class="Review-Column review-client">
                     <div class="client-review-details">
                         <p class="review-title">Escribir una reseña:</p>
+
+                        <form asp-action="WriteReview" method="post">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" asp-for="OrderId" />
+                            <input type="hidden" asp-for="Product.Id" />
+
                         <div class="star-rating interactive-stars">
-                            <span class="iconify" data-icon="material-symbols:star-outline" data-index="1"></span>
-                            <span class="iconify" data-icon="material-symbols:star-outline" data-index="2"></span>
-                            <span class="iconify" data-icon="material-symbols:star-outline" data-index="3"></span>
-                            <span class="iconify" data-icon="material-symbols:star-outline" data-index="4"></span>
-                            <span class="iconify" data-icon="material-symbols:star-outline" data-index="5"></span>
-                            <span class="review-score">0.0</span>
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    <span class="iconify"
+                                          data-icon="material-symbols:star-outline"
+                                          data-index="@i"
+                                          onclick="setRating(@i)"
+                                          style="cursor:pointer; font-size:24px; color:#ccc;">
+                                    </span>
+                                }
+                                <span class="review-score">@Model.UserRating.ToString("0.0")</span>
+                                <input type="hidden" asp-for="UserRating" id="hiddenRating" />
                         </div>
 
-                        <textarea class="review-textarea" placeholder="Escribir tu reseña aquí..."></textarea>
-                        <button class="submit-review-btn">Guardar valoración</button>
+                            <div class="mb-3 mt-3">
+                                <textarea asp-for="UserComment"
+                                          class="review-textarea form-control"
+                                          placeholder="Escribir tu reseña aquí..."
+                                          rows="4"></textarea>
+                                <span asp-validation-for="UserComment" class="text-danger"></span>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary submit-review-btn">
+                                Guardar valoración
+                            </button>
+                        </form>
                     </div>
                 </div>
 
@@ -73,48 +96,18 @@
 
 <!-- Script for stars hover and click -->
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const starContainer = document.querySelector(".interactive-stars");
-        const stars = starContainer?.querySelectorAll(".iconify");
-        const scoreEl = starContainer?.querySelector(".review-score");
-
-        let currentRating = 0;      // Locked rating
-        let hoverRating = 0;        // Temporary hover state
-
-        if (!stars) return;
-
-        stars.forEach((star, index) => {
-            star.addEventListener("mouseover", () => {
-                hoverRating = index + 1;
-                updateStars(hoverRating);
-            });
-
-            star.addEventListener("mouseout", () => {
-                updateStars(currentRating);
-            });
-
-            star.addEventListener("click", () => {
-                currentRating = index + 1;
-                updateStars(currentRating);
-            });
-        });
-
-        function updateStars(rating) {
-            stars.forEach((star, i) => {
-                if (i < rating) {
-                    star.setAttribute("data-icon", "material-symbols:star");
-                    star.style.color = "#D49409";
-                } else {
-                    star.setAttribute("data-icon", "material-symbols:star-outline");
-                    star.style.color = "#ccc";
-                }
-            });
-
-            // Only update score visually on click or hover
-            if (scoreEl) {
-                scoreEl.textContent = rating.toFixed(1);
+    function setRating(rating) {
+        document.getElementById("hiddenRating").value = rating;
+        const stars = document.querySelectorAll(".interactive-stars .iconify");
+        stars.forEach((star, idx) => {
+            if (idx < rating) {
+                star.setAttribute("data-icon", "material-symbols:star");
+                star.style.color = "#D49409";
+            } else {
+                star.setAttribute("data-icon", "material-symbols:star-outline");
+                star.style.color = "#ccc";
             }
-        }
-    });
+        });
+        document.querySelector(".review-score").textContent = rating.toFixed(1);
+    }
 </script>
-
