@@ -45,11 +45,11 @@
         <div class="Orders-Container">
             <div class="Orders-Title-Container">
                 <h2>Pedidos</h2>
-                <a class="Orders-Link" asp-controller="Order" asp-action="Pedidos">Ver todos</a>
+                <a class="Orders-Link" asp-controller="Order" asp-action="Orders">Ver todos</a>
             </div>
             <div class="Order-Buttons-Container">
-                <a class="Order-Button" asp-controller="Order" asp-action="UserPedidosProcesado"><span class="iconify Icon-Mini" data-icon="solar:wallet-bold"></span><br />Procesados</a>
-                <a class="Order-Button" asp-controller="Order" asp-action="UserPedidosProcesado"><span class="iconify Icon-Mini" data-icon="mdi:truck-delivery"></span><br />Paquetes enviados</a>
+                <a class="Order-Button" asp-controller="Order" asp-action="UserOrdersProcessed"><span class="iconify Icon-Mini" data-icon="solar:wallet-bold"></span><br />Procesados</a>
+                <a class="Order-Button" asp-controller="Order" asp-action="UserOrdersDelivered"><span class="iconify Icon-Mini" data-icon="mdi:truck-delivery"></span><br />Paquetes enviados</a>
                 <a class="Order-Button" asp-controller="UserProfile" asp-action="UserProductReviews"><span class="iconify Icon-Mini" data-icon="material-symbols:rate-review-rounded"></span><br />Pendientes de valoración</a>
             </div>
         </div>

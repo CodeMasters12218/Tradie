@@ -20,7 +20,7 @@ namespace Tradie.Controllers
 			return View();
 		}
 
-		public async Task<IActionResult> Pedidos()
+		public async Task<IActionResult> Orders()
 		{
 			var user = await _userManager.GetUserAsync(User);
 			if (user == null) return RedirectToAction("Login", "Account");
@@ -32,10 +32,10 @@ namespace Tradie.Controllers
 				.SelectMany(o => o.Items)
 				.ToListAsync();
 
-			return View("~/Views/UserProfile/UserPedidos.cshtml", items);
+			return View("~/Views/UserProfile/UserOrders.cshtml", items);
 		}
 
-		public async Task<IActionResult> UserPedidosProcesado()
+		public async Task<IActionResult> UserOrdersProcessed()
 		{
 			var user = await _userManager.GetUserAsync(User);
 			if (user == null)
@@ -48,10 +48,10 @@ namespace Tradie.Controllers
 				.SelectMany(o => o.Items)
 				.ToListAsync();
 
-			return View("~/Views/UserProfile/UserPedidosProcesado.cshtml", processedItems);
+			return View("~/Views/UserProfile/UserOrdersProcessed.cshtml", processedItems);
 		}
 
-		public async Task<IActionResult> UserPedidosEnviado()
+		public async Task<IActionResult> UserOrdersDelivered()
 		{
 			var user = await _userManager.GetUserAsync(User);
 			if (user == null)
@@ -64,7 +64,7 @@ namespace Tradie.Controllers
 				.SelectMany(o => o.Items)
 				.ToListAsync();
 
-			return View("~/Views/UserProfile/UserPedidosEnviado.cshtml", enviados);
+			return View("~/Views/UserProfile/UserOrdersDelivered.cshtml", enviados);
 		}
 
 	}

@@ -3,7 +3,7 @@
 
 @{
     Layout = "_Layout";
-    ViewData["Title"] = "Pedidos Enviados";
+    ViewData["Title"] = "Pedidos Procesados";
 }
 
 <link rel="stylesheet" href="~/css/Reviews.css" />
@@ -14,14 +14,14 @@
 <div class="Main-Container">
     <!-- Header -->
     <div class="Logout-Container">
-        <h1>Mi cuenta > Mis pedidos ><span> Enviado</span></h1>
+        <h1>Mi cuenta > Mis pedidos ><span> Procesado</span></h1>
     </div>
 
     <!-- Subheading -->
     <div class="User-Data-Container">
-        <a asp-controller="Order" asp-action="Pedidos">Ver todo</a>
-        <h2 class="h2-active">Enviado</h2>
-        <a asp-controller="Order" asp-action="UserPedidosProcesado">Procesado</a>
+        <a asp-controller="Order" asp-action="Orders">Ver todo</a>
+        <a asp-controller="Order" asp-action="UserOrdersDelivered">Enviado</a>
+        <h2 class="h2-active">Procesado</h2>
     </div>
 
     @foreach (var item in Model)
@@ -29,7 +29,7 @@
         <div class="Container-Container">
             <div class="Cards-Container">
                 <div class="Cards-Title-Container">
-                    <p>Finalizado</p>
+                    <p>Procesado</p>
                 </div>
 
                 <div class="Review-Row">

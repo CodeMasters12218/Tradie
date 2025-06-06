@@ -3,7 +3,7 @@
 
 @{
     Layout = "_Layout";
-    ViewData["Title"] = "Pedidos";
+    ViewData["Title"] = "Pedidos Enviados";
 }
 
 <link rel="stylesheet" href="~/css/Reviews.css" />
@@ -14,28 +14,25 @@
 <div class="Main-Container">
     <!-- Header -->
     <div class="Logout-Container">
-        <h1>Mi cuenta ><span> Mis pedidos</span></h1>
+        <h1>Mi cuenta > Mis pedidos ><span> Enviado</span></h1>
     </div>
 
     <!-- Subheading -->
     <div class="User-Data-Container">
-        <h2 class="h2-active">Ver todo</h2>
-        <a asp-controller="Order" asp-action="UserPedidosEnviado">Enviado</a>
-        <a asp-controller="Order" asp-action="UserPedidosProcesado">Procesado</a>
+        <a asp-controller="Order" asp-action="Orders">Ver todo</a>
+        <h2 class="h2-active">Enviado</h2>
+        <a asp-controller="Order" asp-action="UserOrdersProcessed">Procesado</a>
     </div>
 
     @foreach (var item in Model)
     {
-        <!-- Cards -->
         <div class="Container-Container">
-
             <div class="Cards-Container">
                 <div class="Cards-Title-Container">
-                    <p>@(item.Order.Status == OrderStatus.Enviado ? "Finalizado" : "Procesado")</p>
+                    <p>Finalizado</p>
                 </div>
 
                 <div class="Review-Row">
-                    <!-- Column 1: Product details -->
                     <div class="Review-Column product-info">
                         <img src="@item.Product.ImageUrl" alt="@item.Product.Name" class="product-image" />
                         <div class="product-details">
@@ -44,12 +41,9 @@
                         </div>
                     </div>
 
-                    <!-- Column 2: Total price & buttons -->
                     <div class="Review-Column review-client">
                         <div class="item-price-delete">
                             <p class="subtotal-value">Total: €@(item.Quantity * item.PricePaid).ToString("F2")</p>
-
-                            <!-- Add to Cart -->
                             <form method="post" asp-controller="Wishlist" asp-action="AddToCart">
                                 <input type="hidden" name="itemId" value="@item.Id" />
                                 <button type="submit" class="btn btn-primary add-to-cart-btn text-white">
@@ -58,12 +52,8 @@
                             </form>
                         </div>
                     </div>
-
                 </div>
-
             </div>
-
         </div>
     }
-
 </div>
