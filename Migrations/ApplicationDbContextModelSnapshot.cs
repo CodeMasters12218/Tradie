@@ -794,7 +794,7 @@ namespace Tradie.Migrations
                     b.HasOne("Tradie.Models.Products.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Tradie.Models.Users.Customer", null)
@@ -804,7 +804,7 @@ namespace Tradie.Migrations
                     b.HasOne("Tradie.Models.Users.Seller", "Seller")
                         .WithMany("Products")
                         .HasForeignKey("SellerId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Category");

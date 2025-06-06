@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using Tradie.Data;
 using Tradie.Models;
+using Tradie.Models.Products;
 
 namespace Tradie.Controllers
 {
@@ -35,9 +36,13 @@ namespace Tradie.Controllers
 					wishlistProductIds = wishlist.Items.Select(i => i.ProductId).ToList();
 				}
 			}
+			//Solution for categories problem
+            var schema = _context.Model.FindEntityType(typeof(Product));
+            var columns = schema.GetProperties().Select(p => p.Name);
+            Console.WriteLine(string.Join(", ", columns));
 
-			// Step 3: Set ViewBag so the _ProductCard.cshtml can use it
-			ViewBag.WishlistProductIds = wishlistProductIds;
+            // Step 3: Set ViewBag so the _ProductCard.cshtml can use it
+            ViewBag.WishlistProductIds = wishlistProductIds;
 
 			// Step 4: Build the HomeViewModel
 			var vm = new Tradie.Models.Home.HomeViewModel

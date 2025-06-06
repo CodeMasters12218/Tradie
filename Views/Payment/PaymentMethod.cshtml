@@ -22,39 +22,9 @@
                 <div>
                     <h1>Forma de Pago</h1>
                 </div>
-
-                <div class="Change-Method-Container">
-                    <button class="Change-Method-Button">Tarjeta de crédito o débito</button>
-                    <button class="Change-Method-Button-NonActive">Pagar con PayPal</button>
-                    <button class="Change-Method-Button-NonActive">Pagar con Google Pay</button>
-                </div>
-
-                <div class="Main-Country-Container">
-                    <div class="Country-Container">
-                        <label for="payoneerInput">Titular de la tarjeta</label>
-                        <input type="text" name="payoneerInput" class="Country" placeholder="Introduce al titular de la tarjeta">
-                        <label for="cardNumber">Número de la tarjeta</label>
-                        <input type="number" maxlength="16" minlength="16" name="cardNumber" class="Country" placeholder="XXXX-XXXX-XXXX-XXXX">
-                    </div>
-                </div>
-                <div class="Card-Atributes-Container">
-                    <div class="Card-Atributes">
-                        <label for="expirationDate">Fecha de caducidad</label>
-                        <input type="date" name="expirationDate" placeholder="XX/XX/XXXX">
-                    </div>
-                    <div class="Card-Atributes">
-                        <label for="cvc">CVC</label>
-                        <input type="number" minlength="3" maxlength="3" name="cvc" placeholder="XXX">
-                    </div>
-                </div>
-                <div class="Checkbox-Container">
-                    <div class="Checkbox">
-                        <input type="checkbox" name="markAsmMainCard" class="Checkbox-Input">
-                        <label for="markAsmMainCard" class="Checkbox-Label">Marcar como tarjeta principal</label>
-                    </div>
-                    <div class="Checkbox">
-                        <input type="checkbox" name="keepPaymentData" class="Checkbox-Input">
-                        <label for="keepPaymentData" class="Checkbox-Label">Guardar los datos de pago para las compras en el futuro</label>
+                <div class="Container-Paypal">
+                    <div class="text-center">
+                        <div id="paypal-button-container"></div>
                     </div>
                 </div>
                 <div class="Payment-Container">
@@ -88,3 +58,43 @@
 </div>
 
 <script src="script.js" defer></script>
+
+@section Scripts {
+    @*Use ViewBag.ClientId to load Paypal Javascript SDK*@
+    <script src="https://www.paypal.com/sdk/js?client-id=ARhjVr3cyacpJMlXbUQfis9jz40E6HOAUByIJhmFD_0YiHM6L_2Yr3Z47nLbLGJPCHND-Xg97pX0hApo"></script>
+
+    <script>
+        paypal.Buttons({
+            style: {
+                layout: 'vertical',
+                color: 'silver',
+                tagline: 'false'
+            },
+
+                    createOrder: (data, actions) => {
+            const totalPrice = "@Model.Total.ToString("0.00")";
+
+            return fetch("/Checkout/Order", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ price: totalPrice })
+            }).then(response => response.text())
+              .then(text => {
+                  return JSON.parse(text).id;
+              })
+              .catch(error => alert("Error al procesar la orden: " + error.message));
+        },
+            onApprove: (data, actions) => { 
+                return fetch(`/Checkout/Capture?orderId=${data.orderID}`, {
+                    method: "post",
+                }).then((response) => {
+                    if (!response.ok) {
+                        return response.json().then(error => { throw error; });
+                    }
+
+                    window.location.href = "/Checkout/Success";
+                }).catch(error => alert(error.message));
+            }
+        }).render('#paypal-button-container');
+    </script>
+}
