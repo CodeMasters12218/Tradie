@@ -27,13 +27,14 @@
     </div>
 
 
-    <!-- Updated container with navigation arrows -->
+    <!-- Navigation arrows -->
     <div class="slider-container">
         <div class="slider-wrapper" id="home-slider">
             <div class="product-group" id="ropa-products">
                 <div class="card-container">
                     @foreach (var product in Model.RopaProducts)
                     {
+                        ViewData["CategoryName"] = "Ropa de Hombres";
                         @await Html.PartialAsync("_ProductCard", product)
                     }
                 </div>
@@ -43,6 +44,7 @@
                 <div class="card-container">
                     @foreach (var product in Model.ElectronicaProducts)
                     {
+                        ViewData["CategoryName"] = "Electrónica";
                         @await Html.PartialAsync("_ProductCard", product)
                     }
                 </div>
@@ -52,6 +54,7 @@
                 <div class="card-container">
                     @foreach (var product in Model.InformaticaProducts)
                     {
+                        ViewData["CategoryName"] = "Informática";
                         @await Html.PartialAsync("_ProductCard", product)
                     }
                 </div>
@@ -118,16 +121,18 @@
             <div class="card-container">
                 @if (Model.RecienLlegados != null && Model.RecienLlegados.Any())
                 {
-                    @foreach (var product in Model.RecienLlegados)
+                    foreach (var product in Model.RecienLlegados)
                     {
+                        var categoryName = product.Category?.Name ?? "SinCategoria";
+                        var subcategory = product.Subcategory ?? "SinSubcategoria";
+                        var productUrl = $"/Category{categoryName}/{subcategory}/{product.Id}";
+                        var isFavorited = ViewBag.WishlistProductIds != null &&
+                        ((List<int>)ViewBag.WishlistProductIds).Contains(product.Id);
+                        var isInCart = ViewBag.CartProductIds != null &&
+                        ((List<int>)ViewBag.CartProductIds).Contains(product.Id);
+
                         <div class="card">
                             <div class="heart-icon-container">
-                                <!-- Favorite Button -->
-                                @{
-                                    var isFavorited = ViewBag.WishlistProductIds != null &&
-                                    ((List<int>)ViewBag.WishlistProductIds).Contains(product.Id);
-                                }
-
                                 <form asp-controller="Wishlist"
                                       asp-action="ToggleWishlistItem"
                                       method="post"
@@ -142,18 +147,21 @@
                                 </form>
                             </div>
 
-                            <img src="@(string.IsNullOrEmpty(product.ImageUrl) ? Url.Content("~/images/default-product.png") : product.ImageUrl)"
-                                 class="card-img-top"
-                                 alt="@product.Name"
-                                 onerror="this.onerror=null; this.src='@Url.Content("~/images/default-product.png")';" />
+                            <a href="@productUrl">
+                                <img src="@(string.IsNullOrEmpty(product.ImageUrl) ? Url.Content("~/images/default-product.png") : product.ImageUrl)"
+                                     class="card-img-top"
+                                     alt="@product.Name"
+                                     onerror="this.onerror=null; this.src='@Url.Content("~/images/default-product.png")';" />
+                            </a>
 
                             <div class="card-body">
-                                <h5 class="card-title">@product.Name</h5>
-                                <p class="card-text">@product.Description</p>
-                                <h5 class="price">€@product.Price.ToString("F2")</h5>
+                                <a href="@productUrl">
+                                    <h5 class="card-title">@product.Name</h5>
+                                    <p class="card-text">@product.Description</p>
+                                    <h5 class="price">€@product.Price.ToString("F2")</h5>
+                                </a>
 
                                 <div class="cart-icon-container mt-2">
-                                    <!-- Add to Cart -->
                                     <form asp-controller="ShoppingCart"
                                           asp-action="AddToCart"
                                           method="post"
@@ -161,16 +169,15 @@
                                         <input type="hidden" name="productId" value="@product.Id" />
                                         <input type="hidden" name="returnUrl" value="@($"{Context.Request.Path}{Context.Request.QueryString}")" />
                                         <button type="submit"
-                                                class="add-to-cart-btn btn-sm w-100 add-to-cart-btn @(ViewBag.CartProductIds != null && ((List<int>)ViewBag.CartProductIds).Contains(product.Id) ? "added disabled" : "")"
-                                        @(ViewBag.CartProductIds != null && ((List<int>)ViewBag.CartProductIds).Contains(product.Id) ? "disabled" : "")
+                                                class="add-to-cart-btn btn-sm w-100 add-to-cart-btn @(isInCart ? "added disabled" : "")"
+                                        @(isInCart ? "disabled" : "")
                                                 onclick="toggleCart(this)">
-                                            @(ViewBag.CartProductIds != null && ((List<int>)ViewBag.CartProductIds).Contains(product.Id) ? "Añadido en la cesta" : "Añadir a la cesta")
-                                            <i class="bi @(ViewBag.CartProductIds != null && ((List<int>)ViewBag.CartProductIds).Contains(product.Id) ? "bi-cart-check" : "bi-cart")"></i>
+                                            @(isInCart ? "Añadido en la cesta" : "Añadir a la cesta")
+                                            <i class="bi @(isInCart ? "bi-cart-check" : "bi-cart")"></i>
                                         </button>
                                     </form>
                                 </div>
                             </div>
-
                         </div>
                     }
                 }

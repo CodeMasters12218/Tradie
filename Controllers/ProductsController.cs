@@ -9,7 +9,8 @@ using Tradie.Models.Users;
 
 namespace Tradie.Controllers
 {
-	[Authorize(Roles = "Admin, Seller")]
+	//[Authorize(Roles = "Admin, Seller")] por si hace falta revertirlo
+	[Authorize]
 	public class ProductsController : BaseController
 	{
 		private readonly ApplicationDbContext _context;
@@ -242,19 +243,32 @@ namespace Tradie.Controllers
 
 			return RedirectToAction(nameof(Index));
 		}
-
-		[HttpPost]
-		[Authorize]
+        [Authorize]
+        [HttpPost]
 		public async Task<IActionResult> AddReview(int productId, int rating, string content)
 		{
 			// Obtén el ID del usuario autenticado
 			var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
-			// Crea la nueva reseña
-			var review = new Review
+            // Buscar una orden del cliente que incluya este producto
+            var order = await _context.Orders
+                .Include(o => o.Items)
+                .FirstOrDefaultAsync(o => o.CustomerId == userId &&
+                                          o.Items.Any(i => i.ProductId == productId));
+
+            if (order == null)
+            {
+                // El usuario no compró este producto → no puede reseñarlo
+                TempData["Error"] = "Solo puedes dejar una reseña si has comprado este producto.";
+                return RedirectToAction("Details", new { id = productId });
+            }
+
+            // Crea la nueva reseña
+            var review = new Review
 			{
 				ProductId = productId,
 				CustomerId = userId,
+				OrderId = order.Id,
 				Rating = rating,
 				Content = content,
 				CreatedAt = DateTime.UtcNow

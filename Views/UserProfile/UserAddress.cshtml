@@ -26,11 +26,11 @@
     <!-- Cards container -->
     <div class="Container-Container">
         <div class="MainContainer">
-            <div class="Cards-Title-Container-Container">
-                <div class="Address-Title-Container">
-                    <h1>Tus tarjetas de direcciones</h1>
-                </div>
+
+            <div class="Cards-Title-Container">
+                <h2>Tus tarjetas de direcciones</h2>
             </div>
+
             <div class="Addresses-Container">
                 <div class="CreateAddress-Button-Container">
                     <a class="CreateCard-Button" id="CreateAddressButton">+</a>
@@ -47,8 +47,8 @@
                             <p>@a.Country</p>
                             <p>@("Número de teléfono: " + a.Phone)</p>
                             <div class="Delete-Button-Container">
-                                <button class="Delete-Button" id="EditAddressButton"><span class="iconify" data-icon="mdi:pencil"></span></button>
-                                <button class="Delete-Button" id="DeleteAddressButton"><span class="iconify" data-icon="mdi:delete"></span></button>
+                                <button class="Edit-Button" title="Editar la dirección" id="EditAddressButton"><span class="iconify" data-icon="mdi:pencil"></span></button>
+                                <button class="Delete-Button" title="Borrar la dirección" id="DeleteAddressButton"><span class="iconify" data-icon="mdi:delete"></span></button>
                             </div>
                         </div>
                     }

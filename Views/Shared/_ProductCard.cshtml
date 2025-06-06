@@ -1,14 +1,15 @@
 ﻿@model Tradie.Models.Products.Product
 
+@{
+    var categoryName = ViewData["CategoryName"] as string ?? Model.Category?.Name ?? "SinCategoria";
+    var subcategory = Model.Subcategory ?? "SinSubcategoria";
+    var productUrl = $"/Category{categoryName}/{subcategory}/{Model.Id}";
+}
+
 <div class="card">
     <div class="image-container">
         <!-- Image -->
-        <a asp-controller="Category"
-           asp-action="Details"
-           asp-route-name="@Model.Category?.Name"
-           asp-route-subcategory="@Model.Subcategory"
-           asp-route-id="@Model.Id">
-
+        <a href="@productUrl">
             <img src="@(string.IsNullOrEmpty(Model.ImageUrl) ? Url.Content("~/images/default-product.png") : Model.ImageUrl)" class="card-img-top" alt="@Model.Name">
         </a>
 
@@ -34,12 +35,7 @@
 
     <!-- Card Body -->
     <div class="card-body">
-        <a asp-controller="Category"
-           asp-action="Details"
-           asp-route-name="@Model.Category?.Name"
-           asp-route-subcategory="@Model.Subcategory"
-           asp-route-id="@Model.Id"
-           class="product-card-link">
+        <a href="@productUrl">
             
            <h5 class="card-title">@Model.Name</h5>
             <p class="card-text"> @Model.Description</p>

@@ -40,20 +40,8 @@
                 <a id="DeleteButton" class="Delete-Account" asp-controller="UserProfile" asp-action="UserDeleteProfile">Borrar mi cuenta</a>
             </div>
         </div>
-        <!--Orders container-->
-        <div class="Orders-Container">
-            <div class="Orders-Title-Container">
-                <h2>Pedidos</h2>
-                <a href="" class="Orders-Link">Ver todos</a>
-            </div>
-            <div class="Order-Buttons-Container">
-                <button class="Order-Button"><span class="iconify Icon-Mini" data-icon="solar:wallet-bold"></span><br />Pendientes de pago</button>
-                <button class="Order-Button"><span class="iconify Icon-Mini" data-icon="mdi:receipt-text-pending"></span><br />Pendientes de envío</button>
-                <button class="Order-Button"><span class="iconify Icon-Mini" data-icon="mdi:truck-delivery"></span><br />Paquetes enviados</button>
-                <a class="Order-Button" asp-controller="UserProfile" asp-action="UserProductReviews"><span class="iconify Icon-Mini" data-icon="material-symbols:rate-review-rounded"></span><br />Pendientes de valoración</a>
-            </div>
-        </div>
-        <!--Other stuff container-->
+
+        <!-- Other Stuff -->
         <div class="Other-Stuff-Container">
             <div class="Stuff-Container">
                 <a asp-controller="Wishlist" asp-action="Index" class="Stuff-Link">
@@ -61,24 +49,10 @@
                         <h2 class="Stuff-h2">Lista de deseos</h2>
                         <div class="Stuff-Icon-Container">
                             <div class="Icon-container">
-                                <span class="iconify Icon" data-icon="solar:wallet-bold"></span>
+                                <span class="iconify Icon" data-icon="mdi:heart"></span>
                             </div>
                             <div>
                                 <p class="Stuff-Text">Ve y modifica tu lista de deseos o añade los productos a tu carrito</p>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-
-                <a asp-controller="UserProfile" asp-action="Orders" class="Stuff-Link">
-                    <div class="Stuff-Data-Container">
-                        <h2 class="Stuff-h2">Mis pedidos</h2>
-                        <div class="Stuff-Icon-Container">
-                            <div class="Icon-container">
-                                <span class="iconify Icon" data-icon="solar:wallet-bold"></span>
-                            </div>
-                            <div>
-                                <p class="Stuff-Text">Rastrear, devolver, cancelar un pedido, descargar la factura o volver a comprar.</p>
                             </div>
                         </div>
                     </div>
@@ -98,29 +72,15 @@
                     </div>
                 </a>
 
-                <a asp-controller="UserProfile" asp-action="UserAddress" class="Stuff-Link">
+                <a asp-controller="UserAddress" asp-action="Index" class="Stuff-Link">
                     <div class="Stuff-Data-Container">
                         <h2 class="Stuff-h2">Direcciones de envío</h2>
                         <div class="Stuff-Icon-Container">
                             <div class="Icon-container">
-                                <span class="iconify Icon" data-icon="solar:wallet-bold"></span>
+                                <span class="iconify Icon" data-icon="mdi:map-marker"></span>
                             </div>
                             <div>
                                 <p class="Stuff-Text">Editar, eliminar o configurar la dirección de envío predeterminada.</p>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-
-                <a asp-controller="UserProfile" asp-action="LoginHistory" class="Stuff-Link">
-                    <div class="Stuff-Data-Container">
-                        <h2 class="Stuff-h2">Inicio de sesión</h2>
-                        <div class="Stuff-Icon-Container">
-                            <div class="Icon-container">
-                                <span class="iconify Icon" data-icon="solar:wallet-bold"></span>
-                            </div>
-                            <div>
-                                <p class="Stuff-Text">Ver el historial de los inicios de sesión de tu cuenta.</p>
                             </div>
                         </div>
                     </div>
@@ -131,7 +91,7 @@
                         <h2 class="Stuff-h2">Valoraciones</h2>
                         <div class="Stuff-Icon-Container">
                             <div class="Icon-container">
-                                <span class="iconify Icon" data-icon="solar:wallet-bold"></span>
+                                <span class="iconify Icon" data-icon="mdi:star"></span>
                             </div>
                             <div>
                                 <p class="Stuff-Text">Escribe, lee, modifica o borra tus valoraciones.</p>
@@ -139,9 +99,24 @@
                         </div>
                     </div>
                 </a>
-
             </div>
         </div>
+
+
+        <!--Orders container-->
+        <div class="Orders-Container disabled">
+            <div class="Orders-Title-Container">
+                <h2>Pedidos</h2>
+                <a href="" class="Orders-Link">Ver todos</a>
+            </div>
+            <div class="Order-Buttons-Container">
+                <button class="Order-Button"><span class="iconify Icon-Mini" data-icon="solar:wallet-bold"></span><br />Pendientes de pago</button>
+                <button class="Order-Button"><span class="iconify Icon-Mini" data-icon="mdi:receipt-text-pending"></span><br />Pendientes de envío</button>
+                <button class="Order-Button"><span class="iconify Icon-Mini" data-icon="mdi:truck-delivery"></span><br />Paquetes enviados</button>
+                <a class="Order-Button" asp-controller="UserProfile" asp-action="UserProductReviews"><span class="iconify Icon-Mini" data-icon="material-symbols:rate-review-rounded"></span><br />Pendientes de valoración</a>
+            </div>
+        </div>
+
     </div>
     <!--Pop-Ups-->
     <!--Logout Pop-Up-->
