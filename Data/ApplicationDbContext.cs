@@ -32,19 +32,21 @@ namespace Tradie.Data
 		public DbSet<UserCardModel> UserCards { get; set; }
 		public DbSet<UsersAddressModel> UserAddress { get; set; }
 
+
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
 
 			modelBuilder.Entity<UserCardProfileModel>().HasNoKey(); // Asegurar que no se trata como tabla
 
-			modelBuilder.Entity<Product>()
-				.HasOne(p => p.Seller)
-				.WithMany(u => u.Products)
-				.HasForeignKey(p => p.SellerId)
+            modelBuilder.Entity<Product>()
+				.HasOne(p => p.Category)
+				.WithMany()
+				.HasForeignKey(p => p.CategoryId)
 				.OnDelete(DeleteBehavior.Restrict);
 
-			modelBuilder.Entity<User>()
+            modelBuilder.Entity<User>()
+
 				.HasDiscriminator<string>("UserType")
 				.HasValue<Admin>("Admin")
 				.HasValue<Seller>("Seller")

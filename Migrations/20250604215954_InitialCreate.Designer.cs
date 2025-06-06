@@ -12,8 +12,8 @@ using Tradie.Data;
 namespace Tradie.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250602161154_AddCategoryIdToProduct")]
-    partial class AddCategoryIdToProduct
+    [Migration("20250604215954_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -250,6 +250,9 @@ namespace Tradie.Migrations
 
                     b.Property<int?>("CustomerId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -794,7 +797,7 @@ namespace Tradie.Migrations
                     b.HasOne("Tradie.Models.Products.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Tradie.Models.Users.Customer", null)
@@ -804,7 +807,7 @@ namespace Tradie.Migrations
                     b.HasOne("Tradie.Models.Users.Seller", "Seller")
                         .WithMany("Products")
                         .HasForeignKey("SellerId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Category");

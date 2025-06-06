@@ -49,8 +49,8 @@ namespace Tradie.Controllers
 
 				if (result.Succeeded)
 				{
-					return RedirectToAction("Index", "Home");
-				}
+                    return RedirectToAction("Index", "Home");
+                }
 				else
 				{
 					ModelState.AddModelError("", "El correo o la contraseña son incorrectos.");
