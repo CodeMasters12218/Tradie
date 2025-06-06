@@ -104,7 +104,7 @@ namespace Tradie.Controllers
 
 			var addedItem = cart.Items.FirstOrDefault(i => i.ProductId == product.Id);
 
-			TempData["ToastMessage"] = $"<strong>{addedItem.ProductName}</strong> was added to your <a href='/ShoppingCart'>cart</a>.";
+			TempData["ToastMessage"] = $"<strong>{addedItem.ProductName}</strong> se añade a tu <a href='/ShoppingCart'>carrito</a>.";
 			TempData["ToastType"] = "success";
 
 			return LocalRedirect(returnUrl ?? "/");

@@ -63,7 +63,7 @@ h1 {
 
 /* ==== HOME SECTION ==== */
 #home {
-    margin-bottom: 20px;
+    margin-bottom: 0;
     scroll-margin-top: 100px; /* Adjust based on your header height */
 }
 
@@ -276,21 +276,25 @@ h1 {
     .btn-ver:hover {
         background: transparent;
         color: black;
-        box-shadow: 5px 5px 10px gray;
+        box-shadow: 5px 5px 6px gray;
     }
 
 /* ==== OFERTAS SECTION ==== */
 #ofertas {
-    margin-top: 20px;
-    margin-bottom: 80px;
+    margin-top: 0;
+    margin-bottom: 0;
     display: flex;
     justify-content: center;
     flex-direction: column;
     scroll-margin-top: 120px; /* Adjust based on your header height */
 }
 
+#ofertas h1 {
+    margin: 0;
+}
+
     #ofertas .container-ofertas {
-        margin-top: 50px;
+        margin-top: 24px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -342,8 +346,8 @@ h1 {
 
 /* ==== RECIEN LLEGADOS SECTION ==== */
 #recientes {
-    margin-top: 60px;
-    margin-bottom: 80px;
+    margin-top: 50px;
+    margin-bottom: 4px;
     display: flex;
     justify-content: start;
     flex-direction: column;
@@ -357,7 +361,7 @@ h1 {
         align-items: center;
         width: 100%;
         gap: 10px;
-        margin: 24px 20px;
+        margin: 0 20px 20px;
     }
 
     #recientes .card {
@@ -454,7 +458,7 @@ h1 {
 
 /* ==== FAMOSOS SECTION ==== */
 #famosos {
-    margin-top: 80px;
+    margin-top: 0;
     margin-bottom: 80px;
     display: flex;
     justify-content: center;

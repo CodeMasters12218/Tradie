@@ -73,7 +73,15 @@
     font-weight: bold;
     cursor: pointer;
     width: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
+    .add-to-cart-btn:hover {
+        background-color: #282828 !important;
+        color: white !important;
+        cursor: pointer;
+        box-shadow: 5px 5px 10px gray;
+    }
 
 .product-right-column {
     width: 65%;

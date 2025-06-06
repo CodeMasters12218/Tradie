@@ -91,7 +91,7 @@ namespace Tradie.Controllers
 
 			await _context.SaveChangesAsync();
 
-			TempData["ToastMessage"] = $"<strong>{item.ProductName}</strong> was added to your <a href='/ShoppingCart'>cart</a>.";
+			TempData["ToastMessage"] = $"<strong>{item.ProductName}</strong> se añade a tu <a href='/ShoppingCart'>carrito</a>.";
 			TempData["ToastType"] = "success";
 
 			return RedirectToAction(nameof(Index));
@@ -145,7 +145,7 @@ namespace Tradie.Controllers
 
 			await _context.SaveChangesAsync();
 
-			TempData["ToastMessage"] = $"<strong>{product.Name}</strong> was added to your <a href='/Wishlist'>wishlist</a>.";
+			TempData["ToastMessage"] = $"<strong>{product.Name}</strong> se añade a la  <a href='/Wishlist'>lista de deseos</a>.";
 			TempData["ToastType"] = "success";
 
 			return LocalRedirect(returnUrl ?? "/");
@@ -178,7 +178,7 @@ namespace Tradie.Controllers
 			if (existingItem != null)
 			{
 				_context.WishlistItems.Remove(existingItem);
-				TempData["ToastMessage"] = $"Item removed from <a href='/Wishlist'>wishlist</a>.";
+				TempData["ToastMessage"] = $"Artículo eliminado de la <a href='/Wishlist'>lista de deseos</a>.";
 				TempData["ToastType"] = "info";
 			}
 			else
@@ -197,7 +197,7 @@ namespace Tradie.Controllers
 					Color = "Default"
 				});
 
-				TempData["ToastMessage"] = $"<strong>{product.Name}</strong> added to <a href='/Wishlist'>wishlist</a>.";
+				TempData["ToastMessage"] = $"<strong>{product.Name}</strong> se añade a la <a href='/Wishlist'>lista de deseos</a>.";
 				TempData["ToastType"] = "success";
 			}
 

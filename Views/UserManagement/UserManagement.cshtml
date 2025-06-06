@@ -143,9 +143,9 @@
                 <h1 class="UserCreation">Creación de Usuario</h1>
                 <button id="closeCreatePopUp" class="CloseButton">X</button>
             </div>
-            <div>
+
                 <!--form-Containers-->
-                <div>
+                <div class="form-container">
                     <form class="UserCreation" asp-controller="Users" asp-action="Create" method="post">
                         @Html.AntiForgeryToken()
                         <!--<input type="hidden" asp-for="CurrentUser.Id" />-->
@@ -181,7 +181,7 @@
                         </div>
                     </form>
                 </div>
-            </div>
+
         </div>
     </dialog>
 

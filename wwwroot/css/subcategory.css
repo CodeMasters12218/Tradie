@@ -35,6 +35,10 @@
     color: inherit;
 }
 
+    .product-link:hover {
+        text-decoration: none !important;
+        color: #d45e49;
+    }
 
 .product-info {
     padding: 10px;
