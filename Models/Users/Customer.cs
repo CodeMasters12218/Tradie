@@ -40,7 +40,7 @@ namespace Tradie.Models.Users
 			int id = 0;
 			int customerId = 0;
 			DateTime orderDate = DateTime.Now;
-			OrderStatus status = OrderStatus.Pending;
+			OrderStatus status = OrderStatus.Procesado;
 			List<CartItem> cartItems = ShoppingCart.GetItems();
 
 			List<OrderItem> items = cartItems.Select(ci =>

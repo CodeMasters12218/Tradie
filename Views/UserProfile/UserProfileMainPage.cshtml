@@ -41,6 +41,19 @@
             </div>
         </div>
 
+        <!--Orders container-->
+        <div class="Orders-Container">
+            <div class="Orders-Title-Container">
+                <h2>Pedidos</h2>
+                <a class="Orders-Link" asp-controller="Order" asp-action="Pedidos">Ver todos</a>
+            </div>
+            <div class="Order-Buttons-Container">
+                <a class="Order-Button" asp-controller="Order" asp-action="UserPedidosProcesado"><span class="iconify Icon-Mini" data-icon="solar:wallet-bold"></span><br />Procesados</a>
+                <a class="Order-Button" asp-controller="Order" asp-action="UserPedidosProcesado"><span class="iconify Icon-Mini" data-icon="mdi:truck-delivery"></span><br />Paquetes enviados</a>
+                <a class="Order-Button" asp-controller="UserProfile" asp-action="UserProductReviews"><span class="iconify Icon-Mini" data-icon="material-symbols:rate-review-rounded"></span><br />Pendientes de valoración</a>
+            </div>
+        </div>
+
         <!-- Other Stuff -->
         <div class="Other-Stuff-Container">
             <div class="Stuff-Container">
@@ -102,23 +115,9 @@
             </div>
         </div>
 
-
-        <!--Orders container-->
-        <div class="Orders-Container disabled">
-            <div class="Orders-Title-Container">
-                <h2>Pedidos</h2>
-                <a href="" class="Orders-Link">Ver todos</a>
-            </div>
-            <div class="Order-Buttons-Container">
-                <button class="Order-Button"><span class="iconify Icon-Mini" data-icon="solar:wallet-bold"></span><br />Pendientes de pago</button>
-                <button class="Order-Button"><span class="iconify Icon-Mini" data-icon="mdi:receipt-text-pending"></span><br />Pendientes de envío</button>
-                <button class="Order-Button"><span class="iconify Icon-Mini" data-icon="mdi:truck-delivery"></span><br />Paquetes enviados</button>
-                <a class="Order-Button" asp-controller="UserProfile" asp-action="UserProductReviews"><span class="iconify Icon-Mini" data-icon="material-symbols:rate-review-rounded"></span><br />Pendientes de valoración</a>
-            </div>
-        </div>
-
     </div>
-    <!--Pop-Ups-->
+
+    <!--POP-UPS-->
     <!--Logout Pop-Up-->
     <dialog id="LogOutPopUp">
         <div class="Logout-PopUp-Container">

@@ -1,0 +1,59 @@
+﻿@using Tradie.Models.Orders
+@model IEnumerable<Tradie.Models.Orders.OrderItem>
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Pedidos Enviados";
+}
+
+<link rel="stylesheet" href="~/css/Reviews.css" />
+<link href="https://fonts.googleapis.com/css2?family=Murecho:wght@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" rel="stylesheet">
+<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+
+<div class="Main-Container">
+    <!-- Header -->
+    <div class="Logout-Container">
+        <h1>Mi cuenta > Mis pedidos ><span> Enviado</span></h1>
+    </div>
+
+    <!-- Subheading -->
+    <div class="User-Data-Container">
+        <a asp-controller="Order" asp-action="Pedidos">Ver todo</a>
+        <h2 class="h2-active">Enviado</h2>
+        <a asp-controller="Order" asp-action="UserPedidosProcesado">Procesado</a>
+    </div>
+
+    @foreach (var item in Model)
+    {
+        <div class="Container-Container">
+            <div class="Cards-Container">
+                <div class="Cards-Title-Container">
+                    <p>Finalizado</p>
+                </div>
+
+                <div class="Review-Row">
+                    <div class="Review-Column product-info">
+                        <img src="@item.Product.ImageUrl" alt="@item.Product.Name" class="product-image" />
+                        <div class="product-details">
+                            <p class="product-name">@item.Product.Name</p>
+                            <p class="product-price">€@item.Product.Price.ToString("F2") <span class="product-qty">x@item.Quantity</span></p>
+                        </div>
+                    </div>
+
+                    <div class="Review-Column review-client">
+                        <div class="item-price-delete">
+                            <p class="subtotal-value">Total: €@(item.Quantity * item.PricePaid).ToString("F2")</p>
+                            <form method="post" asp-controller="Wishlist" asp-action="AddToCart">
+                                <input type="hidden" name="itemId" value="@item.Id" />
+                                <button type="submit" class="btn btn-primary add-to-cart-btn text-white">
+                                    Añadir a la cesta <i class="bi bi-cart"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
