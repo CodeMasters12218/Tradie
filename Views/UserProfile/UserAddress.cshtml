@@ -6,6 +6,7 @@
     ViewData["Title"] = "User's address page";
 }
 
+@Html.AntiForgeryToken()
 <link rel="stylesheet" href="~/css/UserEditProfile.css" />
 <link rel="stylesheet" href="~/css/Logout.CSS" />
 <link href="https://fonts.googleapis.com/css2?family=Murecho:wght@400&display=swap" rel="stylesheet">
@@ -47,8 +48,12 @@
                             <p>@a.Country</p>
                             <p>@("Número de teléfono: " + a.Phone)</p>
                             <div class="Delete-Button-Container">
-                                <button class="Edit-Button" title="Editar la dirección" id="EditAddressButton"><span class="iconify" data-icon="mdi:pencil"></span></button>
-                                <button class="Delete-Button" title="Borrar la dirección" id="DeleteAddressButton"><span class="iconify" data-icon="mdi:delete"></span></button>
+                                <button class="Edit-Button" title="Editar la dirección" id="EditAddressButton">
+                                    <span class="iconify" data-icon="mdi:pencil"></span>
+                                </button>
+                                <button class="Delete-Button" data-address-id="@a.Id" title="Borrar la dirección">
+                                    <span class="iconify" data-icon="mdi:delete"></span>
+                                </button>
                             </div>
                         </div>
                     }
@@ -89,14 +94,14 @@
 </dialog>
 
 <!--Delete address Pop up-->
-<dialog id="DeleteAddressPopup" class="Create-Address-PopUp">
+<dialog id="DeleteAddressPopup">
     <div class="Logout-PopUp-Container">
         <div class="Leaving-Title-Container">
             <h1>Confirmar eliminación de dirección</h1>
         </div>
         <p>¿Estás seguro de que quieres eliminar esta dirección?</p>
         <div class="Logout-Button-Container">
-            <button id="DeleteAddressButton" class="Logout-Button">Eliminar dirección</button>
+            <button id="DeleteAddressButton" class="Logout-Button" data-address-id="" asp-controller="UserAddress" asp-action="DeleteAddress">Eliminar dirección</button>
             <button id="CancelButton" class="Cancel-Button" type="button">Cancelar</button>
         </div>
     </div>

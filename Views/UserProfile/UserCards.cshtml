@@ -6,6 +6,8 @@
     ViewData["Title"] = "User's cards page";  
 }  
 
+@Html.AntiForgeryToken()
+
 <link rel="stylesheet" href="~/css/UserEditProfile.css"/>  
 <link rel="stylesheet" href="~/css/Logout.CSS" />
 <link href="https://fonts.googleapis.com/css2?family=Murecho:wght@400&display=swap" rel="stylesheet">  
@@ -50,7 +52,9 @@
                                 <p>Email: @c.Email</p>
                                 <div class="Delete-Button-Container">
                                     <p>@c.CardType</p>
-                                    <button class="Delete-Button" id="DeleteCardButton" title="Borrar la tarjeta de pago"><span class="iconify" data-icon="mdi:delete"></span></button>
+                                    <button class="Delete-Button" data-card-id="@c.Id" title="Borrar la tarjeta de pago">
+                                        <span class="iconify" data-icon="mdi:delete"></span>
+                                    </button>
                                 </div>
                             }else
                             {
@@ -63,7 +67,9 @@
                                     <p>Email: @c.Email</p>
                                     <div class="Delete-Button-Container">
                                         <p>@c.CardType</p>
-                                        <button class="Delete-Button" id="DeleteCardButton" title="Borrar la tarjeta de pago"><span class="iconify" data-icon="mdi:delete"></span></button>
+                                        <button class="Delete-Button" data-card-id="@c.Id" title="Borrar la tarjeta de pago">
+                                            <span class="iconify" data-icon="mdi:delete"></span>
+                                        </button>
                                     </div>
                                 }else
                                 {
@@ -74,7 +80,9 @@
                                     <p>@c.Number</p>
                                     <div class="Delete-Button-Container">
                                         <p>@c.CardType</p>
-                                        <button class="Delete-Button" id="DeleteCardButton" title="Borrar la tarjeta de pago"><span class="iconify" data-icon="mdi:delete"></span></button>
+                                        <button class="Delete-Button" data-card-id="@c.Id" title="Borrar la tarjeta de pago">
+                                            <span class="iconify" data-icon="mdi:delete"></span>
+                                        </button>
                                     </div>
                                 }
                             }
@@ -101,7 +109,7 @@
         </div>
         <p>¿Estás seguro de que quieres eliminar esta tarjeta de pago?</p>
         <div class="Logout-Button-Container">
-            <button class="Logout-Button">Eliminar tarjeta</button>
+            <button class="Logout-Button" id="ConfirmDeleteButton" data-card-id="" asp-controller="UserCardProfile" asp-action="DeleteCard">Eliminar tarjeta</button>
             <button id="CancelButton" class="Cancel-Button">Cancelar</button>
         </div>
     </div>
