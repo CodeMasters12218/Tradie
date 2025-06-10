@@ -55,6 +55,23 @@
                 <li class="dropdown-submenu">
                     <a class="dropdown-item dropdown-toggle" href="#">Configuración</a>
                     <ul class="dropdown-menu">
+                        <!-- Manual de Usuario - Available for all users -->
+                        <li>
+                            <a class="dropdown-item"
+                               href="~/PDF/Manual_de_usuario.pdf"
+                               target="_blank">
+                                <i class="bi bi-book me-2"></i>Manual de Usuario
+                            </a>
+                        </li>
+
+                        <!-- Política de Privacidad - Available for all users -->
+                        <li>
+                            <a class="dropdown-item"
+                               href="https://docs.google.com/document/d/1AgljQ-ZBnpVQ68XQAuQqL08R8rGEJUAIjLDiR4pY27g/edit?usp=drivesdk"
+                               target="_blank">
+                                <i class="bi bi-shield-check me-2"></i>Política de Privacidad
+                            </a>
+                        </li>
 
                         @if (User.IsInRole("Admin"))
                         {
