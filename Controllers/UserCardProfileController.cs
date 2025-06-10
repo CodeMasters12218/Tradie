@@ -109,49 +109,32 @@ namespace Tradie.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteCard(int cardId, object _logger)
+        public async Task<IActionResult> DeleteCard(int cardId)
         {
-            using (var tx = await _context.Database.BeginTransactionAsync())
+            try
             {
-                try
+                var card = await _context.UserCards.FirstOrDefaultAsync(c => c.Id == cardId);
+                if (card == null)
                 {
-                    // Verificar si la tarjeta existe antes de eliminarla
-                    var cardExists = await _context.UserCards.AnyAsync(c => c.Id == cardId);
-                    if (!cardExists)
-                    {
-                        TempData["Error"] = "No se encontró la tarjeta de crédito para eliminar.";
-                        return RedirectToAction(nameof(Index));
-                    }
-
-					// Eliminar la tarjeta de crédito seleccionada
-					var rowsAffected = await _context.Database.ExecuteSqlRawAsync(
-						"DELETE FROM UserCards WHERE Id = {0};",
-						cardId
-					);
-
-                    if (rowsAffected == 0)
-                    {
-                        TempData["Error"] = "No se pudo eliminar la tarjeta.";
-                        await tx.RollbackAsync();
-                    }
-                    else
-                    {
-                        await tx.CommitAsync();
-                        TempData["Message"] = "Tarjeta eliminada exitosamente.";
-                    }
+                    TempData["Error"] = "No se encontró la tarjeta de crédito para eliminar.";
+                    return RedirectToAction(nameof(Index));
                 }
-                catch (Exception ex)
-                {
-                    await tx.RollbackAsync();
-                    TempData["Error"] = $"Error al eliminar tarjeta: {ex.Message}";
-                }
+
+                _context.UserCards.Remove(card);
+                await _context.SaveChangesAsync();
+
+                TempData["Message"] = "Tarjeta eliminada exitosamente.";
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = $"Error al eliminar tarjeta: {ex.Message}";
             }
 
-			return RedirectToAction(nameof(Index));
-		}
+            return RedirectToAction(nameof(Index));
+        }
 
 
-		public IActionResult UserCardCreate()
+        public IActionResult UserCardCreate()
 		{
 			return View("~/Views/UserProfile/UserCreditCardCreate.cshtml");
 		}
