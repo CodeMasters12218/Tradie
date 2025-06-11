@@ -20,12 +20,16 @@
 
 <body>
     <div class="Main-Container">
-        <div class="MyAccount-Container">
-            <h2 class="MyAccount">Mi cuenta ></h2><h2 class="DeleteH2">&nbsp;Eliminar cuenta</h2>
+        <!-- Header -->
+        <div class="Logout-Container">
+            <h1><a asp-action="UserProfileMainPage" asp-controller="UserProfile">Mi cuenta</a> ><span> Eliminar cuenta</span></h1>
         </div>
-        <div class="Delete-Title-Container">
+
+        <!-- Subheading -->
+        <div class="User-Data-Container">
             <h2>Eliminar mi cuenta</h2>
         </div>
+
         <p>Cuando usted utilice Tradie, almacenaremos sus datos para permitirle realizar transacciones con los vendedores, así como para propocionarle servicios relacionados. Si decide eliminar su cuenta personal, borraremos sus datos personales generados en Traide, y ya no podremos prestarle servicios.</p>
         <div class="Delete-Information">
             <div class="Container">
@@ -41,7 +45,7 @@
                 </div>
             </div>
             <div class="Delete-Button-Container">
-                <button id="DeleteButton" type="submit" class="Delete-Button"><b>Eliminar mi cuenta</b></button>
+                <button id="DeleteButton" type="submit" class="Delete-Button">Eliminar mi cuenta</button>
             </div>
         </div>
     </div>

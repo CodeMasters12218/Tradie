@@ -58,6 +58,7 @@ span {
     flex-direction: column;
     background-color: white;
     padding: 2rem 2rem;
+    margin-bottom: 10px;
     width: 100%;
     height: auto;
     border-radius: 5px;
@@ -232,8 +233,8 @@ placeholder {
 .btn-save-changes {
     background-color: #70D3C3;
     padding: 10px 30px;
-    border-radius: 12px;
-    border: 1.5px solid black;
+    border-radius: 10px;
+    border: 2px solid black;
     text-decoration: none;
 }
 

@@ -14,7 +14,11 @@
 <div class="Main-Container">
     <!-- Header -->
     <div class="Logout-Container">
-        <h1>Mi cuenta > Mis pedidos ><span> Enviado</span></h1>
+        <h1>
+            <a asp-action="UserProfileMainPage" asp-controller="UserProfile">Mi cuenta</a> >
+            <a asp-action="Orders" asp-controller="Order">Mis pedidos</a> >
+            <span> Enviado</span>
+        </h1>
     </div>
 
     <!-- Subheading -->

@@ -108,6 +108,16 @@
     */
 
 /****************** RESPONSIVENESS ****************/
+
+/** Mediuem Desktop **/
+@media (min-width: 992px) and (max-width: 1199px) {
+    .product-card {
+        width: 30%; /* Three columns */
+        max-width: 300px;
+    }
+}
+
+
 @media (max-width: 576px) {
     .subcategory-cards {
         flex-wrap: wrap; /* Allow wrapping */
@@ -120,4 +130,16 @@
     }
 
     .category-nav-link{}
+}
+
+/*** PHONES ***/
+@media (max-width: 576px) {
+    .product-grid {
+        justify-content: center;
+    }
+
+    .product-card {
+        width: calc(50% - 10px); /* Two columns with a small gap */
+        max-width: none;
+    }
 }

@@ -13,7 +13,11 @@
 <div class="Main-Container">
     <!-- Header -->
     <div class="Logout-Container">
-        <h1>Mi cuenta ><span> Valoraciones</span></h1>
+        <h1>
+            <a asp-action="UserProfileMainPage" asp-controller="UserProfile">Mi cuenta</a> >
+            <a asp-action="UserProductReviews" asp-controller="UserProfile">Valoraciones</a> >
+            <span> Tus Valoraciones</span>
+        </h1>
     </div>
 
     <!-- Subheading -->

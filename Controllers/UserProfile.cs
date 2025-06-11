@@ -44,14 +44,30 @@ namespace Tradie.Controllers
 			return RedirectToAction("Login", "Account");
 		}
 
-		public IActionResult UserEditProfile()
+		public async Task<IActionResult> UserEditProfile()
 		{
+			if (!User.Identity.IsAuthenticated)
+			{
+				return RedirectToAction("Login", "Account");
+			}
+
+			var user = await GetCurrentUserAsync();
+			if (user == null)
+			{
+				return RedirectToAction("Login", "Account");
+			}
+
 			var model = new UserEditProfileModel
 			{
-				FullName = "Juan Pérez",
-				Email = "juan@example.com",
-				PhoneNumber = "123456789",
-				Address = "Calle Falsa 123"
+				Name = user.Name,
+				LastNames = user.LastNames,
+				Email = user.Email,
+				PhoneNumber = user.PhoneNumber,
+				Address = "",
+				Country = "",
+				City = "",
+				Region = "",
+				PostalCode = ""
 			};
 
 			return View(model);
@@ -63,17 +79,72 @@ namespace Tradie.Controllers
 		}
 
 		[HttpPost]
-		public IActionResult SaveProfile(UserEditProfileModel model)
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> SaveProfile(UserEditProfileModel model)
 		{
+			if (!User.Identity.IsAuthenticated)
+			{
+				return RedirectToAction("Login", "Account");
+
+			}
 			if (!ModelState.IsValid)
 			{
-				return View("EditProfile", model);
+				return View("UserEditProfile", model);
 			}
 
-			// Save logic here (e.g., database update)
+			try
+			{
+				var user = await GetCurrentUserAsync();
+				if (user == null)
+				{
+					ModelState.AddModelError("", "Usuario no encontrado.");
+					return View("UserEditProfile", model);
+				}
 
-			// Redirect back to main profile page after save
-			return RedirectToAction("Index", "UserProfile");
+				// Update user properties
+				user.Name = model.Name;
+				user.LastNames = model.LastNames;
+				user.Email = model.Email;
+				user.UserName = model.Email;
+				user.PhoneNumber = model.PhoneNumber;
+
+				var result = await _userManager.UpdateAsync(user);
+
+				if (result.Succeeded)
+				{
+					// Handle password change if provided
+					if (!string.IsNullOrEmpty(model.NewPassword))
+					{
+						var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+						var passwordResult = await _userManager.ResetPasswordAsync(user, token, model.NewPassword);
+
+						if (!passwordResult.Succeeded)
+						{
+							foreach (var error in passwordResult.Errors)
+							{
+								ModelState.AddModelError("", error.Description);
+							}
+							return View("UserEditProfile", model);
+						}
+					}
+
+					TempData["SuccessMessage"] = "Perfil actualizado correctamente.";
+					return RedirectToAction("UserProfileMainPage");
+				}
+				else
+				{
+					foreach (var error in result.Errors)
+					{
+						ModelState.AddModelError("", error.Description);
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				ModelState.AddModelError("", "Error al actualizar el perfil:" + ex.Message);
+			}
+
+			return View("UserEditProfile", model);
 		}
 
 

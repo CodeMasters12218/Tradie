@@ -12,8 +12,28 @@
 <div class="Main-Container">
     <!-- Header -->
     <div class="Logout-Container">
-        <h1>Mi cuenta ><span> Editar Perfil</span></h1>
+        <h1><a asp-action="UserProfileMainPage" asp-controller="UserProfile">Mi cuenta</a> ><span> Editar Perfil</span></h1>
     </div>
+
+    <!-- Success/Error Messages -->
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+
+    @if (ViewData.ModelState.ErrorCount > 0)
+    {
+        <div class="alert alert-danger">
+            <ul>
+                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            </ul>
+        </div>
+    }
 
     <!-- Subheading -->
     <div class="User-Data-Container">
@@ -21,99 +41,120 @@
     </div>
 
     <!-- Profile Form -->
-    <div class="Container-Container">
+    <form asp-action="SaveProfile" asp-controller="UserProfile" method="post">
+        @Html.AntiForgeryToken()
+
+            <div class="Container-Container">
+                <div class="Form-Container">
+                    <div class="Form-Inner">
+                        <h2>Datos Personales</h2>
+
+                        <!-- Personal Info Fields -->
+                            <div class="Form-Basic-Data-Container">
+
+                                <!-- Nombre -->
+                                <div class="Input-Group">
+                                    <label asp-for="Name">Nombre</label>
+                                    <div class="input-icon-container">
+                                        <i class="bi bi-person input-icon"></i>
+                                        <input asp-for="Name" type="text" placeholder="Introduce tu nombre">
+                                    </div>
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                </div>
+
+                                <!-- Apellidos -->
+                                <div class="Input-Group">
+                                    <label asp-for="LastNames">Apellidos</label>
+                                    <div class="input-icon-container">
+                                        <i class="bi bi-person input-icon"></i>
+                                        <input asp-for="LastNames" type="text" placeholder="Introduce tus apellidos">
+                                    </div>
+                                    <span asp-validation-for="LastNames" class="text-danger"></span>
+                                </div>
+
+                                <!-- Correo Electrónico -->
+                                <div class="Input-Group">
+                                    <label asp-for="Email">Correo electrónico</label>
+                                    <div class="input-icon-container">
+                                        <i class="bi bi-envelope input-icon"></i>
+                                        <input asp-for="Email" type="email" placeholder="Introduce tu correo electrónico">
+                                    </div>
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+
+                                <!-- Teléfono -->
+                                <div class="Input-Group">
+                                    <label asp-for="PhoneNumber">Teléfono</label>
+                                    <div class="input-icon-container">
+                                        <i class="bi bi-telephone input-icon"></i>
+                                        <input asp-for="PhoneNumber" type="tel" placeholder="Introduce tu número de teléfono o móvil">
+                                    </div>
+                                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <!-- Dirección -->
+                            <div class="Input-Group">
+                                <label asp-for="Address">Dirección</label>
+                                <div class="input-icon-container">
+                                    <i class="bi bi-geo-alt input-icon"></i>
+                                    <input asp-for="Address" type="text" class="Country" placeholder="Introduce tu dirección">
+                                </div>
+                                <span asp-validation-for="Address" class="text-danger"></span>
+
+                                <label asp-for="Country">País</label>
+                                <div class="input-icon-container">
+                                    <i class="bi bi-map input-icon"></i>
+                                    <input asp-for="Country" type="text" class="Country" placeholder="Introduce tu país">
+                                </div>
+                                <span asp-validation-for="Country" class="text-danger"></span>
+                            </div>
+
+                            <!-- Ciudad / Región / Código Postal -->
+                            <div class="Address-Row-Container">
+                                <div class="Area-Container">
+                                    <label asp-for="City">Ciudad</label>
+                                    <input asp-for="City" type="text" class="Area" placeholder="Introduce tu ciudad">
+                                    <span asp-validation-for="City" class="text-danger"></span>
+                                </div>
+                                <div class="Area-Container">
+                                    <label asp-for="Region">Región</label>
+                                    <input asp-for="Region" type="text" class="Area" placeholder="Región">
+                                    <span asp-validation-for="Region" class="text-danger"></span>
+                                </div>
+                                <div class="Area-Container">
+                                    <label asp-for="PostalCode">Código postal</label>
+                                    <input asp-for="PostalCode" type="text" class="Area" placeholder="Introduce tu código postal">
+                                    <span asp-validation-for="PostalCode" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+        <!-- Security Section -->
         <div class="Form-Container">
-            <div class="Form-Inner">
-                <h2>Datos Personales</h2>
-
-                <!-- Personal Info Fields -->
-                <div class="Form-Basic-Data-Container">
-                    <!-- Nombre -->
-                    <div class="Input-Group">
-                        <label for="nameInput">Nombre</label>
-                        <div class="input-icon-container">
-                            <i class="bi bi-person input-icon"></i>
-                            <input type="text" name="nameInput" placeholder="Introduce tu nombre">
-                        </div>
-                    </div>
-
-                    <!-- Apellidos -->
-                    <div class="Input-Group">
-                        <label for="LastNamesInput">Apellidos</label>
-                        <div class="input-icon-container">
-                            <i class="bi bi-person input-icon"></i>
-                            <input type="text" name="LastNamesInput" placeholder="Introduce tus apellidos">
-                        </div>
-                    </div>
-
-                    <!-- Correo Electrónico -->
-                    <div class="Input-Group">
-                        <label for="emailAddressInput">Correo electrónico</label>
-                        <div class="input-icon-container">
-                            <i class="bi bi-envelope input-icon"></i>
-                            <input type="email" name="emailAddressInput" placeholder="Introduce tu correo electrónico">
-                        </div>
-                    </div>
-
-                    <!-- Teléfono -->
-                    <div class="Input-Group">
-                        <label for="phoneInput">Teléfono</label>
-                        <div class="input-icon-container">
-                            <i class="bi bi-telephone input-icon"></i>
-                            <input type="number" name="PhoneInput" placeholder="Introduce tu número de teléfono o móvil">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Dirección -->
-                <div class="Input-Group">
-                    <label for="addressInput">Dirección</label>
-                    <div class="input-icon-container">
-                        <i class="bi bi-geo-alt input-icon"></i>
-                        <input type="text" name="addressInput" class="Country" placeholder="Introduce tu dirección">
-                    </div>
-
-                    <label for="countryInput">País</label>
-                    <div class="input-icon-container">
-                        <i class="bi bi-map input-icon"></i>
-                        <input type="text" name="countryInput" class="Country" placeholder="Introduce tu país">
-                    </div>
-                </div>
-
-                <!-- Ciudad / Región / Código Postal -->
-                <div class="Address-Row-Container">
-                    <div class="Area-Container">
-                        <label for="cityInput">Ciudad</label>
-                        <input type="text" name="cityInput" class="Area" placeholder="Introduce tu ciudad">
-                    </div>
-                    <div class="Area-Container">
-                        <label for="areaInput">Región</label>
-                        <input type="text" name="areaInput" class="Area" placeholder="Región">
-                    </div>
-                    <div class="Area-Container">
-                        <label for="postalInput">Código postal</label>
-                        <input type="text" name="postalInput" class="Area" placeholder="Introduce tu código postal">
-                    </div>
-                </div>
-
+            <h2>Información de seguridad</h2>
+            <div class="Container">
+                <label asp-for="NewPassword">Nueva contraseña</label>
+                <input asp-for="NewPassword" type="password" placeholder="Introduce tu nueva contraseña (opcional)">
+                <span asp-validation-for="NewPassword" class="text-danger"></span>
+            </div>
+            <div class="Container">
+                <label asp-for="ConfirmPassword">Confirmar contraseña</label>
+                <input asp-for="ConfirmPassword" type="password" placeholder="Introduce tu contraseña nuevamente">
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             </div>
         </div>
-    </div>
 
-    <!-- Security Section -->
-    <div class="Form-Container">
-        <h2>Información de seguridad</h2>
-        <div class="Container">
-            <label for="NewPasswordInput">Nueva contraseña</label>
-            <input type="Password" placeholder="Introduce tu nueva contraseña">
+        <div class="Payment-Container">
+            <button type="submit" class="btn-save-changes">Guardar cambios</button>
         </div>
-        <div class="Container">
-            <label for="RepeatPasswordInput">Confirmar contraseña</label>
-            <input type="Password" placeholder="Introduce tu contraseña nuevamente">
-        </div>
-    </div>
-
-    <div class="Payment-Container">
-        <a class="btn-save-changes" asp-area="" asp-controller="" asp-action="">Guardar cambios</a>
-    </div>
+    </form>
 </div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
