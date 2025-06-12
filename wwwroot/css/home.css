@@ -860,10 +860,11 @@ h1 {
         margin-bottom: 20px;
     }
 
-    .slider-arrow.right, 
+    .slider-arrow.right,
     .slider-arrow.left {
         display: none;
     }
+}
 
 @media (max-width: 480px) {
     #home .card-container,

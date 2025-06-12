@@ -471,3 +471,38 @@ a {
         margin-bottom: 0.5rem;
     }
 }
+
+.Card-Item-none {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: transparent;
+    width: 100%;
+    min-height: 10rem;
+    height: auto;
+    margin: 10px 0;
+    padding: 20px;
+    border-radius: 10px;
+    gap: 1.5rem;
+    text-align: center;
+    opacity: 50%;
+}
+
+.Card-Item-none p{
+    opacity: 1 !important;
+}
+
+.iconify {
+    color: #D26355 !important;
+    font-size: 3rem;
+}
+
+.suggested-link {
+    color: #D26355 !important;
+}
+
+    .suggested-link:hover {
+        opacity: 1 !important;
+        text-decoration: underline;
+    }

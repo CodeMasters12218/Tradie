@@ -28,36 +28,55 @@
         <a asp-controller="Order" asp-action="UserOrdersProcessed">Procesado</a>
     </div>
 
-    @foreach (var item in Model)
+    @if (Model != null && Model.Any())
     {
-        <div class="Container-Container">
-            <div class="Cards-Container">
-                <div class="Cards-Title-Container">
-                    <p>Finalizado</p>
-                </div>
-
-                <div class="Review-Row">
-                    <div class="Review-Column product-info">
-                        <img src="@item.Product.ImageUrl" alt="@item.Product.Name" class="product-image" />
-                        <div class="product-details">
-                            <p class="product-name">@item.Product.Name</p>
-                            <p class="product-price">€@item.Product.Price.ToString("F2") <span class="product-qty">x@item.Quantity</span></p>
-                        </div>
+        @foreach (var item in Model)
+        {
+            <div class="Container-Container">
+                <div class="Cards-Container">
+                    <div class="Cards-Title-Container">
+                        <p>Finalizado</p>
                     </div>
 
-                    <div class="Review-Column review-client">
-                        <div class="item-price-delete">
-                            <p class="subtotal-value">Total: €@(item.Quantity * item.PricePaid).ToString("F2")</p>
-                            <form method="post" asp-controller="Wishlist" asp-action="AddToCart">
-                                <input type="hidden" name="itemId" value="@item.Id" />
-                                <button type="submit" class="btn btn-primary add-to-cart-btn text-white">
-                                    Añadir a la cesta <i class="bi bi-cart"></i>
-                                </button>
-                            </form>
+                    <div class="Review-Row">
+                        <div class="Review-Column product-info">
+                            <img src="@item.Product.ImageUrl" alt="@item.Product.Name" class="product-image" />
+                            <div class="product-details">
+                                <p class="product-name">@item.Product.Name</p>
+                                <p class="product-price">€@item.Product.Price.ToString("F2") <span class="product-qty">x@item.Quantity</span></p>
+                            </div>
+                        </div>
+
+                        <div class="Review-Column review-client">
+                            <div class="item-price-delete">
+                                <p class="subtotal-value">Total: €@(item.Quantity * item.PricePaid).ToString("F2")</p>
+                                <form method="post" asp-controller="Wishlist" asp-action="AddToCart">
+                                    <input type="hidden" name="itemId" value="@item.Id" />
+                                    <button type="submit" class="btn btn-primary add-to-cart-btn text-white">
+                                        Añadir a la cesta <i class="bi bi-cart"></i>
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+        }
+    }
+    else
+    {
+        <!-- Empty State Card -->
+        <div class="Container-Container">
+            <div class="Cards-Container">
+                <div class="Card-Item-none">
+                    <span class="iconify" data-icon="mdi:alert-circle"></span>
+                    <p>
+                        No hay ningun pedido enviado. Considera 
+                        <a asp-controller="Category" asp-action="Category" class="suggested-link">ver la tienda</a>
+                    </p>
+                </div>
+            </div>
         </div>
     }
+         
 </div>

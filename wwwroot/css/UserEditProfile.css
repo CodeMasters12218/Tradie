@@ -358,8 +358,7 @@ p{
     border-radius: 12px;
     background-color: white;
     border: none;
-    min-width: 2vw;
-    min-height: 4vh;
+    padding: 10px 12px;
 }
 
     .Delete-Button:hover {
@@ -370,8 +369,7 @@ p{
     border-radius: 12px;
     background-color: white;
     border: none;
-    min-width: 2vw;
-    min-height: 4vh;
+    padding: 10px 12px;
 }
 
     .Edit-Button:hover {
@@ -431,7 +429,7 @@ p{
 .Address-Item {
     display: inline-block;
     background-color: #eeeeee;
-    width: 20vw;
+    width: 40%;
     min-height: 10rem;
     height: auto;
     margin: 10px;
@@ -439,7 +437,14 @@ p{
     vertical-align: top;
     border-radius: 10px;
     border: 1.8px solid #A2A2A2;
+    box-shadow: 4px 4px 8px rgba(0,0,0,0.05);
 }
+
+    .Address-Item:hover {
+        background-color: #F2F2F2;
+        outline: 1.5px solid #5D88B4;
+        box-shadow: 12px 12px 4px rgba(0,0,0,0.05);
+    }
 
 .Address-Item p {
     color: black !important;
@@ -454,7 +459,7 @@ p{
     justify-content: center;
     align-content: center;
     align-items: center;
-    width: 20vw;
+    width: 40%;
     min-height: 16rem;
     height: auto;
     margin: 10px;
@@ -466,6 +471,7 @@ a:hover{
     color: black;
 }
 
+
 .Addresses-Container {
     display: flex;
     flex-wrap: wrap;
@@ -473,8 +479,7 @@ a:hover{
     gap: 10px;
     justify-content: center;
     align-items: center;
-    padding: 10px;
-    width: 50vw;
+    width: 100%;
 }
 
 /**********************************************************************
@@ -496,7 +501,7 @@ a:hover{
     }
 
     .Addresses-Container {
-        width: 60vw;
+        width: 100%;
     }
 
     .Add-Address-Button {

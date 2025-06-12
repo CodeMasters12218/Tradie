@@ -30,112 +30,115 @@
             }
             else
             {
-                <span>No hay valoraciones pendientes</span>
+                <span style="margin: 0; 
+                        color: black; 
+                        font-size: 14px;
+                        font-weight: 400;
+                        text-decoration: none; 
+                        opacity: 1;">(0)</span>
+
             }
         </a>
         <a asp-controller="UserProfile" asp-action="UserProductReviewsAboutYou">Valoraciones sobre ti</a>
         <h2 class="h2-active">Tus valoraciones</h2>
     </div>
 
-    @foreach (var review in Model)
+    @if (Model != null && Model.Any(r => r.Product != null))
     {
-        @if (review != null && review.Product != null)
+        foreach (var review in Model)
         {
-                    <!-- Cards -->
+            if (review != null && review.Product != null)
+            {
+                <!-- Cards -->
+                <div class="Container-Container">
+                    <div class="Cards-Container">
+
+                        <!-- Order Header -->
+                        <div class="Cards-Title-Container">
+                            <p class="order-number-text">
+                                <span class="order-number">Nº del pedido:&nbsp;</span>@review.OrderNumber
+                            </p>
+                        </div>
+
+                        <!-- Review Row -->
+                        <div class="Review-Row">
+                            <!-- Column 1: Product details -->
+                            <div class="Review-Column product-info">
+                                <img src="@review.Product.ImageUrl" alt="@review.Product.Name" class="product-image" />
+                                <div class="product-details">
+                                    <p class="product-name">@review.Product.Name</p>
+                                    <p class="product-price">€@review.Product.Price.ToString("F2") <span class="product-qty">x@review.Quantity</span></p>
+                                </div>
+                            </div>
+
+                            <!-- Column 2: Client review -->
+                            <div class="Review-Column review-client">
+                                <div class="client-review-details">
+                                    <p class="review-title">Valoración emitida:</p>
+                                    <div class="star-rating">
+                                        @for (int i = 1; i <= 5; i++)
+                                        {
+                                            if (i <= review.RatingByUser)
+                                            {
+                                                <span class="iconify" data-icon="material-symbols:star"></span>
+                                            }
+                                            else
+                                            {
+                                                <span class="iconify" data-icon="material-symbols:star-outline"></span>
+                                            }
+                                        }
+                                        <span class="review-score">@review.RatingByUser.ToString("0.0")</span>
+                                    </div>
+                                    <p class="review-comment">@review.CommentByUser</p>
+                                    <p class="review-date">Posted on: @review.DateByUser.ToString("dd/MM/yyyy")</p>
+                                </div>
+                            </div>
+
+                            <!-- Column 3: Seller review -->
+                            <div class="Review-Column review-seller">
+                                @if (review.RatingBySeller.HasValue)
+                                {
+                                    <div class="seller-review-details">
+                                        <p class="review-title">Valoración emitida por el vendedor:</p>
+                                        <div class="star-rating">
+                                            @for (int i = 1; i <= 5; i++)
+                                            {
+                                                <span class="iconify" data-icon="material-symbols:star" style="color: #D49409;"></span>
+                                            }
+                                            <span class="review-score">@review.RatingBySeller.Value.ToString("0.0")</span>
+                                        </div>
+                                        <p class="review-comment">@review.CommentBySeller</p>
+                                        <p class="review-date">Posted on: @review.DateBySeller?.ToString("dd/MM/yyyy")</p>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <p class="text-muted">Sin respuesta del vendedor aún</p>
+                                }
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            }
+        }
+    }
+    else
+    {
         <div class="Container-Container">
             <div class="Cards-Container">
-
-                <!-- Order Header -->
-                <div class="Cards-Title-Container">
-                    <p class="order-number-text">
-                        <span class="order-number">Nº del pedido:&nbsp;</span>@review.OrderNumber
+                <div class="Card-Item-none">
+                    <span class="iconify" data-icon="mdi:alert-circle-outline"></span>
+                    <p>
+                        No has escrito ninguna valoración a ningun pedido. Por favor, consulta los
+                        <a class="suggested-link" asp-controller="UserProfile" asp-action="UserProductReviews">
+                            pedidos pendientes de tus valoraciones
+                        </a>.
                     </p>
                 </div>
-
-                <!-- Review Row -->
-                <div class="Review-Row">
-                    <!-- Column 1: Product details -->
-                    <div class="Review-Column product-info">
-                        <img src="@review.Product.ImageUrl" alt="@review.Product.Name" class="product-image" />
-                        <div class="product-details">
-                            <p class="product-name">@review.Product.Name</p>
-                            <p class="product-price">€@review.Product.Price.ToString("F2") <span class="product-qty">x@review.Quantity</span></p>
-                        </div>
-                    </div>
-
-                    <!-- Column 2: Client review (this user as reviewer) -->
-                    <div class="Review-Column review-client">
-                        <div class="client-review-details">
-                            <p class="review-title">Valoración emitida:</p>
-                            <div class="star-rating">
-                                @for (int i = 1; i <= 5; i++)
-                                {
-                                    if (i <= review.RatingByUser)
-                                    {
-                                        <span class="iconify"
-                                        data-icon="material-symbols:star"
-                                        style="color: #D49409;"></span>
-                                    }
-                                    else
-                                    {
-                                        <span class="iconify"
-                                        data-icon="material-symbols:star-outline"
-                                        style="color: #ccc;"></span>
-                                    }
-                                }
-                                <span class="review-score">@review.RatingByUser.ToString("0.0")</span>
-                            </div>
-                            <p class="review-comment">
-                                @review.CommentByUser
-                            </p>
-                            <p class="review-date">Posted on: @review.DateByUser.ToString("dd/MM/yyyy")</p>
-                        </div>
-                    </div>
-
-                    <!-- Column 3: Seller review (still shown if applicable) -->
-                    <div class="Review-Column review-seller">
-                        @if (review.RatingBySeller.HasValue)
-                        {
-                            <div class="seller-review-details">
-                                <p class="review-title">Valoración emitida por el vendedor:</p>
-                                <div class="star-rating">
-                                    @for (int i = 1; i <= 5; i++)
-                                    {
-                                        if (i <= review.RatingBySeller.Value)
-                                        {
-                                            <span class="iconify"
-                                            data-icon="material-symbols:star"
-                                            style="color: #D49409;"></span>
-                                        }
-                                        else
-                                        {
-                                            <span class="iconify"
-                                            data-icon="material-symbols:star"
-                                            style="color: #D49409;"></span>
-                                        }
-                                    }
-                                    <span class="review-score">
-                                        @review.RatingBySeller.Value.ToString("0.0")
-                                    </span>
-                                </div>
-                                <p class="review-comment">
-                                    @review.CommentBySeller
-                                </p>
-                                <p class="review-date">Posted on: @review.DateBySeller?.ToString("dd/MM/yyyy")</p>
-                            </div>
-                        }
-                        else
-                        {
-                            <p class="text-muted">Sin respuesta del vendedor aún</p>
-                        }
-
-                    </div>
-                </div>
-
             </div>
         </div>
-        }
-
     }
+
 
 </div>
