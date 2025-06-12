@@ -24,7 +24,7 @@
             <form asp-controller="Wishlist"
                   asp-action="ToggleWishlistItem"
                   method="post"
-                  class="d-inline">
+                  class="d-block">
                 <input type="hidden" name="productId" value="@Model.Id" />
                 <input type="hidden" name="returnUrl" value="@($"{Context.Request.Path}{Context.Request.QueryString}")" />
                 <button type="submit"
@@ -39,7 +39,7 @@
         <form asp-controller="ShoppingCart"
               asp-action="AddToCart"
               method="post"
-              class="d-inline">
+              class="d-block">
             <input type="hidden" name="productId" value="@Model.Id" />
             <input type="hidden" name="returnUrl" value="@($"{Context.Request.Path}{Context.Request.QueryString}")" />
             <button type="submit"
