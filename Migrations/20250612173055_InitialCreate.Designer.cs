@@ -12,8 +12,8 @@ using Tradie.Data;
 namespace Tradie.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250605100648_AddFieldsToReviewAndOrdersModels")]
-    partial class AddFieldsToReviewAndOrdersModels
+    [Migration("20250612173055_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -812,7 +812,7 @@ namespace Tradie.Migrations
                     b.HasOne("Tradie.Models.Products.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Tradie.Models.Users.Customer", null)
@@ -822,7 +822,7 @@ namespace Tradie.Migrations
                     b.HasOne("Tradie.Models.Users.Seller", "Seller")
                         .WithMany("Products")
                         .HasForeignKey("SellerId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Category");
@@ -841,7 +841,7 @@ namespace Tradie.Migrations
                     b.HasOne("Tradie.Models.Orders.Order", "Order")
                         .WithMany("Reviews")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Tradie.Models.Products.Product", "Product")

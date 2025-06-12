@@ -180,7 +180,7 @@ namespace Tradie.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("Tradie.Models.Orders.OrderItem", b =>
@@ -213,7 +213,7 @@ namespace Tradie.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderItems", (string)null);
+                    b.ToTable("OrderItems");
                 });
 
             modelBuilder.Entity("Tradie.Models.Products.Category", b =>
@@ -232,7 +232,7 @@ namespace Tradie.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("Tradie.Models.Products.Product", b =>
@@ -289,7 +289,7 @@ namespace Tradie.Migrations
 
                     b.HasIndex("SellerId");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("Tradie.Models.Products.Review", b =>
@@ -338,7 +338,7 @@ namespace Tradie.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Reviews", (string)null);
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("Tradie.Models.ShoppingCart.CartItem", b =>
@@ -385,7 +385,7 @@ namespace Tradie.Migrations
 
                     b.HasIndex("ShoppingCartId");
 
-                    b.ToTable("CartItems", (string)null);
+                    b.ToTable("CartItems");
                 });
 
             modelBuilder.Entity("Tradie.Models.ShoppingCart.ShoppingCart", b =>
@@ -407,7 +407,7 @@ namespace Tradie.Migrations
 
                     b.HasIndex("UserId1");
 
-                    b.ToTable("ShoppingCarts", (string)null);
+                    b.ToTable("ShoppingCarts");
                 });
 
             modelBuilder.Entity("Tradie.Models.Subcategory", b =>
@@ -434,7 +434,7 @@ namespace Tradie.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Subcategories", (string)null);
+                    b.ToTable("Subcategories");
                 });
 
             modelBuilder.Entity("Tradie.Models.UserAddressModel.UsersAddressModel", b =>
@@ -476,7 +476,7 @@ namespace Tradie.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserAddress", (string)null);
+                    b.ToTable("UserAddress");
                 });
 
             modelBuilder.Entity("Tradie.Models.UserCards.UserCardModel", b =>
@@ -515,7 +515,7 @@ namespace Tradie.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserCards", (string)null);
+                    b.ToTable("UserCards");
                 });
 
             modelBuilder.Entity("Tradie.Models.UserCards.UserCardProfileModel", b =>
@@ -525,7 +525,7 @@ namespace Tradie.Migrations
 
                     b.HasIndex("CurrentCardId");
 
-                    b.ToTable("UserCardProfileModel", (string)null);
+                    b.ToTable("UserCardProfileModel");
                 });
 
             modelBuilder.Entity("Tradie.Models.Wishlist.Wishlist", b =>
@@ -547,7 +547,7 @@ namespace Tradie.Migrations
 
                     b.HasIndex("UserId1");
 
-                    b.ToTable("Wishlists", (string)null);
+                    b.ToTable("Wishlists");
                 });
 
             modelBuilder.Entity("Tradie.Models.Wishlist.WishlistItem", b =>
@@ -594,7 +594,7 @@ namespace Tradie.Migrations
 
                     b.HasIndex("WishlistId");
 
-                    b.ToTable("WishlistItems", (string)null);
+                    b.ToTable("WishlistItems");
                 });
 
             modelBuilder.Entity("User", b =>
@@ -838,7 +838,7 @@ namespace Tradie.Migrations
                     b.HasOne("Tradie.Models.Orders.Order", "Order")
                         .WithMany("Reviews")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Tradie.Models.Products.Product", "Product")
