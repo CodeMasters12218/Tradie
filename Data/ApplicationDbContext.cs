@@ -79,7 +79,13 @@ namespace Tradie.Data
 				.HasForeignKey(r => r.CustomerId)
 				.OnDelete(DeleteBehavior.Restrict);
 
-			modelBuilder.Entity<Wishlist>()
+            modelBuilder.Entity<Review>()
+				.HasOne(r => r.Order)
+				.WithMany(o => o.Reviews)
+				.HasForeignKey(r => r.OrderId)
+				.OnDelete(DeleteBehavior.NoAction); 
+
+            modelBuilder.Entity<Wishlist>()
 				.HasMany(w => w.Items)
 				.WithOne(i => i.Wishlist)
 				.HasForeignKey(i => i.WishlistId);
