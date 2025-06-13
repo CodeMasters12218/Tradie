@@ -36,7 +36,16 @@
                     <a href="@productDetailsUrl">
                         <img src="@item.Product?.ImageUrl" alt="@item.ProductName" />
                     </a>
+
+                    <!-- Discount Badge -->
+                    @if (item.Product?.DiscountedPrice.HasValue == true)
+                    {
+                        var discountPercentage = ((item.Product.Price - item.Product.DiscountedPrice.Value) / item.Product.Price) * 100;
+                        <div class="discount-badge">-@Math.Floor(discountPercentage)%</div>
+                    }
                 </div>
+
+                
 
                 <div class="item-details">
                     <a href="@productDetailsUrl" class="item-name-link">
@@ -63,7 +72,14 @@
 
                 <!-- Price & Actions -->
                 <div class="item-price-delete">
-                    <p class="item-price">€@item.PriceAtAddition.ToString("F2")</p>
+                    <!-- Original and Discounted Price -->
+                    @if (item.Product?.DiscountedPrice.HasValue == true)
+                    {
+                        <p class="discounted-price">€@item.Product?.DiscountedPrice.Value.ToString("F2")</p>
+                        <p class="original-price" style="text-decoration: line-through;">
+                            €@item.Product?.Price.ToString("F2") <!-- Original price -->
+                        </p>
+                    }
 
                     <!-- Remove from Wishlist -->
                     <form method="post" asp-controller="Wishlist" asp-action="RemoveItem">

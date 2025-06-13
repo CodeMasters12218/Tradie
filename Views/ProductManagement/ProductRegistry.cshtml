@@ -92,6 +92,7 @@
                         <th>Categoría</th>
                         <th>Subcategoría</th>
                         <th>Precio</th>
+                        <th>Descuento</th>
                         <th>Stock</th>
                         <th>Estado</th>
                         <th>Acciones</th>
@@ -115,6 +116,11 @@
                             <td>@(p.Category?.Name ?? "Sin categoría")</td>
                             <td>@(p.Subcategory ?? "Sin subcategoría")</td>
                             <td>€@p.Price.ToString("F2")</td>
+                            <td>
+                                @(p.DiscountPercentage.HasValue
+                                    ? p.DiscountPercentage.Value.ToString("0") + "%"
+                                    : "0%")
+                            </td>
                             <td>@p.Stock</td>
                             <td>
                                 @if (p.Stock > 0)
@@ -134,6 +140,7 @@
                                             @p.Id,
                                             '@p.Name.Replace("'", "\\'")',
                                             @p.Price,
+                                            @(p.DiscountPercentage.HasValue ? p.DiscountPercentage.Value.ToString("F2", System.Globalization.CultureInfo.InvariantCulture) : "0"),
                                             @p.Stock,
                                             '@p.CategoryId',
                                             '@(p.Subcategory?.Replace("'", "\\'") ?? string.Empty)',
@@ -179,6 +186,13 @@
                                 <input asp-for="NewProduct.Price" class="form-control" />
                                 <span asp-validation-for="NewProduct.Price" class="text-danger"></span>
                             </div>
+
+                            <div class="mb-3">
+                                <label asp-for="NewProduct.DiscountPercentage" class="form-label">Descuento % (opcional)</label>
+                                <input asp-for="NewProduct.DiscountPercentage" class="form-control" />
+                                <span asp-validation-for="NewProduct.DiscountPercentage" class="text-danger"></span>
+                            </div>
+
                             <div class="mb-3">
                                 <label asp-for="NewProduct.Stock" class="form-label">Stock</label>
                                 <input asp-for="NewProduct.Stock" class="form-control" />
@@ -250,6 +264,13 @@
                                 <input asp-for="NewProduct.Price" class="form-control" id="editProductPrice" />
                                 <span asp-validation-for="NewProduct.Price" class="text-danger"></span>
                             </div>
+
+                            <div class="mb-3">
+                                <label asp-for="NewProduct.DiscountPercentage" class="form-label">Descuento % (opcional)</label>
+                                <input asp-for="NewProduct.DiscountPercentage" class="form-control" id="editProductDiscountPercentage" />
+                                <span asp-validation-for="NewProduct.DiscountedPrice" class="text-danger"></span>
+                            </div>
+
                             <div class="mb-3">
                                 <label asp-for="NewProduct.Stock" class="form-label">Stock</label>
                                 <input asp-for="NewProduct.Stock" class="form-control" id="editProductStock" />
@@ -322,10 +343,11 @@
 
 <script src="~/js/admin.js" asp-append-version="true"></script>
 <script>
-    function openEditModal(id, name, price, stock, category, subcategory, imageUrl, description) {
+    function openEditModal(id, name, price, discountPercentage, stock, category, subcategory, imageUrl, description) {
         document.getElementById('editProductId').value = id;
         document.getElementById('editProductName').value = name;
         document.getElementById('editProductPrice').value = price;
+        document.getElementById('editProductDiscountPercentage').value = discountPercentage;
         document.getElementById('editProductStock').value = stock;
         document.getElementById('editProductCategory').value = category;
         document.getElementById('editProductSubcategory').value = subcategory;

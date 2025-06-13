@@ -110,6 +110,19 @@ h1 {
         text-decoration: none;
     }
 
+#home .discounted-price {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: black;
+}
+
+#home .price-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 8px;
+}
+
 .btn-active {
     padding: 10px 25px;
     font-size: 12px;
@@ -211,7 +224,7 @@ h1 {
     }
 
     #home .card-price {
-        font-size: 16px;
+        font-size: 20px;
         font-weight: 500;
     }
 
@@ -344,9 +357,137 @@ h1 {
             color: black;
         }
 
+/* Products Showcase Section */
+    #ofertas .products-showcase {
+        max-width: 100%;
+        margin: 40px 0;
+        padding: 0;
+        background-color: #f8d4d4;
+        box-sizing: border-box;
+    }
+
+#ofertas .showcase-header {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin: 40px 0;
+}
+
+    #ofertas .showcase-header h3 {
+        font-size: 40px;
+        font-weight: 600;
+        margin: 0 0 10px 0;
+        padding: 0;
+        color: #e74c3c;
+        text-align: center;
+    }
+
+#ofertas .showcase-header p {
+    font-size: 14px;
+    opacity: 0.9;
+    padding: 0;
+    margin: 0;
+}
+
+#ofertas .products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-bottom: 2px;
+    padding: 0 40px;
+}
+
+#ofertas .card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    margin-bottom: 30px;
+}
+
+    #ofertas .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    }
+
+#ofertas .image-container {
+    position: relative;
+    overflow: hidden;
+}
+
+#ofertas .card-img-top {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+#ofertas .card:hover .card-img-top {
+    transform: scale(1.1);
+}
+
+
+#ofertas .discount-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: linear-gradient(45deg, #e74c3c, #c0392b);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
+}
+
+#ofertas .card-body {
+    padding: 25px;
+}
+
+#ofertas .card-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333;
+    text-decoration: none;
+}
+
+ #ofertas .card-text {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 12px;
+    line-height: 1.4;
+}
+
+#ofertas .price-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+#ofertas .discounted-price {
+    font-size: 20px;
+    font-weight: bold;
+    color: #e74c3c;
+}
+
+#ofertas .original-price {
+    font-size: 16px;
+    color: #999;
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+
+#ofertas a {
+    text-decoration: none;
+}
+
 /* ==== RECIEN LLEGADOS SECTION ==== */
 #recientes {
-    margin-top: 50px;
+    margin-top: 0;
     margin-bottom: 4px;
     display: flex;
     justify-content: start;
@@ -507,7 +648,7 @@ h1 {
     position: absolute;
     top: 10px;
     left: 10px;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: #d9a22e;
     color: white;
     width: 30px;
     height: 30px;
@@ -761,6 +902,29 @@ h1 {
         margin-top: 20px;
     }
 
+    /* Product Ofertas showcase*/
+    #ofertas .container-ofertas {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    #ofertas h1 {
+        font-size: 2.5rem;
+    }
+
+    #ofertas .text-column h2 {
+        font-size: 2rem;
+    }
+
+        #ofertas .text-column h2:last-of-type {
+            font-size: 3rem;
+        }
+
+    #ofertas .products-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    }
+
+    /* Sliders */
     .slider-controls {
         flex-direction: row;
         justify-content: center;
@@ -907,6 +1071,10 @@ h1 {
         #home .card-body > *:last-child {
             margin-bottom: 0 !important;
         }
+
+    #ofertas .products-grid {
+        grid-template-columns: 1fr; /* 1 column */
+    }
 
     .slider-controls {
         gap: 10px;

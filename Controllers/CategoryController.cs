@@ -131,24 +131,41 @@ namespace Tradie.Controllers
 				return NotFound("Category not found.");
 			}
 
-			// Get products from db matching both CategoryId and Subcategory
+			// Fetch products based on both category and subcategory
 			var dbProducts = _context.Products
 				.Where(p => p.CategoryId == category.Id &&
 							p.Subcategory != null &&
 							p.Subcategory.Trim().ToLower() == subcategory.Trim().ToLower())
 				.ToList();
 
-			if (dbProducts != null && dbProducts.Any())
+			_logger.LogInformation($"Number of products found: {dbProducts.Count}");
+
+			// Check if any products are found
+			if (dbProducts.Any())
 			{
-				_logger.LogInformation($"Found {dbProducts.Count} products in database for category: {name}, subcategory: {subcategory}");
+				_logger.LogInformation($"Found {dbProducts.Count} products for category: {name}, subcategory: {subcategory}");
 				ViewBag.Category = name;
 				ViewBag.Subcategory = subcategory;
 				ViewBag.SourceType = "Database";
-				return View(dbProducts);
+
+				// Make sure that the correct list of products is passed to the view
+				return View(dbProducts); // Send the list of products to the view
 			}
 
+			// If no products are found, use mock data
 			_logger.LogWarning($"No products found for category '{name}' and subcategory '{subcategory}'. Using mock data.");
-			var mockProducts = Enumerable.Range(1, 20).Select(i => new Product
+			var mockProducts = GenerateMockProducts(subcategory); // Consider moving mock data to a method for reuse
+
+			ViewBag.Category = name;
+			ViewBag.Subcategory = subcategory;
+			ViewBag.SourceType = "Mock";
+
+			return View(mockProducts); // Send the mock products
+		}
+
+		private List<Product> GenerateMockProducts(string subcategory)
+		{
+			return Enumerable.Range(1, 20).Select(i => new Product
 			{
 				Id = i,
 				Name = $"{subcategory} Producto {i}",
@@ -158,13 +175,8 @@ namespace Tradie.Controllers
 				ImageUrl = i % 2 == 0 ? "/images/tshirt1.png" : "/images/tshirt2.png",
 				Stock = 10 + i
 			}).ToList();
-
-			ViewBag.Category = name;
-			ViewBag.Subcategory = subcategory;
-			ViewBag.SourceType = "Mock";
-
-			return View(mockProducts);
 		}
+
 
 
 		[Route("Category{name}/{subcategory}/{id}")]

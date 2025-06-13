@@ -43,5 +43,19 @@ namespace Tradie.Models.Products
 		{
 			Reviews.Add(review);
 		}
+
+		public decimal? DiscountPercentage { get; set; }
+
+		public decimal? DiscountedPrice
+		{
+			get
+			{
+				if (DiscountPercentage.HasValue)
+				{
+					return Price - (Price * DiscountPercentage.Value / 100);
+				}
+				return null;
+			}
+		}
 	}
 }

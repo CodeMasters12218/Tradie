@@ -38,6 +38,14 @@
                     <a href="@productDetailsUrl">
                         <img src="@item.Product?.ImageUrl" alt="@item.ProductName" />
                     </a>
+
+                    <!-- Discount Badge -->
+                    @if (item.Product?.DiscountedPrice.HasValue == true && item.Product.Price > 0)
+                    {
+                        var discountPercentage = ((item.Product.Price - item.Product.DiscountedPrice.Value) / item.Product.Price) * 100;
+                        <div class="discount-badge">-@Math.Floor(discountPercentage)%</div>
+                    }
+
                 </div>
 
                 <div class="item-details">
@@ -65,9 +73,18 @@
                 </div>
 
                 <div class="item-price-delete">
-                    <p class="item-price" data-unit-price="@item.PriceAtAddition.ToString("F2")">
-                        €@item.PriceAtAddition.ToString("F2")
-                    </p>
+                    @if (item.Product?.DiscountedPrice.HasValue == true)
+                    {
+                        <p class="discounted-price">€@item.Product.DiscountedPrice.Value.ToString("F2")</p>
+                        <p class="original-price" style="text-decoration: line-through;">
+                            €@item.Product.Price.ToString("F2")
+                        </p>
+                    }
+                    else
+                    {
+                        <p class="item-price">€@item.PriceAtAddition.ToString("F2")</p>
+                    }
+
 
                     <form asp-controller="ShoppingCart" asp-action="RemoveItem" method="post">
                         @Html.AntiForgeryToken()

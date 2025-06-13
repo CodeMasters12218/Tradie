@@ -101,6 +101,7 @@ namespace Tradie.Controllers
 			var prod = vm.NewProduct;
 			var user = await _userMgr.GetUserAsync(User);
 			prod.SellerId = user!.Id;
+
 			if (ModelState.IsValid)
 			{
 				_context.Products.Update(prod);

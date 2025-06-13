@@ -18,7 +18,7 @@ namespace Tradie.Models.ShoppingCart
 		public decimal DeliveryFee => Items.Any() ? 4.00m : 0.00m;
 		public decimal Total => Subtotal + DeliveryFee;
 
-		public void AddItem(Product product, int quantity)
+		public void AddItem(Product product, int quantity, decimal priceAtAddition)
 		{
 			if (product == null) throw new ArgumentNullException(nameof(product));
 
@@ -34,7 +34,7 @@ namespace Tradie.Models.ShoppingCart
 					ProductId = product.Id,
 					ProductName = product.Name,
 					Quantity = quantity,
-					PriceAtAddition = product.Price,
+					PriceAtAddition = priceAtAddition,
 					ImageUrl = product.ImageUrl,
 					Size = "Default", // Customize based on your logic
 					Color = "Default" // Customize based on your logic

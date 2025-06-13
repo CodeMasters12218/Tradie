@@ -4,6 +4,7 @@
     var categoryName = ViewData["CategoryName"] as string ?? Model.Category?.Name ?? "SinCategoria";
     var subcategory = Model.Subcategory ?? "SinSubcategoria";
     var productUrl = $"/Category{categoryName}/{subcategory}/{Model.Id}";
+    var hasDiscount = Model.DiscountPercentage.HasValue && Model.DiscountPercentage > 0;
 }
 
 <div class="card">
@@ -13,6 +14,13 @@
             <img src="@(string.IsNullOrEmpty(Model.ImageUrl) ? Url.Content("~/images/default-product.png") : Model.ImageUrl)" class="card-img-top" alt="@Model.Name">
         </a>
 
+        <!-- Discount Badge -->
+        @if (hasDiscount)
+        {
+            <!-- remove .00 after discountpercentage -->
+            <div class="discount-badge">-@Math.Floor(Model.DiscountPercentage ?? 0)%</div>
+        }
+
         <!-- Favorite Button -->
         @{
             var isFavorited = ViewBag.WishlistProductIds != null &&
@@ -20,14 +28,14 @@
         }
 
         <form asp-controller="Wishlist"
-              asp-action="ToggleWishlistItem"
-              method="post"
-              class="d-inline">
+        asp-action="ToggleWishlistItem"
+        method="post"
+        class="d-inline">
             <input type="hidden" name="productId" value="@Model.Id" />
             <input type="hidden" name="returnUrl" value="@($"{Context.Request.Path}{Context.Request.QueryString}")" />
             <button type="submit"
-                    class="favorite-btn btn-sm favorite-btn @(isFavorited ? "favorited" : "")"
-                    onclick="toggleHeart(this)">
+            class="favorite-btn btn-sm favorite-btn @(isFavorited ? "favorited" : "")"
+            onclick="toggleHeart(this)">
                 <i class="bi @(isFavorited ? "bi-heart-fill" : "bi-heart")"></i>
             </button>
         </form>
@@ -36,10 +44,20 @@
     <!-- Card Body -->
     <div class="card-body">
         <a href="@productUrl">
-            
-           <h5 class="card-title">@Model.Name</h5>
+
+            <h5 class="card-title">@Model.Name</h5>
             <p class="card-text"> @Model.Description</p>
-            <h5 class="card-price">@Model.Price</h5>
+            <div class="price-container">
+                @if (hasDiscount)
+                {
+                    <span class="discounted-price">€@Model.DiscountedPrice.Value.ToString("F2")</span>
+                    <span class="original-price">€@Model.Price.ToString("F2")</span>
+                }
+                else
+                {
+                    <span class="discounted-price">€@Model.Price.ToString("F2")</span>
+                }
+            </div>
         </a>
 
         <!-- Add to Cart -->

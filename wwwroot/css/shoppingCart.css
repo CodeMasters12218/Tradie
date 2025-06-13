@@ -56,6 +56,7 @@
     align-items: center;
     justify-content: center;
     border: 1px solid #d5d5d5;
+    position: relative;
     overflow: hidden;
 }
 
@@ -183,6 +184,34 @@
 i {
     font-size: 1rem;
 }
+
+.discount-badge {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    background: linear-gradient(45deg, #e74c3c, #c0392b);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
+}
+
+.original-price {
+    text-decoration: line-through;
+    color: #999;
+}
+
+.discounted-price {
+    color: black !important;
+    opacity: 1 !important;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0;
+    margin: 0;
+}
+
 
 /* Divider */
 .divider-line {

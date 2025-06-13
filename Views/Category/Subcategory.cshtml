@@ -46,7 +46,20 @@
                 <div class="product-info">
                     <h4 class="product-name">@product.Name</h4>
                     <p class="product-description text-muted">@product.Description</p>
-                    <p class="product-price">€@product.Price.ToString("F2")</p>
+
+                    <!-- Price Section with Discount Badge -->
+                    @if (product.DiscountPercentage.HasValue && product.DiscountPercentage > 0)
+                    {
+                        <div class="discount-badge">-@Math.Floor(product.DiscountPercentage ?? 0)%</div>
+                        <div class="product-price">
+                            <span class="discounted-price">€@product.DiscountedPrice.Value.ToString("F2")</span>
+                            <span class="original-price">€@product.Price.ToString("F2")</span>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="product-price">€@product.Price.ToString("F2")</div>
+                    }
                 </div>
             </a>
 

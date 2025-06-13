@@ -85,7 +85,7 @@ namespace Tradie.Controllers
 				await _context.SaveChangesAsync();
 			}
 
-			cart.AddItem(item.Product, item.Quantity);
+			cart.AddItem(item.Product, item.Quantity, item.PriceAtAddition);
 
 			_context.WishlistItems.Remove(item);
 
@@ -108,6 +108,9 @@ namespace Tradie.Controllers
 			var product = await _context.Products.FindAsync(productId);
 			if (product == null)
 				return NotFound();
+
+			// Use the discounted price if available, else fallback to regular price
+			var priceAtAddition = product.DiscountedPrice.HasValue ? product.DiscountedPrice.Value : product.Price;
 
 			var wishlist = await _context.Wishlists
 				.Include(w => w.Items)

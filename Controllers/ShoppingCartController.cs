@@ -88,6 +88,9 @@ namespace Tradie.Controllers
 			if (product == null)
 				return NotFound();
 
+			// Calculate price considering discount
+			var priceAtAddition = product.DiscountedPrice.HasValue ? product.DiscountedPrice.Value : product.Price;
+
 			var cart = _context.ShoppingCarts
 				.Include(c => c.Items)
 				.FirstOrDefault(c => c.UserId == user.Id.ToString());
@@ -98,7 +101,7 @@ namespace Tradie.Controllers
 				_context.ShoppingCarts.Add(cart);
 			}
 
-			cart.AddItem(product, 1); // Existing AddItem logic
+			cart.AddItem(product, 1, priceAtAddition); // Existing AddItem logic
 
 			await _context.SaveChangesAsync();
 

@@ -37,12 +37,12 @@ namespace Tradie.Controllers
 				}
 			}
 			//Solution for categories problem
-            var schema = _context.Model.FindEntityType(typeof(Product));
-            var columns = schema.GetProperties().Select(p => p.Name);
-            Console.WriteLine(string.Join(", ", columns));
+			var schema = _context.Model.FindEntityType(typeof(Product));
+			var columns = schema.GetProperties().Select(p => p.Name);
+			Console.WriteLine(string.Join(", ", columns));
 
-            // Step 3: Set ViewBag so the _ProductCard.cshtml can use it
-            ViewBag.WishlistProductIds = wishlistProductIds;
+			// Step 3: Set ViewBag so the _ProductCard.cshtml can use it
+			ViewBag.WishlistProductIds = wishlistProductIds;
 
 			// Step 4: Build the HomeViewModel
 			var vm = new Tradie.Models.Home.HomeViewModel
@@ -60,16 +60,40 @@ namespace Tradie.Controllers
 					.Where(p => p.Category != null && p.Category.Name.ToLower().Contains("informática"))
 					.Take(10).ToListAsync(),
 
-				/*
-				OfertaProducts = await _context.Products
-					.Where(p => p.Discount > 0) // If you have a Discount field
-					.OrderByDescending(p => p.Discount)
-					.Take(10).ToListAsync(), 
-				*/
+				/* Oferta Part */
+				OficinaProducts = await _context.Products
+					.Where(p => p.Category != null && p.Category.Name.ToLower().Contains("oficina") && p.DiscountPercentage > 0)
+					.Take(2)
+					.ToListAsync(),
+
+				HogarProducts = await _context.Products
+					.Where(p => p.Category != null && p.Category.Name.ToLower().Contains("hogar") && p.DiscountPercentage > 0)
+					.Take(2)
+					.ToListAsync(),
+
+				LibrosProducts = await _context.Products
+					.Where(p => p.Category != null && p.Category.Name.ToLower().Contains("libros") && p.DiscountPercentage > 0)
+					.Take(2)
+					.ToListAsync(),
+
+				VideojuegosProducts = await _context.Products
+					.Where(p => p.Category != null && p.Category.Name.ToLower().Contains("videojuegos") && p.DiscountPercentage > 0)
+					.Take(2)
+					.ToListAsync(),
+
+				KidsProducts = await _context.Products
+					.Where(p => p.Category != null && p.Category.Name.ToLower().Contains("kids") && p.DiscountPercentage > 0)
+					.Take(2)
+					.ToListAsync(),
+
+				RopamujerProducts = await _context.Products
+					.Where(p => p.Category != null && p.Category.Name.ToLower().Contains("ropa mujer") && p.DiscountPercentage > 0)
+					.Take(2)
+					.ToListAsync(),
 
 				RecienLlegados = await _context.Products
 					.OrderByDescending(p => p.DateAdded)
-					.Take(10).ToListAsync(),
+					.Take(20).ToListAsync(),
 
 				/*
 				Famosos = await _context.Products
@@ -93,8 +117,8 @@ namespace Tradie.Controllers
 		}
 
 
-		// For recien llegados to return 10 products
-		public async Task<IActionResult> RecienLlegados(int count = 10)
+		// For recien llegados to return 20 products
+		public async Task<IActionResult> RecienLlegados(int count = 20)
 		{
 			var recentProducts = await _context.Products
 				.Include(p => p.Seller)

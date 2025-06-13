@@ -44,6 +44,16 @@ namespace Tradie.Controllers
 			}
 
 			var products = await productsQuery.ToListAsync();
+
+			foreach (var product in products)
+			{
+				// Random discount from 0% to 50%
+				product.DiscountPercentage = new Random().Next(0, 50);
+			}
+
+			// Save changes to database
+			await _context.SaveChangesAsync();
+
 			return View(products);
 		}
 
@@ -243,28 +253,28 @@ namespace Tradie.Controllers
 
 			return RedirectToAction(nameof(Index));
 		}
-        [Authorize]
-        [HttpPost]
+		[Authorize]
+		[HttpPost]
 		public async Task<IActionResult> AddReview(int productId, int rating, string content)
 		{
 			// Obtén el ID del usuario autenticado
 			var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
-            // Buscar una orden del cliente que incluya este producto
-            var order = await _context.Orders
-                .Include(o => o.Items)
-                .FirstOrDefaultAsync(o => o.CustomerId == userId &&
-                                          o.Items.Any(i => i.ProductId == productId));
+			// Buscar una orden del cliente que incluya este producto
+			var order = await _context.Orders
+				.Include(o => o.Items)
+				.FirstOrDefaultAsync(o => o.CustomerId == userId &&
+										  o.Items.Any(i => i.ProductId == productId));
 
-            if (order == null)
-            {
-                // El usuario no compró este producto → no puede reseñarlo
-                TempData["Error"] = "Solo puedes dejar una reseña si has comprado este producto.";
-                return RedirectToAction("Details", new { id = productId });
-            }
+			if (order == null)
+			{
+				// El usuario no compró este producto → no puede reseñarlo
+				TempData["Error"] = "Solo puedes dejar una reseña si has comprado este producto.";
+				return RedirectToAction("Details", new { id = productId });
+			}
 
-            // Crea la nueva reseña
-            var review = new Review
+			// Crea la nueva reseña
+			var review = new Review
 			{
 				ProductId = productId,
 				CustomerId = userId,
@@ -281,28 +291,28 @@ namespace Tradie.Controllers
 			// Redirige a la acción que muestra el producto
 			return RedirectToAction("Details", new { id = productId });
 		}
-        [AllowAnonymous]
-        [HttpGet]
-        public async Task<IActionResult> Search(string searchTerm)
-        {
-            if (string.IsNullOrWhiteSpace(searchTerm))
-            {
-                return RedirectToAction("Index", "Home");
-            }
+		[AllowAnonymous]
+		[HttpGet]
+		public async Task<IActionResult> Search(string searchTerm)
+		{
+			if (string.IsNullOrWhiteSpace(searchTerm))
+			{
+				return RedirectToAction("Index", "Home");
+			}
 
-            var productosFiltrados = await _context.Products
-                .Where(p =>
-                    p.Name.Contains(searchTerm) ||
-                    p.Description.Contains(searchTerm))
-                .OrderBy(p => p.Name)
-                .ToListAsync();
+			var productosFiltrados = await _context.Products
+				.Where(p =>
+					p.Name.Contains(searchTerm) ||
+					p.Description.Contains(searchTerm))
+				.OrderBy(p => p.Name)
+				.ToListAsync();
 
-            ViewBag.SearchTerm = searchTerm;
+			ViewBag.SearchTerm = searchTerm;
 
-            return View("~/Views/Product/SearchResults.cshtml", productosFiltrados);
-        }
+			return View("~/Views/Product/SearchResults.cshtml", productosFiltrados);
+		}
 
-        private bool ProductExists(int id)
+		private bool ProductExists(int id)
 		{
 			return _context.Products.Any(e => e.Id == id);
 		}

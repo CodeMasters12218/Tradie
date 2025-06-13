@@ -101,6 +101,41 @@
             <a asp-controller="Category" asp-action="Category" class="btn-ver-tienda">Ver la tienda</a>
         </div>
     </div>
+
+    <!-- Products Showcase -->
+    <div class="products-showcase">
+        <div class="showcase-header">
+            <h3>Productos en Oferta</h3>
+            <p>Descubre nuestras mejores ofertas disponibles ahora</p>
+        </div>
+
+        <div class="products-grid">
+            <!-- Display products from Oficina -->
+            <div class="card-container">
+                @foreach (var product in Model.OficinaProducts)
+                {
+                    @await Html.PartialAsync("_ProductCard", product)
+                }
+            </div>
+
+            <!-- Display products from Kids -->
+            <div class="card-container">
+                @foreach (var product in Model.KidsProducts)
+                {
+                    @await Html.PartialAsync("_ProductCard", product)
+                }
+            </div>
+
+            <!-- Display products from Hogar -->
+            <div class="card-container">
+                @foreach (var product in Model.HogarProducts)
+                {
+                    @await Html.PartialAsync("_ProductCard", product)
+                }
+            </div>
+        </div>
+    </div>
+
 </section>
 
 <!-- RECIEN LLEGADOS Section -->

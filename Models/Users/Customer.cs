@@ -30,9 +30,9 @@ namespace Tradie.Models.Users
 			return new List<Product>();
 		}
 
-		public void AddToCart(Product product, int quantity)
+		public void AddToCart(Product product, int quantity, decimal priceAtAddition)
 		{
-			ShoppingCart.AddItem(product, quantity);
+			ShoppingCart.AddItem(product, quantity, priceAtAddition);
 		}
 
 		public Order Checkout(PaymentMethod paymentMethod)

@@ -11,8 +11,12 @@ namespace Tradie.Models.Home
 
 
 		// Section: OFERTAS (Deals / Discounts)
-		public List<Product> OfertaProducts { get; set; } = new();
-
+		public List<Product> OficinaProducts { get; set; } = new();
+		public List<Product> HogarProducts { get; set; } = new();
+		public List<Product> LibrosProducts { get; set; } = new();
+		public List<Product> VideojuegosProducts { get; set; } = new();
+		public List<Product> KidsProducts { get; set; } = new();
+		public List<Product> RopamujerProducts { get; set; } = new();
 
 		// Section: Recién Llegados (New Arrivals)
 		public List<Product> RecienLlegados { get; set; } = new List<Product>();

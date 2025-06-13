@@ -3,6 +3,8 @@
 @{
     ViewData["Title"] = "Product Details Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var hasDiscount = Model.DiscountPercentage.HasValue && Model.DiscountPercentage > 0;
 }
 
 <link rel="stylesheet" href="~/css/product-details.css" />
@@ -11,7 +13,7 @@
 <div class="product-page-container">
     <!-- LEFT COLUMN -->
     <div class="product-left-column">
-        <div class="image-container">
+        <div class="image-container position-relative">
             <!-- Image -->
             <img src="@Model.ImageUrl" alt="@Model.Name" class="product-image" />
 
@@ -22,14 +24,14 @@
             }
 
             <form asp-controller="Wishlist"
-                  asp-action="ToggleWishlistItem"
-                  method="post"
-                  class="d-block">
+            asp-action="ToggleWishlistItem"
+            method="post"
+            class="d-block">
                 <input type="hidden" name="productId" value="@Model.Id" />
                 <input type="hidden" name="returnUrl" value="@($"{Context.Request.Path}{Context.Request.QueryString}")" />
                 <button type="submit"
-                        class="btn btn-sm favorite-btn @(isFavorited ? "favorited" : "")"
-                        onclick="toggleHeart(this)">
+                class="btn btn-sm favorite-btn @(isFavorited ? "favorited" : "")"
+                onclick="toggleHeart(this)">
                     <i class="bi @(isFavorited ? "bi-heart-fill" : "bi-heart")"></i>
                 </button>
             </form>
@@ -37,15 +39,15 @@
 
         <!-- Add to Cart -->
         <form asp-controller="ShoppingCart"
-              asp-action="AddToCart"
-              method="post"
-              class="d-block">
+        asp-action="AddToCart"
+        method="post"
+        class="d-block">
             <input type="hidden" name="productId" value="@Model.Id" />
             <input type="hidden" name="returnUrl" value="@($"{Context.Request.Path}{Context.Request.QueryString}")" />
             <button type="submit"
-                    class="btn btn-sm add-to-cart-btn @(ViewBag.CartProductIds != null && ((List<int>)ViewBag.CartProductIds).Contains(Model.Id) ? "added disabled" : "")"
-                @(ViewBag.CartProductIds != null && ((List<int>)ViewBag.CartProductIds).Contains(Model.Id) ? "disabled" : "")
-                    onclick="toggleCart(this)">
+            class="btn btn-sm add-to-cart-btn @(ViewBag.CartProductIds != null && ((List<int>)ViewBag.CartProductIds).Contains(Model.Id) ? "added disabled" : "")"
+            @(ViewBag.CartProductIds != null && ((List<int>)ViewBag.CartProductIds).Contains(Model.Id) ? "disabled" : "")
+            onclick="toggleCart(this)">
                 @(ViewBag.CartProductIds != null && ((List<int>)ViewBag.CartProductIds).Contains(Model.Id) ? "Añadido en la cesta" : "Añadir a la cesta")
                 <i class="bi @(ViewBag.CartProductIds != null && ((List<int>)ViewBag.CartProductIds).Contains(Model.Id) ? "bi-cart-check" : "bi-cart")"></i>
             </button>
@@ -84,8 +86,19 @@
 
         <hr />
 
-        <!-- Price -->
-        <div class="product-price">€@Model.Price.ToString("F2")</div>
+        <!-- Price with Discount if applicable -->
+        @if (Model.DiscountPercentage.HasValue && Model.DiscountPercentage > 0)
+        {
+            <div class="discount-badge">-@Math.Floor(Model.DiscountPercentage ?? 0)%</div>
+            <div class="product-price">
+                <span class="discounted-price">€@Model.DiscountedPrice.Value.ToString("F2")</span>
+                <span class="original-price">€@Model.Price.ToString("F2")</span>
+            </div>
+        }
+        else
+        {
+            <div class="product-price">€@Model.Price.ToString("F2")</div>
+        }
 
         <!-- Size Selection -->
         <div class="product-sizes">
