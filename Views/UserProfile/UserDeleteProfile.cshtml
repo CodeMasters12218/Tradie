@@ -45,7 +45,7 @@
                 </div>
             </div>
             <div class="Delete-Button-Container">
-                <button id="DeleteButton" type="submit" class="Delete-Button">Eliminar mi cuenta</button>
+                <button id="DeletePopUpButton" type="submit" class="Delete-Button">Eliminar mi cuenta</button>
             </div>
         </div>
     </div>
@@ -59,11 +59,13 @@
                 <p class="logout-confirm-text">¿Estás seguro de que quieres eliminar tu cuenta personal?</p>
             </div>
             <div class="Logout-Button-Container">
-                <button id="DeleteButtonPopUp" class="Logout-Button">Borrar mi cuenta</button>
-                <button id="CancelDeleteButton" class="Cancel-Button">Cancelar</button>
+                <form id="DeleteForm" asp-controller="UserDeleteProfile" asp-action="Delete" method="post">
+                    <button id="DeleteButton" class="Logout-Button" type="submit">Borrar mi cuenta</button>
+                    <button id="CancelButton" class="Cancel-Button" type="button">Cancelar</button>
+                </form>
             </div>
         </div>
     </dialog>
-    <script src="~/js/UserProfileMainPage.js" asp-append-version="true"></script>
+    <script src="~/js/UserDeleteProfile.js" asp-append-version="true"></script>
 </body>
 </html>
