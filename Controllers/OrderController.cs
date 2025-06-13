@@ -28,8 +28,11 @@ namespace Tradie.Controllers
 			var items = await _context.Orders
 				.Include(o => o.Items)
 					.ThenInclude(oi => oi.Product)
+				.Include(o => o.Items)
+					.ThenInclude(oi => oi.Order) 
 				.Where(o => o.CustomerId == user.Id)
 				.SelectMany(o => o.Items)
+				.Where(oi => oi.Order != null && oi.Product != null)
 				.ToListAsync();
 
 			return View("~/Views/UserProfile/UserOrders.cshtml", items);

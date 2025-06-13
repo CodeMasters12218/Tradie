@@ -116,13 +116,25 @@ namespace Tradie.Controllers
             if (cart == null || !cart.Items.Any())
                 return RedirectToAction("Index", "ShoppingCart");
 
+            // Filtra los items cuyo producto es nulo
+            var validCartItems = cart.Items
+                .Where(item => item.Product != null && !string.IsNullOrEmpty(item.Product.Name) && item.Product.Price != null)
+                .ToList();
+
+            if (!validCartItems.Any())
+            {
+                TempData["ToastMessage"] = "No hay productos válidos en el carrito.";
+                TempData["ToastType"] = "error";
+                return RedirectToAction("Index", "ShoppingCart");
+            }
+
             var order = new Order
             {
                 OrderNumber = GenerateOrderNumber(),
                 CustomerId = user.Id,
                 OrderDate = DateTime.UtcNow,
                 Status = OrderStatus.Procesado,
-                Items = cart.Items.Select(item => new OrderItem
+                Items = validCartItems.Select(item => new OrderItem
                 {
                     ProductId = item.ProductId,
                     Product = item.Product,
@@ -142,7 +154,7 @@ namespace Tradie.Controllers
             TempData["ToastType"] = "success";
 
             // Redirigir a 'Mis Pedidos'
-            return RedirectToAction("Pedidos", "UserProfile");
+            return RedirectToAction("Orders", "Order");
         }
 
         private static string GenerateOrderNumber()

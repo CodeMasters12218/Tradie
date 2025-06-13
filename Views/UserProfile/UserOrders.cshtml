@@ -48,12 +48,12 @@
                         <!-- Column 2: Total price & buttons -->
                         <div class="Review-Column review-client">
                             <div class="item-price-delete">
-                                <p class="subtotal-value">Total: €@(item.Quantity * item.PricePaid).ToString("F2")</p>
+                                <p class="subtotal-value">Total: €@(item.Quantity * item.PricePaid)</p>
 
                                 <!-- Add to Cart -->
                                 <form method="post" asp-controller="Wishlist" asp-action="AddToCart">
                                     <input type="hidden" name="itemId" value="@item.Id" />
-                                    <button type="submit" class="btn btn-primary add-to-cart-btn text-white">
+                                    <button type="submit" class="btn btn-primary ">
                                         Añadir a la cesta <i class="bi bi-cart"></i>
                                     </button>
                                 </form>
