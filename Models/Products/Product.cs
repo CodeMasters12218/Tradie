@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Tradie.Models.Orders;
 using Tradie.Models.Users;
 
@@ -24,10 +25,8 @@ namespace Tradie.Models.Products
 
 		[Range(0.01, 1000000)]
 		public decimal Price { get; set; }
-
-		public int? CategoryId { get; set; }  // nullable FK
-
-		[Required(ErrorMessage = "La categoría es obligatoria.")]
+        [Required(ErrorMessage = "La categoría es obligatoria.")]
+        public int? CategoryId { get; set; }  // nullable FK
 		public Category? Category { get; set; }
 
 		public string? Subcategory { get; set; }

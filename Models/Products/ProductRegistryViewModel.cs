@@ -8,5 +8,7 @@
 
 		public string? SearchTerm { get; set; }
 		public IEnumerable<Category>? Categories { get; set; }
+
+		public IEnumerable<User>? Sellers { get; set; }
 	}
 }
