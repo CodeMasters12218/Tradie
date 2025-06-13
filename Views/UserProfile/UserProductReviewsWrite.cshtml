@@ -53,7 +53,7 @@
                     <div class="client-review-details">
                         <p class="review-title">Escribir una reseña:</p>
 
-                        <form asp-action="WriteReview" method="post">
+                        <form asp-action="WriteReview" asp-controller="UserProfile" method="post">
                             @Html.AntiForgeryToken()
                             <input type="hidden" asp-for="OrderId" />
                             <input type="hidden" asp-for="Product.Id" />

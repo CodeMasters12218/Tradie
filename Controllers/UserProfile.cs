@@ -298,18 +298,13 @@ namespace Tradie.Controllers
 				UserComment = string.Empty
 			};
 
-			return View(vm);
+			return View("~/Views/UserProfile/UserProductReviewsWrite.cshtml",vm);
 		}
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> WriteReview(WriteReviewViewModel vm)
 		{
-			if (!ModelState.IsValid)
-			{
-				return View(vm);
-			}
-
 			// Crear entidad Review en BD basándose en vm.OrderId, vm.Product.Id, vm.UserRating, vm.UserComment, UsuarioActual
 			var review = new Review
 			{
@@ -324,7 +319,7 @@ namespace Tradie.Controllers
 			await _context.SaveChangesAsync();
 
 			// Redirigir a la lista de "Tus valoraciones", por ejemplo:
-			return RedirectToAction(nameof(UserProductReviewsYouWrote), "UserProfile");
+			return RedirectToAction("UserProductReviewsYouWrote", "UserProfile");
 		}
 	}
 }
