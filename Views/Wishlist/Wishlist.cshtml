@@ -45,8 +45,6 @@
                     }
                 </div>
 
-                
-
                 <div class="item-details">
                     <a href="@productDetailsUrl" class="item-name-link">
                         <p class="item-name">@item.ProductName</p>
@@ -79,6 +77,10 @@
                         <p class="original-price" style="text-decoration: line-through;">
                             €@item.Product?.Price.ToString("F2") <!-- Original price -->
                         </p>
+                    }
+                    else
+                    {
+                        <p class="item-price">€@item.PriceAtAddition.ToString("F2")</p>
                     }
 
                     <!-- Remove from Wishlist -->
