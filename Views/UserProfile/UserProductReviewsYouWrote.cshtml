@@ -74,7 +74,7 @@
                             <!-- Column 2: Client review -->
                             <div class="Review-Column review-client">
                                 <div class="client-review-details">
-                                    <p class="review-title">Valoración emitida:</p>
+                                    <p class="review-title">Valoración emitida por el vendedor:</p>
                                     <div class="star-rating">
                                         @for (int i = 1; i <= 5; i++)
                                         {
@@ -99,7 +99,7 @@
                                 @if (review.RatingBySeller.HasValue)
                                 {
                                     <div class="seller-review-details">
-                                        <p class="review-title">Valoración emitida por el vendedor:</p>
+                                        <p class="review-title">Valoración emitida:</p>
                                         <div class="star-rating">
                                             @for (int i = 1; i <= 5; i++)
                                             {
