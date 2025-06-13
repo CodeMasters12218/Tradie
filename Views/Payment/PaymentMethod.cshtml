@@ -1,4 +1,4 @@
-﻿@model Tradie.Models.Payments.PaymentMethod
+﻿@model Tradie.Models.Payments.PaymentSummary
 
 @{
     ViewData["Title"] = "Payment Method Page";
@@ -13,9 +13,9 @@
     <div class="Container-Container">
         <!-- Header Buttons -->
             <div class="Button-Container">
-                <a class="First-Button" asp-area="" asp-controller="Payment" asp-action="PaymentDetails"><span class="number-span">1</span> Detalle de la entrega</a>
-                <button type="submit" class="Second-Button"><span class="number-span">2</span> Método de pago</button>
-                <a class="Third-Button" asp-area="" asp-controller="Payment" asp-action="PaymentSummary"><span class="number-span">3</span> Resumen del pedido</a>
+                <button class="First-Button" asp-controller="Payment" asp-action="PaymentDetails"><span class="number-span">1</span> Detalle de la entrega</button>
+                <button type="submit" class="Third-Button"><span class="number-span">2</span> Resumen del pedido</button>
+                <button class="Second-Button" asp-controller="Payment" asp-action="PaymentSummary"><span class="number-span">3</span> Método de pago</button>
             </div>
 
             <div class="Form-Container">
@@ -26,9 +26,6 @@
                     <div class="text-center">
                         <div id="paypal-button-container"></div>
                     </div>
-                </div>
-                <div class="Payment-Container">
-                    <a class="Payment-Button" asp-area="" asp-controller="Payment" asp-action="PaymentSummary">Ver Resumen del pedido</a>
                 </div>
             </div>
         </div>
