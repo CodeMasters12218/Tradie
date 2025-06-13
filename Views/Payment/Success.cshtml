@@ -2,6 +2,7 @@
 <head>
     <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,900&display=swap" rel="stylesheet">
     <link href="~/css/Success.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/PagoMethod.css" />
 </head>
 <body>
     <div class="card">
@@ -10,6 +11,10 @@
         </div>
         <h1> Payment Success</h1>
         <p>The payment has been successfully save.<br /> Thank You!</p>
+        <form asp-controller="Payment" asp-action="ConfirmPayment" method="post">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-success">Ver pedidos</button>
+        </form>
     </div>
 </body>
 </html>

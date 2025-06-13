@@ -19,7 +19,7 @@ namespace Tradie.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> PaymentDetails()
+        public async Task<IActionResult> PaymentDetails(PaymentSummary model)
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
@@ -32,17 +32,12 @@ namespace Tradie.Controllers
             if (cart == null || !cart.Items.Any())
                 return RedirectToAction("Index", "ShoppingCart");
 
-            var model = new PaymentDetails
-            {
-                Name = user.Name,
-                EmailAddress = user.Email,
-                Items = cart.Items
-            };
+            model.Items = cart.Items;
 
             return View(model);
         }
 
-        public async Task<IActionResult> PaymentMethod()
+        public async Task<IActionResult> PaymentMethod(PaymentSummary model)
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
@@ -55,15 +50,25 @@ namespace Tradie.Controllers
             if (cart == null || !cart.Items.Any())
                 return RedirectToAction("Index", "ShoppingCart");
 
-            var model = new PaymentMethod
+            var  paymentSummaryModel = new PaymentSummary
             {
+                Name = model.Name,
+                EmailAddress = model.EmailAddress,
+                LastNames = model.LastNames,
+                Phone = model.Phone,
+                Address = model.Address,
+                Country = model.Country,
+                City = model.City,
+                Region = model.Region,
+                PostalCode = model.PostalCode,
+                Note = model.Note,
                 Items = cart.Items
             };
 
-            return View(model);
+            return View(paymentSummaryModel);
         }
 
-        public async Task<IActionResult> PaymentSummary()
+        public async Task<IActionResult> PaymentSummary(PaymentDetails model)
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
@@ -76,12 +81,22 @@ namespace Tradie.Controllers
             if (cart == null || !cart.Items.Any())
                 return RedirectToAction("Index", "ShoppingCart");
 
-            var model = new PaymentSummary
+            var paymentSummaryModel = new PaymentSummary
             {
+                Name = model.Name,
+                EmailAddress = model.EmailAddress,
+                LastNames = model.LastNames,
+                Phone = model.Phone,
+                Address = model.Address,
+                Country = model.Country,
+                City = model.City,
+                Region = model.Region,
+                PostalCode = model.PostalCode,
+                Note = model.Note,
                 Items = cart.Items
             };
 
-            return View(model);
+            return View(paymentSummaryModel);
         }
 
         [HttpPost]

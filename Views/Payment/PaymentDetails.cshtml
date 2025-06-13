@@ -1,4 +1,4 @@
-﻿@model Tradie.Models.Payments.PaymentDetails
+﻿@model Tradie.Models.Payments.PaymentSummary
 
 @{
     ViewData["Title"] = "Payment Details Page";
@@ -13,11 +13,11 @@
         <div class="Container-Container">
             <!-- Header Buttons -->
             <div class="Button-Container">
-                <button type="submit" class="First-Button"><span class="number-span">1</span> Detalle de la entrega</button>
-                <a class="Second-Button" asp-area="" asp-controller="Payment" asp-action="PaymentMethod"><span class="number-span">2</span> Método de pago</a>
-                <a class="Third-Button" asp-area="" asp-controller="Payment" asp-action="PaymentSummary"><span class="number-span">3</span> Resumen del pedido</a>
+            <button type="submit" class="First-Button"><span class="number-span">1</span> Detalle de la entrega</button>
+            <Button form="PaymentDetailsForm" class="Second-Button"><span class="number-span">2</span> Resumen del pedido</Button>
+            <Button class="Third-Button" asp-area="" asp-controller="Payment" asp-action="PaymentSummary"><span class="number-span">3</span> Método de pago</Button>
             </div>
-        <form action="/" method="post">
+        <form id="PaymentDetailsForm" method="post" asp-controller="Payment" asp-action="PaymentSummary">
             <div class="Form-Container">
                 <div class="Form-Inner">
                     <h1>Detalles de la entrega</h1>
@@ -28,7 +28,7 @@
                                 <label for="nameInput">Nombre</label>
                                 <div class="input-icon-container">
                                     <i class="bi bi-person input-icon"></i>
-                                    <input type="text" name="nameInput" placeholder="Introduce tu nombre">
+                                <input type="text" name="Name" value=@Model.Name placeholder="Introduce tu nombre">
                                 </div>
                             </div>
 
@@ -37,7 +37,7 @@
                                 <label for="LastNamesInput">Apellidos</label>
                                 <div class="input-icon-container">
                                     <i class="bi bi-person input-icon"></i>
-                                    <input type="text" name="LastNamesInput" placeholder="Introduce tus apellidos">
+                                <input type="text" name="LastNames" value=@Model.LastNames placeholder ="Introduce tus apellidos">
                                 </div>
                             </div>
 
@@ -46,7 +46,7 @@
                                 <label for="emailAddressInput">Correo electrónico</label>
                                 <div class="input-icon-container">
                                     <i class="bi bi-envelope input-icon"></i>
-                                    <input type="email" name="emailAddressInput" placeholder="Introduce tu correo electrónico">
+                                <input type="email" name="EmailAddress" value=@Model.EmailAddress placeholder ="Introduce tu correo electrónico">
                                 </div>
                             </div>
 
@@ -55,7 +55,7 @@
                                 <label for="phoneInput">Teléfono</label>
                                 <div class="input-icon-container">
                                     <i class="bi bi-telephone input-icon"></i>
-                                    <input type="number" name="PhoneInput" placeholder="Introduce tu número de teléfono o móvil">
+                                <input type="number" name="Phone" value=@Model.Phone placeholder ="Introduce tu número de teléfono o móvil">
                                 </div>
                             </div>
                         </div>
@@ -65,28 +65,28 @@
                     <label for="addressInput">Dirección</label>
                     <div class="input-icon-container">
                         <i class="bi bi-geo-alt input-icon"></i>
-                        <input type="text" name="addressInput" class="Country" placeholder="Introduce tu dirección">
+                            <input type="text" name="Address" class="Country" value=@Model.Address placeholder ="Introduce tu dirección">
                     </div>
 
                     <label for="countryInput">País</label>
                     <div class="input-icon-container">
                         <i class="bi bi-map input-icon"></i>
-                        <input type="text" name="countryInput" class="Country" placeholder="Introduce tu país">
+                            <input type="text" name="Country" class="Country" value=@Model.Country placeholder ="Introduce tu país">
                     </div>
                 </div>
 
                     <div class="Address-Row-Container">
                         <div class="Area-Container">
                             <label for="cityInput">Ciudad</label>
-                            <input type="text" name="cityInput" class="Area" placeholder="Introduce tu ciudad">
+                            <input type="text" name="City" class="Area" value=@Model.City placeholder ="Introduce tu ciudad">
                         </div>
                         <div class="Area-Container">
                             <label for="areaInput">Región</label>
-                            <input type="text" name="areaInput" class="Area" placeholder="Región">
+                            <input type="text" name="Region" class="Area" value=@Model.Region placeholder ="Región">
                         </div>
                         <div class="Area-Container">
                             <label for="postalInput">Código postal</label>
-                            <input type="text" name="postalInput" class="Area" placeholder="Introduce tu código postal">
+                            <input type="text" name="PostalCode" class="Area" value=@Model.PostalCode placeholder ="Introduce tu código postal">
                         </div>
                     </div>
 
@@ -96,13 +96,13 @@
                         <label for="note">Nota del pedido:</label>
                         <div class="input-icon-container">
                             <i class="bi bi-exclamation-circle input-icon-note"></i>
-                            <textarea name="note" class="NoteTextArea" placeholder="No va el timbre llámame por teléfono..."></textarea>
+                                <textarea name="Note" class="NoteTextArea" placeholder="No va el timbre llámame por teléfono...">@Model.Note</textarea>
                         </div>
                     </div>
                 </div>
 
                     <div class="Payment-Container">
-                        <a class="Payment-Button" asp-area="" asp-controller="Payment" asp-action="PaymentMethod">Proceder al pago</a>
+                        <button class="Payment-Button" type="submit">Proceder al resumen</button>
                     </div>
                 </div>
             </div>
