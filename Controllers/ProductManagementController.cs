@@ -28,6 +28,13 @@ namespace Tradie.Controllers
 		{
 			// For logged in admin 
 			var currentAdmin = await _userMgr.GetUserAsync(User);
+
+			IEnumerable<User>? sellers = null;
+			if (await _userMgr.IsInRoleAsync(currentAdmin, "Admin"))
+			{
+				sellers = await _userMgr.GetUsersInRoleAsync("Seller");
+			}
+
 			if (currentAdmin != null)
 			{
 				ViewData["AdminName"] = currentAdmin.Name;
@@ -61,7 +68,8 @@ namespace Tradie.Controllers
 			{
 				Products = await query.ToListAsync(),
 				SearchTerm = searchTerm,
-				Categories = await _context.Categories.ToListAsync()
+				Categories = await _context.Categories.ToListAsync(),
+				Sellers = sellers
 			};
 
 			return View(vm);
@@ -74,8 +82,22 @@ namespace Tradie.Controllers
 		{
 			var product = vm.NewProduct;
 			var currentUser = await _userMgr.GetUserAsync(User);
+            var isAdmin = await _userMgr.IsInRoleAsync(currentUser, "Admin");
+            var isSeller = await _userMgr.IsInRoleAsync(currentUser, "Seller");
 
-			product.SellerId = currentUser!.Id;
+			product.Category = null;
+
+			if (isSeller)
+			{
+				product.SellerId = currentUser.Id;
+			}
+			else if (isAdmin)
+			{
+				if (product.SellerId == 0)
+				{
+                    ModelState.AddModelError("NewProduct.SellerId", "Debes seleccionar un vendedor.");
+                }
+			}
 
 			if (ModelState.IsValid)
 			{
@@ -87,11 +109,16 @@ namespace Tradie.Controllers
 
 			vm.Products = await _context.Products
 				.Include(p => p.Seller)
+				.Include(p => p.Category)
 				.ToListAsync();
 
 			vm.Categories = await _context.Categories.ToListAsync();
+            if (isAdmin)
+            {
+                vm.Sellers = await _userMgr.GetUsersInRoleAsync("Seller");
+            }
 
-			return View(vm);
+            return View(vm);
 		}
 
 		[HttpPost]
@@ -100,7 +127,15 @@ namespace Tradie.Controllers
 		{
 			var prod = vm.NewProduct;
 			var user = await _userMgr.GetUserAsync(User);
-			prod.SellerId = user!.Id;
+            var isAdmin = await _userMgr.IsInRoleAsync(user, "Admin");
+            var isSeller = await _userMgr.IsInRoleAsync(user, "Seller");
+
+			if (isSeller)
+			{
+				prod.SellerId = user.Id;
+			}
+
+			prod.Category = null;
 
 			if (ModelState.IsValid)
 			{
@@ -110,9 +145,15 @@ namespace Tradie.Controllers
 			}
 			vm.Products = await _context.Products
 				 .Include(p => p.Seller)
+				 .Include(p => p.Category)
 				 .ToListAsync();
 
 			vm.Categories = await _context.Categories.ToListAsync();
+
+			if (isAdmin)
+			{
+				vm.Sellers = await _userMgr.GetUsersInRoleAsync("Seller");
+            }
 
 			return View("ProductRegistry", vm);
 		}

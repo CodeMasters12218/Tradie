@@ -1,11 +1,15 @@
 ﻿@model Tradie.Models.Products.ProductRegistryViewModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@inject Microsoft.AspNetCore.Identity.UserManager<User> userManager
+
 
 @{
     ViewData["Title"] = "Product Management Page";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
     var adminName = (string)ViewData["AdminName"]!;
     var adminEmail = (string)ViewData["AdminEmail"]!;
+    var currentUser = await userManager.GetUserAsync(User);
+    var isAdmin = await userManager.IsInRoleAsync(currentUser, "Admin");
 }
 
 <link rel="stylesheet" href="~/css/adminproduct.css" />
@@ -174,6 +178,22 @@
                 <form asp-action="ProductRegistry" method="post">
                     @Html.AntiForgeryToken()
 
+                    @if (isAdmin)
+                    {
+                        <div class="mb-3">
+                            <label asp-for="NewProduct.SellerId" class="form-label">Vendedor</label>
+                            <select asp-for="NewProduct.SellerId" class="form-control" asp-items="@(new SelectList(Model.Sellers, "Id", "UserName"))">
+                                <option value="">Selecciona un vendedor</option>
+                            </select>
+                            <span asp-validation-for="NewProduct.SellerId" class="text-danger"></span>
+                        </div>
+                    }
+                    else
+                    {
+                        @* Para sellers ocultamos el campo, se asigna en backend *@
+                        <input type="hidden" asp-for="NewProduct.SellerId" />
+                    }
+
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
@@ -199,21 +219,13 @@
                                 <span asp-validation-for="NewProduct.Stock" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
-                                <label asp-for="NewProduct.Category" class="form-label">Categoría</label>
-                                <select asp-for="NewProduct.Category" class="form-control">
+                                <label asp-for="NewProduct.CategoryId" class="form-label">Categoría</label>
+                                <select asp-for="NewProduct.CategoryId" class="form-control" asp-items="@(new SelectList(Model.Categories, "Id", "Name"))">
                                     <option value="">Selecciona una categoría</option>
-                                    <option value="Ropa de Hombres">Ropa de Hombres</option>
-                                    <option value="Ropa de Mujeres">Ropa de Mujeres</option>
-                                    <option value="Electrónica">Electrónica</option>
-                                    <option value="Informática">Informática</option>
-                                    <option value="Kids & Toys">Kids & Toys</option>
-                                    <option value="Oficina">Oficina</option>
-                                    <option value="Hogar">Hogar</option>
-                                    <option value="Libros">Libros</option>
-                                    <option value="Videojuegos">Videojuegos</option>
                                 </select>
-                                <span asp-validation-for="NewProduct.Category" class="text-danger"></span>
+                                <span asp-validation-for="NewProduct.CategoryId" class="text-danger"></span>
                             </div>
+
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
@@ -252,6 +264,23 @@
                 <form asp-controller="ProductManagement" asp-action="EditProduct" method="post">
                     @Html.AntiForgeryToken()
                     <input type="hidden" asp-for="NewProduct.Id" id="editProductId" />
+
+                    @if (isAdmin)
+                    {
+                        <div class="mb-3">
+                            <label asp-for="NewProduct.SellerId" class="form-label">Vendedor</label>
+                            <select asp-for="NewProduct.SellerId" class="form-control" asp-items="@(new SelectList(Model.Sellers, "Id", "UserName"))">
+                                <option value="">Selecciona un vendedor</option>
+                            </select>
+                            <span asp-validation-for="NewProduct.SellerId" class="text-danger"></span>
+                        </div>
+                    }
+                    else
+                    {
+                        @* Para sellers ocultamos el campo, se asigna en backend *@
+                        <input type="hidden" asp-for="NewProduct.SellerId" />
+                    }
+
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
