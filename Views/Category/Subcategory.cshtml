@@ -13,7 +13,8 @@
     Mostrando productos en <strong>@ViewBag.Subcategory</strong> de la categoría <strong>@ViewBag.Category</strong>.
 </p>
 
-@if (ViewBag.SourceType != null)
+
+@* @if (ViewBag.SourceType != null)
 {
     <div class="alert @(ViewBag.SourceType == "Database" ? "alert-success" : "alert-warning") mb-3">
         <i class="bi @(ViewBag.SourceType == "Database" ? "bi-database-check" : "bi-exclamation-triangle")"></i>
@@ -24,7 +25,7 @@
             <span> - No se encontraron productos en la base de datos para esta subcategoría.</span>
         }
     </div>
-}
+} *@
 
 <!-- Product Grid -->
 <div class="product-grid">
