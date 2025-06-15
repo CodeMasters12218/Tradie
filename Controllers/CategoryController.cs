@@ -25,7 +25,7 @@ namespace Tradie.Controllers
 
 		public IActionResult Category()
 		{
-			// Sample subcategories grouped under categories
+			// Subcategories grouped under categories
 			var subcategories = new List<Subcategory>
 			{
 				new Subcategory { Id = 1001, CategoryName = "Ropa de Hombres", SubCategoryName = "Camisetas", ImageUrl = "/images/ropa_hombre/icons/tshirt.png" },
@@ -148,19 +148,18 @@ namespace Tradie.Controllers
 				ViewBag.Subcategory = subcategory;
 				ViewBag.SourceType = "Database";
 
-				// Make sure that the correct list of products is passed to the view
-				return View(dbProducts); // Send the list of products to the view
+				return View(dbProducts);
 			}
 
 			// If no products are found, use mock data
 			_logger.LogWarning($"No products found for category '{name}' and subcategory '{subcategory}'. Using mock data.");
-			var mockProducts = GenerateMockProducts(subcategory); // Consider moving mock data to a method for reuse
+			var mockProducts = GenerateMockProducts(subcategory); // mock data to a method for reuse
 
 			ViewBag.Category = name;
 			ViewBag.Subcategory = subcategory;
 			ViewBag.SourceType = "Mock";
 
-			return View(mockProducts); // Send the mock products
+			return View(mockProducts);
 		}
 
 		private List<Product> GenerateMockProducts(string subcategory)

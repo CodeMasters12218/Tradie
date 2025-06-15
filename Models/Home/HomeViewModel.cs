@@ -10,7 +10,7 @@ namespace Tradie.Models.Home
 		public List<Product> InformaticaProducts { get; set; } = new();
 
 
-		// Section: OFERTAS (Deals / Discounts)
+		// Section: OFERTAS
 		public List<Product> OficinaProducts { get; set; } = new();
 		public List<Product> HogarProducts { get; set; } = new();
 		public List<Product> LibrosProducts { get; set; } = new();
@@ -18,11 +18,11 @@ namespace Tradie.Models.Home
 		public List<Product> KidsProducts { get; set; } = new();
 		public List<Product> RopamujerProducts { get; set; } = new();
 
-		// Section: Recién Llegados (New Arrivals)
+		// Section: Recién Llegados
 		public List<Product> RecienLlegados { get; set; } = new List<Product>();
 
 
-		// Section: Famosos (Best Sellers / Popular)
+		// Section: Famosos
 		public List<Product> Famosos { get; set; } = new();
 	}
 }

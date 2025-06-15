@@ -52,7 +52,6 @@ namespace Tradie.Controllers
 				}
 			}
 
-
 			return View("~/Views/ShoppingCart/ShoppingCart.cshtml", cart);
 		}
 

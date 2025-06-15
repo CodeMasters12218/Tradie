@@ -3,7 +3,7 @@
 	public class Wishlist
 	{
 		public int Id { get; set; }
-		public string UserId { get; set; } = string.Empty; // NEW
+		public string UserId { get; set; } = string.Empty;
 		public User? User { get; set; }
 
 		public List<WishlistItem> Items { get; set; } = new List<WishlistItem>();

@@ -33,7 +33,7 @@ namespace Tradie.Controllers
 						ProfilePhotoUrl = !string.IsNullOrEmpty(user.ProfilePhotoUrl)
 					? user.ProfilePhotoUrl
 					: "/images/boy_black.png",
-						Orders = new List<string> { "Pedido 1", "Pedido 2" } // Replace with actual logic
+						Orders = new List<string> { "Pedido 1", "Pedido 2" }
 					};
 
 					return View(model);
@@ -298,7 +298,7 @@ namespace Tradie.Controllers
 				UserComment = string.Empty
 			};
 
-			return View("~/Views/UserProfile/UserProductReviewsWrite.cshtml",vm);
+			return View("~/Views/UserProfile/UserProductReviewsWrite.cshtml", vm);
 		}
 
 		[HttpPost]
