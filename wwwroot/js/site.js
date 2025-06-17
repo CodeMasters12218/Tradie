@@ -8,12 +8,14 @@ document.addEventListener('DOMContentLoaded', function () {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+            if (targetId && targetId !== '#') {
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
             }
         });
     });
@@ -95,6 +97,10 @@ function getCardContainer(sliderWrapper) {
 // SLIDE CARDS
 function slideCards(sliderId, direction) {
     const sliderWrapper = document.getElementById(sliderId);
+    if (!sliderWrapper) {
+        console.warn(`No element found with id: ${sliderId}`);
+        return;
+    }
     const cardContainer = getCardContainer(sliderWrapper);
     const cards = cardContainer.querySelectorAll('.card');
 
@@ -130,6 +136,10 @@ function slideCards(sliderId, direction) {
 
 function updateArrowVisibility(sliderId) {
     const sliderWrapper = document.getElementById(sliderId);
+    if (!sliderWrapper) {
+        console.warn(`No element found with id: ${sliderId}`);
+        return;
+    }
     const container = sliderWrapper.parentElement;
     const leftArrow = container.querySelector('.slider-arrow.left');
     const rightArrow = container.querySelector('.slider-arrow.right');
@@ -164,15 +174,20 @@ document.addEventListener('DOMContentLoaded', function () {
     const sliders = document.querySelectorAll('.slider-wrapper');
     sliders.forEach(slider => {
         const sliderId = slider.id;
-        sliderPositions[sliderId] = 0;
-        updateArrowVisibility(sliderId);
+        if (sliderId) {
+            sliderPositions[sliderId] = 0;
+            updateArrowVisibility(sliderId);
+        }
+
     });
 
     // Handle window resize
     window.addEventListener('resize', function () {
         sliders.forEach(slider => {
             const sliderId = slider.id;
-            updateArrowVisibility(sliderId);
+            if (sliderId) {
+                updateArrowVisibility(sliderId);
+            }
         });
     });
 });

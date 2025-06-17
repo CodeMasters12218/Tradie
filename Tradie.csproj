@@ -6,13 +6,20 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <Optimize>True</Optimize>
-  </PropertyGroup>
+   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+     <Optimize>false</Optimize>
+     <DebugSymbols>true</DebugSymbols>
+     <DebugType>full</DebugType>
+     <DefineConstants>DEBUG;TRACE</DefineConstants>
+   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <Optimize>False</Optimize>
-  </PropertyGroup>
+   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+      <Optimize>true</Optimize>
+      <DebugSymbols>true</DebugSymbols>
+      <DebugType>pdbonly</DebugType>
+      <DefineConstants>TRACE</DefineConstants>
+   </PropertyGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Abstractions" Version="2.3.0" />
