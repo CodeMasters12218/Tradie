@@ -1,26 +1,41 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
     const deleteButton = document.getElementById("DeleteButton");
-    const logOutButton = document.getElementById("LogOutButton");
+    const logOutButtonPopUp = document.getElementById("LogOutButtonPopUp");
     const deletePopUp = document.getElementById("DeletePopUp");
     const logOutPopUp = document.getElementById("LogOutPopUp");
     const deleteButtonPopUp = document.getElementById("DeleteButtonPopUp");
-    const logOutButtonPopUp = document.getElementById("LogOutButtonPopUp");
     const cancelDeleteButton = document.getElementById("CancelDeleteButton");
     const cancelLogOutButton = document.getElementById("CancelLogOutButton");
 
-    deleteButton.addEventListener("click", function () {
-        deletePopUp.showModal();
-    });
+    if (deleteButton) {
+        deleteButton.addEventListener("click", function () {
+            if (deletePopUp) {
+                deletePopUp.showModal();
+            }
+        });
+    }
 
-    logOutButton.addEventListener("click", function () {
-        logOutPopUp.showModal();
-    });
+    if (logOutButtonPopUp) {
+        logOutButtonPopUp.addEventListener("click", function () {
+            if (logOutPopUp) {
+                logOutPopUp.showModal();
+            }
+        });
+    }
 
-    cancelDeleteButton.addEventListener("click", function () {
-        deletePopUp.close();
-    });
+    if (cancelDeleteButton) {
+        cancelDeleteButton.addEventListener("click", function () {
+            if (deletePopUp) {
+                deletePopUp.close();
+            }
+        });
+    }
 
-    cancelLogOutButton.addEventListener("click", function () {
-        logOutPopUp.close();
-    });
+    if (cancelLogOutButton) {
+        cancelLogOutButton.addEventListener("click", function () {
+            if (logOutPopUp) {
+                logOutPopUp.close();
+            }
+        });
+    }
 });
