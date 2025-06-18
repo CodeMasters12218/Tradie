@@ -18,6 +18,7 @@ namespace Tradie.Models.Payments
 		public string? CardNumber { get; set; }
 		public string? ExpirationDate { get; set; }
 		public string? CVC { get; set; }
+		public List<string>? Countries { get; set; } = new List<string>();
 
 		public List<CartItem> Items { get; set; } = new List<CartItem>();
 

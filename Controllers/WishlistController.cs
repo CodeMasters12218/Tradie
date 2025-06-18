@@ -91,7 +91,7 @@ namespace Tradie.Controllers
 
 			await _context.SaveChangesAsync();
 
-			TempData["ToastMessage"] = $"<strong>{item.ProductName}</strong> se añade a tu <a href='/ShoppingCart'>carrito</a>.";
+			TempData["ToastMessage"] = $"<strong>{item.ProductName}</strong> se ha añadido a tu <a href='/ShoppingCart'>carrito</a>.";
 			TempData["ToastType"] = "success";
 
 			return RedirectToAction(nameof(Index));
@@ -148,7 +148,7 @@ namespace Tradie.Controllers
 
 			await _context.SaveChangesAsync();
 
-			TempData["ToastMessage"] = $"<strong>{product.Name}</strong> se añade a la  <a href='/Wishlist'>lista de deseos</a>.";
+			TempData["ToastMessage"] = $"<strong>{product.Name}</strong> se ha añadido a la  <a href='/Wishlist'>lista de deseos</a>.";
 			TempData["ToastType"] = "success";
 
 			return LocalRedirect(returnUrl ?? "/");
@@ -200,7 +200,7 @@ namespace Tradie.Controllers
 					Color = "Default"
 				});
 
-				TempData["ToastMessage"] = $"<strong>{product.Name}</strong> se añade a la <a href='/Wishlist'>lista de deseos</a>.";
+				TempData["ToastMessage"] = $"<strong>{product.Name}</strong> se ha añadido a la <a href='/Wishlist'>lista de deseos</a>.";
 				TempData["ToastType"] = "success";
 			}
 

@@ -71,7 +71,13 @@
                     <label for="countryInput">País</label>
                     <div class="input-icon-container">
                         <i class="bi bi-map input-icon"></i>
-                            <input type="text" name="Country" class="Country" value=@Model.Country placeholder ="Introduce tu país">
+                        <select asp-for="Country" class="Country" id="countryInput">
+                            <option value="">Selecciona un país</option>
+                            @foreach(var country in Model.Countries)
+                            {
+                                <option value="@country" selected="@(country == Model.Country ? "selected" : null)">@country</option>
+                            }
+                        </select>
                     </div>
                 </div>
 

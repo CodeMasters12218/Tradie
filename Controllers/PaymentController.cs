@@ -1,9 +1,14 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Tradie.Data;
 using Tradie.Models.Orders;
 using Tradie.Models.Payments;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Tradie.Controllers
 {
@@ -33,6 +38,7 @@ namespace Tradie.Controllers
                 return RedirectToAction("Index", "ShoppingCart");
 
             model.Items = cart.Items;
+            model.Countries = await GetCountryNamesAsync();
 
             return View(model);
         }
@@ -62,7 +68,8 @@ namespace Tradie.Controllers
                 Region = model.Region,
                 PostalCode = model.PostalCode,
                 Note = model.Note,
-                Items = cart.Items
+                Items = cart.Items,
+                Countries = await GetCountryNamesAsync()
             };
 
             return View(paymentSummaryModel);
@@ -93,7 +100,8 @@ namespace Tradie.Controllers
                 Region = model.Region,
                 PostalCode = model.PostalCode,
                 Note = model.Note,
-                Items = cart.Items
+                Items = cart.Items,
+                Countries = await GetCountryNamesAsync()
             };
 
             return View(paymentSummaryModel);
@@ -161,6 +169,25 @@ namespace Tradie.Controllers
         {
             var random = new Random();
             return random.Next(10000000, 99999999).ToString();
+        }
+
+        private async Task<List<string>> GetCountryNamesAsync()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                string url = "https://restcountries.com/v3.1/all?fields=name,translations";
+                var response = await client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    var countries = JsonConvert.DeserializeObject<List<Country>>(json);
+                    return countries
+                        .Select(c => c.Translations?.Spa?.Common ?? c.Name.Common)
+                        .OrderBy(n => n)
+                        .ToList();
+                }
+            }
+            return new List<string>();
         }
     }
 }
