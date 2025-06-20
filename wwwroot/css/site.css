@@ -76,6 +76,10 @@ h3 {
     height: 45px;
 }
 
+.input-group .btn {
+    height: 45px !important;
+}
+
 .form-control, .bi-search, .btn {
     font-size: 14px;
 }

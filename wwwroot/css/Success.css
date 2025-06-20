@@ -20,6 +20,13 @@ p {
 }
 
 i {
+    color: white;
+    font-size: 100px;
+    line-height: 200px;
+    margin-left: -15px;
+}
+
+.checkmark {
     color: #9ABC66;
     font-size: 100px;
     line-height: 200px;
