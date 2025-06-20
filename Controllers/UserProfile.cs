@@ -235,7 +235,16 @@ namespace Tradie.Controllers
 				SellerDate = r.ResponseDate
 			}).ToList();
 
-			return View(model);
+            // Contar valoraciones pendientes (aquellas que aún no tienen valoración del usuario)
+            var pendingCount = await _context.Orders
+                .Where(o => o.CustomerId == userId &&
+                            !_context.Reviews.Any(r => r.OrderId == o.Id))
+                .CountAsync();
+
+            ViewBag.PendingCount = pendingCount;
+
+
+            return View(model);
 		}
 
 
