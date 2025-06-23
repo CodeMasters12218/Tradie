@@ -17,4 +17,5 @@ public class User : IdentityUser<int>
 	public string? ProfilePhotoUrl { get; set; }
 	[NotMapped]
 	public UserCardProfileModel? UserCardProfile { get; set; } = new UserCardProfileModel();
+    public DateTime CreatedAt { get; internal set; }
 }

@@ -33,7 +33,7 @@ namespace Tradie.Controllers
 				new Subcategory { Id = 1003, CategoryName = "Ropa de Hombres", SubCategoryName = "Pantalones", ImageUrl = "/images/ropa_hombre/icons/jeans.png" },
 				new Subcategory { Id = 1004, CategoryName = "Ropa de Hombres", SubCategoryName = "Zapatos", ImageUrl = "/images/ropa_hombre/icons/sneakers.png" },
 				new Subcategory { Id = 1005, CategoryName = "Ropa de Hombres", SubCategoryName = "Mochilas", ImageUrl = "/images/ropa_hombre/icons/school-bag.png" },
-				new Subcategory { Id = 1006, CategoryName = "Ropa de Hombres", SubCategoryName = "Acesorios", ImageUrl = "/images/ropa_hombre/icons/accessories_men.png" },
+				new Subcategory { Id = 1006, CategoryName = "Ropa de Hombres", SubCategoryName = "Accesorios", ImageUrl = "/images/ropa_hombre/icons/accessories_men.png" },
 				new Subcategory { Id = 1007, CategoryName = "Ropa de Hombres", SubCategoryName = "Sudaderas", ImageUrl = "/images/ropa_hombre/icons/sweater.png" },
 
 				new Subcategory { Id = 2001, CategoryName = "Ropa de Mujeres", SubCategoryName = "Camisetas", ImageUrl = "/images/ropa_mujer/icons/tshirt.png" },
@@ -41,12 +41,12 @@ namespace Tradie.Controllers
 				new Subcategory { Id = 2003, CategoryName = "Ropa de Mujeres", SubCategoryName = "Pantalones", ImageUrl = "/images/ropa_mujer/icons/woman.png" },
 				new Subcategory { Id = 2004, CategoryName = "Ropa de Mujeres", SubCategoryName = "Zapatos", ImageUrl = "/images/ropa_mujer/icons/high-heels.png" },
 				new Subcategory { Id = 2005, CategoryName = "Ropa de Mujeres", SubCategoryName = "Mochilas", ImageUrl = "/images/ropa_mujer/icons/handbag.png" },
-				new Subcategory { Id = 2006, CategoryName = "Ropa de Mujeres", SubCategoryName = "Acesorios", ImageUrl = "/images/ropa_mujer/icons/women_accessories.png" },
+				new Subcategory { Id = 2006, CategoryName = "Ropa de Mujeres", SubCategoryName = "Accesorios", ImageUrl = "/images/ropa_mujer/icons/women_accessories.png" },
 				new Subcategory { Id = 2007, CategoryName = "Ropa de Mujeres", SubCategoryName = "Sudaderas", ImageUrl = "/images/ropa_mujer/icons/sweater.png" },
 				new Subcategory { Id = 2008, CategoryName = "Ropa de Mujeres", SubCategoryName = "Vestidos", ImageUrl = "/images/ropa_mujer/icons/dress.png" },
 				new Subcategory { Id = 2009, CategoryName = "Ropa de Mujeres", SubCategoryName = "Fiesta", ImageUrl = "/images/ropa_mujer/icons/wedding-dress.png" },
 
-				new Subcategory { Id = 3001, CategoryName = "Electrónica", SubCategoryName = "Camarás", ImageUrl = "/images/electronica/icons/camera.png" },
+				new Subcategory { Id = 3001, CategoryName = "Electrónica", SubCategoryName = "Cámaras", ImageUrl = "/images/electronica/icons/camera.png" },
 				new Subcategory { Id = 3002, CategoryName = "Electrónica", SubCategoryName = "Móviles", ImageUrl = "/images/electronica/icons/mobile-phone.png" },
 				new Subcategory { Id = 3003, CategoryName = "Electrónica", SubCategoryName = "TV", ImageUrl = "/images/electronica/icons/television.png" },
 				new Subcategory { Id = 3004, CategoryName = "Electrónica", SubCategoryName = "Audio", ImageUrl = "/images/electronica/icons/speaker.png" },
