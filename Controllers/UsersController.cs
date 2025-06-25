@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using Tradie.Data;
 using Tradie.Models.Users;
 
@@ -15,29 +16,48 @@ namespace Tradie.Controllers
 		private readonly RoleManager<IdentityRole<int>> _roleMgr;
 		//Logging
 		private readonly ILogger<UsersController> _logger;
+        private readonly IMemoryCache _cache;
 
-		public UsersController(ApplicationDbContext context, UserManager<User> userMgr, RoleManager<IdentityRole<int>> roleMgr, ILogger<UsersController> logger)
+		public UsersController(ApplicationDbContext context, UserManager<User> userMgr, RoleManager<IdentityRole<int>> roleMgr, ILogger<UsersController> logger, IMemoryCache cache)
 		{
 			_context = context;
 			_userMgr = userMgr;
 			_roleMgr = roleMgr;
 			_logger = logger;
+            _cache = cache;
 		}
 
 		[HttpGet]
 		public async Task<IActionResult> Index(string? searchTerm)
 		{
-			var usersQuery = _userMgr.Users.AsQueryable();
+            var usersQuery = _userMgr.Users
+                .AsNoTracking()
+                .Select(u => new AdminUserViewModel
+                {
+                    Id = u.Id,
+                    Name = u.Name,
+                    LastNames = u.LastNames,
+                    Email = u.Email,
+                    ProfilePhotoUrl = u.ProfilePhotoUrl
+                });
 
-			if (!string.IsNullOrEmpty(searchTerm))
+
+            if (!string.IsNullOrEmpty(searchTerm))
 			{
 				string lowerSearch = searchTerm!.ToLower();
 				usersQuery = usersQuery.Where(u =>
-					u.Name != null && u.Name.ToLower().Contains(lowerSearch) ||
-					u.Email != null && u.Email.ToLower().Contains(lowerSearch));
+					(u.Name != null && u.Name.ToLower().Contains(lowerSearch)) ||
+					(u.Email != null && u.Email.ToLower().Contains(lowerSearch)));
 			}
 
-			var users = await usersQuery.ToListAsync();
+            int page = 1, pageSize = 20; 
+            var pagedUsers = await usersQuery
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+
+            var users = await usersQuery.ToListAsync();
 
 			// Get logged admin
 			var currentAdmin = await _userMgr.GetUserAsync(User);
@@ -57,28 +77,22 @@ namespace Tradie.Controllers
 			}
 
 			var userViewModels = new List<AdminUserViewModel>();
-			foreach (var user in users)
-			{
-				var roleName = (await _userMgr.GetRolesAsync(user)).FirstOrDefault();
-				userViewModels.Add(new AdminUserViewModel
-				{
-					Name = user.Name,
-					LastNames = user.LastNames,
-					Role = roleName switch
-					{
-						"Admin" => UserRole.Admin,
-						"Seller" => UserRole.Seller,
-						_ => UserRole.Customer
-					},
-					Id = user.Id,
-					Email = user.Email,
-					ProfilePhotoUrl = user.ProfilePhotoUrl
-				});
-				Console.WriteLine(user.LastNames);
+            foreach (var user in pagedUsers)
+            {
+                var userEntity = await _userMgr.FindByIdAsync(user.Id.ToString());
+                var roles = await _userMgr.GetRolesAsync(userEntity);
+                var roleName = roles.FirstOrDefault();
 
-			}
+                user.Role = roleName switch
+                {
+                    "Admin" => UserRole.Admin,
+                    "Seller" => UserRole.Seller,
+                    _ => UserRole.Customer
+                };
+                userViewModels.Add(user);
+            }
 
-			var model = new UserManagementViewModel
+            var model = new UserManagementViewModel
 			{
 				Users = userViewModels,
 				CurrentUser = new AdminUserViewModel()

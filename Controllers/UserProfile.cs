@@ -184,7 +184,7 @@ namespace Tradie.Controllers
 			{
 				OrderId = oi.Order.Id,
 				OrderNumber = oi.Order.OrderNumber,
-				Product = new ProductSummaryDto
+				Product = new Models.Products.ProductSummaryDto
 				{
 					Id = oi.Product.Id,
 					Name = oi.Product.Name,
@@ -218,7 +218,7 @@ namespace Tradie.Controllers
 			var model = reviewsAboutYou.Select(r => new ReviewAboutYouViewModel
 			{
 				OrderNumber = r.Order.OrderNumber,
-				Product = new ProductSummaryDto
+				Product = new Models.Products.ProductSummaryDto
 				{
 					Id = r.Product.Id,
 					Name = r.Product.Name,
@@ -261,7 +261,7 @@ namespace Tradie.Controllers
 			var model = reviews.Select(r => new UserReviewViewModel
 			{
 				OrderNumber = r.Order.OrderNumber,
-				Product = new ProductSummaryDto
+				Product = new Models.Users.ProductSummaryDto
 				{
 					Id = r.Product.Id,
 					Name = r.Product.Name,
@@ -295,7 +295,7 @@ namespace Tradie.Controllers
 			{
 				OrderId = order.Id,
 				OrderNumber = order.Id.ToString(),
-				Product = new ProductSummaryDto
+				Product = new Models.Products.ProductSummaryDto
 				{
 					Id = item.Product.Id,
 					Name = item.Product.Name,

@@ -117,13 +117,12 @@
                                     </div>
                                 </div>
                             </td>
-                            <td>@(p.Category?.Name ?? "Sin categoría")</td>
+                            <td>@(p.Category != null ? p.Category.Name : "Sin categoría")</td>
                             <td>@(p.Subcategory ?? "Sin subcategoría")</td>
                             <td>€@p.Price.ToString("F2")</td>
                             <td>
-                                @(p.DiscountPercentage.HasValue
-                                    ? p.DiscountPercentage.Value.ToString("0") + "%"
-                                    : "0%")
+                                @(p.Discount.HasValue && p.Discount.Value > 0 ? p.Discount.Value.ToString("0") + "%" : "0%")
+
                             </td>
                             <td>@p.Stock</td>
                             <td>
@@ -142,14 +141,14 @@
                                             class="Edit-Button"
                                             onclick="openEditModal(
                                             @p.Id,
-                                            '@p.Name.Replace("'", "\\'")',
+                                            '@(p.Name != null ? p.Name.Replace("'", "\\'") : "")',
                                             @p.Price,
-                                            @(p.DiscountPercentage.HasValue ? p.DiscountPercentage.Value.ToString("F2", System.Globalization.CultureInfo.InvariantCulture) : "0"),
+                                            @(p.Discount.HasValue ? p.Discount.Value.ToString("F2", System.Globalization.CultureInfo.InvariantCulture) : "0"),
                                             @p.Stock,
-                                            '@p.CategoryId',
+                                            '@(p.Category != null ? p.Category.Id.ToString() : "")',
                                             '@(p.Subcategory?.Replace("'", "\\'") ?? string.Empty)',
                                             '@(p.ImageUrl?.Replace("'", "\\'") ?? string.Empty)',
-                                            '@p.Description.Replace("'", "\\'")'
+                                            '@(p.Description != null ? p.Description.Replace("'", "\\'") : "")'
                                         )">
                                         Editar
                                     </button>
@@ -167,6 +166,27 @@
                 </tbody>
             </table>
         </div>
+
+        <div class="d-flex justify-content-between mt-3">
+            @if (Model.CurrentPage > 1)
+            {
+                <a class="btn btn-outline-primary"
+                   asp-action="ProductRegistry"
+                   asp-route-page="@(Model.CurrentPage - 1)"
+                   asp-route-searchTerm="@Model.SearchTerm"
+                   asp-route-category="@Context.Request.Query["category"]">Anterior</a>
+            }
+
+            @if (Model.CurrentPage < Model.TotalPages)
+            {
+                <a class="btn btn-outline-primary ms-auto"
+                   asp-action="ProductRegistry"
+                   asp-route-page="@(Model.CurrentPage + 1)"
+                   asp-route-searchTerm="@Model.SearchTerm"
+                   asp-route-category="@Context.Request.Query["category"]">Siguiente</a>
+            }
+        </div>
+
 
         <!-- Modal de Alta -->
         <div class="modal-overlay" id="addProductModal" style="display:none;">

@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using Tradie.Data;
 using Tradie.Models.Products;
 
@@ -13,18 +14,20 @@ namespace Tradie.Controllers
 		private readonly ILogger<ProductManagementController> _logger;
 		private readonly ApplicationDbContext _context;
 		private readonly UserManager<User> _userMgr;
+        private readonly IMemoryCache _cache;
 
-		public ProductManagementController(
+        public ProductManagementController(
 			ILogger<ProductManagementController> logger,
-			ApplicationDbContext context, UserManager<User> userMgr)
+			ApplicationDbContext context, UserManager<User> userMgr, IMemoryCache cache)
 		{
 			_logger = logger;
 			_context = context;
 			_userMgr = userMgr;
+			_cache = cache;
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> ProductRegistry(string? searchTerm, string? category)
+		public async Task<IActionResult> ProductRegistry(string? searchTerm, string? category, int page = 1, int pageSize = 20)
 		{
 			// For logged in admin 
 			var currentAdmin = await _userMgr.GetUserAsync(User);
@@ -49,9 +52,22 @@ namespace Tradie.Controllers
 				ViewData["AdminPhoto"] = null;
 			}
 
-			var query = _context.Products.Include(p => p.Seller).AsQueryable();
+            var query = _context.Products
+				.AsNoTracking()
+				.Select(p => new ProductSummaryDto
+				{
+					Id = p.Id,
+					Name = p.Name,
+					Category = p.Category,
+					Subcategory = p.Subcategory,
+					Price = p.Price,
+					Discount = p.DiscountPercentage,
+					Stock = p.Stock,
+					ImageUrl = p.ImageUrl
+				});
 
-			if (!string.IsNullOrEmpty(searchTerm))
+
+            if (!string.IsNullOrEmpty(searchTerm))
 			{
 				query = query
 					.Where(p => p.Name.Contains(searchTerm)
@@ -64,12 +80,32 @@ namespace Tradie.Controllers
 										p.Subcategory.ToLower() == category.ToLower());
 			}
 
-			var vm = new ProductRegistryViewModel
+            var totalProducts = await _context.Products
+				.Where(p =>
+					(string.IsNullOrEmpty(searchTerm) || p.Name.Contains(searchTerm)) &&
+					(string.IsNullOrEmpty(category) || (p.Subcategory != null && p.Subcategory.ToLower() == category.ToLower()))
+				)
+				.CountAsync();
+
+
+            query = query
+				.Skip((page - 1) * pageSize)
+				.Take(pageSize);
+
+            var categories = await _cache.GetOrCreateAsync("AllCategories", async entry =>
+            {
+                entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30); // tiempo que dure el cache
+                return await _context.Categories.AsNoTracking().ToListAsync();
+            });
+
+            var vm = new ProductRegistryViewModel
 			{
 				Products = await query.ToListAsync(),
 				SearchTerm = searchTerm,
-				Categories = await _context.Categories.ToListAsync(),
-				Sellers = sellers
+				Categories = categories,
+				Sellers = sellers,
+				CurrentPage = page,
+				TotalPages = (int)Math.Ceiling((double)totalProducts / pageSize)
 			};
 
 			return View(vm);
@@ -107,12 +143,23 @@ namespace Tradie.Controllers
 				return RedirectToAction(nameof(ProductRegistry));
 			}
 
-			vm.Products = await _context.Products
-				.Include(p => p.Seller)
-				.Include(p => p.Category)
-				.ToListAsync();
+            vm.Products = await _context.Products
+                .AsNoTracking()
+                .Select(p => new ProductSummaryDto
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Category = p.Category,
+                    Subcategory = p.Subcategory,
+                    Price = p.Price,
+                    Discount = p.DiscountPercentage,
+                    Stock = p.Stock,
+                    ImageUrl = p.ImageUrl
+                })
+                .ToListAsync();
 
-			vm.Categories = await _context.Categories.ToListAsync();
+
+            vm.Categories = await _context.Categories.ToListAsync();
             if (isAdmin)
             {
                 vm.Sellers = await _userMgr.GetUsersInRoleAsync("Seller");
@@ -143,12 +190,23 @@ namespace Tradie.Controllers
 				await _context.SaveChangesAsync();
 				return RedirectToAction(nameof(ProductRegistry));
 			}
-			vm.Products = await _context.Products
-				 .Include(p => p.Seller)
-				 .Include(p => p.Category)
-				 .ToListAsync();
+            vm.Products = await _context.Products
+                .AsNoTracking()
+                .Select(p => new ProductSummaryDto
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Category = p.Category,
+                    Subcategory = p.Subcategory,
+                    Price = p.Price,
+                    Discount = p.DiscountPercentage,
+                    Stock = p.Stock,
+                    ImageUrl = p.ImageUrl
+                })
+                .ToListAsync();
 
-			vm.Categories = await _context.Categories.ToListAsync();
+
+            vm.Categories = await _context.Categories.ToListAsync();
 
 			if (isAdmin)
 			{
